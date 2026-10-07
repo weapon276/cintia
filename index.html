@@ -33,8 +33,8 @@
     --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
     --ease-emphasized: cubic-bezier(0.2, 0, 0, 1); --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --z-map: 1; --z-chips: 900; --z-fabs: 900; --z-header: 1000; --z-submenu: 1500;
-    --z-sheet: 1100; --z-overlay: 1900; --z-sidebar: 2000; --z-menu: 2100; --z-toast: 3000;
+    --z-map: 1; --z-chips: 900; --z-header: 1000; --z-submenu: 1500;
+    --z-overlay: 1900; --z-sidebar: 2000; --z-banner: 2400; --z-toast: 3000;
   }
   html[data-theme="dark"] {
     --primary: #F08A6C; --primary-dark: #E76F51; --primary-container: #3A241D;
@@ -106,13 +106,6 @@
   .cat-btn .ms { font-size: 26px; }
   .cat-btn:hover { transform: scale(1.05); }
   .cat-btn:active { transform: scale(0.92); }
-  .cat-btn.active {
-    background: var(--cat-color, var(--primary));
-    border-color: var(--cat-color, var(--primary));
-    color: #FFFFFF;
-    box-shadow: 0 8px 24px var(--cat-shadow, rgba(231, 111, 81, 0.4));
-  }
-  .cat-btn.active .ms { font-variation-settings: 'FILL' 1, 'wght' 500; }
   .cat-btn .badge {
     position: absolute; top: -4px; right: -4px;
     min-width: 22px; height: 22px; padding: 0 6px;
@@ -197,6 +190,7 @@
   }
   .submenu-option.active .check { opacity: 1; }
   
+  /* SIDEBAR — 100% del contenido de resultados */
   .sidebar {
     position: absolute; top: 0; left: 0;
     width: 380px; height: 100%;
@@ -391,70 +385,78 @@
   }
   .overlay.show { opacity: 1; pointer-events: auto; }
   
-  .toast {
+  /* SISTEMA DE TOASTS EN COLA — nunca se encima */
+  .toast-container {
     position: absolute;
-    bottom: calc(140px + var(--safe-bottom));
+    bottom: calc(24px + var(--safe-bottom));
     left: 50%;
-    transform: translateX(-50%) translateY(24px);
+    transform: translateX(-50%);
+    z-index: var(--z-toast);
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    pointer-events: none;
+    max-width: calc(100% - 32px);
+    align-items: center;
+  }
+  .toast {
     background: var(--text); color: var(--surface);
     padding: 14px 22px; border-radius: var(--r-full);
     font-size: 14px; font-weight: 600;
-    z-index: var(--z-toast);
-    opacity: 0; pointer-events: none;
-    transition: all .3s;
-    white-space: nowrap;
     box-shadow: var(--shadow-4);
     display: flex; align-items: center; gap: 8px;
-    max-width: calc(100% - 32px);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    animation: toastIn .3s var(--ease-spring) forwards;
+    pointer-events: auto;
+    max-width: 100%;
   }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.leaving {
+    animation: toastOut .3s var(--ease-standard) forwards;
+  }
+  @keyframes toastIn {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes toastOut {
+    to { opacity: 0; transform: translateY(20px) scale(0.95); }
+  }
+  .toast .ms { font-size: 20px; flex-shrink: 0; }
+  .toast span:not(.ms) { overflow: hidden; text-overflow: ellipsis; }
   
-  .sheet {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    background: var(--surface);
-    border-radius: var(--r-xl) var(--r-xl) 0 0;
-    box-shadow: 0 -8px 40px rgba(26, 22, 20, 0.12);
-    z-index: var(--z-sheet);
-    max-height: 70vh;
-    display: flex; flex-direction: column;
-    transform: translateY(calc(100% - 120px - var(--safe-bottom)));
-    transition: transform .4s var(--ease-emphasized), background .3s;
-    padding-bottom: var(--safe-bottom);
-    border-top: 1px solid var(--outline);
-  }
-  .sheet.open { transform: translateY(0); }
-  .sheet-grip { padding: 12px 0 8px; display: grid; place-items: center; cursor: grab; flex-shrink: 0; }
-  .grip-bar { width: 44px; height: 5px; background: var(--outline-strong); border-radius: var(--r-full); }
-  .sheet-head {
-    padding: 4px 24px 14px;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-shrink: 0; cursor: pointer;
-  }
-  .sheet-head h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
-  .sheet-count { background: var(--primary-container); color: var(--primary-dark); padding: 5px 12px; border-radius: var(--r-full); font-size: 12px; font-weight: 800; }
-  .sheet-scroll { overflow-y: auto; padding: 0 16px 20px; display: flex; flex-direction: column; gap: 10px; }
-  
-  /* PWA INSTALL BANNER con botón X */
+  /* PWA INSTALL BANNER con botón X — se auto-oculta si hay toasts */
   .install-banner {
     position: absolute;
-    bottom: calc(140px + var(--safe-bottom));
-    left: 16px; right: 16px;
-    z-index: 2500;
+    bottom: calc(24px + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%) translateY(200%);
+    z-index: var(--z-banner);
     background: var(--surface);
     border: 1px solid var(--outline);
     border-radius: var(--r-lg);
     box-shadow: var(--shadow-4);
     padding: 14px 16px;
     display: flex; align-items: center; gap: 12px;
-    transform: translateY(150%);
-    transition: transform .4s var(--ease-spring);
+    transition: transform .4s var(--ease-spring), opacity .3s;
+    pointer-events: none;
+    max-width: calc(100% - 32px);
+    width: 440px;
+    opacity: 0;
+  }
+  .install-banner.show {
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+    opacity: 1;
+  }
+  .install-banner.hidden-by-toast {
+    transform: translateX(-50%) translateY(calc(100% + 32px));
+    opacity: 0;
     pointer-events: none;
   }
-  .install-banner.show { transform: translateY(0); pointer-events: auto; }
-  .install-banner .ms.install-icon { color: var(--primary); font-size: 28px; }
+  .install-banner .ms.install-icon { color: var(--primary); font-size: 28px; flex-shrink: 0; }
   .install-banner-text { flex: 1; min-width: 0; }
   .install-banner-text strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: var(--text); display: block; }
-  .install-banner-text span { font-size: 12px; color: var(--text-3); }
+  .install-banner-text span { font-size: 12px; color: var(--text-3); display: block; margin-top: 2px; }
   .install-banner-btn {
     padding: 10px 18px; border: none; border-radius: var(--r-full);
     background: var(--primary); color: #FFFFFF;
@@ -478,6 +480,7 @@
   
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   
+  /* RESPONSIVE — MÓVIL */
   @media (max-width: 1199px) {
     .main-categories {
       right: 12px;
@@ -500,9 +503,17 @@
     .search-pill { height: 52px; padding: 0 16px; }
     .search-pill span { font-size: 14px; }
     .icon-btn { width: 52px; height: 52px; }
-    .sidebar { width: 88%; max-width: 380px; }
+    .sidebar { width: 92%; max-width: 380px; }
+    .install-banner { width: calc(100% - 32px); }
   }
   
+  /* RESPONSIVE — TABLET */
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .sidebar { width: 400px; }
+    .install-banner { width: 480px; }
+  }
+  
+  /* RESPONSIVE — DESKTOP */
   @media (min-width: 1200px) {
     .sidebar { transform: translateX(0); }
     body:not(.sidebar-closed) .header { left: 396px; }
@@ -567,15 +578,6 @@
   <div class="submenu-options" id="submenuOptions"></div>
 </div>
 
-<div class="sheet" id="sheet">
-  <div class="sheet-grip" onclick="toggleSheet()"><div class="grip-bar"></div></div>
-  <div class="sheet-head" onclick="toggleSheet()">
-    <h2 id="sheetTitle">Resultados</h2>
-    <div class="sheet-count" id="sheetCount">0</div>
-  </div>
-  <div class="sheet-scroll" id="sheetEvents"></div>
-</div>
-
 <!-- PWA INSTALL BANNER CON BOTÓN X -->
 <div class="install-banner" id="installBanner">
   <span class="ms fill install-icon">install_mobile</span>
@@ -589,7 +591,8 @@
   </button>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- SISTEMA DE TOASTS EN COLA -->
+<div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
 
 <script>
 /* ============================================
@@ -619,34 +622,28 @@ const TRANSLATIONS = {
   es: {
     searchPlaceholder: 'Buscar museos, eventos...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museos y eventos en Guadalajara',
     searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar cerca de mí', gpsTracking: 'Ubicación en vivo',
-    sheetTitle: 'Resultados', themeLabel: 'Oscuro',
     locationSearching: 'Buscando tu ubicación...', locationFound: 'Ubicación encontrada', locationError: 'No se pudo obtener tu ubicación',
     locationTracking: 'Rastreando ubicación', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
-    mapStandard: 'Mapa estándar', mapMinimal: 'Mapa minimalista', noResults: 'Sin resultados',
+    noResults: 'Sin resultados',
     noResultsHint: 'Intenta con otra categoría o mueve el mapa',
     viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre',
     age_all: 'Todo público', age_family: 'Familia', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Niños',
     categoriesLabel: 'Categorías', audienceLabel: 'Audiencia',
-    resultsCount: (n) => `${n} resultados`,
     pwaInstalled: 'App instalada correctamente',
-    pwaInstalling: 'Instalando app... revisa tu pantalla de inicio',
     pwaInstallFallback: 'Usa el menú de Chrome → "Instalar aplicación"',
     categories: { museum: 'Museos', tourist_attraction: 'Atracciones', art_gallery: 'Galerías', church: 'Iglesias', park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', stadium: 'Estadios', library: 'Bibliotecas', movie_theater: 'Cines', shopping_mall: 'Comercial' }
   },
   en: {
     searchPlaceholder: 'Search museums, events...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museums and events in Guadalajara',
     searchInputPlaceholder: 'Search event, place...', gpsButton: 'Search near me', gpsTracking: 'Live location',
-    sheetTitle: 'Results', themeLabel: 'Dark',
     locationSearching: 'Searching your location...', locationFound: 'Location found', locationError: 'Could not get your location',
     locationTracking: 'Tracking location', locationTrackingStop: 'Tracking stopped', geoNotAvailable: 'Geolocation not available',
-    mapStandard: 'Standard map', mapMinimal: 'Minimal map', noResults: 'No results',
+    noResults: 'No results',
     noResultsHint: 'Try another category or move the map',
     viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed',
     age_all: 'All ages', age_family: 'Family', age_adults: 'Adults', age_teens: 'Teens', age_kids: 'Kids',
     categoriesLabel: 'Categories', audienceLabel: 'Audience',
-    resultsCount: (n) => `${n} results`,
     pwaInstalled: 'App installed successfully',
-    pwaInstalling: 'Installing app... check your home screen',
     pwaInstallFallback: 'Use Chrome menu → "Install app"',
     categories: { museum: 'Museums', tourist_attraction: 'Attractions', art_gallery: 'Galleries', church: 'Churches', park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', stadium: 'Stadiums', library: 'Libraries', movie_theater: 'Cinemas', shopping_mall: 'Shopping' }
   }
@@ -673,12 +670,12 @@ let currentAudience = 'all';
 let currentSearch = '';
 let currentLang = 'es';
 let currentTheme = 'light';
-let sheetOpen = false;
 let allPlaces = [], allEvents = [], unifiedResults = [];
 let placesApiAvailable = true;
 let lastSearchTime = 0;
 let deferredPrompt = null;
 let isPWAInstalled = false;
+let isMapInteracting = false;
 const SEARCH_DEBOUNCE_MS = 800;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
@@ -752,10 +749,44 @@ function getAgeCategoryKey(event) {
 }
 
 /* ============================================
+   SISTEMA DE TOASTS EN COLA
+   ============================================ */
+const toastQueue = [];
+let toastActive = 0;
+const MAX_VISIBLE_TOASTS = 2;
+
+function showToast(icon, msg) {
+  toastQueue.push({ icon, msg });
+  processToastQueue();
+}
+
+function processToastQueue() {
+  if (toastActive >= MAX_VISIBLE_TOASTS) return;
+  if (toastQueue.length === 0) return;
+  
+  const { icon, msg } = toastQueue.shift();
+  toastActive++;
+  
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<span class="ms fill">${icon}</span><span>${msg}</span>`;
+  container.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('leaving');
+    setTimeout(() => {
+      toast.remove();
+      toastActive--;
+      processToastQueue();
+    }, 300);
+  }, 2200);
+}
+
+/* ============================================
    DETECCIÓN DE MODO STANDALONE (PWA INSTALADA)
    ============================================ */
 function checkIfPWAInstalled() {
-  // Detectar si ya está corriendo como app instalada
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
                        window.navigator.standalone === true ||
                        document.referrer.includes('android-app://');
@@ -784,9 +815,36 @@ window.initMap = function() {
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
-  map.addListener('click', () => closeSubmenu());
+  /* ============================================
+     EVENTOS DEL MAPA — CIERRE AUTOMÁTICO DEL SIDEBAR
+     ============================================ */
+  
+  // Click en el mapa: cierra submenu, info window y sidebar (si no es desktop)
+  map.addListener('click', () => {
+    closeSubmenu();
+    if (!isDesktop() && isSidebarOpen()) {
+      closeSidebar();
+    }
+  });
+  
+  // Inicio de arrastre: cierra submenú y sidebar
+  map.addListener('dragstart', () => {
+    isMapInteracting = true;
+    closeSubmenu();
+    if (!isDesktop() && isSidebarOpen()) {
+      closeSidebar();
+    }
+  });
+  
+  // Zoom cambiado: cierra submenú
+  map.addListener('zoom_changed', () => {
+    closeSubmenu();
+  });
+  
+  // Fin del movimiento: recargar lugares
   let moveTimeout;
   map.addListener('idle', () => {
+    isMapInteracting = false;
     clearTimeout(moveTimeout);
     moveTimeout = setTimeout(() => {
       if (!currentSearch && Date.now() - lastSearchTime > SEARCH_DEBOUNCE_MS) searchEverything();
@@ -828,7 +886,6 @@ function applyFilters() {
   unifiedResults = [...eventsFiltered, ...allPlaces];
   renderMarkersForAll();
   renderUnifiedList();
-  renderSheetUnified();
 }
 function updateBadges() {
   Object.keys(AGE_CATEGORIES).forEach(key => {
@@ -1015,12 +1072,6 @@ function renderUnifiedList() {
   const label = `${unifiedResults.length} resultados · ${audienceLabel}`;
   container.innerHTML = `<div class="section-label">${label}</div>` + unifiedResults.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
 }
-function renderSheetUnified() {
-  const container = document.getElementById('sheetEvents');
-  document.getElementById('sheetCount').textContent = unifiedResults.length;
-  if (unifiedResults.length === 0) { container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3></div>`; return; }
-  container.innerHTML = unifiedResults.slice(0, 15).map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
-}
 
 /* ============================================
    SUBMENÚ
@@ -1078,11 +1129,11 @@ function closeSubmenu() {
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
   container.innerHTML = `
-    <button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu('audience')" style="--cat-color:${AGE_CATEGORIES[currentAudience].color};--cat-shadow:${AGE_CATEGORIES[currentAudience].color}66;" data-label="${t('audienceLabel')}">
+    <button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu('audience')" data-label="${t('audienceLabel')}">
       <span class="ms fill" id="audienceIcon">${AGE_CATEGORIES[currentAudience].icon}</span>
       <span class="badge" id="audienceBadge">0</span>
     </button>
-    <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" style="--cat-color:${CATEGORIES[currentCategory].color};--cat-shadow:${CATEGORIES[currentCategory].color}66;" data-label="${t('categoriesLabel')}">
+    <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
       <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
       <span class="badge" id="categoryBadge">0</span>
     </button>
@@ -1107,11 +1158,6 @@ function setAudience(audience) {
   updateBadges();
   const icon = document.getElementById('audienceIcon');
   if (icon) icon.textContent = AGE_CATEGORIES[audience].icon;
-  const btn = document.querySelector('.cat-btn[data-type="audience"]');
-  if (btn) {
-    btn.style.setProperty('--cat-color', AGE_CATEGORIES[audience].color);
-    btn.style.setProperty('--cat-shadow', AGE_CATEGORIES[audience].color + '66');
-  }
   showToast(AGE_CATEGORIES[audience].icon, tAge(audience));
 }
 function setCategory(cat) {
@@ -1121,20 +1167,17 @@ function setCategory(cat) {
   if (searchInput) searchInput.value = '';
   const icon = document.getElementById('categoryIcon');
   if (icon) icon.textContent = CATEGORIES[cat].icon;
-  const btn = document.querySelector('.cat-btn[data-type="category"]');
-  if (btn) {
-    btn.style.setProperty('--cat-color', CATEGORIES[cat].color);
-    btn.style.setProperty('--cat-shadow', CATEGORIES[cat].color + '66');
-  }
   lastSearchTime = 0;
   searchEverything();
   showToast(CATEGORIES[cat].icon, tCat(cat));
 }
 
 /* ============================================
-   SIDEBAR
+   SIDEBAR — CON CIERRE AUTOMÁTICO
    ============================================ */
 function isDesktop() { return window.innerWidth >= 1200; }
+function isSidebarOpen() { return document.getElementById('sidebar').classList.contains('open'); }
+
 function updateSidebarState() {
   const sidebar = document.getElementById('sidebar'), menuIcon = document.getElementById('menuIcon');
   if (isDesktop()) {
@@ -1146,13 +1189,13 @@ function updateSidebarState() {
 }
 function toggleSidebar() {
   if (isDesktop()) { document.body.classList.toggle('sidebar-closed'); updateSidebarState(); }
-  else { const sidebar = document.getElementById('sidebar'); sidebar.classList.contains('open') ? closeSidebar() : openSidebar(); }
+  else { isSidebarOpen() ? closeSidebar() : openSidebar(); }
 }
 function openSidebar() { document.getElementById('sidebar').classList.add('open'); updateSidebarState(); updateOverlay(); }
 function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); updateSidebarState(); updateOverlay(); }
 
 function updateOverlay() {
-  const sidebarOpen = document.getElementById('sidebar').classList.contains('open') && !isDesktop();
+  const sidebarOpen = isSidebarOpen() && !isDesktop();
   document.getElementById('overlay').classList.toggle('show', sidebarOpen);
 }
 function handleOverlayClick() { closeSidebar(); closeSubmenu(); }
@@ -1220,7 +1263,6 @@ function updateAllTranslations() {
   set('brandTitle', t('brandTitle'));
   set('brandSubtitle', t('brandSubtitle'));
   set('gpsLabel', isTracking ? t('gpsTracking') : t('gpsButton'));
-  set('sheetTitle', t('sheetTitle'));
   set('searchPlaceholder', t('searchPlaceholder'));
   set('installBannerTitle', currentLang === 'en' ? 'Install GDL Cultural' : 'Instala GDL Cultural');
   set('installBannerSubtitle', currentLang === 'en' ? 'Quick access from your home screen' : 'Accede rápido desde tu pantalla de inicio');
@@ -1260,108 +1302,94 @@ function updateUserMarker(loc) {
 }
 
 /* ============================================
-   TOAST
+   BÚSQUEDA POR TEXTO
    ============================================ */
-let toastTimer;
-function showToast(icon, msg) {
-  const toast = document.getElementById('toast');
-  toast.innerHTML = `<span class="ms fill">${icon}</span>${msg}`;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+function onSearchInput() {
+  currentSearch = document.getElementById('searchInput').value.trim();
+  if (!currentSearch) { applyFilters(); return; }
+  const q = currentSearch.toLowerCase();
+  const filtered = unifiedResults.filter(item => {
+    const title = (item.title || item.name || '').toLowerCase();
+    const venue = (item.venue || item.vicinity || '').toLowerCase();
+    return title.includes(q) || venue.includes(q);
+  });
+  const container = document.getElementById('sidebarEvents');
+  if (filtered.length === 0) { container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3></div>`; return; }
+  container.innerHTML = `<div class="section-label">${filtered.length} resultados</div>` + filtered.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
 }
 
 /* ============================================
-   SHEET
+   PWA — INSTALACIÓN
    ============================================ */
-function toggleSheet() { sheetOpen = !sheetOpen; document.getElementById('sheet').classList.toggle('open', sheetOpen); }
-
-/* ============================================
-   PWA — INSTALACIÓN CORREGIDA
-   ============================================ */
-
-// Detectar si ya está instalada al cargar
 if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
   isPWAInstalled = true;
 }
 
-// beforeinstallprompt
+// Sistema de cola para el banner (no se encima con toasts)
+let bannerTimer = null;
+function showInstallBanner() {
+  if (isPWAInstalled) return;
+  if (!shouldShowInstallBanner()) return;
+  // Ocultar si hay toasts activos
+  if (toastActive > 0) {
+    setTimeout(showInstallBanner, 1500);
+    return;
+  }
+  document.getElementById('installBanner').classList.add('show');
+}
+
+function hideInstallBanner() {
+  document.getElementById('installBanner').classList.remove('show');
+}
+
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
   console.log('✅ beforeinstallprompt capturado');
-  
-  // Solo mostrar el banner si no está instalada
   if (!isPWAInstalled) {
-    setTimeout(() => {
-      document.getElementById('installBanner').classList.add('show');
-    }, 2000);
+    bannerTimer = setTimeout(showInstallBanner, 2500);
   }
 });
 
-// Detectar si el evento no se dispara después de un tiempo
-// (para mostrar el fallback manual si es necesario)
-setTimeout(() => {
-  if (!deferredPrompt && !isPWAInstalled) {
-    console.log('⚠️ beforeinstallprompt no se disparó. Mostrando fallback.');
-    // No mostramos el banner automáticamente, pero podríamos hacerlo
-    // document.getElementById('installBanner').classList.add('show');
-  }
-}, 8000);
-
 async function installPWA() {
-  if (isPWAInstalled) {
-    dismissInstallBanner();
-    return;
-  }
-  
+  if (isPWAInstalled) { dismissInstallBanner(); return; }
   if (deferredPrompt) {
-    // Caso normal: usar el prompt nativo
     try {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      console.log('PWA install outcome:', outcome);
-      
       if (outcome === 'accepted') {
         showToast('check_circle', t('pwaInstalled'));
       } else {
-        // El usuario rechazó, pero puede intentar después
         showToast('info', currentLang === 'en' ? 'You can install later from the menu' : 'Puedes instalar después desde el menú');
       }
-      
       deferredPrompt = null;
-      document.getElementById('installBanner').classList.remove('show');
+      hideInstallBanner();
     } catch (err) {
       console.error('Error al instalar PWA:', err);
       showToast('error', t('pwaInstallFallback'));
     }
   } else {
-    // Fallback: no hay deferredPrompt (puede ser que beforeinstallprompt no se haya disparado)
     showToast('info', t('pwaInstallFallback'));
-    // Opcional: redirigir a instrucciones o abrir el menú
   }
 }
 
 function dismissInstallBanner() {
-  document.getElementById('installBanner').classList.remove('show');
-  // Guardar que el usuario cerró el banner para no mostrarlo de nuevo por un tiempo
+  hideInstallBanner();
   localStorage.setItem('gdl-install-dismissed', Date.now().toString());
 }
 
-// Verificar si el usuario cerró el banner recientemente (7 días)
 function shouldShowInstallBanner() {
   const dismissed = localStorage.getItem('gdl-install-dismissed');
   if (!dismissed) return true;
   const daysSinceDismissed = (Date.now() - parseInt(dismissed)) / (1000 * 60 * 60 * 24);
-  return daysSinceDismissed > 7; // Mostrar de nuevo después de 7 días
+  return daysSinceDismissed > 7;
 }
 
-// Detectar cuando la app se instala
 window.addEventListener('appinstalled', () => {
   console.log('✅ PWA instalada');
   isPWAInstalled = true;
   deferredPrompt = null;
-  document.getElementById('installBanner').classList.remove('show');
+  hideInstallBanner();
   showToast('check_circle', t('pwaInstalled'));
 });
 
@@ -1371,13 +1399,7 @@ window.addEventListener('appinstalled', () => {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
-      .then(reg => {
-        console.log('✅ SW registrado:', reg.scope);
-        // Verificar si el SW está activo y controlando
-        if (reg.active) {
-          console.log('✅ SW activo');
-        }
-      })
+      .then(reg => console.log('✅ SW registrado:', reg.scope))
       .catch(err => console.log('⚠️ SW error:', err));
   });
 }
