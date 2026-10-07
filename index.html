@@ -54,11 +54,9 @@
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
-  /* MAPA */
   #map { position: absolute; inset: 0; z-index: var(--z-map); background: var(--surface-2); }
   html[data-theme="dark"] #map { filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
   
-  /* HEADER */
   .header {
     position: absolute; top: calc(16px + var(--safe-top));
     left: 16px; right: 16px; z-index: var(--z-header);
@@ -91,7 +89,6 @@
   .icon-btn:active { transform: scale(0.92); }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; }
   
-  /* BOTONES DE CATEGORÍA PRINCIPAL */
   .main-categories {
     position: absolute; right: 16px; top: 50%;
     transform: translateY(-50%); z-index: var(--z-chips);
@@ -127,19 +124,7 @@
     opacity: 0; transition: opacity .2s, transform .2s;
   }
   .cat-btn .badge.show { opacity: 1; }
-  .cat-btn::after {
-    content: attr(data-label);
-    position: absolute; right: calc(100% + 12px); top: 50%;
-    transform: translateY(-50%) translateX(8px);
-    background: var(--text); color: var(--surface);
-    padding: 6px 12px; border-radius: var(--r-sm);
-    font-size: 12px; font-weight: 600; white-space: nowrap;
-    opacity: 0; pointer-events: none;
-    transition: opacity .2s, transform .2s;
-  }
-  .cat-btn:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
   
-  /* SUBMENÚ ANIMADO */
   .submenu {
     position: absolute; right: 84px; top: 50%;
     transform: translateY(-50%);
@@ -212,7 +197,6 @@
   }
   .submenu-option.active .check { opacity: 1; }
   
-  /* SIDEBAR */
   .sidebar {
     position: absolute; top: 0; left: 0;
     width: 380px; height: 100%;
@@ -251,40 +235,6 @@
   }
   .close-btn:hover { background: var(--surface-2); color: var(--text); }
   
-  /* BOTONES RÁPIDOS DEL SIDEBAR */
-  .sidebar-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  .sidebar-action-btn {
-    height: 48px;
-    border: 1px solid var(--outline);
-    border-radius: var(--r-md);
-    background: var(--surface-2);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: all .2s;
-    position: relative;
-  }
-  .sidebar-action-btn:hover { background: var(--surface-3); }
-  .sidebar-action-btn:active { transform: scale(0.96); }
-  .sidebar-action-btn .ms { font-size: 20px; }
-  .sidebar-action-btn.active {
-    background: var(--primary-container);
-    border-color: var(--primary);
-    color: var(--primary-dark);
-  }
-  
-  /* SELECTOR DE IDIOMA */
   .lang-selector {
     display: flex;
     background: var(--surface-2);
@@ -363,7 +313,6 @@
     padding: 4px 4px 0;
   }
   
-  /* TARJETAS */
   .event-card {
     background: var(--surface);
     border: 1px solid var(--outline);
@@ -432,7 +381,6 @@
   .empty-state h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
   .empty-state p { font-size: 13px; color: var(--text-3); max-width: 240px; line-height: 1.5; }
   
-  /* OVERLAY */
   .overlay {
     position: absolute; inset: 0;
     background: rgba(26, 22, 20, 0.4);
@@ -443,7 +391,6 @@
   }
   .overlay.show { opacity: 1; pointer-events: auto; }
   
-  /* TOAST */
   .toast {
     position: absolute;
     bottom: calc(140px + var(--safe-bottom));
@@ -462,7 +409,6 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   
-  /* BOTTOM SHEET (solo móvil) */
   .sheet {
     position: absolute; bottom: 0; left: 0; right: 0;
     background: var(--surface);
@@ -488,7 +434,7 @@
   .sheet-count { background: var(--primary-container); color: var(--primary-dark); padding: 5px 12px; border-radius: var(--r-full); font-size: 12px; font-weight: 800; }
   .sheet-scroll { overflow-y: auto; padding: 0 16px 20px; display: flex; flex-direction: column; gap: 10px; }
   
-  /* PWA INSTALL BANNER */
+  /* PWA INSTALL BANNER con botón X */
   .install-banner {
     position: absolute;
     bottom: calc(140px + var(--safe-bottom));
@@ -505,7 +451,7 @@
     pointer-events: none;
   }
   .install-banner.show { transform: translateY(0); pointer-events: auto; }
-  .install-banner .ms { color: var(--primary); font-size: 28px; }
+  .install-banner .ms.install-icon { color: var(--primary); font-size: 28px; }
   .install-banner-text { flex: 1; min-width: 0; }
   .install-banner-text strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: var(--text); display: block; }
   .install-banner-text span { font-size: 12px; color: var(--text-3); }
@@ -514,13 +460,24 @@
     background: var(--primary); color: #FFFFFF;
     font-family: inherit; font-size: 13px; font-weight: 700;
     cursor: pointer; transition: transform .2s, background .2s;
+    flex-shrink: 0;
   }
   .install-banner-btn:hover { background: var(--primary-dark); }
   .install-banner-btn:active { transform: scale(0.95); }
+  .install-banner-close {
+    width: 32px; height: 32px;
+    border-radius: var(--r-full);
+    border: none; background: transparent;
+    color: var(--text-3);
+    display: grid; place-items: center;
+    cursor: pointer; flex-shrink: 0;
+    transition: background .2s, color .2s;
+  }
+  .install-banner-close:hover { background: var(--surface-2); color: var(--text); }
+  .install-banner-close .ms { font-size: 18px; }
   
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   
-  /* RESPONSIVE - MÓVIL */
   @media (max-width: 1199px) {
     .main-categories {
       right: 12px;
@@ -546,7 +503,6 @@
     .sidebar { width: 88%; max-width: 380px; }
   }
   
-  /* RESPONSIVE - DESKTOP */
   @media (min-width: 1200px) {
     .sidebar { transform: translateX(0); }
     body:not(.sidebar-closed) .header { left: 396px; }
@@ -564,7 +520,6 @@
 
 <div class="overlay" id="overlay" onclick="handleOverlayClick()"></div>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar" aria-label="Panel de resultados">
   <div class="sidebar-top">
     <div class="brand">
@@ -575,34 +530,14 @@
       </div>
       <button class="close-btn" onclick="closeSidebar()" aria-label="Cerrar panel"><span class="ms">close</span></button>
     </div>
-    
-    <!-- SELECTOR DE IDIOMA -->
     <div class="lang-selector" role="tablist" aria-label="Idioma">
-      <button class="lang-option active" data-lang="es" onclick="setLanguage('es')" role="tab">
-        <span class="ms">language</span> Español
-      </button>
-      <button class="lang-option" data-lang="en" onclick="setLanguage('en')" role="tab">
-        <span class="ms">language</span> English
-      </button>
+      <button class="lang-option active" data-lang="es" onclick="setLanguage('es')" role="tab"><span class="ms">language</span> Español</button>
+      <button class="lang-option" data-lang="en" onclick="setLanguage('en')" role="tab"><span class="ms">language</span> English</button>
     </div>
-    
-    <!-- ACCIONES RÁPIDAS -->
-    <div class="sidebar-actions">
-      <button class="sidebar-action-btn" onclick="toggleTheme()" id="themeSidebarBtn">
-        <span class="ms" id="themeSidebarIcon">dark_mode</span>
-        <span id="themeSidebarLabel">Oscuro</span>
-      </button>
-      <button class="sidebar-action-btn" onclick="searchNearMe()" id="gpsSidebarBtn">
-        <span class="ms fill" id="gpsSidebarIcon">my_location</span>
-        <span>GPS</span>
-      </button>
-    </div>
-    
     <div class="search-field">
       <span class="ms">search</span>
       <input type="text" id="searchInput" placeholder="Buscar evento, lugar..." oninput="onSearchInput()" autocomplete="off">
     </div>
-    
     <button class="gps-button" onclick="searchNearMe()" id="gpsButtonSidebar">
       <span class="ms fill">my_location</span>
       <span id="gpsLabel">Buscar cerca de mí</span>
@@ -611,10 +546,8 @@
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
-<!-- MAPA -->
 <div id="map" role="application" aria-label="Mapa de lugares"></div>
 
-<!-- HEADER -->
 <header class="header" id="header">
   <button class="icon-btn" onclick="toggleSidebar()" aria-label="Abrir/cerrar panel" id="menuBtn"><span class="ms" id="menuIcon">menu</span></button>
   <div class="search-pill" onclick="openSidebar()" role="button" tabindex="0"><span class="ms">search</span><span id="searchPlaceholder">Buscar museos, eventos...</span></div>
@@ -624,22 +557,16 @@
   </div>
 </header>
 
-<!-- BOTONES DE CATEGORÍA PRINCIPAL -->
 <div class="main-categories" id="mainCategories"></div>
 
-<!-- SUBMENÚ ANIMADO -->
 <div class="submenu" id="submenu">
   <div class="submenu-header">
-    <div class="submenu-title">
-      <span class="ms" id="submenuIcon">groups</span>
-      <span id="submenuTitle">Audiencia</span>
-    </div>
+    <div class="submenu-title"><span class="ms" id="submenuIcon">groups</span><span id="submenuTitle">Audiencia</span></div>
     <button class="submenu-close" onclick="closeSubmenu()"><span class="ms">close</span></button>
   </div>
   <div class="submenu-options" id="submenuOptions"></div>
 </div>
 
-<!-- BOTTOM SHEET -->
 <div class="sheet" id="sheet">
   <div class="sheet-grip" onclick="toggleSheet()"><div class="grip-bar"></div></div>
   <div class="sheet-head" onclick="toggleSheet()">
@@ -649,17 +576,19 @@
   <div class="sheet-scroll" id="sheetEvents"></div>
 </div>
 
-<!-- PWA INSTALL BANNER -->
+<!-- PWA INSTALL BANNER CON BOTÓN X -->
 <div class="install-banner" id="installBanner">
-  <span class="ms fill">install_mobile</span>
+  <span class="ms fill install-icon">install_mobile</span>
   <div class="install-banner-text">
-    <strong>Instala GDL Cultural</strong>
-    <span>Accede rápido desde tu pantalla de inicio</span>
+    <strong id="installBannerTitle">Instala GDL Cultural</strong>
+    <span id="installBannerSubtitle">Accede rápido desde tu pantalla de inicio</span>
   </div>
-  <button class="install-banner-btn" onclick="installPWA()">Instalar</button>
+  <button class="install-banner-btn" onclick="installPWA()" id="installBannerBtn">Instalar</button>
+  <button class="install-banner-close" onclick="dismissInstallBanner()" aria-label="Cerrar">
+    <span class="ms">close</span>
+  </button>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -700,6 +629,8 @@ const TRANSLATIONS = {
     categoriesLabel: 'Categorías', audienceLabel: 'Audiencia',
     resultsCount: (n) => `${n} resultados`,
     pwaInstalled: 'App instalada correctamente',
+    pwaInstalling: 'Instalando app... revisa tu pantalla de inicio',
+    pwaInstallFallback: 'Usa el menú de Chrome → "Instalar aplicación"',
     categories: { museum: 'Museos', tourist_attraction: 'Atracciones', art_gallery: 'Galerías', church: 'Iglesias', park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', stadium: 'Estadios', library: 'Bibliotecas', movie_theater: 'Cines', shopping_mall: 'Comercial' }
   },
   en: {
@@ -715,6 +646,8 @@ const TRANSLATIONS = {
     categoriesLabel: 'Categories', audienceLabel: 'Audience',
     resultsCount: (n) => `${n} results`,
     pwaInstalled: 'App installed successfully',
+    pwaInstalling: 'Installing app... check your home screen',
+    pwaInstallFallback: 'Use Chrome menu → "Install app"',
     categories: { museum: 'Museums', tourist_attraction: 'Attractions', art_gallery: 'Galleries', church: 'Churches', park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', stadium: 'Stadiums', library: 'Libraries', movie_theater: 'Cinemas', shopping_mall: 'Shopping' }
   }
 };
@@ -745,13 +678,13 @@ let allPlaces = [], allEvents = [], unifiedResults = [];
 let placesApiAvailable = true;
 let lastSearchTime = 0;
 let deferredPrompt = null;
+let isPWAInstalled = false;
 const SEARCH_DEBOUNCE_MS = 800;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
 const TICKETMASTER_RADIUS_KM = 25;
 
-/* Estilo de mapa minimalista (estilo Google Maps minimalista moderno) */
 const MAP_STYLES = {
   light: [
     { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
@@ -819,10 +752,27 @@ function getAgeCategoryKey(event) {
 }
 
 /* ============================================
+   DETECCIÓN DE MODO STANDALONE (PWA INSTALADA)
+   ============================================ */
+function checkIfPWAInstalled() {
+  // Detectar si ya está corriendo como app instalada
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                       window.navigator.standalone === true ||
+                       document.referrer.includes('android-app://');
+  isPWAInstalled = isStandalone;
+  if (isStandalone) {
+    document.getElementById('installBanner').classList.remove('show');
+  }
+  return isStandalone;
+}
+
+/* ============================================
    INICIALIZACIÓN
    ============================================ */
 window.initMap = function() {
   loadPreferences();
+  checkIfPWAInstalled();
+  
   map = new google.maps.Map(document.getElementById('map'), {
     center: GDL_CENTER, zoom: 12,
     styles: currentTheme === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light,
@@ -1208,7 +1158,7 @@ function updateOverlay() {
 function handleOverlayClick() { closeSidebar(); closeSubmenu(); }
 
 /* ============================================
-   MENÚ DE OPCIONES (botón tune)
+   MENÚ DE OPCIONES
    ============================================ */
 function toggleOptionsMenu(e) {
   if (e) e.stopPropagation();
@@ -1235,10 +1185,6 @@ function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', effective);
   const icon = document.getElementById('themeIcon');
   if (icon) icon.textContent = effective === 'dark' ? 'light_mode' : 'dark_mode';
-  const sidebarIcon = document.getElementById('themeSidebarIcon');
-  if (sidebarIcon) sidebarIcon.textContent = effective === 'dark' ? 'light_mode' : 'dark_mode';
-  const sidebarLabel = document.getElementById('themeSidebarLabel');
-  if (sidebarLabel) sidebarLabel.textContent = effective === 'dark' ? 'Claro' : 'Oscuro';
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.content = effective === 'dark' ? '#121212' : '#E76F51';
   if (map) map.setOptions({ styles: effective === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light });
@@ -1276,6 +1222,9 @@ function updateAllTranslations() {
   set('gpsLabel', isTracking ? t('gpsTracking') : t('gpsButton'));
   set('sheetTitle', t('sheetTitle'));
   set('searchPlaceholder', t('searchPlaceholder'));
+  set('installBannerTitle', currentLang === 'en' ? 'Install GDL Cultural' : 'Instala GDL Cultural');
+  set('installBannerSubtitle', currentLang === 'en' ? 'Quick access from your home screen' : 'Accede rápido desde tu pantalla de inicio');
+  set('installBannerBtn', currentLang === 'en' ? 'Install' : 'Instalar');
   const searchInput = document.getElementById('searchInput');
   if (searchInput) searchInput.placeholder = t('searchInputPlaceholder');
 }
@@ -1328,33 +1277,92 @@ function showToast(icon, msg) {
 function toggleSheet() { sheetOpen = !sheetOpen; document.getElementById('sheet').classList.toggle('open', sheetOpen); }
 
 /* ============================================
-   PWA
+   PWA — INSTALACIÓN CORREGIDA
    ============================================ */
+
+// Detectar si ya está instalada al cargar
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+  isPWAInstalled = true;
+}
+
+// beforeinstallprompt
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  setTimeout(() => {
-    document.getElementById('installBanner').classList.add('show');
-  }, 3000);
+  console.log('✅ beforeinstallprompt capturado');
+  
+  // Solo mostrar el banner si no está instalada
+  if (!isPWAInstalled) {
+    setTimeout(() => {
+      document.getElementById('installBanner').classList.add('show');
+    }, 2000);
+  }
 });
 
+// Detectar si el evento no se dispara después de un tiempo
+// (para mostrar el fallback manual si es necesario)
+setTimeout(() => {
+  if (!deferredPrompt && !isPWAInstalled) {
+    console.log('⚠️ beforeinstallprompt no se disparó. Mostrando fallback.');
+    // No mostramos el banner automáticamente, pero podríamos hacerlo
+    // document.getElementById('installBanner').classList.add('show');
+  }
+}, 8000);
+
 async function installPWA() {
-  if (!deferredPrompt) {
-    document.getElementById('installBanner').classList.remove('show');
+  if (isPWAInstalled) {
+    dismissInstallBanner();
     return;
   }
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if (outcome === 'accepted') {
-    showToast('check_circle', t('pwaInstalled'));
+  
+  if (deferredPrompt) {
+    // Caso normal: usar el prompt nativo
+    try {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('PWA install outcome:', outcome);
+      
+      if (outcome === 'accepted') {
+        showToast('check_circle', t('pwaInstalled'));
+      } else {
+        // El usuario rechazó, pero puede intentar después
+        showToast('info', currentLang === 'en' ? 'You can install later from the menu' : 'Puedes instalar después desde el menú');
+      }
+      
+      deferredPrompt = null;
+      document.getElementById('installBanner').classList.remove('show');
+    } catch (err) {
+      console.error('Error al instalar PWA:', err);
+      showToast('error', t('pwaInstallFallback'));
+    }
+  } else {
+    // Fallback: no hay deferredPrompt (puede ser que beforeinstallprompt no se haya disparado)
+    showToast('info', t('pwaInstallFallback'));
+    // Opcional: redirigir a instrucciones o abrir el menú
   }
-  deferredPrompt = null;
-  document.getElementById('installBanner').classList.remove('show');
 }
 
-window.addEventListener('appinstalled', () => {
+function dismissInstallBanner() {
   document.getElementById('installBanner').classList.remove('show');
+  // Guardar que el usuario cerró el banner para no mostrarlo de nuevo por un tiempo
+  localStorage.setItem('gdl-install-dismissed', Date.now().toString());
+}
+
+// Verificar si el usuario cerró el banner recientemente (7 días)
+function shouldShowInstallBanner() {
+  const dismissed = localStorage.getItem('gdl-install-dismissed');
+  if (!dismissed) return true;
+  const daysSinceDismissed = (Date.now() - parseInt(dismissed)) / (1000 * 60 * 60 * 24);
+  return daysSinceDismissed > 7; // Mostrar de nuevo después de 7 días
+}
+
+// Detectar cuando la app se instala
+window.addEventListener('appinstalled', () => {
+  console.log('✅ PWA instalada');
+  isPWAInstalled = true;
   deferredPrompt = null;
+  document.getElementById('installBanner').classList.remove('show');
+  showToast('check_circle', t('pwaInstalled'));
 });
 
 /* ============================================
@@ -1362,11 +1370,22 @@ window.addEventListener('appinstalled', () => {
    ============================================ */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then(() => console.log('✅ SW')).catch(err => console.log('⚠️ SW:', err));
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => {
+        console.log('✅ SW registrado:', reg.scope);
+        // Verificar si el SW está activo y controlando
+        if (reg.active) {
+          console.log('✅ SW activo');
+        }
+      })
+      .catch(err => console.log('⚠️ SW error:', err));
   });
 }
 
-document.addEventListener('DOMContentLoaded', updateSidebarState);
+document.addEventListener('DOMContentLoaded', () => {
+  updateSidebarState();
+  checkIfPWAInstalled();
+});
 window.addEventListener('resize', () => { updateSidebarState(); updateOverlay(); });
 </script>
 
