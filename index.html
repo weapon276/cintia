@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#E76F51">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="/manifest.json">
 <title>GDL Cultural — Museos y Eventos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -150,7 +152,7 @@
   .event-card:nth-child(3) { animation-delay: 0.06s; }
   .event-card:nth-child(4) { animation-delay: 0.08s; }
   .event-card:nth-child(5) { animation-delay: 0.10s; }
-  .loading-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--primary); z-index: 5000; transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease-emphasized); }
+  .loading-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--primary); z-index: 5000; transform: scaleX(0); transform-origin: left; }
   .loading-bar.active { transform: scaleX(0.7); transition: transform 8s cubic-bezier(0.1, 0.05, 0, 1); }
   .loading-bar.done { transform: scaleX(1); opacity: 0; transition: transform .2s, opacity .3s .2s; }
   @media (min-width: 900px) {
@@ -161,8 +163,7 @@
     .sheet { display: none; }
   }
   @media (max-width: 899px) {
-    .sidebar { width: 88%; max-width: 360px; }
-    .sidebar { transform: translateX(-100%); }
+    .sidebar { width: 88%; max-width: 360px; transform: translateX(-100%); }
     .sidebar.open { transform: translateX(0); }
     .fab-stack { bottom: calc(200px + var(--safe-bottom)); }
   }
@@ -178,13 +179,9 @@
 </head>
 <body>
 
-<!-- Barra de carga superior -->
 <div class="loading-bar" id="loadingBar"></div>
-
-<!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="handleOverlayClick()"></div>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar" aria-label="Panel de lugares">
   <div class="sidebar-top">
     <div class="brand">
@@ -207,77 +204,44 @@
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
-<!-- MAPA -->
 <div id="map" role="application" aria-label="Mapa de lugares"></div>
 
-<!-- HEADER -->
 <header class="header" id="header">
-  <button class="icon-btn" onclick="toggleSidebar()" aria-label="Abrir/cerrar panel" id="menuBtn">
-    <span class="ms" id="menuIcon">menu</span>
-  </button>
-  <div class="search-pill" onclick="openSidebar()" role="button" tabindex="0" aria-label="Abrir búsqueda">
-    <span class="ms">search</span>
-    <span id="searchPlaceholder">Buscar museos, eventos...</span>
-  </div>
+  <button class="icon-btn" onclick="toggleSidebar()" aria-label="Abrir/cerrar panel" id="menuBtn"><span class="ms" id="menuIcon">menu</span></button>
+  <div class="search-pill" onclick="openSidebar()" role="button" tabindex="0"><span class="ms">search</span><span id="searchPlaceholder">Buscar museos, eventos...</span></div>
   <div class="header-actions">
-    <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar tema" id="themeBtn">
-      <span class="ms" id="themeIcon">dark_mode</span>
-    </button>
-    <button class="icon-btn" onclick="toggleOptionsMenu(event)" aria-label="Opciones" id="optionsBtn">
-      <span class="ms">tune</span>
-    </button>
+    <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar tema" id="themeBtn"><span class="ms" id="themeIcon">dark_mode</span></button>
+    <button class="icon-btn" onclick="toggleOptionsMenu(event)" aria-label="Opciones" id="optionsBtn"><span class="ms">tune</span></button>
   </div>
 </header>
 
-<!-- MENÚ DE OPCIONES -->
 <div class="options-menu" id="optionsMenu" role="menu">
   <div class="menu-section">
     <div class="menu-label" data-i18n="menuLanguage">Idioma</div>
-    <button class="menu-item" onclick="setLanguage('es')" data-lang="es" role="menuitem">
-      <span class="ms">language</span><span>Español</span><span class="ms check">check</span>
-    </button>
-    <button class="menu-item" onclick="setLanguage('en')" data-lang="en" role="menuitem">
-      <span class="ms">language</span><span>English</span><span class="ms check">check</span>
-    </button>
+    <button class="menu-item" onclick="setLanguage('es')" data-lang="es" role="menuitem"><span class="ms">language</span><span>Español</span><span class="ms check">check</span></button>
+    <button class="menu-item" onclick="setLanguage('en')" data-lang="en" role="menuitem"><span class="ms">language</span><span>English</span><span class="ms check">check</span></button>
   </div>
   <div class="menu-section">
     <div class="menu-label" data-i18n="menuTheme">Tema</div>
-    <button class="menu-item" onclick="setTheme('light')" data-theme-opt="light" role="menuitem">
-      <span class="ms">light_mode</span><span data-i18n="themeLight">Claro</span><span class="ms check">check</span>
-    </button>
-    <button class="menu-item" onclick="setTheme('dark')" data-theme-opt="dark" role="menuitem">
-      <span class="ms">dark_mode</span><span data-i18n="themeDark">Oscuro</span><span class="ms check">check</span>
-    </button>
-    <button class="menu-item" onclick="setTheme('auto')" data-theme-opt="auto" role="menuitem">
-      <span class="ms">brightness_auto</span><span data-i18n="themeAuto">Automático</span><span class="ms check">check</span>
-    </button>
+    <button class="menu-item" onclick="setTheme('light')" data-theme-opt="light" role="menuitem"><span class="ms">light_mode</span><span data-i18n="themeLight">Claro</span><span class="ms check">check</span></button>
+    <button class="menu-item" onclick="setTheme('dark')" data-theme-opt="dark" role="menuitem"><span class="ms">dark_mode</span><span data-i18n="themeDark">Oscuro</span><span class="ms check">check</span></button>
+    <button class="menu-item" onclick="setTheme('auto')" data-theme-opt="auto" role="menuitem"><span class="ms">brightness_auto</span><span data-i18n="themeAuto">Automático</span><span class="ms check">check</span></button>
   </div>
 </div>
 
-<!-- CHIPS DE CATEGORÍAS -->
 <div class="chips" id="chips" role="tablist" aria-label="Categorías"></div>
 
-<!-- FABs -->
 <div class="fab-stack">
-  <button class="fab" onclick="centerOnUser()" aria-label="Mi ubicación" id="locateFab" title="Mi ubicación">
-    <span class="ms" id="locateIcon">my_location</span>
-  </button>
-  <button class="fab" onclick="toggleMapStyle()" aria-label="Estilo de mapa" title="Estilo de mapa">
-    <span class="ms">layers</span>
-  </button>
+  <button class="fab" onclick="centerOnUser()" aria-label="Mi ubicación" id="locateFab" title="Mi ubicación"><span class="ms" id="locateIcon">my_location</span></button>
+  <button class="fab" onclick="toggleMapStyle()" aria-label="Estilo de mapa" title="Estilo de mapa"><span class="ms">layers</span></button>
 </div>
 
-<!-- BOTTOM SHEET -->
 <div class="sheet" id="sheet">
   <div class="sheet-grip" onclick="toggleSheet()"><div class="grip-bar"></div></div>
-  <div class="sheet-head">
-    <h2 id="sheetTitle">Resultados</h2>
-    <div class="sheet-count" id="sheetCount">0</div>
-  </div>
+  <div class="sheet-head"><h2 id="sheetTitle">Resultados</h2><div class="sheet-count" id="sheetCount">0</div></div>
   <div class="sheet-scroll" id="sheetEvents"></div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -287,7 +251,6 @@
 const API_KEYS = {
   google: 'AIzaSyD7vyTk4SncfI67G65xCZCZWgihHaMk7Tg',
   ticketmaster: 'X55W4VAAGg4eSGiDibtNacDy7Swfuqzg',
-  // ⚠️ OBTÉN TU TOKEN GRATUITO EN: https://console.apify.com/account/integrations
   apify: 'TU_APIFY_TOKEN_AQUI'
 };
 
@@ -301,7 +264,6 @@ const AGE_CATEGORIES = {
   kids: { label: 'Niños', icon: 'child_care', color: '#F4A261', bg: '#FFF4E0' },
   all: { label: 'Todo público', icon: 'groups', color: '#E76F51', bg: '#FFEDE5' }
 };
-
 function categorizeEventByAge(event) {
   const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
   const patterns = {
@@ -334,8 +296,6 @@ const TRANSLATIONS = {
     locationTracking: 'Rastreando ubicación en vivo', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
     mapStandard: 'Mapa estándar', mapMinimal: 'Mapa minimalista', noResults: 'Sin resultados',
     noResultsHint: 'Intenta con otra categoría o mueve el mapa a otra zona',
-    placesCount: (n, cat) => `${n} lugares y eventos de ${cat}`,
-    eventsCount: (n) => `${n} eventos encontrados`,
     viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre', loading: 'Cargando...', errorLoading: 'Error al cargar',
     family: 'Familiar', adults: 'Adultos', teens: 'Adolescentes', kids: 'Niños', all: 'Todo público',
     categories: { museum: 'Museos', tourist_attraction: 'Atracciones', art_gallery: 'Galerías', church: 'Iglesias', park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', stadium: 'Estadios', library: 'Bibliotecas', movie_theater: 'Cines', shopping_mall: 'Comercial' }
@@ -349,8 +309,6 @@ const TRANSLATIONS = {
     locationTracking: 'Tracking live location', locationTrackingStop: 'Tracking stopped', geoNotAvailable: 'Geolocation not available',
     mapStandard: 'Standard map', mapMinimal: 'Minimal map', noResults: 'No results',
     noResultsHint: 'Try another category or move the map to another area',
-    placesCount: (n, cat) => `${n} places and events in ${cat}`,
-    eventsCount: (n) => `${n} events found`,
     viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed', loading: 'Loading...', errorLoading: 'Error loading',
     family: 'Family', adults: 'Adults', teens: 'Teens', kids: 'Kids', all: 'All ages',
     categories: { museum: 'Museums', tourist_attraction: 'Attractions', art_gallery: 'Galleries', church: 'Churches', park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', stadium: 'Stadiums', library: 'Libraries', movie_theater: 'Cinemas', shopping_mall: 'Shopping' }
@@ -358,20 +316,22 @@ const TRANSLATIONS = {
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES (Google Places)
+   CATEGORÍAS DE LUGARES
+   Mapeo con las categorías oficiales de Google Places API
+   (las que SÍ funcionan en nearbySearch v3)
    ============================================ */
 const CATEGORIES = {
-  museum: { icon: 'museum', color: '#E76F51', bg: '#FFEDE5' },
-  tourist_attraction: { icon: 'attractions', color: '#2A9D8F', bg: '#E0F5F1' },
-  art_gallery: { icon: 'palette', color: '#F4A261', bg: '#FFF4E0' },
-  church: { icon: 'church', color: '#5B4B8A', bg: '#EDE7F6' },
-  park: { icon: 'park', color: '#2A9D8F', bg: '#E0F5F1' },
-  zoo: { icon: 'pets', color: '#E63946', bg: '#FFE5E7' },
-  aquarium: { icon: 'water', color: '#5B4B8A', bg: '#EDE7F6' },
-  stadium: { icon: 'stadium', color: '#C75540', bg: '#FFEDE5' },
-  library: { icon: 'local_library', color: '#F4A261', bg: '#FFF4E0' },
-  movie_theater: { icon: 'theaters', color: '#E63946', bg: '#FFE5E7' },
-  shopping_mall: { icon: 'shopping_bag', color: '#5B4B8A', bg: '#EDE7F6' }
+  museum: { icon: 'museum', color: '#E76F51', bg: '#FFEDE5', type: 'museum' },
+  tourist_attraction: { icon: 'attractions', color: '#2A9D8F', bg: '#E0F5F1', type: 'tourist_attraction' },
+  art_gallery: { icon: 'palette', color: '#F4A261', bg: '#FFF4E0', type: 'art_gallery' },
+  church: { icon: 'church', color: '#5B4B8A', bg: '#EDE7F6', type: 'church' },
+  park: { icon: 'park', color: '#2A9D8F', bg: '#E0F5F1', type: 'park' },
+  zoo: { icon: 'pets', color: '#E63946', bg: '#FFE5E7', type: 'zoo' },
+  aquarium: { icon: 'water', color: '#5B4B8A', bg: '#EDE7F6', type: 'aquarium' },
+  stadium: { icon: 'stadium', color: '#C75540', bg: '#FFEDE5', type: 'stadium' },
+  library: { icon: 'local_library', color: '#F4A261', bg: '#FFF4E0', type: 'library' },
+  movie_theater: { icon: 'theaters', color: '#E63946', bg: '#FFE5E7', type: 'movie_theater' },
+  shopping_mall: { icon: 'shopping_bag', color: '#5B4B8A', bg: '#EDE7F6', type: 'shopping_mall' }
 };
 
 /* ============================================
@@ -379,17 +339,12 @@ const CATEGORIES = {
    ============================================ */
 let map, markers = [], infoWindow, placesService;
 let userMarker = null, watchId = null, isTracking = false;
-let currentCategory = 'museum';
-let currentSearch = '';
-let currentLang = 'es';
-let currentTheme = 'light';
-let mapStyleCurrent = 'light';
-let sheetOpen = false;
-
-// Mezcla unificada de todos los resultados
-let allPlaces = [];   // Google Places
-let allEvents = [];   // Ticketmaster + Eventbrite
-let unifiedResults = []; // Mezcla final
+let currentCategory = 'museum', currentSearch = '', currentLang = 'es', currentTheme = 'light';
+let mapStyleCurrent = 'light', sheetOpen = false;
+let allPlaces = [], allEvents = [], unifiedResults = [];
+let placesApiAvailable = true;
+let lastSearchTime = 0;
+const SEARCH_DEBOUNCE_MS = 800;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
@@ -422,15 +377,8 @@ function tAge(key) { return TRANSLATIONS[currentLang][key] || AGE_CATEGORIES[key
    BARRA DE CARGA
    ============================================ */
 const loadingBar = document.getElementById('loadingBar');
-function showLoading() {
-  loadingBar.classList.remove('done');
-  loadingBar.classList.add('active');
-}
-function hideLoading() {
-  loadingBar.classList.remove('active');
-  loadingBar.classList.add('done');
-  setTimeout(() => loadingBar.classList.remove('done'), 500);
-}
+function showLoading() { loadingBar.classList.remove('done'); loadingBar.classList.add('active'); }
+function hideLoading() { loadingBar.classList.remove('active'); loadingBar.classList.add('done'); setTimeout(() => loadingBar.classList.remove('done'), 600); }
 
 /* ============================================
    INICIALIZACIÓN
@@ -444,15 +392,22 @@ window.initMap = function() {
     zoomControl: false, clickableIcons: false, gestureHandling: 'greedy'
   });
   infoWindow = new google.maps.InfoWindow();
-  placesService = new google.maps.places.PlacesService(map);
+  try {
+    placesService = new google.maps.places.PlacesService(map);
+  } catch (e) {
+    console.warn('PlacesService no disponible:', e);
+    placesApiAvailable = false;
+  }
 
   map.addListener('click', closeOptionsMenu);
   let moveTimeout;
   map.addListener('idle', () => {
     clearTimeout(moveTimeout);
     moveTimeout = setTimeout(() => {
-      if (!currentSearch) searchEverything();
-    }, 1000);
+      if (!currentSearch && Date.now() - lastSearchTime > SEARCH_DEBOUNCE_MS) {
+        searchEverything();
+      }
+    }, 1200);
   });
 
   updateAllTranslations();
@@ -462,87 +417,108 @@ window.initMap = function() {
 };
 
 /* ============================================
-   BÚSQUEDA UNIFICADA — Combina las 3 fuentes
+   BÚSQUEDA UNIFICADA
    ============================================ */
 async function searchEverything() {
+  if (Date.now() - lastSearchTime < SEARCH_DEBOUNCE_MS) return;
+  lastSearchTime = Date.now();
+
   showLoading();
   clearMarkers();
   if (infoWindow) infoWindow.close();
-  
-  allPlaces = [];
-  allEvents = [];
-  unifiedResults = [];
 
-  // Ejecutar las 3 búsquedas en paralelo
-  const [placesResult, tmResult, ebResult] = await Promise.allSettled([
+  allPlaces = []; allEvents = []; unifiedResults = [];
+
+  const [placesRes, tmRes, ebRes] = await Promise.allSettled([
     searchPlacesPromise(),
     searchTicketmasterPromise(),
     searchEventbritePromise()
   ]);
 
-  // Recoger resultados exitosos
-  if (placesResult.status === 'fulfilled') allPlaces = placesResult.value || [];
-  if (tmResult.status === 'fulfilled') allEvents = allEvents.concat(tmResult.value || []);
-  if (ebResult.status === 'fulfilled') allEvents = allEvents.concat(ebResult.value || []);
+  if (placesRes.status === 'fulfilled') allPlaces = placesRes.value || [];
+  if (tmRes.status === 'fulfilled') allEvents = allEvents.concat(tmRes.value || []);
+  if (ebRes.status === 'fulfilled') allEvents = allEvents.concat(ebRes.value || []);
 
-  // Deduplicar eventos por título + venue
   allEvents = deduplicateEvents(allEvents);
-
-  // Mezclar y ordenar: eventos primero, luego lugares
   unifiedResults = [...allEvents, ...allPlaces];
 
-  // Renderizar todo
   renderMarkersForAll();
   renderUnifiedList();
   renderSheetUnified();
-
   hideLoading();
 }
 
 /* ============================================
-   GOOGLE PLACES (Promise wrapper)
+   GOOGLE PLACES (con manejo de errores robusto)
    ============================================ */
 function searchPlacesPromise() {
   return new Promise((resolve) => {
-    if (!placesService) return resolve([]);
-    const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type: [currentCategory] };
-    placesService.nearbySearch(request, (results, status) => {
-      if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-        resolve(results);
-      } else {
-        resolve([]);
-      }
-    });
+    if (!placesService || !placesApiAvailable) return resolve([]);
+
+    const category = CATEGORIES[currentCategory];
+    const request = {
+      location: map.getCenter(),
+      radius: DEFAULT_RADIUS,
+      type: category.type
+    };
+
+    // Si hay búsqueda de texto, usar keyword
+    if (currentSearch) {
+      request.keyword = currentSearch;
+    }
+
+    // Timeout de seguridad
+    const timeout = setTimeout(() => {
+      console.warn('Places API timeout');
+      resolve([]);
+    }, 8000);
+
+    try {
+      placesService.nearbySearch(request, (results, status) => {
+        clearTimeout(timeout);
+        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+          resolve(results);
+        } else if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+          resolve([]);
+        } else {
+          console.warn('Places API status:', status);
+          // Si es un error de API key, marcamos como no disponible
+          if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') {
+            placesApiAvailable = false;
+          }
+          resolve([]);
+        }
+      });
+    } catch (err) {
+      clearTimeout(timeout);
+      console.warn('Places API error:', err);
+      resolve([]);
+    }
   });
 }
 
 /* ============================================
-   TICKETMASTER (Promise wrapper)
+   TICKETMASTER
    ============================================ */
 function searchTicketmasterPromise() {
   return new Promise(async (resolve) => {
     try {
       const center = map.getCenter();
       const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEYS.ticketmaster}&latlong=${center.lat()},${center.lng()}&radius=${TICKETMASTER_RADIUS_KM}&unit=km&size=50&sort=date,asc&locale=${currentLang === 'es' ? 'es' : 'en-us'}`;
-      const response = await fetch(url);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
       const data = await response.json();
       const events = (data._embedded?.events || []).map(e => {
         const venue = e._embedded?.venues?.[0] || {}, location = venue.location || {};
         const lat = parseFloat(location.latitude), lng = parseFloat(location.longitude);
         if (!lat || !lng) return null;
         return {
-          id: 'tm_' + e.id,
-          type: 'event',
-          source: 'ticketmaster',
-          title: e.name,
-          date: e.dates?.start?.localDate || '',
-          time: e.dates?.start?.localTime || '',
-          venue: venue.name || '',
-          city: venue.city?.name || '',
-          address: venue.address?.line1 || '',
-          lat, lng,
-          url: e.url,
-          description: e.info || e.pleaseNote || ''
+          id: 'tm_' + e.id, type: 'event', source: 'ticketmaster',
+          title: e.name, date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '',
+          venue: venue.name || '', city: venue.city?.name || '', address: venue.address?.line1 || '',
+          lat, lng, url: e.url, description: e.info || e.pleaseNote || ''
         };
       }).filter(Boolean);
       resolve(events);
@@ -554,42 +530,31 @@ function searchTicketmasterPromise() {
 }
 
 /* ============================================
-   EVENTBRITE vía Apify (Promise wrapper)
+   EVENTBRITE vía Apify
    ============================================ */
 function searchEventbritePromise() {
   return new Promise(async (resolve) => {
-    if (!API_KEYS.apify || API_KEYS.apify === 'TU_APIFY_TOKEN_AQUI') {
-      resolve([]);
-      return;
-    }
+    if (!API_KEYS.apify || API_KEYS.apify === 'TU_APIFY_TOKEN_AQUI') return resolve([]);
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
       const response = await fetch(`https://api.apify.com/v2/acts/xtracto~eventbrite-events/run-sync-get-dataset-items?token=${API_KEYS.apify}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          location: 'Guadalajara',
-          dateRange: 'current_future',
-          maxItems: 100,
-          enrichDetail: true
-        })
+        body: JSON.stringify({ location: 'Guadalajara', dateRange: 'current_future', maxItems: 100, enrichDetail: true }),
+        signal: controller.signal
       });
+      clearTimeout(timeout);
       const data = await response.json();
       const events = (Array.isArray(data) ? data : []).map(e => {
         const lat = parseFloat(e.primary_venue?.latitude || e.latitude);
         const lng = parseFloat(e.primary_venue?.longitude || e.longitude);
         if (!lat || !lng) return null;
         return {
-          id: 'eb_' + (e.id || e.eid || Math.random()),
-          type: 'event',
-          source: 'eventbrite',
-          title: e.name || 'Evento',
-          date: e.start_date || '',
-          time: e.start_time || '',
-          venue: e.primary_venue?.name || e.venue?.name || '',
-          city: e.primary_venue?.city || 'Guadalajara',
-          address: e.primary_venue?.address || '',
-          lat, lng,
-          url: e.url,
+          id: 'eb_' + (e.id || e.eid || Math.random()), type: 'event', source: 'eventbrite',
+          title: e.name || 'Evento', date: e.start_date || '', time: e.start_time || '',
+          venue: e.primary_venue?.name || '', city: e.primary_venue?.city || 'Guadalajara',
+          address: e.primary_venue?.address || '', lat, lng, url: e.url,
           description: e.summary || e.description || ''
         };
       }).filter(Boolean);
@@ -615,26 +580,16 @@ function deduplicateEvents(events) {
 }
 
 /* ============================================
-   RENDERIZADO DE MARCADORES UNIFICADO
+   MARCADORES
    ============================================ */
 function clearMarkers() {
   markers.forEach(m => { if (m._label) m._label.setMap(null); m.setMap(null); });
   markers = [];
 }
-
-function createMarkerIconFromPlace(place) {
-  const cat = getPlaceCategory(place);
-  return createMarkerSVG(cat.color);
-}
-function createMarkerIconFromEvent(event) {
-  const ageCat = categorizeEventByAge(event);
-  return createMarkerSVG(ageCat.color);
-}
 function createMarkerSVG(color) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="52" viewBox="0 0 44 52"><defs><filter id="s" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1A1614" flood-opacity="0.25"/></filter></defs><path d="M22 2 C11 2 2 11 2 22 C2 36 22 50 22 50 C22 50 42 36 42 22 C42 11 33 2 22 2 Z" fill="${color}" stroke="white" stroke-width="3" filter="url(#s)"/><circle cx="22" cy="22" r="11" fill="white" fill-opacity="0.95"/></svg>`;
   return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg), scaledSize: new google.maps.Size(44, 52), anchor: new google.maps.Point(22, 50) };
 }
-
 function getPlaceCategory(place) {
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) if (types.includes(key)) return CATEGORIES[key];
@@ -645,38 +600,27 @@ function getCategoryKey(place) {
   for (const key of Object.keys(CATEGORIES)) if (types.includes(key)) return key;
   return 'tourist_attraction';
 }
-
 function renderMarkersForAll() {
-  // Eventos primero (mayor prioridad)
   allEvents.forEach(event => {
+    const ageCat = categorizeEventByAge(event);
     addMarkerToMap({
       lat: event.lat, lng: event.lng,
-      icon: createMarkerIconFromEvent(event),
-      iconColor: categorizeEventByAge(event).color,
-      iconChar: categorizeEventByAge(event).icon,
-      title: event.title,
-      payload: event,
-      payloadType: 'event',
-      id: event.id
+      icon: createMarkerSVG(ageCat.color),
+      iconColor: ageCat.color, iconChar: ageCat.icon,
+      title: event.title, payload: event, payloadType: 'event', id: event.id
     });
   });
-  // Lugares después
   allPlaces.forEach(place => {
     if (!place.geometry?.location) return;
     const cat = getPlaceCategory(place);
     addMarkerToMap({
       lat: place.geometry.location.lat(), lng: place.geometry.location.lng(),
-      icon: createMarkerIconFromPlace(place),
-      iconColor: cat.color,
-      iconChar: cat.icon,
-      title: place.name,
-      payload: place,
-      payloadType: 'place',
-      id: place.place_id
+      icon: createMarkerSVG(cat.color),
+      iconColor: cat.color, iconChar: cat.icon,
+      title: place.name, payload: place, payloadType: 'place', id: place.place_id
     });
   });
 }
-
 function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, payloadType, id }) {
   const marker = new google.maps.Marker({
     position: { lat, lng }, map, icon, title,
@@ -713,90 +657,45 @@ function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, p
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
   const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
-  infoWindow.setContent(`<div style="padding:16px;max-width:260px;font-family:'Inter',sans-serif;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <div style="width:40px;height:40px;border-radius:12px;background:${cat.bg};color:${cat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${cat.icon}</span></div>
-      <div style="flex:1;min-width:0;"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#1A1614;">${place.name || t('noName')}</div></div>
-    </div>
-    <div style="font-size:12px;color:#57534E;line-height:1.5;margin-bottom:12px;font-weight:500;">
-      <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">location_on</span>${place.vicinity || t('addressNA')}</div>
-      ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F4A261;">star</span>${ratingText}</div>` : ''}
-    </div>
-    <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:#E76F51;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>
-  </div>`);
+  infoWindow.setContent(`<div style="padding:16px;max-width:260px;font-family:'Inter',sans-serif;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:40px;height:40px;border-radius:12px;background:${cat.bg};color:${cat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${cat.icon}</span></div><div style="flex:1;min-width:0;"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#1A1614;">${place.name || t('noName')}</div></div></div><div style="font-size:12px;color:#57534E;line-height:1.5;margin-bottom:12px;font-weight:500;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">location_on</span>${place.vicinity || t('addressNA')}</div>${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F4A261;">star</span>${ratingText}</div>` : ''}</div><button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:#E76F51;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button></div>`);
   infoWindow.open(map, marker);
 }
-
 function showInfoWindowEvent(marker, event) {
   const ageCat = categorizeEventByAge(event);
   const urlBtn = event.url
     ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
     : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>`;
-  infoWindow.setContent(`<div style="padding:16px;max-width:280px;font-family:'Inter',sans-serif;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
-      <div style="flex:1;min-width:0;">
-        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#1A1614;">${event.title}</div>
-        <div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div>
-      </div>
-    </div>
-    <div style="font-size:12px;color:#57534E;line-height:1.5;margin-bottom:12px;font-weight:500;">
-      <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">location_on</span>${event.venue}${event.city ? ', ' + event.city : ''}</div>
-      <div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">calendar_today</span>${event.date}${event.time ? ' · ' + event.time : ''}</div>
-    </div>
-    ${urlBtn}
-  </div>`);
+  infoWindow.setContent(`<div style="padding:16px;max-width:280px;font-family:'Inter',sans-serif;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div><div style="flex:1;min-width:0;"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#1A1614;">${event.title}</div><div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div></div></div><div style="font-size:12px;color:#57534E;line-height:1.5;margin-bottom:12px;font-weight:500;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">location_on</span>${event.venue}${event.city ? ', ' + event.city : ''}</div><div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">calendar_today</span>${event.date}${event.time ? ' · ' + event.time : ''}</div></div>${urlBtn}</div>`);
   infoWindow.open(map, marker);
 }
 
 /* ============================================
-   TARJETAS UNIFICADAS
+   TARJETAS
    ============================================ */
 function renderGoogleCard(place) {
   const cat = getPlaceCategory(place);
   const rating = place.rating ? `<span class="event-rating"><span class="ms fill">star</span>${place.rating}</span>` : '';
-  return `<div class="event-card" onclick="focusPlace('${place.place_id}', 'place')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
-    <div class="event-icon-box"><span class="ms">${cat.icon}</span></div>
-    <div class="event-body">
-      <div class="event-title">${place.name || t('noName')}</div>
-      <div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div>
-      <div class="event-footer">
-        <span class="event-tag"><span class="ms">${cat.icon}</span>${tCat(getCategoryKey(place))}</span>
-        ${rating}
-      </div>
-    </div>
-  </div>`;
+  return `<div class="event-card" onclick="focusPlace('${place.place_id}', 'place')" style="--card-color:${cat.color};--card-bg:${cat.bg};"><div class="event-icon-box"><span class="ms">${cat.icon}</span></div><div class="event-body"><div class="event-title">${place.name || t('noName')}</div><div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div><div class="event-footer"><span class="event-tag"><span class="ms">${cat.icon}</span>${tCat(getCategoryKey(place))}</span>${rating}</div></div></div>`;
 }
-
 function renderEventCard(event) {
   const ageCat = categorizeEventByAge(event);
   const ageKey = getAgeCategoryKey(event);
-  return `<div class="event-card" onclick="focusPlace('${event.id}', 'event')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};--age-color:${ageCat.color};--age-bg:${ageCat.bg};">
-    <div class="event-icon-box" style="background:${ageCat.bg};color:${ageCat.color};"><span class="ms">${ageCat.icon}</span></div>
-    <div class="event-body">
-      <div class="event-title">${event.title}</div>
-      <div class="event-venue"><span class="ms">location_on</span>${event.venue}${event.city ? ', ' + event.city : ''}</div>
-      <div class="event-footer">
-        <span class="event-age-tag"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>
-        <span class="event-rating"><span class="ms">calendar_today</span>${event.date}${event.time ? ' · ' + event.time : ''}</span>
-      </div>
-    </div>
-  </div>`;
+  return `<div class="event-card" onclick="focusPlace('${event.id}', 'event')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};--age-color:${ageCat.color};--age-bg:${ageCat.bg};"><div class="event-icon-box" style="background:${ageCat.bg};color:${ageCat.color};"><span class="ms">${ageCat.icon}</span></div><div class="event-body"><div class="event-title">${event.title}</div><div class="event-venue"><span class="ms">location_on</span>${event.venue}${event.city ? ', ' + event.city : ''}</div><div class="event-footer"><span class="event-age-tag"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span><span class="event-rating"><span class="ms">calendar_today</span>${event.date}${event.time ? ' · ' + event.time : ''}</span></div></div></div>`;
 }
-
 function renderUnifiedList() {
   const container = document.getElementById('sidebarEvents');
   if (unifiedResults.length === 0) {
-    container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3><p>${t('noResultsHint')}</p></div>`;
+    const msg = !placesApiAvailable
+      ? 'Google Places no disponible. Verifica tu API Key y facturación.'
+      : t('noResultsHint');
+    container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3><p>${msg}</p></div>`;
     return;
   }
   const label = `${unifiedResults.length} resultados · ${tCat(currentCategory)}`;
-  const cards = unifiedResults.map(item =>
+  container.innerHTML = `<div class="section-label">${label}</div>` + unifiedResults.map(item =>
     item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)
   ).join('');
-  container.innerHTML = `<div class="section-label">${label}</div>` + cards;
 }
-
 function renderSheetUnified() {
   const container = document.getElementById('sheetEvents');
   document.getElementById('sheetCount').textContent = unifiedResults.length;
@@ -810,15 +709,11 @@ function renderSheetUnified() {
 }
 
 /* ============================================
-   FILTRO POR BÚSQUEDA
+   BÚSQUEDA POR TEXTO
    ============================================ */
 function onSearchInput() {
   currentSearch = document.getElementById('searchInput').value.trim();
-  if (!currentSearch) {
-    renderUnifiedList();
-    renderSheetUnified();
-    return;
-  }
+  if (!currentSearch) { renderUnifiedList(); renderSheetUnified(); return; }
   const q = currentSearch.toLowerCase();
   const filtered = unifiedResults.filter(item => {
     const title = (item.title || item.name || '').toLowerCase();
@@ -830,8 +725,7 @@ function onSearchInput() {
     container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3></div>`;
     return;
   }
-  const label = `${filtered.length} resultados para "${currentSearch}"`;
-  container.innerHTML = `<div class="section-label">${label}</div>` + filtered.map(item =>
+  container.innerHTML = `<div class="section-label">${filtered.length} resultados para "${currentSearch}"</div>` + filtered.map(item =>
     item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)
   ).join('');
 }
@@ -858,9 +752,7 @@ function updateSidebarState() {
   if (isDesktop()) {
     if (document.body.classList.contains('sidebar-closed')) { sidebar.classList.add('closed'); menuIcon.textContent = 'menu'; }
     else { sidebar.classList.remove('closed'); menuIcon.textContent = 'menu_open'; }
-  } else {
-    menuIcon.textContent = sidebar.classList.contains('open') ? 'menu_open' : 'menu';
-  }
+  } else { menuIcon.textContent = sidebar.classList.contains('open') ? 'menu_open' : 'menu'; }
 }
 function toggleSidebar() {
   if (isDesktop()) { document.body.classList.toggle('sidebar-closed'); updateSidebarState(); updateOverlay(); }
@@ -922,6 +814,7 @@ function setCategory(cat) {
     c.classList.toggle('active', isActive);
     c.setAttribute('aria-selected', isActive);
   });
+  lastSearchTime = 0;
   searchEverything();
 }
 
@@ -932,7 +825,8 @@ function loadPreferences() {
   const savedLang = localStorage.getItem('gdl-lang');
   currentLang = (savedLang && TRANSLATIONS[savedLang]) ? savedLang : ((navigator.language || 'es').startsWith('en') ? 'en' : 'es');
   currentTheme = localStorage.getItem('gdl-theme') || 'light';
-  applyTheme(currentTheme); updateMenuState();
+  applyTheme(currentTheme);
+  updateMenuState();
 }
 function savePreferences() { localStorage.setItem('gdl-lang', currentLang); localStorage.setItem('gdl-theme', currentTheme); }
 
@@ -1009,7 +903,8 @@ function searchNearMe() {
     const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
     map.panTo(loc); map.setZoom(14); updateUserMarker(loc);
     showToast('check_circle', t('locationFound'));
-    setTimeout(searchEverything, 300);
+    lastSearchTime = 0;
+    setTimeout(searchEverything, 500);
   }, () => showToast('error', t('locationError')), { enableHighAccuracy: true, timeout: 10000 });
 }
 function startTracking() {
@@ -1078,7 +973,6 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').then(() => console.log('✅ SW')).catch(err => console.log('⚠️ SW:', err));
   });
 }
-
 document.addEventListener('DOMContentLoaded', updateSidebarState);
 window.addEventListener('resize', () => { updateSidebarState(); updateOverlay(); });
 </script>
