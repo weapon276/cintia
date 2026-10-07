@@ -19,7 +19,7 @@
 
 <style>
   /* ============================================
-     RESET & TOKENS (Mismo sistema de diseño)
+     RESET & TOKENS
      ============================================ */
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -53,6 +53,34 @@
     --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* ============================================
+     MODO OSCURO — Override de tokens
+     ============================================ */
+  html[data-theme="dark"] {
+    --primary: #F08A6C;
+    --primary-dark: #E76F51;
+    --primary-container: #3A241D;
+    --secondary: #F4A261;
+    --secondary-container: #3D2E1A;
+    --tertiary: #4DB6AC;
+    --tertiary-container: #1A2E2B;
+    --accent: #EF5350;
+    --accent-container: #3A1E1F;
+    --bg: #121212;
+    --surface: #1E1E1E;
+    --surface-2: #252525;
+    --surface-3: #2E2E2E;
+    --outline: #333333;
+    --outline-strong: #4A4A4A;
+    --text: #F5F5F5;
+    --text-2: #B0B0B0;
+    --text-3: #808080;
+    --shadow-1: 0 1px 2px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-2: 0 2px 6px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.35);
+    --shadow-3: 0 8px 24px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
+    --shadow-4: 0 20px 48px rgba(0,0,0,0.6);
+  }
+
   html, body { height: 100%; overflow: hidden; }
 
   body {
@@ -64,9 +92,12 @@
     height: 100vh; height: 100dvh;
     position: fixed; width: 100%;
     overscroll-behavior: none;
+    transition: background .3s var(--ease-standard), color .3s var(--ease-standard);
   }
 
-  /* Iconos Material */
+  /* ============================================
+     ICONOS MATERIAL
+     ============================================ */
   .ms {
     font-family: 'Material Symbols Rounded';
     font-weight: normal; font-style: normal;
@@ -81,10 +112,19 @@
   .ms.sm { font-size: 20px; }
   .ms.lg { font-size: 28px; }
 
-  /* Mapa */
+  /* ============================================
+     MAPA
+     ============================================ */
   #map { position: absolute; inset: 0; z-index: 1; background: var(--surface-2); }
 
-  /* Header */
+  /* Filtro de inversión suave para el mapa en modo oscuro */
+  html[data-theme="dark"] #map {
+    filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+  }
+
+  /* ============================================
+     HEADER FLOTANTE
+     ============================================ */
   .header {
     position: absolute; top: calc(16px + var(--safe-top));
     left: 16px; right: 16px; z-index: 1000;
@@ -97,7 +137,7 @@
     border-radius: var(--r-full); padding: 0 20px;
     box-shadow: var(--shadow-3); display: flex; align-items: center; gap: 14px;
     pointer-events: auto; cursor: pointer;
-    transition: transform .2s var(--ease-standard), box-shadow .2s;
+    transition: transform .2s var(--ease-standard), background .3s, border-color .3s;
     border: 1px solid var(--outline);
   }
   .search-pill:active { transform: scale(0.985); }
@@ -110,11 +150,21 @@
     display: grid; place-items: center;
     box-shadow: var(--shadow-3); cursor: pointer;
     pointer-events: auto; color: var(--text);
-    transition: transform .2s var(--ease-standard), background .2s;
+    transition: transform .2s var(--ease-standard), background .3s, color .3s, border-color .3s;
   }
   .icon-btn:active { transform: scale(0.92); }
+  .icon-btn:hover { background: var(--surface-2); }
 
-  /* Chips de categoría */
+  /* Botones de acción del header */
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    pointer-events: auto;
+  }
+
+  /* ============================================
+     CHIPS
+     ============================================ */
   .chips {
     position: absolute; top: calc(88px + var(--safe-top));
     left: 0; right: 0; z-index: 999;
@@ -142,7 +192,9 @@
   }
   .chip.active .ms { color: #FFFFFF; font-variation-settings: 'FILL' 1; }
 
-  /* FABs */
+  /* ============================================
+     FABs
+     ============================================ */
   .fab-stack {
     position: absolute; right: 16px;
     bottom: calc(180px + var(--safe-bottom));
@@ -153,7 +205,7 @@
     background: var(--surface); border: 1px solid var(--outline);
     display: grid; place-items: center;
     box-shadow: var(--shadow-3); cursor: pointer;
-    color: var(--text); transition: transform .2s var(--ease-standard);
+    color: var(--text); transition: transform .2s var(--ease-standard), background .3s, color .3s;
   }
   .fab:active { transform: scale(0.9); }
   .fab.primary {
@@ -161,12 +213,14 @@
     color: #FFFFFF; box-shadow: 0 6px 20px rgba(231, 111, 81, 0.4);
   }
 
-  /* Sidebar */
+  /* ============================================
+     SIDEBAR
+     ============================================ */
   .sidebar {
     position: absolute; top: 0; left: 0; width: 360px; height: 100%;
     background: var(--surface); box-shadow: var(--shadow-4);
     z-index: 2000; transform: translateX(-100%);
-    transition: transform .4s var(--ease-emphasized);
+    transition: transform .4s var(--ease-emphasized), background .3s;
     display: flex; flex-direction: column;
     padding-top: var(--safe-top); border-right: 1px solid var(--outline);
   }
@@ -183,6 +237,7 @@
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     display: grid; place-items: center; color: #FFFFFF;
     box-shadow: 0 4px 12px rgba(231, 111, 81, 0.3);
+    flex-shrink: 0;
   }
   .brand-text h1 {
     font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px;
@@ -228,7 +283,9 @@
   }
   .gps-button:active { transform: scale(0.97); }
 
-  /* Lista de lugares */
+  /* ============================================
+     LISTA DE LUGARES
+     ============================================ */
   .events-scroll {
     flex: 1; overflow-y: auto; padding: 16px 16px 24px;
     display: flex; flex-direction: column; gap: 12px;
@@ -311,7 +368,9 @@
   }
   .empty-state p { font-size: 13px; color: var(--text-3); max-width: 240px; line-height: 1.5; }
 
-  /* Bottom Sheet */
+  /* ============================================
+     BOTTOM SHEET
+     ============================================ */
   .sheet {
     position: absolute; bottom: 0; left: 0; right: 0;
     background: var(--surface); border-radius: var(--r-xl) var(--r-xl) 0 0;
@@ -319,7 +378,7 @@
     z-index: 1000; max-height: 65vh;
     display: flex; flex-direction: column;
     transform: translateY(calc(100% - 140px - var(--safe-bottom)));
-    transition: transform .4s var(--ease-emphasized);
+    transition: transform .4s var(--ease-emphasized), background .3s;
     padding-bottom: var(--safe-bottom); border-top: 1px solid var(--outline);
   }
   .sheet.open { transform: translateY(0); }
@@ -346,7 +405,9 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Overlay */
+  /* ============================================
+     OVERLAY
+     ============================================ */
   .overlay {
     position: absolute; inset: 0; background: rgba(26, 22, 20, 0.4);
     z-index: 1999; opacity: 0; pointer-events: none;
@@ -355,11 +416,13 @@
   }
   .overlay.show { opacity: 1; pointer-events: auto; }
 
-  /* Toast */
+  /* ============================================
+     TOAST
+     ============================================ */
   .toast {
     position: absolute; bottom: calc(180px + var(--safe-bottom));
     left: 50%; transform: translateX(-50%) translateY(24px);
-    background: var(--text); color: #FFFFFF;
+    background: var(--text); color: var(--surface);
     padding: 14px 22px; border-radius: var(--r-full);
     font-size: 14px; font-weight: 600; letter-spacing: -0.01em;
     z-index: 3000; opacity: 0; pointer-events: none;
@@ -369,7 +432,84 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* Animaciones */
+  /* ============================================
+     MENÚ DE OPCIONES (POPOVER)
+     ============================================ */
+  .options-menu {
+    position: absolute;
+    top: calc(80px + var(--safe-top));
+    right: 16px;
+    z-index: 2500;
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4);
+    min-width: 240px;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.98);
+    transform-origin: top right;
+    transition: all .2s var(--ease-emphasized);
+  }
+  .options-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .menu-section {
+    padding: 8px 4px;
+  }
+  .menu-section + .menu-section {
+    border-top: 1px solid var(--outline);
+  }
+
+  .menu-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 12px 8px;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    transition: background .15s, color .15s;
+    text-align: left;
+  }
+  .menu-item:hover { background: var(--surface-2); }
+  .menu-item:active { transform: scale(0.98); }
+  .menu-item .ms { color: var(--text-2); flex-shrink: 0; }
+  .menu-item.active {
+    background: var(--primary-container);
+    color: var(--primary-dark);
+  }
+  .menu-item.active .ms { color: var(--primary); }
+  .menu-item .check {
+    margin-left: auto;
+    color: var(--primary);
+    opacity: 0;
+  }
+  .menu-item.active .check { opacity: 1; }
+
+  /* ============================================
+     ANIMACIONES
+     ============================================ */
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .event-card:nth-child(1) { animation-delay: 0.02s; }
   .event-card:nth-child(2) { animation-delay: 0.04s; }
@@ -377,7 +517,9 @@
   .event-card:nth-child(4) { animation-delay: 0.08s; }
   .event-card:nth-child(5) { animation-delay: 0.10s; }
 
-  /* Responsive */
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
   @media (min-width: 900px) {
     .sidebar { transform: translateX(0); }
     .sidebar.closed { transform: translateX(-100%); }
@@ -386,33 +528,42 @@
     .header { left: 380px; }
     .chips { padding-left: 380px; }
     .fab-stack { bottom: calc(32px + var(--safe-bottom)); }
+    .options-menu { top: calc(80px + var(--safe-top)); }
   }
   @media (max-width: 899px) {
     .sidebar { width: 88%; max-width: 360px; }
     .fab-stack { bottom: calc(200px + var(--safe-bottom)); }
+    .header-actions .icon-btn:nth-child(2) { display: none; }
   }
   @media (max-width: 380px) {
     .header { left: 12px; right: 12px; gap: 8px; }
     .search-pill { height: 52px; padding: 0 16px; }
     .icon-btn { width: 52px; height: 52px; }
+    .header-actions .icon-btn { width: 52px; height: 52px; }
   }
 </style>
 </head>
 <body>
 
-<!-- Overlay -->
-<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+<!-- ============================================
+     OVERLAY
+     ============================================ -->
+<div class="overlay" id="overlay" onclick="closeSidebar(); closeOptionsMenu();"></div>
 
-<!-- Panel Lateral -->
+<!-- ============================================
+     SIDEBAR
+     ============================================ -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-top">
     <div class="brand">
       <div class="brand-logo"><span class="ms fill">location_city</span></div>
       <div class="brand-text">
-        <h1>GDL Cultural</h1>
-        <p>Museos y atracciones de Guadalajara</p>
+        <h1 id="brandTitle">GDL Cultural</h1>
+        <p id="brandSubtitle">Museos y atracciones de Guadalajara</p>
       </div>
-      <button class="close-btn" onclick="closeSidebar()" aria-label="Cerrar"><span class="ms">close</span></button>
+      <button class="close-btn" onclick="closeSidebar()" aria-label="Cerrar">
+        <span class="ms">close</span>
+      </button>
     </div>
     <div class="search-field">
       <span class="ms">search</span>
@@ -420,116 +571,240 @@
     </div>
     <button class="gps-button" onclick="searchNearMe()">
       <span class="ms fill">my_location</span>
-      Buscar cerca de mí
+      <span id="gpsLabel">Buscar cerca de mí</span>
     </button>
   </div>
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
-<!-- Mapa -->
+<!-- ============================================
+     MAPA
+     ============================================ -->
 <div id="map"></div>
 
-<!-- Header flotante -->
+<!-- ============================================
+     HEADER FLOTANTE
+     ============================================ -->
 <header class="header" id="header">
-  <button class="icon-btn" onclick="openSidebar()" aria-label="Menú" id="menuBtn"><span class="ms">menu</span></button>
+  <button class="icon-btn" onclick="openSidebar()" aria-label="Menú" id="menuBtn">
+    <span class="ms">menu</span>
+  </button>
   <div class="search-pill" onclick="openSidebar()">
     <span class="ms">search</span>
-    <span>Buscar museos, atracciones...</span>
+    <span id="searchPlaceholder">Buscar museos, atracciones...</span>
   </div>
-  <button class="icon-btn" onclick="searchNearMe()" aria-label="Mi ubicación"><span class="ms">my_location</span></button>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar tema" id="themeBtn">
+      <span class="ms" id="themeIcon">dark_mode</span>
+    </button>
+    <button class="icon-btn" onclick="toggleOptionsMenu(event)" aria-label="Opciones" id="optionsBtn">
+      <span class="ms">tune</span>
+    </button>
+  </div>
 </header>
 
-<!-- Chips -->
-<div class="chips" id="chips"></div>
-
-<!-- FABs -->
-<div class="fab-stack">
-  <button class="fab primary" onclick="showToast('add_location_alt', 'Sugerir un lugar')" aria-label="Sugerir lugar"><span class="ms fill">add</span></button>
-  <button class="fab" onclick="toggleMapStyle()" aria-label="Estilo de mapa"><span class="ms">layers</span></button>
+<!-- ============================================
+     MENÚ DE OPCIONES
+     ============================================ -->
+<div class="options-menu" id="optionsMenu">
+  <div class="menu-section">
+    <div class="menu-label" data-i18n="menuLanguage">Idioma</div>
+    <button class="menu-item" onclick="setLanguage('es')" data-lang="es">
+      <span class="ms">language</span>
+      <span>Español</span>
+      <span class="ms check">check</span>
+    </button>
+    <button class="menu-item" onclick="setLanguage('en')" data-lang="en">
+      <span class="ms">language</span>
+      <span>English</span>
+      <span class="ms check">check</span>
+    </button>
+  </div>
+  <div class="menu-section">
+    <div class="menu-label" data-i18n="menuTheme">Tema</div>
+    <button class="menu-item" onclick="setTheme('light')" data-theme-opt="light">
+      <span class="ms">light_mode</span>
+      <span data-i18n="themeLight">Claro</span>
+      <span class="ms check">check</span>
+    </button>
+    <button class="menu-item" onclick="setTheme('dark')" data-theme-opt="dark">
+      <span class="ms">dark_mode</span>
+      <span data-i18n="themeDark">Oscuro</span>
+      <span class="ms check">check</span>
+    </button>
+    <button class="menu-item" onclick="setTheme('auto')" data-theme-opt="auto">
+      <span class="ms">brightness_auto</span>
+      <span data-i18n="themeAuto">Automático</span>
+      <span class="ms check">check</span>
+    </button>
+  </div>
 </div>
 
-<!-- Bottom Sheet -->
+<!-- ============================================
+     CHIPS DE CATEGORÍA
+     ============================================ -->
+<div class="chips" id="chips"></div>
+
+<!-- ============================================
+     FABs
+     ============================================ -->
+<div class="fab-stack">
+  <button class="fab primary" onclick="showToast('add_location_alt', t('suggestPlace'))" aria-label="Sugerir lugar">
+    <span class="ms fill">add</span>
+  </button>
+  <button class="fab" onclick="toggleMapStyle()" aria-label="Estilo de mapa">
+    <span class="ms">layers</span>
+  </button>
+</div>
+
+<!-- ============================================
+     BOTTOM SHEET
+     ============================================ -->
 <div class="sheet" id="sheet">
   <div class="sheet-grip" onclick="toggleSheet()"><div class="grip-bar"></div></div>
   <div class="sheet-head">
-    <h2>Lugares encontrados</h2>
+    <h2 id="sheetTitle">Lugares encontrados</h2>
     <div class="sheet-count" id="sheetCount">0</div>
   </div>
   <div class="sheet-scroll" id="sheetEvents"></div>
 </div>
 
-<!-- Toast -->
+<!-- ============================================
+     TOAST
+     ============================================ -->
 <div class="toast" id="toast"></div>
 
 <script>
 /* ============================================
-   CONFIGURACIÓN DE CATEGORÍAS (basadas en Google Places types)
+   TRADUCCIONES (i18n)
    ============================================ */
-const CATEGORIES = {
-  museum:              { label: 'Museos',             icon: 'museum',              color: '#E76F51', bg: '#FFEDE5' },
-  tourist_attraction:  { label: 'Atracciones',         icon: 'attractions',         color: '#2A9D8F', bg: '#E0F5F1' },
-  art_gallery:         { label: 'Galerías de arte',    icon: 'palette',             color: '#F4A261', bg: '#FFF4E0' },
-  church:              { label: 'Iglesias',            icon: 'church',              color: '#5B4B8A', bg: '#EDE7F6' },
-  park:                { label: 'Parques',             icon: 'park',                color: '#2A9D8F', bg: '#E0F5F1' },
-  zoo:                 { label: 'Zoológicos',          icon: 'pets',                color: '#E63946', bg: '#FFE5E7' },
-  aquarium:            { label: 'Acuarios',            icon: 'water',               color: '#5B4B8A', bg: '#EDE7F6' },
-  stadium:             { label: 'Estadios',            icon: 'stadium',             color: '#C75540', bg: '#FFEDE5' },
-  library:             { label: 'Bibliotecas',         icon: 'local_library',       color: '#F4A261', bg: '#FFF4E0' },
-  movie_theater:       { label: 'Cines',               icon: 'theaters',            color: '#E63946', bg: '#FFE5E7' },
-  shopping_mall:       { label: 'Centros comerciales', icon: 'shopping_bag',        color: '#5B4B8A', bg: '#EDE7F6' }
-};
-
-/* ============================================
-   ESTADO
-   ============================================ */
-let map, markers = [], infoWindow;
-let currentCategory = 'museum';
-let currentSearch = '';
-let placesService;
-let geocoder;
-const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
-const DEFAULT_RADIUS = 20000; // 20 km
-
-/* ============================================
-   INICIALIZACIÓN
-   ============================================ */
-window.initMap = function() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: GDL_CENTER,
-    zoom: 12,
-    styles: mapStyles.light,
-    mapTypeControl: false,
-    streetViewControl: false,
-    fullscreenControl: false,
-    zoomControl: false,
-    clickableIcons: false,
-  });
-
-  infoWindow = new google.maps.InfoWindow();
-  placesService = new google.maps.places.PlacesService(map);
-  geocoder = new google.maps.Geocoder();
-
-  renderChips();
-  searchPlaces();
-
-  // Si el navegador soporta geolocalización, intentar centrar
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const userLoc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        // Verificar si está en la zona de Guadalajara
-        if (isInGDLArea(userLoc)) {
-          map.setCenter(userLoc);
-        }
-      },
-      () => { /* Silencioso */ }
-    );
+const TRANSLATIONS = {
+  es: {
+    // Header
+    searchPlaceholder: 'Buscar museos, atracciones...',
+    // Sidebar
+    brandTitle: 'GDL Cultural',
+    brandSubtitle: 'Museos y atracciones de Guadalajara',
+    searchInputPlaceholder: 'Buscar museo o atracción...',
+    gpsButton: 'Buscar cerca de mí',
+    sheetTitle: 'Lugares encontrados',
+    // Menu
+    menuLanguage: 'Idioma',
+    menuTheme: 'Tema',
+    themeLight: 'Claro',
+    themeDark: 'Oscuro',
+    themeAuto: 'Automático',
+    // Toasts
+    suggestPlace: 'Sugerir un lugar',
+    locationSearching: 'Buscando tu ubicación...',
+    locationFound: 'Ubicación encontrada',
+    locationError: 'No se pudo obtener tu ubicación',
+    geoNotAvailable: 'Geolocalización no disponible',
+    mapStandard: 'Mapa estándar',
+    mapMinimal: 'Mapa minimalista',
+    infoSoon: 'Información próximamente',
+    // Empty state
+    noResults: 'Sin resultados',
+    noResultsHint: 'Intenta con otra categoría o mueve el mapa a otra zona de Guadalajara',
+    // Lista
+    placesCount: (n, cat) => `${n} lugares de ${cat}`,
+    viewMore: 'Ver más información',
+    addressNA: 'Dirección no disponible',
+    noName: 'Lugar sin nombre',
+    // Categorías
+    categories: {
+      museum:             'Museos',
+      tourist_attraction: 'Atracciones',
+      art_gallery:        'Galerías de arte',
+      church:             'Iglesias',
+      park:               'Parques',
+      zoo:                'Zoológicos',
+      aquarium:           'Acuarios',
+      stadium:            'Estadios',
+      library:            'Bibliotecas',
+      movie_theater:      'Cines',
+      shopping_mall:      'Centros comerciales'
+    }
+  },
+  en: {
+    // Header
+    searchPlaceholder: 'Search museums, attractions...',
+    // Sidebar
+    brandTitle: 'GDL Cultural',
+    brandSubtitle: 'Museums and attractions in Guadalajara',
+    searchInputPlaceholder: 'Search museum or attraction...',
+    gpsButton: 'Search near me',
+    sheetTitle: 'Places found',
+    // Menu
+    menuLanguage: 'Language',
+    menuTheme: 'Theme',
+    themeLight: 'Light',
+    themeDark: 'Dark',
+    themeAuto: 'Automatic',
+    // Toasts
+    suggestPlace: 'Suggest a place',
+    locationSearching: 'Searching your location...',
+    locationFound: 'Location found',
+    locationError: 'Could not get your location',
+    geoNotAvailable: 'Geolocation not available',
+    mapStandard: 'Standard map',
+    mapMinimal: 'Minimal map',
+    infoSoon: 'Information coming soon',
+    // Empty state
+    noResults: 'No results',
+    noResultsHint: 'Try another category or move the map to another area of Guadalajara',
+    // Lista
+    placesCount: (n, cat) => `${n} ${cat}`,
+    viewMore: 'View more information',
+    addressNA: 'Address not available',
+    noName: 'Unnamed place',
+    // Categorías
+    categories: {
+      museum:             'Museums',
+      tourist_attraction: 'Attractions',
+      art_gallery:        'Art galleries',
+      church:             'Churches',
+      park:               'Parks',
+      zoo:                'Zoos',
+      aquarium:           'Aquariums',
+      stadium:            'Stadiums',
+      library:            'Libraries',
+      movie_theater:      'Cinemas',
+      shopping_mall:      'Shopping malls'
+    }
   }
 };
 
 /* ============================================
-   ESTILOS DE MAPA
+   CONFIGURACIÓN DE CATEGORÍAS
    ============================================ */
+const CATEGORIES = {
+  museum:             { icon: 'museum',        color: '#E76F51', bg: '#FFEDE5' },
+  tourist_attraction: { icon: 'attractions',   color: '#2A9D8F', bg: '#E0F5F1' },
+  art_gallery:        { icon: 'palette',       color: '#F4A261', bg: '#FFF4E0' },
+  church:             { icon: 'church',        color: '#5B4B8A', bg: '#EDE7F6' },
+  park:               { icon: 'park',          color: '#2A9D8F', bg: '#E0F5F1' },
+  zoo:                { icon: 'pets',          color: '#E63946', bg: '#FFE5E7' },
+  aquarium:           { icon: 'water',         color: '#5B4B8A', bg: '#EDE7F6' },
+  stadium:            { icon: 'stadium',       color: '#C75540', bg: '#FFEDE5' },
+  library:            { icon: 'local_library', color: '#F4A261', bg: '#FFF4E0' },
+  movie_theater:      { icon: 'theaters',      color: '#E63946', bg: '#FFE5E7' },
+  shopping_mall:      { icon: 'shopping_bag',  color: '#5B4B8A', bg: '#EDE7F6' }
+};
+
+/* ============================================
+   ESTADO GLOBAL
+   ============================================ */
+let map, markers = [], infoWindow;
+let placesService;
+let currentCategory = 'museum';
+let currentSearch = '';
+let currentLang = 'es';
+let currentTheme = 'light'; // 'light' | 'dark' | 'auto'
+let mapStyleCurrent = 'light';
+let sheetOpen = false;
+const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
+const DEFAULT_RADIUS = 20000;
 const mapStyles = {
   light: [
     { featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] },
@@ -551,6 +826,242 @@ const mapStyles = {
 };
 
 /* ============================================
+   HELPER DE TRADUCCIÓN
+   ============================================ */
+function t(key) {
+  return TRANSLATIONS[currentLang][key] || key;
+}
+function tCat(key) {
+  return TRANSLATIONS[currentLang].categories[key] || key;
+}
+
+/* ============================================
+   INICIALIZACIÓN
+   ============================================ */
+window.initMap = function() {
+  // Cargar preferencias guardadas
+  loadPreferences();
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: GDL_CENTER,
+    zoom: 12,
+    styles: currentTheme === 'dark' ? mapStyles.minimal : mapStyles.light,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false,
+    zoomControl: false,
+    clickableIcons: false,
+  });
+
+  infoWindow = new google.maps.InfoWindow();
+  placesService = new google.maps.places.PlacesService(map);
+
+  // Aplicar traducciones e inicializar
+  updateAllTranslations();
+  renderChips();
+  searchPlaces();
+
+  // Geolocalización silenciosa
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const userLoc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        if (isInGDLArea(userLoc)) map.setCenter(userLoc);
+      },
+      () => {}
+    );
+  }
+};
+
+/* ============================================
+   PREFERENCIAS (localStorage)
+   ============================================ */
+function loadPreferences() {
+  // Idioma
+  const savedLang = localStorage.getItem('gdl-lang');
+  if (savedLang && TRANSLATIONS[savedLang]) {
+    currentLang = savedLang;
+  } else {
+    // Auto-detectar del navegador
+    currentLang = (navigator.language || 'es').startsWith('en') ? 'en' : 'es';
+  }
+
+  // Tema
+  const savedTheme = localStorage.getItem('gdl-theme') || 'light';
+  currentTheme = savedTheme;
+  applyTheme(currentTheme);
+
+  // Actualizar estado de los botones del menú
+  updateMenuState();
+}
+
+function savePreferences() {
+  localStorage.setItem('gdl-lang', currentLang);
+  localStorage.setItem('gdl-theme', currentTheme);
+}
+
+/* ============================================
+   TEMA CLARO/OSCURO
+   ============================================ */
+function applyTheme(theme) {
+  let effective = theme;
+  if (theme === 'auto') {
+    effective = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  document.documentElement.setAttribute('data-theme', effective);
+
+  // Actualizar icono del botón de tema en el header
+  const icon = document.getElementById('themeIcon');
+  if (icon) {
+    icon.textContent = effective === 'dark' ? 'light_mode' : 'dark_mode';
+  }
+
+  // Actualizar meta theme-color
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.content = effective === 'dark' ? '#121212' : '#E76F51';
+  }
+
+  // Actualizar el mapa si está listo
+  if (map) {
+    map.setOptions({ styles: effective === 'dark' ? mapStyles.minimal : mapStyles[currentTheme === 'auto' ? 'minimal' : mapStyleCurrent] });
+  }
+}
+
+function setTheme(theme) {
+  currentTheme = theme;
+  applyTheme(theme);
+  savePreferences();
+  updateMenuState();
+  closeOptionsMenu();
+
+  const labels = { light: t('themeLight'), dark: t('themeDark'), auto: t('themeAuto') };
+  showToast('palette', labels[theme]);
+}
+
+function toggleTheme() {
+  const effective = document.documentElement.getAttribute('data-theme');
+  const next = effective === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+}
+
+// Escuchar cambios del sistema cuando está en 'auto'
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  if (currentTheme === 'auto') applyTheme('auto');
+});
+
+/* ============================================
+   IDIOMA
+   ============================================ */
+function setLanguage(lang) {
+  if (!TRANSLATIONS[lang]) return;
+  currentLang = lang;
+  savePreferences();
+  updateAllTranslations();
+  updateMenuState();
+  closeOptionsMenu();
+
+  // Actualizar el idioma del mapa de Google
+  if (map) {
+    // Google Maps no permite cambiar el idioma en runtime, pero recargamos los lugares
+    // El idioma se aplicará al próximo reload completo
+  }
+
+  showToast('translate', lang === 'es' ? 'Español' : 'English');
+
+  // Refrescar listas para que los nombres de categorías cambien
+  renderChips();
+  searchPlaces();
+}
+
+function updateAllTranslations() {
+  // Atributos del documento
+  document.documentElement.lang = currentLang === 'en' ? 'en' : 'es-MX';
+  document.title = currentLang === 'en'
+    ? 'GDL Cultural — Museums and Attractions'
+    : 'GDL Cultural — Museos y Atracciones';
+
+  // Elementos con data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+
+  // Elementos específicos
+  const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+  set('brandTitle', t('brandTitle'));
+  set('brandSubtitle', t('brandSubtitle'));
+  set('gpsLabel', t('gpsButton'));
+  set('sheetTitle', t('sheetTitle'));
+  set('searchPlaceholder', t('searchPlaceholder'));
+
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) searchInput.placeholder = t('searchInputPlaceholder');
+
+  // Actualizar nombres de categorías en las chips (ya están renderizadas)
+  document.querySelectorAll('.chip').forEach(chip => {
+    const cat = chip.dataset.cat;
+    const labelSpan = chip.querySelector('.chip-label');
+    if (labelSpan && cat) labelSpan.textContent = tCat(cat);
+  });
+
+  // Refrescar listas si hay datos
+  if (markers.length > 0 || document.getElementById('sidebarEvents').children.length > 0) {
+    // Re-render con los marcadores actuales
+    const places = markers.map(m => m._place).filter(Boolean);
+    if (places.length > 0) {
+      renderSidebarEvents(places);
+      renderSheetEvents(places);
+    }
+  }
+}
+
+/* ============================================
+   MENÚ DE OPCIONES
+   ============================================ */
+function toggleOptionsMenu(e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById('optionsMenu');
+  const isOpen = menu.classList.contains('open');
+  if (isOpen) {
+    closeOptionsMenu();
+  } else {
+    menu.classList.add('open');
+    document.getElementById('overlay').classList.add('show');
+  }
+}
+
+function closeOptionsMenu() {
+  document.getElementById('optionsMenu').classList.remove('open');
+  // Solo quitar el overlay si el sidebar también está cerrado
+  if (!document.getElementById('sidebar').classList.contains('open')) {
+    document.getElementById('overlay').classList.remove('show');
+  }
+}
+
+function updateMenuState() {
+  // Idioma
+  document.querySelectorAll('.menu-item[data-lang]').forEach(item => {
+    item.classList.toggle('active', item.dataset.lang === currentLang);
+  });
+  // Tema
+  document.querySelectorAll('.menu-item[data-theme-opt]').forEach(item => {
+    item.classList.toggle('active', item.dataset.themeOpt === currentTheme);
+  });
+}
+
+// Cerrar menú al hacer click fuera
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('optionsMenu');
+  const btn = document.getElementById('optionsBtn');
+  if (menu.classList.contains('open') &&
+      !menu.contains(e.target) &&
+      !btn.contains(e.target)) {
+    closeOptionsMenu();
+  }
+});
+
+/* ============================================
    CHIPS
    ============================================ */
 function renderChips() {
@@ -558,7 +1069,7 @@ function renderChips() {
   container.innerHTML = Object.entries(CATEGORIES).map(([key, cat]) => `
     <button class="chip ${key === currentCategory ? 'active' : ''}" data-cat="${key}" onclick="setCategory('${key}')">
       <span class="ms">${cat.icon}</span>
-      ${cat.label}
+      <span class="chip-label">${tCat(key)}</span>
     </button>
   `).join('');
 }
@@ -576,8 +1087,6 @@ function setCategory(cat) {
    ============================================ */
 function searchPlaces() {
   if (!placesService) return;
-
-  // Cerrar info window y limpiar marcadores
   if (infoWindow) infoWindow.close();
   clearMarkers();
 
@@ -589,7 +1098,6 @@ function searchPlaces() {
 
   placesService.nearbySearch(request, (results, status) => {
     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-      // Filtrar por búsqueda de texto si existe
       let filtered = results;
       if (currentSearch) {
         const q = currentSearch.toLowerCase();
@@ -598,12 +1106,10 @@ function searchPlaces() {
           (place.vicinity && place.vicinity.toLowerCase().includes(q))
         );
       }
-
       renderMarkers(filtered);
       renderSidebarEvents(filtered);
       renderSheetEvents(filtered);
     } else {
-      // Sin resultados o error
       renderMarkers([]);
       renderSidebarEvents([]);
       renderSheetEvents([]);
@@ -615,7 +1121,10 @@ function searchPlaces() {
 }
 
 function clearMarkers() {
-  markers.forEach(m => m.setMap(null));
+  markers.forEach(m => {
+    if (m._label) m._label.setMap(null);
+    m.setMap(null);
+  });
   markers = [];
 }
 
@@ -644,20 +1153,18 @@ function createMarkerIcon(place) {
 }
 
 function getPlaceCategory(place) {
-  // Determinar la mejor categoría según los types del lugar
   const types = place.types || [];
-  for (const [key, cat] of Object.entries(CATEGORIES)) {
-    if (types.includes(key)) return cat;
+  for (const key of Object.keys(CATEGORIES)) {
+    if (types.includes(key)) return CATEGORIES[key];
   }
-  // Fallback
   return CATEGORIES.tourist_attraction;
 }
 
 function renderMarkers(places) {
   places.forEach(place => {
     if (!place.geometry || !place.geometry.location) return;
-
     const cat = getPlaceCategory(place);
+
     const marker = new google.maps.Marker({
       position: place.geometry.location,
       map: map,
@@ -666,7 +1173,7 @@ function renderMarkers(places) {
       animation: google.maps.Animation.DROP,
     });
 
-    // Overlay del icono Material
+    // Overlay con el icono Material
     const label = new google.maps.OverlayView();
     label.onAdd = function() {
       const div = document.createElement('div');
@@ -693,6 +1200,7 @@ function renderMarkers(places) {
     };
     label.setMap(map);
     marker._label = label;
+    marker._place = place;
 
     marker.addListener('click', () => showInfoWindow(marker, place));
     marker.placeId = place.place_id;
@@ -702,7 +1210,7 @@ function renderMarkers(places) {
 
 function showInfoWindow(marker, place) {
   const cat = getPlaceCategory(place);
-  const rating = place.rating ? `⭐ ${place.rating} (${place.user_ratings_total || 0})` : '';
+  const ratingText = place.rating ? `⭐ ${place.rating} (${place.user_ratings_total || 0})` : '';
 
   infoWindow.setContent(`
     <div style="padding:16px;max-width:260px;font-family:'Inter',sans-serif;">
@@ -712,23 +1220,23 @@ function showInfoWindow(marker, place) {
         </div>
         <div style="flex:1;min-width:0;">
           <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#1A1614;letter-spacing:-0.015em;">
-            ${place.name || 'Lugar sin nombre'}
+            ${place.name || t('noName')}
           </div>
         </div>
       </div>
       <div style="font-size:12px;color:#57534E;line-height:1.5;margin-bottom:12px;font-weight:500;">
         <div style="display:flex;align-items:center;gap:6px;">
           <span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">location_on</span>
-          ${place.vicinity || 'Dirección no disponible'}
+          ${place.vicinity || t('addressNA')}
         </div>
-        ${rating ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;">
+        ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;">
           <span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F4A261;">star</span>
-          ${rating}
+          ${ratingText}
         </div>` : ''}
       </div>
-      <button onclick="showToast('info', 'Información próximamente')"
+      <button onclick="showToast('info', '${t('infoSoon')}')"
         style="width:100%;padding:11px;border:none;border-radius:10px;background:#E76F51;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 4px 12px rgba(231,111,81,0.3);">
-        Ver más información
+        ${t('viewMore')}
       </button>
     </div>
   `);
@@ -750,18 +1258,26 @@ function renderEventCard(place) {
     <div class="event-card" onclick="focusPlace('${place.place_id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
       <div class="event-icon-box"><span class="ms">${cat.icon}</span></div>
       <div class="event-body">
-        <div class="event-title">${place.name || 'Lugar sin nombre'}</div>
+        <div class="event-title">${place.name || t('noName')}</div>
         <div class="event-venue">
           <span class="ms">location_on</span>
-          ${place.vicinity || 'Dirección no disponible'}
+          ${place.vicinity || t('addressNA')}
         </div>
         <div class="event-footer">
-          <span class="event-tag"><span class="ms">${cat.icon}</span>${cat.label}</span>
+          <span class="event-tag"><span class="ms">${cat.icon}</span>${getCategoryLabel(place)}</span>
           ${rating}
         </div>
       </div>
     </div>
   `;
+}
+
+function getCategoryLabel(place) {
+  const types = place.types || [];
+  for (const key of Object.keys(CATEGORIES)) {
+    if (types.includes(key)) return tCat(key);
+  }
+  return tCat('tourist_attraction');
 }
 
 function renderSidebarEvents(places) {
@@ -771,13 +1287,13 @@ function renderSidebarEvents(places) {
     container.innerHTML = `
       <div class="empty-state">
         <span class="ms">search_off</span>
-        <h3>Sin resultados</h3>
-        <p>Intenta con otra categoría o mueve el mapa a otra zona de Guadalajara</p>
+        <h3>${t('noResults')}</h3>
+        <p>${t('noResultsHint')}</p>
       </div>`;
     return;
   }
 
-  const label = `${places.length} lugares de ${CATEGORIES[currentCategory].label}`;
+  const label = t('placesCount')(places.length, tCat(currentCategory));
   container.innerHTML = `<div class="section-label">${label}</div>` + places.map(renderEventCard).join('');
 }
 
@@ -787,7 +1303,7 @@ function renderSheetEvents(places) {
 
   if (!places || places.length === 0) {
     container.innerHTML = `
-      <div class="empty-state"><span class="ms">search_off</span><h3>Sin resultados</h3></div>`;
+      <div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3></div>`;
     return;
   }
 
@@ -802,10 +1318,7 @@ function focusPlace(placeId) {
   if (marker) {
     map.panTo(marker.getPosition());
     map.setZoom(16);
-    setTimeout(() => {
-      // Volver a hacer click para abrir el info window
-      google.maps.event.trigger(marker, 'click');
-    }, 500);
+    setTimeout(() => google.maps.event.trigger(marker, 'click'), 500);
     if (window.innerWidth < 900) closeSidebar();
   }
 }
@@ -817,19 +1330,19 @@ function onSearchInput() {
 
 function searchNearMe() {
   if (!navigator.geolocation) {
-    return showToast('error', 'Geolocalización no disponible');
+    return showToast('error', t('geoNotAvailable'));
   }
-  showToast('location_searching', 'Buscando tu ubicación...');
+  showToast('location_searching', t('locationSearching'));
 
   navigator.geolocation.getCurrentPosition(
     pos => {
       const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       map.panTo(loc);
       map.setZoom(14);
-      showToast('check_circle', 'Ubicación encontrada');
+      showToast('check_circle', t('locationFound'));
       setTimeout(searchPlaces, 500);
     },
-    () => showToast('error', 'No se pudo obtener tu ubicación'),
+    () => showToast('error', t('locationError')),
     { enableHighAccuracy: true, timeout: 10000 }
   );
 }
@@ -841,11 +1354,11 @@ function isInGDLArea(loc) {
   return loc.lat > 20.4 && loc.lat < 20.9 && loc.lng > -103.7 && loc.lng < -103.0;
 }
 
-let mapStyleCurrent = 'light';
 function toggleMapStyle() {
   mapStyleCurrent = mapStyleCurrent === 'light' ? 'minimal' : 'light';
-  map.setOptions({ styles: mapStyles[mapStyleCurrent] });
-  showToast('layers', mapStyleCurrent === 'light' ? 'Mapa estándar' : 'Mapa minimalista');
+  const effectiveTheme = document.documentElement.getAttribute('data-theme');
+  map.setOptions({ styles: effectiveTheme === 'dark' ? mapStyles.minimal : mapStyles[mapStyleCurrent] });
+  showToast('layers', mapStyleCurrent === 'light' ? t('mapStandard') : t('mapMinimal'));
 }
 
 /* ============================================
@@ -859,11 +1372,12 @@ function openSidebar() {
 
 function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('overlay').classList.remove('show');
+  if (!document.getElementById('optionsMenu').classList.contains('open')) {
+    document.getElementById('overlay').classList.remove('show');
+  }
   if (window.innerWidth >= 900) document.body.classList.add('sidebar-closed');
 }
 
-let sheetOpen = false;
 function toggleSheet() {
   sheetOpen = !sheetOpen;
   document.getElementById('sheet').classList.toggle('open', sheetOpen);
@@ -874,11 +1388,11 @@ function toggleSheet() {
    ============================================ */
 let toastTimer;
 function showToast(icon, msg) {
-  const t = document.getElementById('toast');
-  t.innerHTML = `<span class="ms fill">${icon}</span>${msg}`;
-  t.classList.add('show');
+  const toast = document.getElementById('toast');
+  toast.innerHTML = `<span class="ms fill">${icon}</span>${msg}`;
+  toast.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
 /* ============================================
@@ -893,9 +1407,24 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-<!-- Google Maps API -->
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7vyTk4SncfI67G65xCZCZWgihHaMk7Tg&libraries=places&language=es&region=MX&callback=initMap">
+<!-- ============================================
+     GOOGLE MAPS API — el idioma se aplica según la preferencia
+     ============================================ -->
+<script>
+  // Cargar preferencias antes de cargar el mapa para aplicar el idioma correcto
+  (function() {
+    const savedLang = localStorage.getItem('gdl-lang');
+    const browserLang = (navigator.language || 'es').startsWith('en') ? 'en' : 'es';
+    const lang = savedLang || browserLang;
+    const region = lang === 'en' ? 'US' : 'MX';
+
+    // Insertar script de Google Maps dinámicamente
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyD7vyTk4SncfI67G65xCZCZWgihHaMk7Tg&libraries=places&language=${lang}&region=${region}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  })();
 </script>
 
 </body>
