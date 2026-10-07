@@ -2,10 +2,12 @@
 <html lang="es-MX">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#E76F51">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="GDL Cultural">
 <link rel="manifest" href="/manifest.json">
 <title>GDL Cultural — Museos y Eventos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +32,9 @@
     --r-xs: 8px; --r-sm: 12px; --r-md: 16px; --r-lg: 24px; --r-xl: 28px; --r-full: 999px;
     --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
     --ease-emphasized: cubic-bezier(0.2, 0, 0, 1); --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-    --z-map: 1; --z-chips: 900; --z-fabs: 900; --z-header: 1000; --z-sheet: 1100; --z-overlay: 1900; --z-sidebar: 2000; --z-menu: 2100; --z-toast: 3000;
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --z-map: 1; --z-chips: 900; --z-fabs: 900; --z-header: 1000; --z-submenu: 1500;
+    --z-sheet: 1100; --z-overlay: 1900; --z-sidebar: 2000; --z-menu: 2100; --z-toast: 3000;
   }
   html[data-theme="dark"] {
     --primary: #F08A6C; --primary-dark: #E76F51; --primary-container: #3A241D;
@@ -49,181 +53,654 @@
   body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; height: 100vh; height: 100dvh; position: fixed; width: 100%; overscroll-behavior: none; transition: background .3s var(--ease-standard), color .3s var(--ease-standard); }
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+  
+  /* ============================================
+     MAPA — PROTAGONISTA
+     ============================================ */
   #map { position: absolute; inset: 0; z-index: var(--z-map); background: var(--surface-2); }
   html[data-theme="dark"] #map { filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
-  .header { position: absolute; top: calc(16px + var(--safe-top)); left: 16px; right: 16px; z-index: var(--z-header); display: flex; align-items: center; gap: 10px; pointer-events: none; }
-  .search-pill { flex: 1; height: 56px; background: var(--surface); border-radius: var(--r-full); padding: 0 20px; box-shadow: var(--shadow-3); display: flex; align-items: center; gap: 14px; pointer-events: auto; cursor: pointer; transition: transform .2s var(--ease-standard), box-shadow .2s; border: 1px solid var(--outline); }
+  
+  /* ============================================
+     HEADER FLOTANTE
+     ============================================ */
+  .header {
+    position: absolute;
+    top: calc(16px + var(--safe-top));
+    left: 16px;
+    right: 16px;
+    z-index: var(--z-header);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+    transition: left .4s var(--ease-emphasized);
+  }
+  .search-pill {
+    flex: 1;
+    height: 56px;
+    background: var(--surface);
+    border-radius: var(--r-full);
+    padding: 0 20px;
+    box-shadow: var(--shadow-3);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: transform .2s var(--ease-standard), box-shadow .2s;
+    border: 1px solid var(--outline);
+  }
   .search-pill:active { transform: scale(0.985); }
   .search-pill .ms { color: var(--text-3); }
   .search-pill span { color: var(--text-2); font-size: 15px; font-weight: 500; }
-  .icon-btn { width: 56px; height: 56px; border-radius: var(--r-full); background: var(--surface); border: 1px solid var(--outline); display: grid; place-items: center; box-shadow: var(--shadow-3); cursor: pointer; color: var(--text); pointer-events: auto; transition: transform .2s var(--ease-standard), background .2s, color .2s; flex-shrink: 0; }
+  .icon-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--r-full);
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow-3);
+    cursor: pointer;
+    color: var(--text);
+    pointer-events: auto;
+    transition: transform .2s var(--ease-standard), background .2s, color .2s;
+    flex-shrink: 0;
+    position: relative;
+  }
   .icon-btn:hover { background: var(--surface-2); }
   .icon-btn:active { transform: scale(0.92); }
+  .icon-btn.highlight { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; }
   
-  /* Chips en dos filas */
-  .chips-container {
+  /* ============================================
+     BOTONES DE CATEGORÍA PRINCIPAL (FABs flotantes a la derecha)
+     ============================================ */
+  .main-categories {
     position: absolute;
-    top: calc(88px + var(--safe-top));
-    left: 0; right: 0;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: var(--z-chips);
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    transition: padding-left .4s var(--ease-emphasized);
-    pointer-events: none;
-  }
-  .chips-row {
-    display: flex; gap: 10px;
-    padding: 4px 16px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+    gap: 10px;
     pointer-events: auto;
   }
-  .chips-row::-webkit-scrollbar { display: none; }
-  .chips-row-label {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 10px;
+  .cat-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    display: grid;
+    place-items: center;
+    box-shadow: var(--shadow-3);
+    cursor: pointer;
+    color: var(--text);
+    transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s;
+    position: relative;
+  }
+  .cat-btn .ms { font-size: 26px; }
+  .cat-btn:hover { transform: scale(1.05); }
+  .cat-btn:active { transform: scale(0.92); }
+  .cat-btn.active {
+    background: var(--cat-color, var(--primary));
+    border-color: var(--cat-color, var(--primary));
+    color: #FFFFFF;
+    box-shadow: 0 8px 24px var(--cat-shadow, rgba(231, 111, 81, 0.4));
+  }
+  .cat-btn.active .ms { font-variation-settings: 'FILL' 1, 'wght' 500; }
+  .cat-btn .badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: var(--r-full);
+    background: var(--primary);
+    color: #FFFFFF;
+    font-size: 11px;
     font-weight: 800;
-    color: var(--text-3);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0 16px;
-    margin-bottom: -4px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--surface);
+    opacity: 0;
+    transition: opacity .2s, transform .2s;
+  }
+  .cat-btn .badge.show { opacity: 1; }
+  
+  /* Etiqueta flotante (tooltip) */
+  .cat-btn::after {
+    content: attr(data-label);
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+    background: var(--text);
+    color: var(--surface);
+    padding: 6px 12px;
+    border-radius: var(--r-sm);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s, transform .2s;
+  }
+  .cat-btn:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  
+  /* ============================================
+     SUBMENÚ ANIMADO (se despliega al tocar una categoría)
+     ============================================ */
+  .submenu {
+    position: absolute;
+    right: 84px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: var(--z-submenu);
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4);
+    padding: 12px;
+    min-width: 240px;
+    max-width: 320px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50%) translateX(20px) scale(0.95);
+    transform-origin: right center;
+    transition: all .3s var(--ease-spring);
     pointer-events: none;
   }
-  .chip { flex-shrink: 0; height: 42px; background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-full); padding: 0 18px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text); box-shadow: var(--shadow-1); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: all .22s var(--ease-standard); }
-  .chip:hover { border-color: var(--outline-strong); }
-  .chip:active { transform: scale(0.95); }
-  .chip .ms { color: var(--text-2); }
-  .chip.active { background: var(--primary); color: #FFFFFF; border-color: var(--primary); box-shadow: 0 4px 14px rgba(231, 111, 81, 0.35); }
-  .chip.active .ms { color: #FFFFFF; font-variation-settings: 'FILL' 1; }
-  
-  /* Chips de audiencia con colores propios */
-  .chip[data-audience].active {
-    background: var(--chip-color, var(--primary));
-    border-color: var(--chip-color, var(--primary));
-    box-shadow: 0 4px 14px var(--chip-shadow, rgba(231, 111, 81, 0.35));
+  .submenu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0) scale(1);
+    pointer-events: auto;
   }
+  .submenu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px 12px;
+    border-bottom: 1px solid var(--outline);
+    margin-bottom: 8px;
+  }
+  .submenu-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .submenu-title .ms {
+    font-size: 22px;
+    color: var(--submenu-color, var(--primary));
+  }
+  .submenu-close {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--r-full);
+    border: none;
+    background: transparent;
+    color: var(--text-2);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .submenu-close:hover { background: var(--surface-2); color: var(--text); }
+  .submenu-close .ms { font-size: 20px; }
   
-  .fab-stack { position: absolute; right: 16px; bottom: calc(32px + var(--safe-bottom)); z-index: var(--z-fabs); display: flex; flex-direction: column; gap: 12px; }
-  .fab { width: 56px; height: 56px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--outline); display: grid; place-items: center; box-shadow: var(--shadow-3); cursor: pointer; color: var(--text); transition: transform .2s var(--ease-standard), background .2s, color .2s; }
-  .fab:hover { background: var(--surface-2); }
-  .fab:active { transform: scale(0.9); }
-  .fab.tracking { background: var(--tertiary); border-color: var(--tertiary); color: #FFFFFF; box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4); }
-  .fab.tracking .ms { animation: rotate 2s linear infinite; }
-  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .submenu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .submenu-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: none;
+    background: transparent;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    transition: background .15s, transform .15s;
+    text-align: left;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(10px);
+    animation: submenuItemIn .3s var(--ease-spring) forwards;
+  }
+  @keyframes submenuItemIn {
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .submenu-option:hover { background: var(--surface-2); }
+  .submenu-option:active { transform: scale(0.98); }
+  .submenu-option.active {
+    background: var(--option-bg, var(--primary-container));
+    color: var(--option-color, var(--primary-dark));
+  }
+  .submenu-option .ms {
+    font-size: 22px;
+    color: var(--text-2);
+    flex-shrink: 0;
+    transition: color .2s;
+  }
+  .submenu-option.active .ms {
+    color: var(--option-color, var(--primary));
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+  }
+  .submenu-option .check {
+    margin-left: auto;
+    font-size: 20px;
+    color: var(--option-color, var(--primary));
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .submenu-option.active .check { opacity: 1; }
   
-  .sidebar { position: absolute; top: 0; left: 0; width: 360px; height: 100%; background: var(--surface); box-shadow: var(--shadow-4); z-index: var(--z-sidebar); transform: translateX(0); transition: transform .4s var(--ease-emphasized), background .3s; display: flex; flex-direction: column; padding-top: var(--safe-top); border-right: 1px solid var(--outline); }
-  .sidebar.closed { transform: translateX(-100%); }
-  .sidebar-top { padding: 24px 24px 16px; border-bottom: 1px solid var(--outline); flex-shrink: 0; }
+  /* ============================================
+     SIDEBAR (en desktop) / Bottom sheet (en móvil)
+     ============================================ */
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 380px;
+    height: 100%;
+    background: var(--surface);
+    box-shadow: var(--shadow-4);
+    z-index: var(--z-sidebar);
+    transform: translateX(-100%);
+    transition: transform .4s var(--ease-emphasized), background .3s;
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--safe-top);
+    border-right: 1px solid var(--outline);
+  }
+  .sidebar.open { transform: translateX(0); }
+  
+  .sidebar-top {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid var(--outline);
+    flex-shrink: 0;
+  }
   .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-  .brand-logo { width: 44px; height: 44px; border-radius: var(--r-md); background: linear-gradient(135deg, var(--primary), var(--secondary)); display: grid; place-items: center; color: #FFFFFF; box-shadow: 0 4px 12px rgba(231, 111, 81, 0.3); flex-shrink: 0; }
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-md);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: grid;
+    place-items: center;
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(231, 111, 81, 0.3);
+    flex-shrink: 0;
+  }
   .brand-text { flex: 1; min-width: 0; }
   .brand-text h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); line-height: 1.1; }
   .brand-text p { font-size: 12px; color: var(--text-3); font-weight: 500; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .close-btn { width: 40px; height: 40px; border-radius: var(--r-full); border: none; background: transparent; color: var(--text-2); display: grid; place-items: center; cursor: pointer; transition: background .2s, color .2s; flex-shrink: 0; }
   .close-btn:hover { background: var(--surface-2); color: var(--text); }
-  .search-field { display: flex; align-items: center; height: 52px; background: var(--surface-2); border-radius: var(--r-md); padding: 0 16px; gap: 12px; border: 2px solid transparent; transition: all .2s; margin-bottom: 12px; }
+  .search-field {
+    display: flex;
+    align-items: center;
+    height: 52px;
+    background: var(--surface-2);
+    border-radius: var(--r-md);
+    padding: 0 16px;
+    gap: 12px;
+    border: 2px solid transparent;
+    transition: all .2s;
+    margin-bottom: 12px;
+  }
   .search-field:focus-within { background: var(--surface); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(231, 111, 81, 0.12); }
   .search-field .ms { color: var(--text-3); flex-shrink: 0; }
   .search-field input { flex: 1; background: transparent; border: none; outline: none; font-family: inherit; font-size: 15px; font-weight: 500; color: var(--text); min-width: 0; }
   .search-field input::placeholder { color: var(--text-3); font-weight: 400; }
-  .gps-button { width: 100%; height: 52px; border: none; border-radius: var(--r-md); background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 14px rgba(231, 111, 81, 0.3); transition: transform .2s; }
+  .gps-button {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: var(--r-md);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 14px rgba(231, 111, 81, 0.3);
+    transition: transform .2s;
+  }
   .gps-button:active { transform: scale(0.97); }
   .gps-button.tracking { background: linear-gradient(135deg, var(--tertiary) 0%, #1E7A6F 100%); }
   
-  .events-scroll { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; -webkit-overflow-scrolling: touch; }
+  .events-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
   .events-scroll::-webkit-scrollbar { width: 6px; }
   .events-scroll::-webkit-scrollbar-thumb { background: var(--outline-strong); border-radius: 3px; }
-  .section-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 800; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 4px 0; }
   
-  /* TARJETAS CORREGIDAS con min-height */
+  .section-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 4px 0;
+  }
+  
+  /* ============================================
+     TARJETAS MÁS LIMPIAS
+     ============================================ */
   .event-card {
     background: var(--surface);
     border: 1px solid var(--outline);
     border-radius: var(--r-lg);
-    padding: 14px;
+    padding: 16px;
     display: flex;
     gap: 14px;
     cursor: pointer;
     transition: all .22s var(--ease-standard);
     position: relative;
     overflow: hidden;
-    min-height: 96px; /* ✅ evita colapso */
+    min-height: 88px;
     animation: fadeInUp .3s var(--ease-emphasized) backwards;
   }
-  .event-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--card-color, var(--primary)); opacity: 0; transition: opacity .22s; }
+  .event-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--card-color, var(--primary));
+    opacity: 0;
+    transition: opacity .22s;
+  }
   .event-card:hover { border-color: var(--outline-strong); box-shadow: var(--shadow-2); transform: translateY(-2px); }
   .event-card:hover::before { opacity: 1; }
   .event-card:active { transform: scale(0.985) translateY(0); }
-  .event-icon-box { width: 56px; height: 56px; border-radius: var(--r-md); display: grid; place-items: center; flex-shrink: 0; background: var(--card-bg, var(--primary-container)); color: var(--card-color, var(--primary)); }
-  .event-icon-box .ms { font-size: 28px; font-variation-settings: 'FILL' 1; }
-  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
-  .event-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.3; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
-  .event-venue { font-size: 13px; color: var(--text-2); font-weight: 500; display: flex; align-items: center; gap: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .event-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--r-md);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: var(--card-bg, var(--primary-container));
+    color: var(--card-color, var(--primary));
+  }
+  .event-icon-box .ms { font-size: 26px; font-variation-settings: 'FILL' 1; }
+  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; justify-content: center; }
+  .event-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    color: var(--text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+  }
+  .event-venue {
+    font-size: 13px;
+    color: var(--text-2);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
-  .event-footer { display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
-  .event-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; letter-spacing: 0.01em; padding: 4px 10px; border-radius: var(--r-full); background: var(--card-bg); color: var(--card-color); }
-  .event-tag .ms { font-size: 13px; }
-  .event-age-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: var(--r-full); background: var(--age-bg, #E0F5F1); color: var(--age-color, #2A9D8F); text-transform: uppercase; letter-spacing: 0.05em; }
+  .event-footer { display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap; }
+  .event-age-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--r-full);
+    background: var(--age-bg, #E0F5F1);
+    color: var(--age-color, #2A9D8F);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
   .event-age-tag .ms { font-size: 12px; }
-  .event-rating { font-size: 12px; color: var(--text-3); font-weight: 600; margin-left: auto; display: flex; align-items: center; gap: 2px; }
+  .event-rating {
+    font-size: 12px;
+    color: var(--text-3);
+    font-weight: 600;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
   .event-rating .ms { font-size: 14px; color: #F4A261; }
   
-  .empty-state { text-align: center; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
   .empty-state .ms { font-size: 56px; color: var(--outline-strong); }
   .empty-state h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
   .empty-state p { font-size: 13px; color: var(--text-3); max-width: 240px; line-height: 1.5; }
   
-  .sheet { position: absolute; bottom: 0; left: 0; right: 0; background: var(--surface); border-radius: var(--r-xl) var(--r-xl) 0 0; box-shadow: 0 -8px 40px rgba(26, 22, 20, 0.12); z-index: var(--z-sheet); max-height: 65vh; display: flex; flex-direction: column; transform: translateY(calc(100% - 140px - var(--safe-bottom))); transition: transform .4s var(--ease-emphasized), background .3s; padding-bottom: var(--safe-bottom); border-top: 1px solid var(--outline); }
+  /* ============================================
+     OVERLAY
+     ============================================ */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 22, 20, 0.4);
+    z-index: var(--z-overlay);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s var(--ease-standard);
+    backdrop-filter: blur(4px);
+  }
+  .overlay.show { opacity: 1; pointer-events: auto; }
+  
+  /* ============================================
+     TOAST
+     ============================================ */
+  .toast {
+    position: absolute;
+    bottom: calc(180px + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%) translateY(24px);
+    background: var(--text);
+    color: var(--surface);
+    padding: 14px 22px;
+    border-radius: var(--r-full);
+    font-size: 14px;
+    font-weight: 600;
+    z-index: var(--z-toast);
+    opacity: 0;
+    pointer-events: none;
+    transition: all .3s;
+    white-space: nowrap;
+    box-shadow: var(--shadow-4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: calc(100% - 32px);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  
+  /* ============================================
+     BOTTOM SHEET (solo móvil)
+     ============================================ */
+  .sheet {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-radius: var(--r-xl) var(--r-xl) 0 0;
+    box-shadow: 0 -8px 40px rgba(26, 22, 20, 0.12);
+    z-index: var(--z-sheet);
+    max-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(calc(100% - 120px - var(--safe-bottom)));
+    transition: transform .4s var(--ease-emphasized), background .3s;
+    padding-bottom: var(--safe-bottom);
+    border-top: 1px solid var(--outline);
+  }
   .sheet.open { transform: translateY(0); }
   .sheet-grip { padding: 12px 0 8px; display: grid; place-items: center; cursor: grab; flex-shrink: 0; }
   .grip-bar { width: 44px; height: 5px; background: var(--outline-strong); border-radius: var(--r-full); }
-  .sheet-head { padding: 4px 24px 14px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+  .sheet-head {
+    padding: 4px 24px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
   .sheet-head h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 17px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
   .sheet-count { background: var(--primary-container); color: var(--primary-dark); padding: 5px 12px; border-radius: var(--r-full); font-size: 12px; font-weight: 800; }
   .sheet-scroll { overflow-y: auto; padding: 0 16px 20px; display: flex; flex-direction: column; gap: 10px; }
   
-  .overlay { position: absolute; inset: 0; background: rgba(26, 22, 20, 0.4); z-index: var(--z-overlay); opacity: 0; pointer-events: none; transition: opacity .3s var(--ease-standard); backdrop-filter: blur(4px); }
-  .overlay.show { opacity: 1; pointer-events: auto; }
-  .toast { position: absolute; bottom: calc(180px + var(--safe-bottom)); left: 50%; transform: translateX(-50%) translateY(24px); background: var(--text); color: var(--surface); padding: 14px 22px; border-radius: var(--r-full); font-size: 14px; font-weight: 600; z-index: var(--z-toast); opacity: 0; pointer-events: none; transition: all .3s; white-space: nowrap; box-shadow: var(--shadow-4); display: flex; align-items: center; gap: 8px; max-width: calc(100% - 32px); }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  .options-menu { position: absolute; top: calc(80px + var(--safe-top)); right: 16px; z-index: var(--z-menu); background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-lg); box-shadow: var(--shadow-4); min-width: 240px; padding: 8px; opacity: 0; visibility: hidden; transform: translateY(-8px) scale(0.98); transform-origin: top right; transition: all .2s; }
-  .options-menu.open { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-  .menu-section { padding: 8px 4px; }
-  .menu-section + .menu-section { border-top: 1px solid var(--outline); }
-  .menu-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 12px 8px; }
-  .menu-item { display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px; border: none; background: transparent; border-radius: var(--r-sm); cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text); transition: background .15s; text-align: left; }
-  .menu-item:hover { background: var(--surface-2); }
-  .menu-item.active { background: var(--primary-container); color: var(--primary-dark); }
-  .menu-item .check { margin-left: auto; color: var(--primary); opacity: 0; }
-  .menu-item.active .check { opacity: 1; }
+  /* ============================================
+     PWA INSTALL BANNER
+     ============================================ */
+  .install-banner {
+    position: absolute;
+    bottom: calc(140px + var(--safe-bottom));
+    left: 16px;
+    right: 16px;
+    z-index: 2500;
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transform: translateY(150%);
+    transition: transform .4s var(--ease-spring);
+    pointer-events: none;
+  }
+  .install-banner.show { transform: translateY(0); pointer-events: auto; }
+  .install-banner .ms { color: var(--primary); font-size: 28px; }
+  .install-banner-text { flex: 1; min-width: 0; }
+  .install-banner-text strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: var(--text); display: block; }
+  .install-banner-text span { font-size: 12px; color: var(--text-3); }
+  .install-banner-btn {
+    padding: 10px 18px;
+    border: none;
+    border-radius: var(--r-full);
+    background: var(--primary);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .2s, background .2s;
+  }
+  .install-banner-btn:hover { background: var(--primary-dark); }
+  .install-banner-btn:active { transform: scale(0.95); }
   
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  @media (min-width: 900px) {
-    body:not(.sidebar-closed) .header { left: 380px; }
-    body:not(.sidebar-closed) .chips-container { padding-left: 380px; }
-    body.sidebar-closed .header { left: 16px; }
-    body.sidebar-closed .chips-container { padding-left: 16px; }
-    .sheet { display: none; }
-  }
+  
+  /* ============================================
+     RESPONSIVE — MÓVIL
+     ============================================ */
   @media (max-width: 899px) {
-    .sidebar { width: 88%; max-width: 360px; transform: translateX(-100%); }
-    .sidebar.open { transform: translateX(0); }
-    .fab-stack { bottom: calc(220px + var(--safe-bottom)); }
+    .sidebar { display: none; }
+    .main-categories {
+      right: 12px;
+      top: auto;
+      bottom: calc(180px + var(--safe-bottom));
+      transform: none;
+      flex-direction: column;
+    }
+    .cat-btn { width: 52px; height: 52px; }
+    .submenu {
+      right: 76px;
+      top: auto;
+      bottom: calc(180px + var(--safe-bottom));
+      transform: translateY(0) translateX(20px) scale(0.95);
+      transform-origin: right bottom;
+      max-width: calc(100vw - 100px);
+    }
+    .submenu.open {
+      transform: translateY(0) translateX(0) scale(1);
+    }
+    .header { left: 12px; right: 12px; gap: 8px; }
+    .search-pill { height: 52px; padding: 0 16px; }
+    .search-pill span { font-size: 14px; }
+    .icon-btn { width: 52px; height: 52px; }
+    .header-actions .icon-btn { width: 52px; height: 52px; }
   }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+  
+  /* ============================================
+     RESPONSIVE — TABLET
+     ============================================ */
+  @media (min-width: 900px) and (max-width: 1199px) {
+    .sidebar { width: 340px; }
+    .main-categories { right: 20px; top: 50%; }
+    .submenu { right: 96px; }
+  }
+  
+  /* ============================================
+     RESPONSIVE — DESKTOP
+     ============================================ */
+  @media (min-width: 1200px) {
+    .sidebar { width: 380px; transform: translateX(0); }
+    body:not(.sidebar-closed) .header { left: 396px; }
+    body.sidebar-closed .header { left: 16px; }
+    .header { left: 396px; transition: left .4s var(--ease-emphasized); }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
 </style>
 </head>
 <body>
 
 <div class="overlay" id="overlay" onclick="handleOverlayClick()"></div>
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar" aria-label="Panel de lugares">
+<!-- SIDEBAR (visible en tablet/desktop) -->
+<aside class="sidebar" id="sidebar" aria-label="Panel de resultados">
   <div class="sidebar-top">
     <div class="brand">
       <div class="brand-logo"><span class="ms fill">location_city</span></div>
@@ -235,7 +712,7 @@
     </div>
     <div class="search-field">
       <span class="ms">search</span>
-      <input type="text" id="searchInput" placeholder="Buscar evento, lugar..." oninput="onSearchInput()" autocomplete="off" aria-label="Buscar">
+      <input type="text" id="searchInput" placeholder="Buscar evento, lugar..." oninput="onSearchInput()" autocomplete="off">
     </div>
     <button class="gps-button" onclick="searchNearMe()" id="gpsButtonSidebar">
       <span class="ms fill">my_location</span>
@@ -245,8 +722,10 @@
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
+<!-- MAPA -->
 <div id="map" role="application" aria-label="Mapa de lugares"></div>
 
+<!-- HEADER -->
 <header class="header" id="header">
   <button class="icon-btn" onclick="toggleSidebar()" aria-label="Abrir/cerrar panel" id="menuBtn"><span class="ms" id="menuIcon">menu</span></button>
   <div class="search-pill" onclick="openSidebar()" role="button" tabindex="0"><span class="ms">search</span><span id="searchPlaceholder">Buscar museos, eventos...</span></div>
@@ -256,40 +735,42 @@
   </div>
 </header>
 
-<!-- MENÚ -->
-<div class="options-menu" id="optionsMenu" role="menu">
-  <div class="menu-section">
-    <div class="menu-label" data-i18n="menuLanguage">Idioma</div>
-    <button class="menu-item" onclick="setLanguage('es')" data-lang="es"><span class="ms">language</span><span>Español</span><span class="ms check">check</span></button>
-    <button class="menu-item" onclick="setLanguage('en')" data-lang="en"><span class="ms">language</span><span>English</span><span class="ms check">check</span></button>
+<!-- BOTONES DE CATEGORÍA PRINCIPAL (lateral derecho) -->
+<div class="main-categories" id="mainCategories"></div>
+
+<!-- SUBMENÚ ANIMADO -->
+<div class="submenu" id="submenu">
+  <div class="submenu-header">
+    <div class="submenu-title">
+      <span class="ms" id="submenuIcon">groups</span>
+      <span id="submenuTitle">Audiencia</span>
+    </div>
+    <button class="submenu-close" onclick="closeSubmenu()"><span class="ms">close</span></button>
   </div>
-  <div class="menu-section">
-    <div class="menu-label" data-i18n="menuTheme">Tema</div>
-    <button class="menu-item" onclick="setTheme('light')" data-theme-opt="light"><span class="ms">light_mode</span><span data-i18n="themeLight">Claro</span><span class="ms check">check</span></button>
-    <button class="menu-item" onclick="setTheme('dark')" data-theme-opt="dark"><span class="ms">dark_mode</span><span data-i18n="themeDark">Oscuro</span><span class="ms check">check</span></button>
-    <button class="menu-item" onclick="setTheme('auto')" data-theme-opt="auto"><span class="ms">brightness_auto</span><span data-i18n="themeAuto">Automático</span><span class="ms check">check</span></button>
-  </div>
+  <div class="submenu-options" id="submenuOptions"></div>
 </div>
 
-<!-- CHIPS CON DOS FILAS -->
-<div class="chips-container" id="chipsContainer">
-  <div class="chips-row-label" id="audienceLabel">Audiencia</div>
-  <div class="chips-row" id="audienceChips"></div>
-  <div class="chips-row-label" id="categoryLabel" style="margin-top: 8px;">Lugares</div>
-  <div class="chips-row" id="categoryChips"></div>
-</div>
-
-<div class="fab-stack">
-  <button class="fab" onclick="centerOnUser()" aria-label="Mi ubicación" id="locateFab"><span class="ms" id="locateIcon">my_location</span></button>
-  <button class="fab" onclick="toggleMapStyle()" aria-label="Estilo de mapa"><span class="ms">layers</span></button>
-</div>
-
+<!-- BOTTOM SHEET (solo móvil) -->
 <div class="sheet" id="sheet">
   <div class="sheet-grip" onclick="toggleSheet()"><div class="grip-bar"></div></div>
-  <div class="sheet-head"><h2 id="sheetTitle">Resultados</h2><div class="sheet-count" id="sheetCount">0</div></div>
+  <div class="sheet-head" onclick="toggleSheet()">
+    <h2 id="sheetTitle">Resultados</h2>
+    <div class="sheet-count" id="sheetCount">0</div>
+  </div>
   <div class="sheet-scroll" id="sheetEvents"></div>
 </div>
 
+<!-- PWA INSTALL BANNER -->
+<div class="install-banner" id="installBanner">
+  <span class="ms fill">install_mobile</span>
+  <div class="install-banner-text">
+    <strong>Instala GDL Cultural</strong>
+    <span>Accede rápido desde tu pantalla de inicio</span>
+  </div>
+  <button class="install-banner-btn" onclick="installPWA()">Instalar</button>
+</div>
+
+<!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -306,31 +787,12 @@ const API_KEYS = {
    CATEGORÍAS DE AUDIENCIA
    ============================================ */
 const AGE_CATEGORIES = {
-  all:      { label: 'Todos',         icon: 'groups',             color: '#E76F51', bg: '#FFEDE5' },
-  family:   { label: 'Familia',       icon: 'family_restroom',    color: '#2A9D8F', bg: '#E0F5F1' },
-  adults:   { label: 'Adultos',       icon: 'wine_bar',           color: '#C75540', bg: '#FFEDE5' },
-  teens:    { label: 'Adolescentes',  icon: 'sports_esports',     color: '#5B4B8A', bg: '#EDE7F6' },
-  kids:     { label: 'Niños',         icon: 'child_care',         color: '#F4A261', bg: '#FFF4E0' }
+  all:      { label: 'Todo público', icon: 'groups',          color: '#E76F51', bg: '#FFEDE5' },
+  family:   { label: 'Familia',      icon: 'family_restroom', color: '#2A9D8F', bg: '#E0F5F1' },
+  adults:   { label: 'Adultos',      icon: 'wine_bar',        color: '#C75540', bg: '#FFEDE5' },
+  teens:    { label: 'Adolescentes', icon: 'sports_esports',  color: '#5B4B8A', bg: '#EDE7F6' },
+  kids:     { label: 'Niños',        icon: 'child_care',      color: '#F4A261', bg: '#FFF4E0' }
 };
-
-function categorizeEventByAge(event) {
-  const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
-  const patterns = {
-    family: /\b(familiar|familia|family|niños|kids|infantil|todos|all ages|para toda la familia|recreativo|parque|zoo|circo|festival|taller|obra|teatro)\b/i,
-    adults: /\b(adultos|adults|bar|cerveza|tequila|mezcal|vino|noche|night|party|fiesta|discoteca|club|cata|degustación|18\+|21\+|solo adultos|networking|conferencia)\b/i,
-    teens:  /\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer)\b/i,
-    kids:   /\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|pintura|danza infantil|teatro infantil|bebé|baby)\b/i
-  };
-  if (patterns.family.test(text)) return AGE_CATEGORIES.family;
-  if (patterns.kids.test(text)) return AGE_CATEGORIES.kids;
-  if (patterns.teens.test(text)) return AGE_CATEGORIES.teens;
-  if (patterns.adults.test(text)) return AGE_CATEGORIES.adults;
-  return AGE_CATEGORIES.all;
-}
-function getAgeCategoryKey(event) {
-  const cat = categorizeEventByAge(event);
-  return Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat) || 'all';
-}
 
 /* ============================================
    TRADUCCIONES
@@ -342,13 +804,14 @@ const TRANSLATIONS = {
     sheetTitle: 'Resultados', menuLanguage: 'Idioma', menuTheme: 'Tema',
     themeLight: 'Claro', themeDark: 'Oscuro', themeAuto: 'Automático',
     locationSearching: 'Buscando tu ubicación...', locationFound: 'Ubicación encontrada', locationError: 'No se pudo obtener tu ubicación',
-    locationTracking: 'Rastreando ubicación en vivo', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
+    locationTracking: 'Rastreando ubicación', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
     mapStandard: 'Mapa estándar', mapMinimal: 'Mapa minimalista', noResults: 'Sin resultados',
     noResultsHint: 'Intenta con otra categoría o mueve el mapa',
-    viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre', loading: 'Cargando...', errorLoading: 'Error al cargar',
-    audienceLabel: 'AUDIENCIA', categoryLabel: 'LUGARES',
-    age_all: 'Todos', age_family: 'Familia', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Niños',
+    viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre',
+    age_all: 'Todo público', age_family: 'Familia', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Niños',
+    categoriesLabel: 'Categorías', audienceLabel: 'Audiencia',
     resultsCount: (n) => `${n} resultados`,
+    pwaInstalled: 'App instalada correctamente',
     categories: { museum: 'Museos', tourist_attraction: 'Atracciones', art_gallery: 'Galerías', church: 'Iglesias', park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', stadium: 'Estadios', library: 'Bibliotecas', movie_theater: 'Cines', shopping_mall: 'Comercial' }
   },
   en: {
@@ -357,32 +820,33 @@ const TRANSLATIONS = {
     sheetTitle: 'Results', menuLanguage: 'Language', menuTheme: 'Theme',
     themeLight: 'Light', themeDark: 'Dark', themeAuto: 'Automatic',
     locationSearching: 'Searching your location...', locationFound: 'Location found', locationError: 'Could not get your location',
-    locationTracking: 'Tracking live location', locationTrackingStop: 'Tracking stopped', geoNotAvailable: 'Geolocation not available',
+    locationTracking: 'Tracking location', locationTrackingStop: 'Tracking stopped', geoNotAvailable: 'Geolocation not available',
     mapStandard: 'Standard map', mapMinimal: 'Minimal map', noResults: 'No results',
     noResultsHint: 'Try another category or move the map',
-    viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed', loading: 'Loading...', errorLoading: 'Error loading',
-    audienceLabel: 'AUDIENCE', categoryLabel: 'PLACES',
-    age_all: 'All', age_family: 'Family', age_adults: 'Adults', age_teens: 'Teens', age_kids: 'Kids',
+    viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed',
+    age_all: 'All ages', age_family: 'Family', age_adults: 'Adults', age_teens: 'Teens', age_kids: 'Kids',
+    categoriesLabel: 'Categories', audienceLabel: 'Audience',
     resultsCount: (n) => `${n} results`,
+    pwaInstalled: 'App installed successfully',
     categories: { museum: 'Museums', tourist_attraction: 'Attractions', art_gallery: 'Galleries', church: 'Churches', park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', stadium: 'Stadiums', library: 'Libraries', movie_theater: 'Cinemas', shopping_mall: 'Shopping' }
   }
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES (Google Places)
+   CATEGORÍAS DE LUGARES
    ============================================ */
 const CATEGORIES = {
-  museum: { icon: 'museum', color: '#E76F51', bg: '#FFEDE5', type: 'museum' },
-  tourist_attraction: { icon: 'attractions', color: '#2A9D8F', bg: '#E0F5F1', type: 'tourist_attraction' },
-  art_gallery: { icon: 'palette', color: '#F4A261', bg: '#FFF4E0', type: 'art_gallery' },
-  church: { icon: 'church', color: '#5B4B8A', bg: '#EDE7F6', type: 'church' },
-  park: { icon: 'park', color: '#2A9D8F', bg: '#E0F5F1', type: 'park' },
-  zoo: { icon: 'pets', color: '#E63946', bg: '#FFE5E7', type: 'zoo' },
-  aquarium: { icon: 'water', color: '#5B4B8A', bg: '#EDE7F6', type: 'aquarium' },
-  stadium: { icon: 'stadium', color: '#C75540', bg: '#FFEDE5', type: 'stadium' },
-  library: { icon: 'local_library', color: '#F4A261', bg: '#FFF4E0', type: 'library' },
-  movie_theater: { icon: 'theaters', color: '#E63946', bg: '#FFE5E7', type: 'movie_theater' },
-  shopping_mall: { icon: 'shopping_bag', color: '#5B4B8A', bg: '#EDE7F6', type: 'shopping_mall' }
+  museum:             { icon: 'museum',        color: '#E76F51', bg: '#FFEDE5', type: 'museum' },
+  tourist_attraction: { icon: 'attractions',   color: '#2A9D8F', bg: '#E0F5F1', type: 'tourist_attraction' },
+  art_gallery:        { icon: 'palette',       color: '#F4A261', bg: '#FFF4E0', type: 'art_gallery' },
+  church:             { icon: 'church',        color: '#5B4B8A', bg: '#EDE7F6', type: 'church' },
+  park:               { icon: 'park',          color: '#2A9D8F', bg: '#E0F5F1', type: 'park' },
+  zoo:                { icon: 'pets',          color: '#E63946', bg: '#FFE5E7', type: 'zoo' },
+  aquarium:           { icon: 'water',         color: '#5B4B8A', bg: '#EDE7F6', type: 'aquarium' },
+  stadium:            { icon: 'stadium',       color: '#C75540', bg: '#FFEDE5', type: 'stadium' },
+  library:            { icon: 'local_library', color: '#F4A261', bg: '#FFF4E0', type: 'library' },
+  movie_theater:      { icon: 'theaters',      color: '#E63946', bg: '#FFE5E7', type: 'movie_theater' },
+  shopping_mall:      { icon: 'shopping_bag',  color: '#5B4B8A', bg: '#EDE7F6', type: 'shopping_mall' }
 };
 
 /* ============================================
@@ -400,6 +864,8 @@ let sheetOpen = false;
 let allPlaces = [], allEvents = [], unifiedResults = [];
 let placesApiAvailable = true;
 let lastSearchTime = 0;
+let currentSubmenu = null;
+let deferredPrompt = null;
 const SEARCH_DEBOUNCE_MS = 800;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
@@ -430,7 +896,29 @@ function tCat(key) { return TRANSLATIONS[currentLang].categories[key] || key; }
 function tAge(key) { return TRANSLATIONS[currentLang][`age_${key}`] || AGE_CATEGORIES[key]?.label || key; }
 
 /* ============================================
-   INICIALIZACIÓN
+   CATEGORIZACIÓN POR EDAD
+   ============================================ */
+function categorizeEventByAge(event) {
+  const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
+  const patterns = {
+    family: /\b(familiar|familia|family|niños|kids|infantil|todos|all ages|para toda la familia|recreativo|parque|zoo|circo|festival|taller|obra|teatro)\b/i,
+    adults: /\b(adultos|adults|bar|cerveza|tequila|mezcal|vino|noche|night|party|fiesta|discoteca|club|cata|degustación|18\+|21\+|solo adultos|networking|conferencia)\b/i,
+    teens:  /\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer)\b/i,
+    kids:   /\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|pintura|danza infantil|teatro infantil|bebé|baby)\b/i
+  };
+  if (patterns.family.test(text)) return AGE_CATEGORIES.family;
+  if (patterns.kids.test(text)) return AGE_CATEGORIES.kids;
+  if (patterns.teens.test(text)) return AGE_CATEGORIES.teens;
+  if (patterns.adults.test(text)) return AGE_CATEGORIES.adults;
+  return AGE_CATEGORIES.all;
+}
+function getAgeCategoryKey(event) {
+  const cat = categorizeEventByAge(event);
+  return Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat) || 'all';
+}
+
+/* ============================================
+   INICIALIZACIÓN DEL MAPA
    ============================================ */
 window.initMap = function() {
   loadPreferences();
@@ -444,7 +932,7 @@ window.initMap = function() {
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
-  map.addListener('click', closeOptionsMenu);
+  map.addListener('click', () => { closeSubmenu(); });
   let moveTimeout;
   map.addListener('idle', () => {
     clearTimeout(moveTimeout);
@@ -454,7 +942,7 @@ window.initMap = function() {
   });
 
   updateAllTranslations();
-  renderChips();
+  renderMainCategories();
   updateSidebarState();
   searchEverything();
 };
@@ -481,22 +969,32 @@ async function searchEverything() {
 
   allEvents = deduplicateEvents(allEvents);
   applyFilters();
+  updateBadges();
 }
+
 function applyFilters() {
-  // Filtrar por audiencia
   let eventsFiltered = allEvents;
-  if (currentAudience !== 'all') {
-    eventsFiltered = allEvents.filter(e => getAgeCategoryKey(e) === currentAudience);
-  }
-  // Los lugares de Google Places no tienen audiencia, se muestran siempre
+  if (currentAudience !== 'all') eventsFiltered = allEvents.filter(e => getAgeCategoryKey(e) === currentAudience);
   unifiedResults = [...eventsFiltered, ...allPlaces];
   renderMarkersForAll();
   renderUnifiedList();
   renderSheetUnified();
 }
 
+function updateBadges() {
+  // Actualizar contadores en los botones de categoría de audiencia
+  Object.keys(AGE_CATEGORIES).forEach(key => {
+    const badge = document.querySelector(`.cat-btn[data-audience="${key}"] .badge`);
+    if (badge) {
+      let count = key === 'all' ? allEvents.length : allEvents.filter(e => getAgeCategoryKey(e) === key).length;
+      badge.textContent = count;
+      badge.classList.toggle('show', count > 0);
+    }
+  });
+}
+
 /* ============================================
-   GOOGLE PLACES
+   BÚSQUEDAS POR FUENTE
    ============================================ */
 function searchPlacesPromise() {
   return new Promise((resolve) => {
@@ -504,25 +1002,17 @@ function searchPlacesPromise() {
     const category = CATEGORIES[currentCategory];
     const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type: category.type };
     if (currentSearch) request.keyword = currentSearch;
-    const timeout = setTimeout(() => { console.warn('Places API timeout'); resolve([]); }, 8000);
+    const timeout = setTimeout(() => resolve([]), 8000);
     try {
       placesService.nearbySearch(request, (results, status) => {
         clearTimeout(timeout);
         if (status === google.maps.places.PlacesServiceStatus.OK && results) resolve(results);
-        else if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) resolve([]);
-        else {
-          console.warn('Places API status:', status);
-          if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') placesApiAvailable = false;
-          resolve([]);
-        }
+        else if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') { placesApiAvailable = false; resolve([]); }
+        else resolve([]);
       });
-    } catch (err) { clearTimeout(timeout); console.warn('Places API error:', err); resolve([]); }
+    } catch (err) { clearTimeout(timeout); resolve([]); }
   });
 }
-
-/* ============================================
-   TICKETMASTER
-   ============================================ */
 function searchTicketmasterPromise() {
   return new Promise(async (resolve) => {
     try {
@@ -537,21 +1027,12 @@ function searchTicketmasterPromise() {
         const venue = e._embedded?.venues?.[0] || {}, location = venue.location || {};
         const lat = parseFloat(location.latitude), lng = parseFloat(location.longitude);
         if (!lat || !lng) return null;
-        return {
-          id: 'tm_' + e.id, type: 'event', source: 'ticketmaster',
-          title: e.name || 'Evento', date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '',
-          venue: venue.name || '', city: venue.city?.name || '', address: venue.address?.line1 || '',
-          lat, lng, url: e.url, description: e.info || e.pleaseNote || ''
-        };
+        return { id: 'tm_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento', date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '', venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url, description: e.info || e.pleaseNote || '' };
       }).filter(Boolean);
       resolve(events);
-    } catch (err) { console.warn('Ticketmaster falló:', err); resolve([]); }
+    } catch (err) { resolve([]); }
   });
 }
-
-/* ============================================
-   EVENTBRITE vía Apify
-   ============================================ */
 function searchEventbritePromise() {
   return new Promise(async (resolve) => {
     if (!API_KEYS.apify || API_KEYS.apify === 'TU_APIFY_TOKEN_AQUI') return resolve([]);
@@ -559,37 +1040,27 @@ function searchEventbritePromise() {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 10000);
       const response = await fetch(`https://api.apify.com/v2/acts/xtracto~eventbrite-events/run-sync-get-dataset-items?token=${API_KEYS.apify}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ location: 'Guadalajara', dateRange: 'current_future', maxItems: 100, enrichDetail: true }),
         signal: controller.signal
       });
       clearTimeout(timeout);
       const data = await response.json();
       const events = (Array.isArray(data) ? data : []).map(e => {
-        const lat = parseFloat(e.primary_venue?.latitude || e.latitude);
-        const lng = parseFloat(e.primary_venue?.longitude || e.longitude);
+        const lat = parseFloat(e.primary_venue?.latitude || e.latitude), lng = parseFloat(e.primary_venue?.longitude || e.longitude);
         if (!lat || !lng) return null;
-        return {
-          id: 'eb_' + (e.id || e.eid || Math.random()), type: 'event', source: 'eventbrite',
-          title: e.name || 'Evento', date: e.start_date || '', time: e.start_time || '',
-          venue: e.primary_venue?.name || '', city: e.primary_venue?.city || 'Guadalajara',
-          address: e.primary_venue?.address || '', lat, lng, url: e.url,
-          description: e.summary || e.description || ''
-        };
+        return { id: 'eb_' + (e.id || e.eid || Math.random()), type: 'event', source: 'eventbrite', title: e.name || 'Evento', date: e.start_date || '', time: e.start_time || '', venue: e.primary_venue?.name || '', city: e.primary_venue?.city || 'Guadalajara', lat, lng, url: e.url, description: e.summary || e.description || '' };
       }).filter(Boolean);
       resolve(events);
-    } catch (err) { console.warn('Eventbrite falló:', err); resolve([]); }
+    } catch (err) { resolve([]); }
   });
 }
-
 function deduplicateEvents(events) {
   const seen = new Set();
   return events.filter(e => {
     const key = `${(e.title || '').toLowerCase().trim()}|${(e.venue || '').toLowerCase().trim()}`;
     if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
+    seen.add(key); return true;
   });
 }
 
@@ -631,7 +1102,7 @@ function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, p
   const label = new google.maps.OverlayView();
   label.onAdd = function() {
     const div = document.createElement('div');
-    div.style.cssText = `position:absolute;transform:translate(-50%,-50%);pointer-events:none;color:${iconColor};font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24;line-height:1;`;
+    div.style.cssText = `position:absolute;transform:translate(-50%,-50%);pointer-events:none;color:${iconColor};font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1,'wght' 500;line-height:1;`;
     div.textContent = iconChar;
     this.div = div;
     this.getPanes().overlayMouseTarget.appendChild(div);
@@ -642,10 +1113,9 @@ function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, p
   };
   label.onRemove = function() { if (this.div && this.div.parentNode) this.div.parentNode.removeChild(this.div); };
   label.setMap(map);
-  marker._label = label;
-  marker._payload = payload;
-  marker._payloadType = payloadType;
+  marker._label = label; marker._payload = payload; marker._payloadType = payloadType;
   marker.addListener('click', () => {
+    closeSubmenu();
     if (payloadType === 'event') showInfoWindowEvent(marker, payload);
     else showInfoWindowGoogle(marker, payload);
   });
@@ -675,20 +1145,20 @@ function showInfoWindowEvent(marker, event) {
 }
 
 /* ============================================
-   TARJETAS (con fallbacks)
+   TARJETAS
    ============================================ */
 function renderGoogleCard(place) {
   const cat = getPlaceCategory(place);
   const rating = place.rating ? `<span class="event-rating"><span class="ms fill">star</span>${place.rating}</span>` : '';
-  return `<div class="event-card" onclick="focusPlace('${place.place_id}', 'place')" style="--card-color:${cat.color};--card-bg:${cat.bg};"><div class="event-icon-box"><span class="ms">${cat.icon}</span></div><div class="event-body"><div class="event-title">${place.name || t('noName')}</div><div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div><div class="event-footer"><span class="event-tag"><span class="ms">${cat.icon}</span>${tCat(getCategoryKey(place))}</span>${rating}</div></div></div>`;
+  return `<div class="event-card" onclick="focusPlace('${place.place_id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};"><div class="event-icon-box"><span class="ms">${cat.icon}</span></div><div class="event-body"><div class="event-title">${place.name || t('noName')}</div><div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div><div class="event-footer"><span class="event-age-tag" style="--age-bg:${cat.bg};--age-color:${cat.color};">${tCat(getCategoryKey(place))}</span>${rating}</div></div></div>`;
 }
 function renderEventCard(event) {
   const ageCat = categorizeEventByAge(event);
   const ageKey = getAgeCategoryKey(event);
   const title = event.title || 'Evento sin título';
   const venue = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
-  const dateInfo = event.date ? event.date + (event.time ? ' · ' + event.time : '') : t('addressNA');
-  return `<div class="event-card" onclick="focusPlace('${event.id}', 'event')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};--age-color:${ageCat.color};--age-bg:${ageCat.bg};"><div class="event-icon-box" style="background:${ageCat.bg};color:${ageCat.color};"><span class="ms">${ageCat.icon}</span></div><div class="event-body"><div class="event-title">${title}</div><div class="event-venue"><span class="ms">location_on</span>${venue}</div><div class="event-footer"><span class="event-age-tag"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span><span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span></div></div></div>`;
+  const dateInfo = event.date ? event.date + (event.time ? ' · ' + event.time : '') : '';
+  return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};"><div class="event-icon-box" style="background:${ageCat.bg};color:${ageCat.color};"><span class="ms">${ageCat.icon}</span></div><div class="event-body"><div class="event-title">${title}</div><div class="event-venue"><span class="ms">location_on</span>${venue}</div><div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div></div></div>`;
 }
 function renderUnifiedList() {
   const container = document.getElementById('sidebarEvents');
@@ -698,7 +1168,7 @@ function renderUnifiedList() {
     return;
   }
   const audienceLabel = currentAudience === 'all' ? t('age_all') : tAge(currentAudience);
-  const label = `${unifiedResults.length} resultados · ${audienceLabel} · ${tCat(currentCategory)}`;
+  const label = `${unifiedResults.length} resultados · ${audienceLabel}`;
   container.innerHTML = `<div class="section-label">${label}</div>` + unifiedResults.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
 }
 function renderSheetUnified() {
@@ -722,90 +1192,156 @@ function onSearchInput() {
   });
   const container = document.getElementById('sidebarEvents');
   if (filtered.length === 0) { container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3></div>`; return; }
-  container.innerHTML = `<div class="section-label">${filtered.length} resultados para "${currentSearch}"</div>` + filtered.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
+  container.innerHTML = `<div class="section-label">${filtered.length} resultados</div>` + filtered.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
+}
+
+/* ============================================
+   SUBMENÚ ANIMADO
+   ============================================ */
+function openSubmenu(type) {
+  const submenu = document.getElementById('submenu');
+  const optionsContainer = document.getElementById('submenuOptions');
+  const titleEl = document.getElementById('submenuTitle');
+  const iconEl = document.getElementById('submenuIcon');
+
+  let options = [];
+  let title = '';
+  let icon = '';
+
+  if (type === 'audience') {
+    title = t('audienceLabel');
+    icon = 'groups';
+    options = Object.entries(AGE_CATEGORIES).map(([key, cat]) => ({
+      key, label: tAge(key), icon: cat.icon, color: cat.color, bg: cat.bg, active: key === currentAudience, action: () => setAudience(key)
+    }));
+  } else if (type === 'category') {
+    title = t('categoriesLabel');
+    icon = 'category';
+    options = Object.entries(CATEGORIES).map(([key, cat]) => ({
+      key, label: tCat(key), icon: cat.icon, color: cat.color, bg: cat.bg, active: key === currentCategory, action: () => setCategory(key)
+    }));
+  }
+
+  titleEl.textContent = title;
+  iconEl.textContent = icon;
+  const firstOption = options.find(o => o.active) || options[0];
+  submenu.style.setProperty('--submenu-color', firstOption.color);
+
+  optionsContainer.innerHTML = options.map((opt, i) => `
+    <button class="submenu-option ${opt.active ? 'active' : ''}" data-key="${opt.key}" style="--option-color:${opt.color};--option-bg:${opt.bg};animation-delay:${i * 30}ms;">
+      <span class="ms">${opt.icon}</span>
+      <span>${opt.label}</span>
+      <span class="ms check">check</span>
+    </button>
+  `).join('');
+
+  optionsContainer.querySelectorAll('.submenu-option').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      options[i].action();
+      closeSubmenu();
+    });
+  });
+
+  submenu.classList.add('open');
+  currentSubmenu = type;
+}
+function closeSubmenu() {
+  document.getElementById('submenu').classList.remove('open');
+  currentSubmenu = null;
+}
+
+/* ============================================
+   BOTONES DE CATEGORÍA PRINCIPAL
+   ============================================ */
+function renderMainCategories() {
+  const container = document.getElementById('mainCategories');
+  container.innerHTML = `
+    <button class="cat-btn" data-type="audience" onclick="openSubmenu('audience')" style="--cat-color:#E76F51;--cat-shadow:rgba(231,111,81,0.4);" data-label="${t('audienceLabel')}">
+      <span class="ms fill" id="audienceIcon">groups</span>
+      <span class="badge" id="audienceBadge">0</span>
+    </button>
+    <button class="cat-btn" data-type="category" onclick="openSubmenu('category')" style="--cat-color:#2A9D8F;--cat-shadow:rgba(42,157,143,0.4);" data-label="${t('categoriesLabel')}">
+      <span class="ms fill" id="categoryIcon">category</span>
+      <span class="badge" id="categoryBadge">0</span>
+    </button>
+  `;
 }
 
 /* ============================================
    ACCIONES
    ============================================ */
-function focusPlace(id, type) {
+function focusPlace(id) {
   const marker = markers.find(m => m.placeId === id);
-  if (marker) { map.panTo(marker.getPosition()); map.setZoom(16); setTimeout(() => google.maps.event.trigger(marker, 'click'), 500); if (!isDesktop()) closeSidebar(); }
-}
-
-/* ============================================
-   SIDEBAR
-   ============================================ */
-function isDesktop() { return window.innerWidth >= 900; }
-function updateSidebarState() {
-  const sidebar = document.getElementById('sidebar'), menuIcon = document.getElementById('menuIcon');
-  if (isDesktop()) {
-    if (document.body.classList.contains('sidebar-closed')) { sidebar.classList.add('closed'); menuIcon.textContent = 'menu'; }
-    else { sidebar.classList.remove('closed'); menuIcon.textContent = 'menu_open'; }
-  } else { menuIcon.textContent = sidebar.classList.contains('open') ? 'menu_open' : 'menu'; }
-}
-function toggleSidebar() {
-  if (isDesktop()) { document.body.classList.toggle('sidebar-closed'); updateSidebarState(); updateOverlay(); }
-  else { const sidebar = document.getElementById('sidebar'); sidebar.classList.contains('open') ? closeSidebar() : openSidebar(); }
-}
-function openSidebar() { document.getElementById('sidebar').classList.add('open'); if (isDesktop()) document.body.classList.remove('sidebar-closed'); updateSidebarState(); updateOverlay(); }
-function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); if (isDesktop()) document.body.classList.add('sidebar-closed'); updateSidebarState(); updateOverlay(); }
-
-function updateOverlay() {
-  const sidebarNeedsOverlay = !isDesktop() && document.getElementById('sidebar').classList.contains('open');
-  const menuNeedsOverlay = document.getElementById('optionsMenu').classList.contains('open');
-  document.getElementById('overlay').classList.toggle('show', sidebarNeedsOverlay || menuNeedsOverlay);
-}
-function handleOverlayClick() { closeSidebar(); closeOptionsMenu(); }
-
-/* ============================================
-   MENÚ
-   ============================================ */
-function toggleOptionsMenu(e) {
-  if (e) e.stopPropagation();
-  const menu = document.getElementById('optionsMenu');
-  menu.classList.contains('open') ? closeOptionsMenu() : (menu.classList.add('open'), updateOverlay());
-}
-function closeOptionsMenu() { document.getElementById('optionsMenu').classList.remove('open'); updateOverlay(); }
-function updateMenuState() {
-  document.querySelectorAll('.menu-item[data-lang]').forEach(item => item.classList.toggle('active', item.dataset.lang === currentLang));
-  document.querySelectorAll('.menu-item[data-theme-opt]').forEach(item => item.classList.toggle('active', item.dataset.themeOpt === currentTheme));
-}
-document.addEventListener('click', (e) => {
-  const menu = document.getElementById('optionsMenu'), btn = document.getElementById('optionsBtn');
-  if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) closeOptionsMenu();
-});
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeOptionsMenu(); if (!isDesktop()) closeSidebar(); } });
-
-/* ============================================
-   CHIPS (dos filas: audiencia + categoría)
-   ============================================ */
-function renderChips() {
-  // Fila de audiencia
-  const audienceContainer = document.getElementById('audienceChips');
-  audienceContainer.innerHTML = Object.entries(AGE_CATEGORIES).map(([key, cat]) => {
-    const shadowColor = cat.color + '59';
-    return `<button class="chip ${key === currentAudience ? 'active' : ''}" data-audience="${key}" onclick="setAudience('${key}')" style="--chip-color:${cat.color};--chip-shadow:${shadowColor};"><span class="ms">${cat.icon}</span>${tAge(key)}</button>`;
-  }).join('');
-  // Fila de categoría (Google Places)
-  const categoryContainer = document.getElementById('categoryChips');
-  categoryContainer.innerHTML = Object.entries(CATEGORIES).map(([key, cat]) => `
-    <button class="chip ${key === currentCategory ? 'active' : ''}" data-cat="${key}" onclick="setCategory('${key}')"><span class="ms">${cat.icon}</span><span class="chip-label">${tCat(key)}</span></button>
-  `).join('');
+  if (marker) {
+    map.panTo(marker.getPosition());
+    map.setZoom(16);
+    setTimeout(() => google.maps.event.trigger(marker, 'click'), 500);
+    if (!isDesktop()) closeSidebar();
+  }
 }
 function setAudience(audience) {
   currentAudience = audience;
-  document.querySelectorAll('#audienceChips .chip').forEach(c => c.classList.toggle('active', c.dataset.audience === audience));
   applyFilters();
+  updateBadges();
+  // Actualizar icono del botón de audiencia
+  const icon = document.getElementById('audienceIcon');
+  if (icon) icon.textContent = AGE_CATEGORIES[audience].icon;
+  const btn = document.querySelector('.cat-btn[data-type="audience"]');
+  if (btn) {
+    btn.style.setProperty('--cat-color', AGE_CATEGORIES[audience].color);
+    btn.style.setProperty('--cat-shadow', AGE_CATEGORIES[audience].color + '66');
+  }
+  showToast(AGE_CATEGORIES[audience].icon, tAge(audience));
 }
 function setCategory(cat) {
   currentCategory = cat;
   currentSearch = '';
   const searchInput = document.getElementById('searchInput');
   if (searchInput) searchInput.value = '';
-  document.querySelectorAll('#categoryChips .chip').forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
+  // Actualizar icono del botón de categoría
+  const icon = document.getElementById('categoryIcon');
+  if (icon) icon.textContent = CATEGORIES[cat].icon;
+  const btn = document.querySelector('.cat-btn[data-type="category"]');
+  if (btn) {
+    btn.style.setProperty('--cat-color', CATEGORIES[cat].color);
+    btn.style.setProperty('--cat-shadow', CATEGORIES[cat].color + '66');
+  }
   lastSearchTime = 0;
   searchEverything();
+  showToast(CATEGORIES[cat].icon, tCat(cat));
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+function isDesktop() { return window.innerWidth >= 1200; }
+function updateSidebarState() {
+  const sidebar = document.getElementById('sidebar'), menuIcon = document.getElementById('menuIcon');
+  if (isDesktop()) {
+    if (document.body.classList.contains('sidebar-closed')) { sidebar.classList.remove('open'); menuIcon.textContent = 'menu'; }
+    else { sidebar.classList.add('open'); menuIcon.textContent = 'menu_open'; }
+  } else { menuIcon.textContent = sidebar.classList.contains('open') ? 'menu_open' : 'menu'; }
+}
+function toggleSidebar() {
+  if (isDesktop()) { document.body.classList.toggle('sidebar-closed'); updateSidebarState(); }
+  else { const sidebar = document.getElementById('sidebar'); sidebar.classList.contains('open') ? closeSidebar() : openSidebar(); }
+}
+function openSidebar() { document.getElementById('sidebar').classList.add('open'); updateSidebarState(); updateOverlay(); }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); updateSidebarState(); updateOverlay(); }
+
+function updateOverlay() {
+  const sidebarOpen = document.getElementById('sidebar').classList.contains('open') && !isDesktop();
+  document.getElementById('overlay').classList.toggle('show', sidebarOpen);
+}
+function handleOverlayClick() { closeSidebar(); closeSubmenu(); }
+
+/* ============================================
+   MENÚ DE OPCIONES
+   ============================================ */
+function toggleOptionsMenu(e) {
+  if (e) e.stopPropagation();
+  // Como simplificamos, el botón de opciones ahora abre directamente el submenú de categorías
+  openSubmenu('category');
 }
 
 /* ============================================
@@ -816,7 +1352,6 @@ function loadPreferences() {
   currentLang = (savedLang && TRANSLATIONS[savedLang]) ? savedLang : ((navigator.language || 'es').startsWith('en') ? 'en' : 'es');
   currentTheme = localStorage.getItem('gdl-theme') || 'light';
   applyTheme(currentTheme);
-  updateMenuState();
 }
 function savePreferences() { localStorage.setItem('gdl-lang', currentLang); localStorage.setItem('gdl-theme', currentTheme); }
 
@@ -834,44 +1369,32 @@ function applyTheme(theme) {
   if (map) map.setOptions({ styles: effective === 'dark' ? mapStyles.minimal : mapStyles[mapStyleCurrent] });
 }
 function setTheme(theme) {
-  currentTheme = theme; applyTheme(theme); savePreferences(); updateMenuState();
-  closeOptionsMenu(); updateOverlay();
-  const labels = { light: t('themeLight'), dark: t('themeDark'), auto: t('themeAuto') };
-  showToast('palette', labels[theme]);
+  currentTheme = theme; applyTheme(theme); savePreferences();
+  showToast('palette', theme === 'dark' ? t('themeDark') : theme === 'light' ? t('themeLight') : t('themeAuto'));
 }
 function toggleTheme() {
   const effective = document.documentElement.getAttribute('data-theme');
   setTheme(effective === 'dark' ? 'light' : 'dark');
 }
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (currentTheme === 'auto') applyTheme('auto'); });
 
 /* ============================================
    IDIOMA
    ============================================ */
 function setLanguage(lang) {
-  if (!TRANSLATIONS[lang] || lang === currentLang) { closeOptionsMenu(); return; }
-  currentLang = lang; savePreferences(); updateAllTranslations(); updateMenuState();
-  closeOptionsMenu(); updateOverlay();
-  showToast('translate', lang === 'es' ? 'Español' : 'English');
-  renderChips();
+  if (!TRANSLATIONS[lang] || lang === currentLang) return;
+  currentLang = lang; savePreferences(); updateAllTranslations();
+  renderMainCategories();
   applyFilters();
 }
 function updateAllTranslations() {
   document.documentElement.lang = currentLang === 'en' ? 'en' : 'es-MX';
   document.title = currentLang === 'en' ? 'GDL Cultural — Museums & Events' : 'GDL Cultural — Museos y Eventos';
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    const val = TRANSLATIONS[currentLang][key];
-    if (typeof val === 'string') el.textContent = val;
-  });
   const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
   set('brandTitle', t('brandTitle'));
   set('brandSubtitle', t('brandSubtitle'));
   set('gpsLabel', isTracking ? t('gpsTracking') : t('gpsButton'));
   set('sheetTitle', t('sheetTitle'));
   set('searchPlaceholder', t('searchPlaceholder'));
-  set('audienceLabel', t('audienceLabel'));
-  set('categoryLabel', t('categoryLabel'));
   const searchInput = document.getElementById('searchInput');
   if (searchInput) searchInput.placeholder = t('searchInputPlaceholder');
 }
@@ -896,7 +1419,6 @@ function startTracking() {
   isTracking = true;
   document.getElementById('gpsButtonSidebar').classList.add('tracking');
   document.getElementById('gpsLabel').textContent = t('gpsTracking');
-  document.getElementById('locateFab').classList.add('tracking');
   watchId = navigator.geolocation.watchPosition(pos => { updateUserMarker({ lat: pos.coords.latitude, lng: pos.coords.longitude }); }, () => {}, { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 });
   showToast('my_location', t('locationTracking'));
 }
@@ -905,7 +1427,6 @@ function stopTracking() {
   if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
   document.getElementById('gpsButtonSidebar').classList.remove('tracking');
   document.getElementById('gpsLabel').textContent = t('gpsButton');
-  document.getElementById('locateFab').classList.remove('tracking');
   if (userMarker) { userMarker.setMap(null); userMarker = null; }
   showToast('location_off', t('locationTrackingStop'));
 }
@@ -915,31 +1436,60 @@ function updateUserMarker(loc) {
     userMarker = new google.maps.Marker({ position: loc, map, icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="#E76F51" stroke="white" stroke-width="3"/></svg>`), scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) }, title: 'Tu ubicación', zIndex: 9999 });
   }
 }
-function centerOnUser() {
-  if (!navigator.geolocation) return showToast('error', t('geoNotAvailable'));
-  if (!isTracking) startTracking();
-  navigator.geolocation.getCurrentPosition(pos => { const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude }; map.panTo(loc); map.setZoom(16); updateUserMarker(loc); }, () => showToast('error', t('locationError')), { enableHighAccuracy: true, timeout: 10000 });
-}
 
 /* ============================================
-   UTILIDADES
+   TOAST
    ============================================ */
-function toggleMapStyle() {
-  mapStyleCurrent = mapStyleCurrent === 'light' ? 'minimal' : 'light';
-  const effectiveTheme = document.documentElement.getAttribute('data-theme');
-  if (effectiveTheme !== 'dark') map.setOptions({ styles: mapStyles[mapStyleCurrent] });
-  showToast('layers', mapStyleCurrent === 'light' ? t('mapStandard') : t('mapMinimal'));
-}
-function toggleSheet() { sheetOpen = !sheetOpen; document.getElementById('sheet').classList.toggle('open', sheetOpen); }
 let toastTimer;
 function showToast(icon, msg) {
   const toast = document.getElementById('toast');
   toast.innerHTML = `<span class="ms fill">${icon}</span>${msg}`;
   toast.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
 }
-if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').then(() => console.log('✅ SW')).catch(err => console.log('⚠️ SW:', err)); }); }
+
+/* ============================================
+   BOTTOM SHEET (MÓVIL)
+   ============================================ */
+function toggleSheet() { sheetOpen = !sheetOpen; document.getElementById('sheet').classList.toggle('open', sheetOpen); }
+
+/* ============================================
+   PWA — INSTALACIÓN
+   ============================================ */
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  setTimeout(() => {
+    document.getElementById('installBanner').classList.add('show');
+  }, 3000);
+});
+
+async function installPWA() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    showToast('check_circle', t('pwaInstalled'));
+  }
+  deferredPrompt = null;
+  document.getElementById('installBanner').classList.remove('show');
+}
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').classList.remove('show');
+  deferredPrompt = null;
+});
+
+/* ============================================
+   SERVICE WORKER
+   ============================================ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(() => console.log('✅ SW')).catch(err => console.log('⚠️ SW:', err));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', updateSidebarState);
 window.addEventListener('resize', () => { updateSidebarState(); updateOverlay(); });
 </script>
