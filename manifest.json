@@ -1,0 +1,19 @@
+{
+  "name": "Eventos GDL - Guadalajara",
+  "short_name": "EventosGDL",
+  "description": "Descubre eventos familiares en Guadalajara",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF8E7",
+  "theme_color": "#FF8A65",
+  "lang": "es-MX",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%23FF8A65'/><text x='96' y='130' font-size='100' text-anchor='middle'>🎉</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
