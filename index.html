@@ -190,7 +190,6 @@
   }
   .submenu-option.active .check { opacity: 1; }
   
-  /* SIDEBAR — 100% del contenido de resultados */
   .sidebar {
     position: absolute; top: 0; left: 0;
     width: 380px; height: 100%;
@@ -385,7 +384,6 @@
   }
   .overlay.show { opacity: 1; pointer-events: auto; }
   
-  /* SISTEMA DE TOASTS EN COLA — nunca se encima */
   .toast-container {
     position: absolute;
     bottom: calc(24px + var(--safe-bottom));
@@ -424,7 +422,6 @@
   .toast .ms { font-size: 20px; flex-shrink: 0; }
   .toast span:not(.ms) { overflow: hidden; text-overflow: ellipsis; }
   
-  /* PWA INSTALL BANNER con botón X — se auto-oculta si hay toasts */
   .install-banner {
     position: absolute;
     bottom: calc(24px + var(--safe-bottom));
@@ -480,7 +477,6 @@
   
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   
-  /* RESPONSIVE — MÓVIL */
   @media (max-width: 1199px) {
     .main-categories {
       right: 12px;
@@ -507,13 +503,11 @@
     .install-banner { width: calc(100% - 32px); }
   }
   
-  /* RESPONSIVE — TABLET */
   @media (min-width: 768px) and (max-width: 1199px) {
     .sidebar { width: 400px; }
     .install-banner { width: 480px; }
   }
   
-  /* RESPONSIVE — DESKTOP */
   @media (min-width: 1200px) {
     .sidebar { transform: translateX(0); }
     body:not(.sidebar-closed) .header { left: 396px; }
@@ -578,7 +572,6 @@
   <div class="submenu-options" id="submenuOptions"></div>
 </div>
 
-<!-- PWA INSTALL BANNER CON BOTÓN X -->
 <div class="install-banner" id="installBanner">
   <span class="ms fill install-icon">install_mobile</span>
   <div class="install-banner-text">
@@ -591,7 +584,6 @@
   </button>
 </div>
 
-<!-- SISTEMA DE TOASTS EN COLA -->
 <div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
 
 <script>
@@ -601,7 +593,7 @@
 const API_KEYS = {
   google: 'AIzaSyD7vyTk4SncfI67G65xCZCZWgihHaMk7Tg',
   ticketmaster: 'X55W4VAAGg4eSGiDibtNacDy7Swfuqzg',
-  apify: 'TU_APIFY_TOKEN_AQUI'
+  apify: 'apify_api_YinMMkGVGxJLMD1duwnV8QBPevWNlv4tHYXj'
 };
 
 /* ============================================
@@ -815,11 +807,6 @@ window.initMap = function() {
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
-  /* ============================================
-     EVENTOS DEL MAPA — CIERRE AUTOMÁTICO DEL SIDEBAR
-     ============================================ */
-  
-  // Click en el mapa: cierra submenu, info window y sidebar (si no es desktop)
   map.addListener('click', () => {
     closeSubmenu();
     if (!isDesktop() && isSidebarOpen()) {
@@ -827,7 +814,6 @@ window.initMap = function() {
     }
   });
   
-  // Inicio de arrastre: cierra submenú y sidebar
   map.addListener('dragstart', () => {
     isMapInteracting = true;
     closeSubmenu();
@@ -836,12 +822,10 @@ window.initMap = function() {
     }
   });
   
-  // Zoom cambiado: cierra submenú
   map.addListener('zoom_changed', () => {
     closeSubmenu();
   });
   
-  // Fin del movimiento: recargar lugares
   let moveTimeout;
   map.addListener('idle', () => {
     isMapInteracting = false;
@@ -934,26 +918,74 @@ function searchTicketmasterPromise() {
     } catch (err) { resolve([]); }
   });
 }
+/* ============================================
+   EVENTBRITE VÍA APIFY — CORREGIDO
+   Actor funcional: logiover/eventbrite-scraper
+   Búsqueda por nombre de ciudad (Guadalajara)
+   ============================================ */
 function searchEventbritePromise() {
   return new Promise(async (resolve) => {
-    if (!API_KEYS.apify || API_KEYS.apify === 'TU_APIFY_TOKEN_AQUI') return resolve([]);
+    if (!API_KEYS.apify || API_KEYS.apify === 'TU_APIFY_TOKEN_AQUI') {
+      console.warn('Eventbrite: Token de Apify no configurado');
+      return resolve([]);
+    }
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 10000);
-      const response = await fetch(`https://api.apify.com/v2/acts/xtracto~eventbrite-events/run-sync-get-dataset-items?token=${API_KEYS.apify}`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ location: 'Guadalajara', dateRange: 'current_future', maxItems: 100, enrichDetail: true }),
-        signal: controller.signal
-      });
+      const timeout = setTimeout(() => controller.abort(), 20000); // Scraper tarda más
+      
+      // Actor funcional: logiover/eventbrite-scraper
+      const response = await fetch(
+        `https://api.apify.com/v2/acts/logiover~eventbrite-scraper/run-sync-get-dataset-items?token=${API_KEYS.apify}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            location: 'Guadalajara',
+            maxItems: 100,
+            startUrl: ''
+          }),
+          signal: controller.signal
+        }
+      );
+      
       clearTimeout(timeout);
+      
+      if (!response.ok) {
+        console.warn('Eventbrite (Apify) status:', response.status);
+        return resolve([]);
+      }
+      
       const data = await response.json();
+      console.log('Eventbrite (Apify) raw data:', data);
+      
       const events = (Array.isArray(data) ? data : []).map(e => {
-        const lat = parseFloat(e.primary_venue?.latitude || e.latitude), lng = parseFloat(e.primary_venue?.longitude || e.longitude);
+        const lat = parseFloat(e.latitude || e.venue?.latitude || e.primary_venue?.latitude);
+        const lng = parseFloat(e.longitude || e.venue?.longitude || e.primary_venue?.longitude);
         if (!lat || !lng) return null;
-        return { id: 'eb_' + (e.id || e.eid || Math.random()), type: 'event', source: 'eventbrite', title: e.name || 'Evento', date: e.start_date || '', time: e.start_time || '', venue: e.primary_venue?.name || '', city: e.primary_venue?.city || 'Guadalajara', lat, lng, url: e.url, description: e.summary || e.description || '' };
+        
+        return {
+          id: 'eb_' + (e.id || e.eid || e.url || Math.random()),
+          type: 'event',
+          source: 'eventbrite',
+          title: e.name || e.title || 'Evento',
+          date: e.start_date || e.startDate || e.start?.local?.split('T')[0] || '',
+          time: e.start_time || e.startTime || e.start?.local?.split('T')[1]?.substring(0, 5) || '',
+          venue: e.venue?.name || e.primary_venue?.name || e.venueName || '',
+          city: e.venue?.city || e.primary_venue?.city || 'Guadalajara',
+          lat: lat,
+          lng: lng,
+          url: e.url || e.ticketsUrl || '',
+          description: e.summary || e.description || ''
+        };
       }).filter(Boolean);
+      
+      console.log(`Eventbrite: ${events.length} eventos encontrados`);
       resolve(events);
-    } catch (err) { resolve([]); }
+      
+    } catch (err) {
+      console.warn('Eventbrite (Apify) falló:', err.message);
+      resolve([]);
+    }
   });
 }
 function deduplicateEvents(events) {
@@ -1325,12 +1357,10 @@ if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.
   isPWAInstalled = true;
 }
 
-// Sistema de cola para el banner (no se encima con toasts)
 let bannerTimer = null;
 function showInstallBanner() {
   if (isPWAInstalled) return;
   if (!shouldShowInstallBanner()) return;
-  // Ocultar si hay toasts activos
   if (toastActive > 0) {
     setTimeout(showInstallBanner, 1500);
     return;
