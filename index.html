@@ -918,10 +918,10 @@ function searchTicketmasterPromise() {
     } catch (err) { resolve([]); }
   });
 }
+
 /* ============================================
    EVENTBRITE VÍA APIFY — CORREGIDO
-   Actor funcional: logiover/eventbrite-scraper
-   Búsqueda por nombre de ciudad (Guadalajara)
+   Actor: bovi/eventbrite-events (funciona con proxies de centro de datos)
    ============================================ */
 function searchEventbritePromise() {
   return new Promise(async (resolve) => {
@@ -933,19 +933,16 @@ function searchEventbritePromise() {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 20000);
       
-      // ✅ Actor alternativo que funciona con proxies de centro de datos (incluidos en plan gratis)
+      // ✅ Actor bovi/eventbrite-events - compatible con proxies de centro de datos
       const response = await fetch(
-        `https://api.apify.com/v2/acts/khadinakbar~eventbrite-events-scraper/run-sync-get-dataset-items`,
+        `https://api.apify.com/v2/acts/bovi~eventbrite-events/run-sync-get-dataset-items?token=${API_KEYS.apify}`,
         {
           method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${API_KEYS.apify}`
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            location: 'Guadalajara',
-            maxResults: 50,
-            includeDetails: false
+            searchQueries: ['mexico--guadalajara/all-events'],
+            maxItems: 50,
+            enrichDetails: false
           }),
           signal: controller.signal
         }
@@ -962,22 +959,22 @@ function searchEventbritePromise() {
       console.log('Eventbrite (Apify) raw data:', data);
       
       const events = (Array.isArray(data) ? data : []).map(e => {
-        const lat = parseFloat(e.latitude || e.venue?.latitude || e.primary_venue?.latitude);
-        const lng = parseFloat(e.longitude || e.venue?.longitude || e.primary_venue?.longitude);
+        const lat = parseFloat(e.latitude || e.venue?.latitude);
+        const lng = parseFloat(e.longitude || e.venue?.longitude);
         if (!lat || !lng) return null;
         
         return {
-          id: 'eb_' + (e.id || e.eid || e.url || Math.random()),
+          id: 'eb_' + (e.id || e.url || Math.random()),
           type: 'event',
           source: 'eventbrite',
-          title: e.name || e.title || 'Evento',
-          date: e.startDate || e.start_date || e.start?.local?.split('T')[0] || '',
-          time: e.startTime || e.start_time || e.start?.local?.split('T')[1]?.substring(0, 5) || '',
-          venue: e.venueName || e.venue?.name || e.primary_venue?.name || '',
+          title: e.name || 'Evento',
+          date: e.startDate || e.start?.local?.split('T')[0] || '',
+          time: e.startTime || e.start?.local?.split('T')[1]?.substring(0, 5) || '',
+          venue: e.venueName || e.venue?.name || '',
           city: e.city || e.venue?.city || 'Guadalajara',
           lat: lat,
           lng: lng,
-          url: e.url || e.ticketsUrl || '',
+          url: e.url || '',
           description: e.summary || e.description || ''
         };
       }).filter(Boolean);
@@ -991,7 +988,7 @@ function searchEventbritePromise() {
     }
   });
 }
- function deduplicateEvents(events) {
+function deduplicateEvents(events) {
   const seen = new Set();
   return events.filter(e => {
     const key = `${(e.title || '').toLowerCase().trim()}|${(e.venue || '').toLowerCase().trim()}`;
