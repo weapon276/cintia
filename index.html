@@ -923,6 +923,10 @@ function searchTicketmasterPromise() {
    EVENTBRITE VÍA APIFY — CORREGIDO
    Actor: bovi/eventbrite-events (funciona con proxies de centro de datos)
    ============================================ */
+/* ============================================
+   EVENTBRITE VÍA APIFY — CORREGIDO
+   Actor: logiover/eventbrite-scraper (funciona sin proxies residenciales)
+   ============================================ */
 function searchEventbritePromise() {
   return new Promise(async (resolve) => {
     if (!API_KEYS.apify || API_KEYS.apify === 'apify_api_YinMMkGVGXJLMD1duwnV8QBPevWNlv4tHYXj') {
@@ -933,16 +937,16 @@ function searchEventbritePromise() {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 20000);
       
-      // ✅ Actor bovi/eventbrite-events - compatible con proxies de centro de datos
+      // ✅ Actor logiover/eventbrite-scraper - busca por ciudad, sin proxies residenciales
       const response = await fetch(
-        `https://api.apify.com/v2/acts/bovi~eventbrite-events/run-sync-get-dataset-items?token=${API_KEYS.apify}`,
+        `https://api.apify.com/v2/acts/logiover~eventbrite-scraper/run-sync-get-dataset-items?token=${API_KEYS.apify}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            searchQueries: ['mexico--guadalajara/all-events'],
-            maxItems: 50,
-            enrichDetails: false
+            city: 'Guadalajara',
+            maxResults: 50,
+            useProxy: true
           }),
           signal: controller.signal
         }
@@ -971,11 +975,11 @@ function searchEventbritePromise() {
           date: e.startDate || e.start?.local?.split('T')[0] || '',
           time: e.startTime || e.start?.local?.split('T')[1]?.substring(0, 5) || '',
           venue: e.venueName || e.venue?.name || '',
-          city: e.city || e.venue?.city || 'Guadalajara',
+          city: e.city || 'Guadalajara',
           lat: lat,
           lng: lng,
           url: e.url || '',
-          description: e.summary || e.description || ''
+          description: e.summary || ''
         };
       }).filter(Boolean);
       
