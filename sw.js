@@ -1,17 +1,16 @@
 /* ============================================
    SERVICE WORKER — GDL Cultural PWA
-   CRÍTICO: Android Chrome requiere un handler 'fetch' para instalabilidad
    ============================================ */
-const CACHE_NAME = 'gdl-cultural-v4';
+const CACHE_NAME = 'gdl-cultural-v5'; // Versión incrementada
 const SHELL_ASSETS = ['/', '/index.html', '/manifest.json'];
 
-/* ------------------------------------------
-   Helper: ¿es una petición cacheable?
-   ------------------------------------------ */
+/* Helper: ¿es una petición cacheable? */
 function isCacheable(request) {
   if (request.method !== 'GET') return false;
   const url = new URL(request.url);
+  // Ignorar esquemas no soportados (chrome-extension, etc.)
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return false;
+  // Ignorar dominios de APIs externas para no cachear datos dinámicos
   if (url.hostname.includes('googleapis.com') ||
       url.hostname.includes('gstatic.com') ||
       url.hostname.includes('google.com') ||
@@ -20,9 +19,7 @@ function isCacheable(request) {
   return true;
 }
 
-/* ------------------------------------------
-   INSTALL
-   ------------------------------------------ */
+/* INSTALL */
 self.addEventListener('install', event => {
   console.log('[SW] Installing...');
   event.waitUntil(
@@ -34,9 +31,7 @@ self.addEventListener('install', event => {
   );
 });
 
-/* ------------------------------------------
-   ACTIVATE
-   ------------------------------------------ */
+/* ACTIVATE */
 self.addEventListener('activate', event => {
   console.log('[SW] Activating...');
   event.waitUntil(
@@ -48,16 +43,13 @@ self.addEventListener('activate', event => {
   );
 });
 
-/* ------------------------------------------
-   FETCH — CRÍTICO para Android PWA installability
-   Sin este handler, Android Chrome NO permite instalar la PWA
-   ------------------------------------------ */
+/* FETCH — CRÍTICO para Android PWA installability */
 self.addEventListener('fetch', event => {
   const { request } = event;
   
-  // Ignorar esquemas no soportados (chrome-extension, etc.)
+  // Ignorar esquemas no soportados
   if (!isCacheable(request)) {
-    return; // Dejar que el navegador maneje
+    return;
   }
   
   // Navegación (HTML): Network First
@@ -100,9 +92,7 @@ self.addEventListener('fetch', event => {
   );
 });
 
-/* ------------------------------------------
-   MENSAJES
-   ------------------------------------------ */
+/* MENSAJES */
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
