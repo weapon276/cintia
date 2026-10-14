@@ -47,7 +47,7 @@
     --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
     --ease-emphasized: cubic-bezier(0.2, 0, 0, 1); --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --z-map: 1; --z-chips: 900; --z-header: 1000; --z-submenu: 1500;
+    --z-splash: 5000; --z-map: 1; --z-chips: 900; --z-header: 1000; --z-submenu: 1500;
     --z-overlay: 1900; --z-sidebar: 2000; --z-banner: 2400; --z-toast: 3000;
   }
   html[data-theme="dark"] {
@@ -69,6 +69,120 @@
   body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; height: 100vh; height: 100dvh; position: fixed; width: 100%; overscroll-behavior: none; transition: background .3s var(--ease-standard), color .3s var(--ease-standard); }
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
+  
+  /* ============================================
+     SPLASH SCREEN CON SALUDO PERSONALIZADO
+     ============================================ */
+  .splash {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-splash);
+    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 32px;
+    transition: opacity .6s var(--ease-emphasized), visibility .6s;
+  }
+  .splash.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  html[data-theme="dark"] .splash {
+    background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%);
+  }
+  
+  .splash-logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: splashFloat 3s ease-in-out infinite;
+  }
+  @keyframes splashFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.02); }
+  }
+  .splash-logo .ms {
+    font-size: 52px;
+    color: #FFFFFF;
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+  }
+  
+  .splash-greeting {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: splashFadeIn .8s var(--ease-emphasized) .2s both;
+  }
+  .splash-greeting-emoji {
+    display: block;
+    font-size: 48px;
+    margin-bottom: 8px;
+    animation: splashFadeIn .8s var(--ease-emphasized) .1s both;
+  }
+  @keyframes splashFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .splash-subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    max-width: 280px;
+    line-height: 1.5;
+    animation: splashFadeIn .8s var(--ease-emphasized) .4s both;
+  }
+  
+  .splash-loader {
+    width: 200px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 16px;
+    animation: splashFadeIn .8s var(--ease-emphasized) .6s both;
+  }
+  .splash-loader-bar {
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 999px;
+    width: 30%;
+    animation: splashLoad 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  @keyframes splashLoad {
+    0% { width: 5%; margin-left: 0; }
+    50% { width: 60%; margin-left: 20%; }
+    100% { width: 5%; margin-left: 95%; }
+  }
+  
+  .splash-brand {
+    position: absolute;
+    bottom: calc(32px + var(--safe-bottom));
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: splashFadeIn .8s var(--ease-emphasized) .8s both;
+  }
   
   #map { position: absolute; inset: 0; z-index: var(--z-map); background: var(--surface-2); }
   html[data-theme="dark"] #map { filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
@@ -247,7 +361,6 @@
   }
   .close-btn:hover { background: var(--surface-2); color: var(--text); }
   
-  /* Badge de idioma autodetectado (pequeño, discreto) */
   .lang-badge {
     display: inline-flex;
     align-items: center;
@@ -511,6 +624,10 @@
     .sidebar { width: 92%; max-width: 400px; }
     .install-banner { width: calc(100% - 32px); }
     .event-photo { width: 88px; height: 88px; }
+    .splash-greeting { font-size: 26px; }
+    .splash-greeting-emoji { font-size: 40px; }
+    .splash-logo { width: 80px; height: 80px; }
+    .splash-logo .ms { font-size: 44px; }
   }
   
   @media (min-width: 768px) and (max-width: 1199px) {
@@ -533,6 +650,22 @@
 </head>
 <body>
 
+<!-- SPLASH SCREEN CON SALUDO PERSONALIZADO -->
+<div class="splash" id="splash">
+  <div class="splash-logo">
+    <span class="ms fill">location_city</span>
+  </div>
+  <div class="splash-greeting">
+    <span class="splash-greeting-emoji" id="splashEmoji">☀️</span>
+    <span id="splashGreeting">Buenos días</span>
+  </div>
+  <div class="splash-subtitle" id="splashSubtitle">Descubre museos y eventos en Guadalajara</div>
+  <div class="splash-loader">
+    <div class="splash-loader-bar"></div>
+  </div>
+  <div class="splash-brand">GDL CULTURAL</div>
+</div>
+
 <div class="overlay" id="overlay" onclick="handleOverlayClick()"></div>
 
 <aside class="sidebar" id="sidebar" aria-label="Panel de resultados">
@@ -545,7 +678,6 @@
       </div>
       <button class="close-btn" onclick="closeSidebar()" aria-label="Cerrar panel"><span class="ms">close</span></button>
     </div>
-    <!-- Badge de idioma autodetectado (solo informativo) -->
     <div class="lang-badge">
       <span class="ms">language</span>
       <span id="langBadgeLabel">AUTO · ES</span>
@@ -608,6 +740,57 @@ const API_KEYS = {
 };
 
 /* ============================================
+   SALUDO PERSONALIZADO SEGÚN LA HORA
+   ============================================ */
+function getGreeting() {
+  const hour = new Date().getHours();
+  const greetings = {
+    es: {
+      morning: { text: 'Buenos días', emoji: '☀️', subtitle: 'Descubre museos y eventos en Guadalajara' },
+      afternoon: { text: 'Buenas tardes', emoji: '🌤️', subtitle: 'Explora la cultura tapatía hoy' },
+      evening: { text: 'Buenas noches', emoji: '🌙', subtitle: 'Encuentra planes para esta noche' }
+    },
+    en: {
+      morning: { text: 'Good morning', emoji: '☀️', subtitle: 'Discover museums and events in Guadalajara' },
+      afternoon: { text: 'Good afternoon', emoji: '🌤️', subtitle: 'Explore the local culture today' },
+      evening: { text: 'Good evening', emoji: '🌙', subtitle: 'Find plans for tonight' }
+    },
+    fr: {
+      morning: { text: 'Bonjour', emoji: '☀️', subtitle: 'Découvrez les musées et événements à Guadalajara' },
+      afternoon: { text: 'Bon après-midi', emoji: '🌤️', subtitle: 'Explorez la culture locale aujourd\'hui' },
+      evening: { text: 'Bonsoir', emoji: '🌙', subtitle: 'Trouvez des idées pour ce soir' }
+    },
+    pt: {
+      morning: { text: 'Bom dia', emoji: '☀️', subtitle: 'Descubra museus e eventos em Guadalajara' },
+      afternoon: { text: 'Boa tarde', emoji: '🌤️', subtitle: 'Explore a cultura local hoje' },
+      evening: { text: 'Boa noite', emoji: '🌙', subtitle: 'Encontre planos para hoje à noite' }
+    },
+    de: {
+      morning: { text: 'Guten Morgen', emoji: '☀️', subtitle: 'Entdecken Sie Museen und Veranstaltungen in Guadalajara' },
+      afternoon: { text: 'Guten Tag', emoji: '🌤️', subtitle: 'Erkunden Sie heute die lokale Kultur' },
+      evening: { text: 'Guten Abend', emoji: '🌙', subtitle: 'Finden Sie Pläne für heute Abend' }
+    }
+  };
+  
+  let period = 'morning';
+  if (hour >= 12 && hour < 19) period = 'afternoon';
+  else if (hour >= 19 || hour < 5) period = 'evening';
+  
+  const langGreetings = greetings[currentLang] || greetings.es;
+  return langGreetings[period];
+}
+
+function updateSplashGreeting() {
+  const greeting = getGreeting();
+  const emojiEl = document.getElementById('splashEmoji');
+  const textEl = document.getElementById('splashGreeting');
+  const subtitleEl = document.getElementById('splashSubtitle');
+  if (emojiEl) emojiEl.textContent = greeting.emoji;
+  if (textEl) textEl.textContent = greeting.text;
+  if (subtitleEl) subtitleEl.textContent = greeting.subtitle;
+}
+
+/* ============================================
    CATEGORÍAS DE AUDIENCIA
    ============================================ */
 const AGE_CATEGORIES = {
@@ -620,7 +803,7 @@ const AGE_CATEGORIES = {
 };
 
 /* ============================================
-   TRADUCCIONES — 5 idiomas (autodetectadas)
+   TRADUCCIONES — 5 idiomas
    ============================================ */
 const TRANSLATIONS = {
   es: {
@@ -732,6 +915,7 @@ let lastSearchTime = 0;
 let deferredPrompt = null;
 let isPWAInstalled = false;
 let isManualRefreshing = false;
+let mapInteractionTimeout = null;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
@@ -809,24 +993,17 @@ function getAgeCategoryKey(event) {
    AUTODETECCIÓN DE IDIOMA DEL NAVEGADOR
    ============================================ */
 function detectBrowserLanguage() {
-  // Prioridad 1: idiomas preferidos del navegador
   const supportedLangs = ['es', 'en', 'fr', 'pt', 'de'];
-  
-  // navigator.languages es un array con todos los idiomas preferidos
   if (navigator.languages && navigator.languages.length > 0) {
     for (const lang of navigator.languages) {
       const code = lang.toLowerCase().slice(0, 2);
       if (supportedLangs.includes(code)) return code;
     }
   }
-  
-  // Fallback: navigator.language
   if (navigator.language) {
     const code = navigator.language.toLowerCase().slice(0, 2);
     if (supportedLangs.includes(code)) return code;
   }
-  
-  // Fallback final: español
   return 'es';
 }
 
@@ -888,21 +1065,52 @@ window.initMap = function() {
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
+  /* ============================================
+     EVENTOS DEL MAPA — CIERRE AUTOMÁTICO DE UI
+     ============================================ */
+  
+  // Click en el mapa: cierra submenu, info window y sidebar
   map.addListener('click', () => {
     closeSubmenu();
+    if (infoWindow) infoWindow.close();
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
   });
+  
+  // Inicio de arrastre: cierra TODO (infoWindow, submenu, sidebar)
   map.addListener('dragstart', () => {
+    if (infoWindow) infoWindow.close();
     closeSubmenu();
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
   });
-  map.addListener('zoom_changed', () => closeSubmenu());
+  
+  // Cambio de zoom: cierra TODO también
+  map.addListener('zoom_changed', () => {
+    if (infoWindow) infoWindow.close();
+    closeSubmenu();
+  });
 
   updateAllTranslations();
   renderMainCategories();
   updateSidebarState();
   searchEverything();
+  
+  // Ocultar splash después de 2.5s o cuando el mapa esté listo
+  setTimeout(hideSplash, 2500);
 };
+
+/* ============================================
+   SPLASH SCREEN
+   ============================================ */
+function hideSplash() {
+  const splash = document.getElementById('splash');
+  if (splash && !splash.classList.contains('hidden')) {
+    splash.classList.add('hidden');
+    // Remover completamente del DOM después de la transición
+    setTimeout(() => {
+      if (splash.parentNode) splash.parentNode.removeChild(splash);
+    }, 700);
+  }
+}
 
 /* ============================================
    BÚSQUEDA
@@ -1232,6 +1440,8 @@ function setAudience(audience) {
   const icon = document.getElementById('audienceIcon');
   if (icon) icon.textContent = AGE_CATEGORIES[audience].icon;
   showToast(AGE_CATEGORIES[audience].icon, tAge(audience));
+  // Cerrar sidebar al cambiar audiencia (si es móvil)
+  if (!isDesktop() && isSidebarOpen()) closeSidebar();
 }
 function setCategory(cat) {
   currentCategory = cat;
@@ -1241,8 +1451,11 @@ function setCategory(cat) {
   const icon = document.getElementById('categoryIcon');
   if (icon) icon.textContent = CATEGORIES[cat].icon;
   lastSearchTime = 0;
+  if (infoWindow) infoWindow.close();
   searchEverything();
   showToast(CATEGORIES[cat].icon, tCat(cat));
+  // Cerrar sidebar al cambiar categoría (si es móvil)
+  if (!isDesktop() && isSidebarOpen()) closeSidebar();
 }
 function manualRefresh() {
   if (isManualRefreshing) return;
@@ -1251,6 +1464,7 @@ function manualRefresh() {
   const btn = document.getElementById('refreshBtn');
   if (btn) btn.classList.add('active');
   lastSearchTime = 0;
+  if (infoWindow) infoWindow.close();
   searchEverything().then(() => {
     isManualRefreshing = false;
     if (btn) btn.classList.remove('active');
@@ -1298,15 +1512,11 @@ function toggleOptionsMenu(e) {
    PREFERENCIAS
    ============================================ */
 function loadPreferences() {
-  // Autodetectar idioma del navegador
   currentLang = detectBrowserLanguage();
-  
-  // Tema guardado
   currentTheme = localStorage.getItem('gdl-theme') || 'light';
   applyTheme(currentTheme);
 }
 function savePreferences() {
-  // Solo guardamos el tema, el idioma siempre se autodetecta
   localStorage.setItem('gdl-theme', currentTheme);
 }
 
@@ -1349,12 +1559,14 @@ function updateAllTranslations() {
   const searchInput = document.getElementById('searchInput');
   if (searchInput) searchInput.placeholder = t('searchInputPlaceholder');
   
-  // Actualizar el badge de idioma detectado
   const langBadge = document.getElementById('langBadgeLabel');
   if (langBadge) {
     const flagMap = { es: '🇲🇽 ES', en: '🇺🇸 EN', fr: '🇫🇷 FR', pt: '🇧🇷 PT', de: '🇩🇪 DE' };
     langBadge.textContent = `AUTO · ${flagMap[currentLang] || currentLang.toUpperCase()}`;
   }
+  
+  // Actualizar el saludo del splash también
+  updateSplashGreeting();
 }
 
 /* ============================================
@@ -1369,6 +1581,7 @@ function searchNearMe() {
     map.panTo(loc); map.setZoom(14); updateUserMarker(loc);
     showToast('check_circle', t('locationFound'));
     lastSearchTime = 0;
+    if (infoWindow) infoWindow.close();
     setTimeout(searchEverything, 500);
   }, () => showToast('error', t('locationError')), { enableHighAccuracy: true, timeout: 10000 });
 }
@@ -1476,13 +1689,14 @@ if ('serviceWorker' in navigator) {
 document.addEventListener('DOMContentLoaded', () => {
   updateSidebarState();
   checkIfPWAInstalled();
+  // Actualizar el saludo del splash al cargar (por si el idioma cambió)
+  updateSplashGreeting();
 });
 window.addEventListener('resize', () => { updateSidebarState(); updateOverlay(); });
 </script>
 
 <script>
 (function() {
-  // Autodetectar idioma del navegador
   const supportedLangs = ['es', 'en', 'fr', 'pt', 'de'];
   let lang = 'es';
   if (navigator.languages && navigator.languages.length > 0) {
