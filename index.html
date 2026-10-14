@@ -33,7 +33,7 @@
     --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
     --ease-emphasized: cubic-bezier(0.2, 0, 0, 1); --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-    --z-map: 1; --z-chips: 900; --z-header: 1000; --z-submenu: 1500;
+    --z-map: 1; --z-chips: 900; --z-header: 1000; --z-preview: 1400; --z-submenu: 1500;
     --z-overlay: 1900; --z-sidebar: 2000; --z-banner: 2400; --z-toast: 3000;
   }
   html[data-theme="dark"] {
@@ -384,6 +384,144 @@
   }
   .overlay.show { opacity: 1; pointer-events: auto; }
   
+  /* ============================================
+     PREVIEW DE EVENTO (pequeña tarjeta flotante)
+     ============================================ */
+  .preview-card {
+    position: absolute;
+    bottom: calc(24px + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%) translateY(150%);
+    width: calc(100% - 32px);
+    max-width: 400px;
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4);
+    padding: 16px;
+    z-index: var(--z-preview);
+    transition: transform .4s var(--ease-spring), opacity .3s;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .preview-card.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .preview-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .preview-card-icon {
+    width: 48px; height: 48px;
+    border-radius: var(--r-md);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    font-size: 26px;
+  }
+  .preview-card-icon .ms {
+    font-size: 26px;
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+  }
+  .preview-card-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .preview-card-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .preview-card-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--r-full);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .preview-card-tag .ms { font-size: 12px; }
+  .preview-card-close {
+    width: 32px; height: 32px;
+    border-radius: var(--r-full);
+    border: none;
+    background: var(--surface-2);
+    color: var(--text-2);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background .2s, color .2s;
+  }
+  .preview-card-close:hover { background: var(--surface-3); color: var(--text); }
+  .preview-card-close .ms { font-size: 18px; }
+  
+  .preview-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: var(--surface-2);
+    border-radius: var(--r-md);
+  }
+  .preview-card-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .preview-card-detail .ms {
+    font-size: 16px;
+    color: var(--text-3);
+    flex-shrink: 0;
+  }
+  .preview-card-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .preview-card-btn {
+    flex: 1;
+    height: 44px;
+    border: none;
+    border-radius: var(--r-md);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: transform .2s, background .2s;
+  }
+  .preview-card-btn:active { transform: scale(0.97); }
+  .preview-card-btn.primary {
+    color: #FFFFFF;
+  }
+  .preview-card-btn.secondary {
+    background: var(--surface-2);
+    color: var(--text);
+  }
+  .preview-card-btn.secondary:hover { background: var(--surface-3); }
+  .preview-card-btn .ms { font-size: 20px; }
+  
   .toast-container {
     position: absolute;
     bottom: calc(24px + var(--safe-bottom));
@@ -445,11 +583,6 @@
     pointer-events: auto;
     opacity: 1;
   }
-  .install-banner.hidden-by-toast {
-    transform: translateX(-50%) translateY(calc(100% + 32px));
-    opacity: 0;
-    pointer-events: none;
-  }
   .install-banner .ms.install-icon { color: var(--primary); font-size: 28px; flex-shrink: 0; }
   .install-banner-text { flex: 1; min-width: 0; }
   .install-banner-text strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: var(--text); display: block; }
@@ -501,6 +634,7 @@
     .icon-btn { width: 52px; height: 52px; }
     .sidebar { width: 92%; max-width: 380px; }
     .install-banner { width: calc(100% - 32px); }
+    .preview-card { bottom: calc(24px + var(--safe-bottom)); }
   }
   
   @media (min-width: 768px) and (max-width: 1199px) {
@@ -514,6 +648,8 @@
     body.sidebar-closed .header { left: 16px; }
     body.sidebar-closed .sidebar { transform: translateX(-100%); }
     .header { left: 396px; transition: left .4s var(--ease-emphasized); }
+    .preview-card { left: calc(50% + 190px); }
+    body.sidebar-closed .preview-card { left: 50%; }
   }
   
   @media (prefers-reduced-motion: reduce) {
@@ -570,6 +706,45 @@
     <button class="submenu-close" onclick="closeSubmenu()"><span class="ms">close</span></button>
   </div>
   <div class="submenu-options" id="submenuOptions"></div>
+</div>
+
+<!-- PREVIEW DE EVENTO -->
+<div class="preview-card" id="previewCard">
+  <div class="preview-card-header">
+    <div class="preview-card-icon" id="previewIcon">
+      <span class="ms" id="previewIconInner">place</span>
+    </div>
+    <div class="preview-card-info">
+      <div class="preview-card-title" id="previewTitle">Título del evento</div>
+      <span class="preview-card-tag" id="previewTag">
+        <span class="ms" id="previewTagIcon">groups</span>
+        <span id="previewTagLabel">Todo público</span>
+      </span>
+    </div>
+    <button class="preview-card-close" onclick="closePreview()" aria-label="Cerrar">
+      <span class="ms">close</span>
+    </button>
+  </div>
+  <div class="preview-card-details" id="previewDetails">
+    <div class="preview-card-detail">
+      <span class="ms">location_on</span>
+      <span id="previewVenue">Dirección</span>
+    </div>
+    <div class="preview-card-detail">
+      <span class="ms">calendar_today</span>
+      <span id="previewDate">Fecha</span>
+    </div>
+  </div>
+  <div class="preview-card-actions">
+    <button class="preview-card-btn secondary" onclick="closePreview()">
+      <span class="ms">close</span>
+      Cerrar
+    </button>
+    <button class="preview-card-btn primary" id="previewActionBtn" onclick="previewAction()">
+      <span class="ms">open_in_new</span>
+      Ver más
+    </button>
+  </div>
 </div>
 
 <div class="install-banner" id="installBanner">
@@ -666,8 +841,9 @@ let placesApiAvailable = true;
 let lastSearchTime = 0;
 let deferredPrompt = null;
 let isPWAInstalled = false;
-let isMapInteracting = false;
 const SEARCH_DEBOUNCE_MS = 800;
+
+let currentPreviewItem = null;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
@@ -806,49 +982,46 @@ window.initMap = function() {
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
+  /* ============================================
+     EVENTOS DEL MAPA
+     ✅ SOLO cierra submenú, sidebar y preview
+     ❌ NO recarga eventos automáticamente
+     ============================================ */
   map.addListener('click', () => {
     closeSubmenu();
+    closePreview();
     if (!isDesktop() && isSidebarOpen()) {
       closeSidebar();
     }
   });
   
   map.addListener('dragstart', () => {
-    isMapInteracting = true;
     closeSubmenu();
-    if (!isDesktop() && isSidebarOpen()) {
-      closeSidebar();
-    }
+    closePreview();
   });
   
   map.addListener('zoom_changed', () => {
     closeSubmenu();
-  });
-  
-  let moveTimeout;
-  map.addListener('idle', () => {
-    isMapInteracting = false;
-    clearTimeout(moveTimeout);
-    moveTimeout = setTimeout(() => {
-      if (!currentSearch && Date.now() - lastSearchTime > SEARCH_DEBOUNCE_MS) searchEverything();
-    }, 1200);
   });
 
   updateAllTranslations();
   renderMainCategories();
   updateSidebarState();
   updateLangSelector();
+  
+  /* ✅ Solo se busca la primera vez al cargar */
   searchEverything();
 };
 
 /* ============================================
-   BÚSQUEDA
+   BÚSQUEDA — SOLO cuando cambia categoría/audiencia
    ============================================ */
 async function searchEverything() {
   if (Date.now() - lastSearchTime < SEARCH_DEBOUNCE_MS) return;
   lastSearchTime = Date.now();
   clearMarkers();
   if (infoWindow) infoWindow.close();
+  closePreview();
   allPlaces = []; allEvents = []; unifiedResults = [];
 
   const [placesRes, tmRes] = await Promise.allSettled([
@@ -977,32 +1150,82 @@ function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, p
   marker._label = label; marker._payload = payload; marker._payloadType = payloadType;
   marker.addListener('click', () => {
     closeSubmenu();
-    if (payloadType === 'event') showInfoWindowEvent(marker, payload);
-    else showInfoWindowGoogle(marker, payload);
+    if (payloadType === 'event') {
+      showPreviewEvent(payload);
+    } else {
+      showPreviewPlace(payload);
+    }
   });
   marker.placeId = id;
   markers.push(marker);
 }
 
 /* ============================================
-   INFO WINDOWS
+   PREVIEW DE EVENTO / LUGAR
    ============================================ */
-function showInfoWindowGoogle(marker, place) {
-  const cat = getPlaceCategory(place);
-  const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
-  infoWindow.setContent(`<div style="padding:16px;max-width:260px;font-family:'Inter',sans-serif;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:40px;height:40px;border-radius:12px;background:${cat.bg};color:${cat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${cat.icon}</span></div><div style="flex:1;min-width:0;"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#1A1614;">${place.name || t('noName')}</div></div></div><div style="font-size:12px;color:#57534E;line-height:1.5;margin-bottom:12px;font-weight:500;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">location_on</span>${place.vicinity || t('addressNA')}</div>${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F4A261;">star</span>${ratingText}</div>` : ''}</div><button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:#E76F51;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button></div>`);
-  infoWindow.open(map, marker);
-}
-function showInfoWindowEvent(marker, event) {
+function showPreviewEvent(event) {
   const ageCat = categorizeEventByAge(event);
-  const urlBtn = event.url
-    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
-    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>`;
-  const dateStr = event.date || '';
-  const timeStr = event.time ? ' · ' + event.time : '';
-  const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
-  infoWindow.setContent(`<div style="padding:16px;max-width:280px;font-family:'Inter',sans-serif;"><div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;"><div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div><div style="flex:1;min-width:0;"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#1A1614;">${event.title || 'Evento'}</div><div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div></div></div><div style="font-size:12px;color:#57534E;line-height:1.5;margin-bottom:12px;font-weight:500;"><div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">location_on</span>${venueStr}</div>${dateStr ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A8A29E;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}</div>${urlBtn}</div>`);
-  infoWindow.open(map, marker);
+  const ageKey = getAgeCategoryKey(event);
+  currentPreviewItem = { type: 'event', data: event };
+  
+  document.getElementById('previewIcon').style.background = ageCat.bg;
+  document.getElementById('previewIcon').style.color = ageCat.color;
+  document.getElementById('previewIconInner').textContent = ageCat.icon;
+  document.getElementById('previewTitle').textContent = event.title || 'Evento';
+  document.getElementById('previewTag').style.background = ageCat.bg;
+  document.getElementById('previewTag').style.color = ageCat.color;
+  document.getElementById('previewTagIcon').textContent = ageCat.icon;
+  document.getElementById('previewTagLabel').textContent = tAge(ageKey);
+  
+  const venue = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
+  document.getElementById('previewVenue').textContent = venue;
+  
+  const dateInfo = event.date ? event.date + (event.time ? ' · ' + event.time : '') : t('addressNA');
+  document.getElementById('previewDate').textContent = dateInfo;
+  
+  document.getElementById('previewActionBtn').onclick = () => {
+    if (event.url) {
+      window.open(event.url, '_blank', 'noopener');
+    } else {
+      showToast('info', t('viewMore'));
+    }
+  };
+  
+  document.getElementById('previewCard').classList.add('show');
+}
+function showPreviewPlace(place) {
+  const cat = getPlaceCategory(place);
+  currentPreviewItem = { type: 'place', data: place };
+  
+  document.getElementById('previewIcon').style.background = cat.bg;
+  document.getElementById('previewIcon').style.color = cat.color;
+  document.getElementById('previewIconInner').textContent = cat.icon;
+  document.getElementById('previewTitle').textContent = place.name || t('noName');
+  document.getElementById('previewTag').style.background = cat.bg;
+  document.getElementById('previewTag').style.color = cat.color;
+  document.getElementById('previewTagIcon').textContent = cat.icon;
+  document.getElementById('previewTagLabel').textContent = tCat(getCategoryKey(place));
+  
+  document.getElementById('previewVenue').textContent = place.vicinity || t('addressNA');
+  document.getElementById('previewDate').textContent = place.rating ? `⭐ ${place.rating} (${place.user_ratings_total || 0})` : '—';
+  
+  document.getElementById('previewActionBtn').onclick = () => {
+    showToast('info', t('viewMore'));
+  };
+  
+  document.getElementById('previewCard').classList.add('show');
+}
+function closePreview() {
+  document.getElementById('previewCard').classList.remove('show');
+  currentPreviewItem = null;
+}
+function previewAction() {
+  if (!currentPreviewItem) return;
+  if (currentPreviewItem.type === 'event' && currentPreviewItem.data.url) {
+    window.open(currentPreviewItem.data.url, '_blank', 'noopener');
+  } else {
+    showToast('info', t('viewMore'));
+  }
 }
 
 /* ============================================
@@ -1127,6 +1350,7 @@ function setCategory(cat) {
   if (searchInput) searchInput.value = '';
   const icon = document.getElementById('categoryIcon');
   if (icon) icon.textContent = CATEGORIES[cat].icon;
+  /* ✅ Recarga SOLO al cambiar categoría */
   lastSearchTime = 0;
   searchEverything();
   showToast(CATEGORIES[cat].icon, tCat(cat));
@@ -1158,7 +1382,7 @@ function updateOverlay() {
   const sidebarOpen = isSidebarOpen() && !isDesktop();
   document.getElementById('overlay').classList.toggle('show', sidebarOpen);
 }
-function handleOverlayClick() { closeSidebar(); closeSubmenu(); }
+function handleOverlayClick() { closeSidebar(); closeSubmenu(); closePreview(); }
 
 /* ============================================
    MENÚ DE OPCIONES
@@ -1242,6 +1466,7 @@ function searchNearMe() {
     const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
     map.panTo(loc); map.setZoom(14); updateUserMarker(loc);
     showToast('check_circle', t('locationFound'));
+    /* ✅ Recarga al presionar el botón GPS */
     lastSearchTime = 0;
     setTimeout(searchEverything, 500);
   }, () => showToast('error', t('locationError')), { enableHighAccuracy: true, timeout: 10000 });
