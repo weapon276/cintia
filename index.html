@@ -18,16 +18,15 @@
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   :root {
-    /* 🎨 NUEVA PALETA ELEGANTE: Índigo + Ámbar + Rosa suave */
-    --primary: #4F46E5;            /* Índigo profundo */
-    --primary-dark: #4338CA;       /* Índigo más oscuro */
-    --primary-light: #6366F1;      /* Índigo claro */
-    --primary-container: #EEF2FF;  /* Fondo índigo suave */
-    --secondary: #F59E0B;          /* Ámbar dorado */
+    --primary: #4F46E5;
+    --primary-dark: #4338CA;
+    --primary-light: #6366F1;
+    --primary-container: #EEF2FF;
+    --secondary: #F59E0B;
     --secondary-container: #FEF3C7;
-    --tertiary: #06B6D4;           /* Cian */
+    --tertiary: #06B6D4;
     --tertiary-container: #CFFAFE;
-    --accent: #EC4899;             /* Rosa magenta */
+    --accent: #EC4899;
     --accent-container: #FCE7F3;
     --success: #10B981;
     --success-container: #D1FAE5;
@@ -248,45 +247,23 @@
   }
   .close-btn:hover { background: var(--surface-2); color: var(--text); }
   
-  /* SELECTOR DE IDIOMAS — ahora 5 idiomas, con scroll horizontal */
-  .lang-selector {
-    display: flex;
-    gap: 4px;
-    background: var(--surface-2);
-    border-radius: var(--r-md);
-    padding: 4px;
-    border: 1px solid var(--outline);
-    margin-bottom: 12px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .lang-selector::-webkit-scrollbar { display: none; }
-  .lang-option {
-    flex-shrink: 0;
-    min-width: 60px;
-    height: 40px;
-    border: none;
-    background: transparent;
-    border-radius: var(--r-sm);
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-2);
-    cursor: pointer;
-    display: flex;
+  /* Badge de idioma autodetectado (pequeño, discreto) */
+  .lang-badge {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 4px;
-    transition: all .2s;
-    padding: 0 10px;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--surface-2);
+    border-radius: var(--r-full);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-3);
+    margin-bottom: 12px;
+    border: 1px solid var(--outline);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
-  .lang-option:hover { color: var(--text); }
-  .lang-option.active {
-    background: var(--surface);
-    color: var(--primary);
-    box-shadow: var(--shadow-2);
-  }
-  .lang-option .ms { font-size: 16px; }
+  .lang-badge .ms { font-size: 14px; }
   
   .search-field {
     display: flex; align-items: center;
@@ -333,7 +310,6 @@
     padding: 4px 4px 0;
   }
   
-  /* TARJETA CON FOTO */
   .event-card {
     background: var(--surface);
     border: 1px solid var(--outline);
@@ -357,7 +333,6 @@
   .event-card:hover::before { opacity: 1; }
   .event-card:active { transform: scale(0.985) translateY(0); }
   
-  /* FOTO DEL EVENTO/LUGAR */
   .event-photo {
     width: 100px;
     height: 100px;
@@ -570,13 +545,10 @@
       </div>
       <button class="close-btn" onclick="closeSidebar()" aria-label="Cerrar panel"><span class="ms">close</span></button>
     </div>
-    <!-- SELECTOR DE 5 IDIOMAS -->
-    <div class="lang-selector" role="tablist" aria-label="Idioma">
-      <button class="lang-option active" data-lang="es" onclick="setLanguage('es')" role="tab">ES</button>
-      <button class="lang-option" data-lang="en" onclick="setLanguage('en')" role="tab">EN</button>
-      <button class="lang-option" data-lang="fr" onclick="setLanguage('fr')" role="tab">FR</button>
-      <button class="lang-option" data-lang="pt" onclick="setLanguage('pt')" role="tab">PT</button>
-      <button class="lang-option" data-lang="de" onclick="setLanguage('de')" role="tab">DE</button>
+    <!-- Badge de idioma autodetectado (solo informativo) -->
+    <div class="lang-badge">
+      <span class="ms">language</span>
+      <span id="langBadgeLabel">AUTO · ES</span>
     </div>
     <div class="search-field">
       <span class="ms">search</span>
@@ -636,7 +608,7 @@ const API_KEYS = {
 };
 
 /* ============================================
-   CATEGORÍAS DE AUDIENCIA (con nueva categoría "bebes")
+   CATEGORÍAS DE AUDIENCIA
    ============================================ */
 const AGE_CATEGORIES = {
   all:      { label: 'Todo público', icon: 'groups',          color: '#4F46E5', bg: '#EEF2FF' },
@@ -648,7 +620,7 @@ const AGE_CATEGORIES = {
 };
 
 /* ============================================
-   TRADUCCIONES — 5 idiomas
+   TRADUCCIONES — 5 idiomas (autodetectadas)
    ============================================ */
 const TRANSLATIONS = {
   es: {
@@ -759,7 +731,6 @@ let placesApiAvailable = true;
 let lastSearchTime = 0;
 let deferredPrompt = null;
 let isPWAInstalled = false;
-const SEARCH_DEBOUNCE_MS = 800;
 let isManualRefreshing = false;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
@@ -835,6 +806,31 @@ function getAgeCategoryKey(event) {
 }
 
 /* ============================================
+   AUTODETECCIÓN DE IDIOMA DEL NAVEGADOR
+   ============================================ */
+function detectBrowserLanguage() {
+  // Prioridad 1: idiomas preferidos del navegador
+  const supportedLangs = ['es', 'en', 'fr', 'pt', 'de'];
+  
+  // navigator.languages es un array con todos los idiomas preferidos
+  if (navigator.languages && navigator.languages.length > 0) {
+    for (const lang of navigator.languages) {
+      const code = lang.toLowerCase().slice(0, 2);
+      if (supportedLangs.includes(code)) return code;
+    }
+  }
+  
+  // Fallback: navigator.language
+  if (navigator.language) {
+    const code = navigator.language.toLowerCase().slice(0, 2);
+    if (supportedLangs.includes(code)) return code;
+  }
+  
+  // Fallback final: español
+  return 'es';
+}
+
+/* ============================================
    SISTEMA DE TOASTS EN COLA
    ============================================ */
 const toastQueue = [];
@@ -902,14 +898,9 @@ window.initMap = function() {
   });
   map.addListener('zoom_changed', () => closeSubmenu());
 
-  // ❌ NO hay listener de 'idle' que recargue automáticamente
-  // Los eventos solo se recargan cuando el usuario cambia categoría,
-  // audiencia, idioma, presiona GPS o el botón de refrescar.
-
   updateAllTranslations();
   renderMainCategories();
   updateSidebarState();
-  updateLangSelector();
   searchEverything();
 };
 
@@ -1307,12 +1298,17 @@ function toggleOptionsMenu(e) {
    PREFERENCIAS
    ============================================ */
 function loadPreferences() {
-  const savedLang = localStorage.getItem('gdl-lang');
-  currentLang = (savedLang && TRANSLATIONS[savedLang]) ? savedLang : ((navigator.language || 'es').startsWith('en') ? 'en' : (navigator.language || 'es').startsWith('fr') ? 'fr' : (navigator.language || 'es').startsWith('pt') ? 'pt' : (navigator.language || 'es').startsWith('de') ? 'de' : 'es');
+  // Autodetectar idioma del navegador
+  currentLang = detectBrowserLanguage();
+  
+  // Tema guardado
   currentTheme = localStorage.getItem('gdl-theme') || 'light';
   applyTheme(currentTheme);
 }
-function savePreferences() { localStorage.setItem('gdl-lang', currentLang); localStorage.setItem('gdl-theme', currentTheme); }
+function savePreferences() {
+  // Solo guardamos el tema, el idioma siempre se autodetecta
+  localStorage.setItem('gdl-theme', currentTheme);
+}
 
 /* ============================================
    TEMA
@@ -1337,20 +1333,8 @@ function toggleTheme() {
 }
 
 /* ============================================
-   IDIOMA
+   ACTUALIZACIÓN DE TRADUCCIONES
    ============================================ */
-function setLanguage(lang) {
-  if (!TRANSLATIONS[lang] || lang === currentLang) return;
-  currentLang = lang; savePreferences(); updateAllTranslations();
-  renderMainCategories();
-  updateLangSelector();
-  applyFilters();
-}
-function updateLangSelector() {
-  document.querySelectorAll('.lang-option').forEach(opt => {
-    opt.classList.toggle('active', opt.dataset.lang === currentLang);
-  });
-}
 function updateAllTranslations() {
   document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'es-MX';
   document.title = currentLang === 'en' ? 'GDL Cultural — Museums & Events' : 'GDL Cultural';
@@ -1364,6 +1348,13 @@ function updateAllTranslations() {
   set('installBannerBtn', currentLang === 'en' ? 'Install' : 'Instalar');
   const searchInput = document.getElementById('searchInput');
   if (searchInput) searchInput.placeholder = t('searchInputPlaceholder');
+  
+  // Actualizar el badge de idioma detectado
+  const langBadge = document.getElementById('langBadgeLabel');
+  if (langBadge) {
+    const flagMap = { es: '🇲🇽 ES', en: '🇺🇸 EN', fr: '🇫🇷 FR', pt: '🇧🇷 PT', de: '🇩🇪 DE' };
+    langBadge.textContent = `AUTO · ${flagMap[currentLang] || currentLang.toUpperCase()}`;
+  }
 }
 
 /* ============================================
@@ -1491,10 +1482,19 @@ window.addEventListener('resize', () => { updateSidebarState(); updateOverlay();
 
 <script>
 (function() {
-  const savedLang = localStorage.getItem('gdl-lang');
-  const browserLang = (navigator.language || 'es').slice(0, 2);
+  // Autodetectar idioma del navegador
   const supportedLangs = ['es', 'en', 'fr', 'pt', 'de'];
-  const lang = supportedLangs.includes(savedLang) ? savedLang : (supportedLangs.includes(browserLang) ? browserLang : 'es');
+  let lang = 'es';
+  if (navigator.languages && navigator.languages.length > 0) {
+    for (const l of navigator.languages) {
+      const code = l.toLowerCase().slice(0, 2);
+      if (supportedLangs.includes(code)) { lang = code; break; }
+    }
+  } else if (navigator.language) {
+    const code = navigator.language.toLowerCase().slice(0, 2);
+    if (supportedLangs.includes(code)) lang = code;
+  }
+  
   const region = lang === 'es' ? 'MX' : lang === 'en' ? 'US' : lang === 'fr' ? 'FR' : lang === 'pt' ? 'BR' : 'DE';
   const script = document.createElement('script');
   script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEYS.google}&libraries=places&language=${lang}&region=${region}&callback=initMap`;
