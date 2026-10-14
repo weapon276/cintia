@@ -18,15 +18,27 @@
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   :root {
-    --primary: #4F46E5; --primary-dark: #4338CA; --primary-light: #6366F1;
+    --primary: #4F46E5;
+    --primary-dark: #4338CA;
+    --primary-light: #6366F1;
     --primary-container: #EEF2FF;
-    --secondary: #F59E0B; --secondary-container: #FEF3C7;
-    --tertiary: #06B6D4; --tertiary-container: #CFFAFE;
-    --accent: #EC4899; --accent-container: #FCE7F3;
-    --success: #10B981; --success-container: #D1FAE5;
-    --bg: #FAFAFA; --surface: #FFFFFF; --surface-2: #F4F4F5; --surface-3: #E4E4E7;
-    --outline: #E4E4E7; --outline-strong: #D4D4D8;
-    --text: #18181B; --text-2: #52525B; --text-3: #A1A1AA;
+    --secondary: #F59E0B;
+    --secondary-container: #FEF3C7;
+    --tertiary: #06B6D4;
+    --tertiary-container: #CFFAFE;
+    --accent: #EC4899;
+    --accent-container: #FCE7F3;
+    --success: #10B981;
+    --success-container: #D1FAE5;
+    --bg: #FAFAFA;
+    --surface: #FFFFFF;
+    --surface-2: #F4F4F5;
+    --surface-3: #E4E4E7;
+    --outline: #E4E4E7;
+    --outline-strong: #D4D4D8;
+    --text: #18181B;
+    --text-2: #52525B;
+    --text-3: #A1A1AA;
     --shadow-1: 0 1px 2px rgba(24, 24, 27, 0.05), 0 1px 3px rgba(24, 24, 27, 0.08);
     --shadow-2: 0 2px 6px rgba(24, 24, 27, 0.06), 0 4px 12px rgba(24, 24, 27, 0.08);
     --shadow-3: 0 8px 24px rgba(24, 24, 27, 0.10), 0 4px 8px rgba(24, 24, 27, 0.06);
@@ -57,7 +69,8 @@
   body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; height: 100vh; height: 100dvh; position: fixed; width: 100%; overscroll-behavior: none; transition: background .3s var(--ease-standard), color .3s var(--ease-standard); }
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
-
+  
+  /* SPLASH */
   .splash {
     position: fixed; inset: 0; z-index: var(--z-splash);
     background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
@@ -67,143 +80,504 @@
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   html[data-theme="dark"] .splash { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%); }
-  .splash-logo { width: 96px; height: 96px; border-radius: 28px; background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 2px solid rgba(255, 255, 255, 0.3); display: grid; place-items: center; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); animation: splashFloat 3s ease-in-out infinite; }
+  .splash-logo {
+    width: 96px; height: 96px; border-radius: 28px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    display: grid; place-items: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: splashFloat 3s ease-in-out infinite;
+  }
   @keyframes splashFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
   .splash-logo .ms { font-size: 52px; color: #FFFFFF; font-variation-settings: 'FILL' 1, 'wght' 500; }
-  .splash-greeting { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: #FFFFFF; text-align: center; line-height: 1.2; text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); animation: splashFadeIn .8s var(--ease-emphasized) .2s both; }
+  .splash-greeting {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800;
+    letter-spacing: -0.03em; color: #FFFFFF; text-align: center; line-height: 1.2;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: splashFadeIn .8s var(--ease-emphasized) .2s both;
+  }
   .splash-greeting-emoji { display: block; font-size: 48px; margin-bottom: 8px; animation: splashFadeIn .8s var(--ease-emphasized) .1s both; }
   @keyframes splashFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .splash-subtitle { font-size: 15px; font-weight: 500; color: rgba(255, 255, 255, 0.85); text-align: center; max-width: 280px; line-height: 1.5; animation: splashFadeIn .8s var(--ease-emphasized) .4s both; }
-  .splash-loader { width: 200px; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 999px; overflow: hidden; margin-top: 16px; animation: splashFadeIn .8s var(--ease-emphasized) .6s both; }
-  .splash-loader-bar { height: 100%; background: #FFFFFF; border-radius: 999px; width: 30%; animation: splashLoad 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+  .splash-subtitle {
+    font-size: 15px; font-weight: 500; color: rgba(255, 255, 255, 0.85);
+    text-align: center; max-width: 280px; line-height: 1.5;
+    animation: splashFadeIn .8s var(--ease-emphasized) .4s both;
+  }
+  .splash-loader {
+    width: 200px; height: 4px; background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px; overflow: hidden; margin-top: 16px;
+    animation: splashFadeIn .8s var(--ease-emphasized) .6s both;
+  }
+  .splash-loader-bar {
+    height: 100%; background: #FFFFFF; border-radius: 999px;
+    width: 30%; animation: splashLoad 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
   @keyframes splashLoad { 0% { width: 5%; margin-left: 0; } 50% { width: 60%; margin-left: 20%; } 100% { width: 5%; margin-left: 95%; } }
-  .splash-brand { position: absolute; bottom: calc(32px + var(--safe-bottom)); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255, 255, 255, 0.6); letter-spacing: 0.1em; text-transform: uppercase; animation: splashFadeIn .8s var(--ease-emphasized) .8s both; }
-
+  .splash-brand {
+    position: absolute; bottom: calc(32px + var(--safe-bottom));
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700;
+    color: rgba(255, 255, 255, 0.6); letter-spacing: 0.1em; text-transform: uppercase;
+    animation: splashFadeIn .8s var(--ease-emphasized) .8s both;
+  }
+  
   #map { position: absolute; inset: 0; z-index: var(--z-map); background: var(--surface-2); }
   html[data-theme="dark"] #map { filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
-
-  .header { position: absolute; top: calc(16px + var(--safe-top)); left: 16px; right: 16px; z-index: var(--z-header); display: flex; align-items: center; gap: 10px; pointer-events: none; transition: left .4s var(--ease-emphasized); }
-  .search-pill { flex: 1; height: 56px; background: var(--surface); border-radius: var(--r-full); padding: 0 20px; box-shadow: var(--shadow-3); display: flex; align-items: center; gap: 14px; pointer-events: auto; cursor: pointer; transition: transform .2s var(--ease-standard), box-shadow .2s; border: 1px solid var(--outline); }
+  
+  .header {
+    position: absolute; top: calc(16px + var(--safe-top));
+    left: 16px; right: 16px; z-index: var(--z-header);
+    display: flex; align-items: center; gap: 10px;
+    pointer-events: none;
+    transition: left .4s var(--ease-emphasized);
+  }
+  .search-pill {
+    flex: 1; height: 56px; background: var(--surface);
+    border-radius: var(--r-full); padding: 0 20px;
+    box-shadow: var(--shadow-3);
+    display: flex; align-items: center; gap: 14px;
+    pointer-events: auto; cursor: pointer;
+    transition: transform .2s var(--ease-standard), box-shadow .2s;
+    border: 1px solid var(--outline);
+  }
   .search-pill:active { transform: scale(0.985); }
   .search-pill .ms { color: var(--text-3); }
   .search-pill span { color: var(--text-2); font-size: 15px; font-weight: 500; }
-  .icon-btn { width: 56px; height: 56px; border-radius: var(--r-full); background: var(--surface); border: 1px solid var(--outline); display: grid; place-items: center; box-shadow: var(--shadow-3); cursor: pointer; color: var(--text); pointer-events: auto; transition: transform .2s var(--ease-standard), background .2s, color .2s; flex-shrink: 0; }
+  .icon-btn {
+    width: 56px; height: 56px; border-radius: var(--r-full);
+    background: var(--surface); border: 1px solid var(--outline);
+    display: grid; place-items: center;
+    box-shadow: var(--shadow-3); cursor: pointer;
+    color: var(--text); pointer-events: auto;
+    transition: transform .2s var(--ease-standard), background .2s, color .2s;
+    flex-shrink: 0;
+  }
   .icon-btn:hover { background: var(--surface-2); }
   .icon-btn:active { transform: scale(0.92); }
   .icon-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; }
-
-  .main-categories { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); z-index: var(--z-chips); display: flex; flex-direction: column; gap: 12px; pointer-events: auto; }
-  .cat-btn { width: 56px; height: 56px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--outline); display: grid; place-items: center; box-shadow: var(--shadow-3); cursor: pointer; color: var(--text); position: relative; transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s; }
+  
+  .main-categories {
+    position: absolute; right: 16px; top: 50%;
+    transform: translateY(-50%); z-index: var(--z-chips);
+    display: flex; flex-direction: column; gap: 12px;
+    pointer-events: auto;
+  }
+  .cat-btn {
+    width: 56px; height: 56px; border-radius: var(--r-lg);
+    background: var(--surface); border: 1px solid var(--outline);
+    display: grid; place-items: center;
+    box-shadow: var(--shadow-3); cursor: pointer;
+    color: var(--text); position: relative;
+    transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s;
+  }
   .cat-btn .ms { font-size: 26px; }
   .cat-btn:hover { transform: scale(1.05); }
   .cat-btn:active { transform: scale(0.92); }
-  .cat-btn .badge { position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: var(--r-full); background: var(--primary); color: #FFFFFF; font-size: 11px; font-weight: 800; display: grid; place-items: center; border: 2px solid var(--surface); opacity: 0; transition: opacity .2s, transform .2s; }
+  .cat-btn .badge {
+    position: absolute; top: -4px; right: -4px;
+    min-width: 22px; height: 22px; padding: 0 6px;
+    border-radius: var(--r-full);
+    background: var(--primary); color: #FFFFFF;
+    font-size: 11px; font-weight: 800;
+    display: grid; place-items: center;
+    border: 2px solid var(--surface);
+    opacity: 0; transition: opacity .2s, transform .2s;
+  }
   .cat-btn .badge.show { opacity: 1; }
-
-  .submenu { position: absolute; right: 84px; top: 50%; transform: translateY(-50%); z-index: var(--z-submenu); background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-lg); box-shadow: var(--shadow-4); padding: 12px; min-width: 280px; max-width: 380px; opacity: 0; visibility: hidden; transform: translateY(-50%) translateX(20px) scale(0.95); transform-origin: right center; transition: all .3s var(--ease-spring); pointer-events: none; max-height: 85vh; overflow-y: auto; }
-  .submenu.open { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0) scale(1); pointer-events: auto; }
-  .submenu-header { display: flex; align-items: center; justify-content: space-between; padding: 4px 8px 12px; border-bottom: 1px solid var(--outline); margin-bottom: 8px; }
-  .submenu-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); display: flex; align-items: center; gap: 8px; }
+  
+  .submenu {
+    position: absolute; right: 84px; top: 50%;
+    transform: translateY(-50%);
+    z-index: var(--z-submenu);
+    background: var(--surface); border: 1px solid var(--outline);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-4);
+    padding: 12px; min-width: 280px; max-width: 380px;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-50%) translateX(20px) scale(0.95);
+    transform-origin: right center;
+    transition: all .3s var(--ease-spring);
+    pointer-events: none;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .submenu.open {
+    opacity: 1; visibility: visible;
+    transform: translateY(-50%) translateX(0) scale(1);
+    pointer-events: auto;
+  }
+  .submenu-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 4px 8px 12px; border-bottom: 1px solid var(--outline); margin-bottom: 8px;
+  }
+  .submenu-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px; font-weight: 800; letter-spacing: -0.02em;
+    color: var(--text); display: flex; align-items: center; gap: 8px;
+  }
   .submenu-title .ms { font-size: 22px; color: var(--submenu-color, var(--primary)); }
-  .submenu-close { width: 32px; height: 32px; border-radius: var(--r-full); border: none; background: transparent; color: var(--text-2); display: grid; place-items: center; cursor: pointer; transition: background .2s; }
+  .submenu-close {
+    width: 32px; height: 32px; border-radius: var(--r-full);
+    border: none; background: transparent; color: var(--text-2);
+    display: grid; place-items: center; cursor: pointer;
+    transition: background .2s;
+  }
   .submenu-close:hover { background: var(--surface-2); color: var(--text); }
   .submenu-close .ms { font-size: 20px; }
-  .submenu-search { display: flex; align-items: center; gap: 8px; height: 44px; background: var(--surface-2); border-radius: var(--r-sm); padding: 0 14px; margin-bottom: 10px; border: 2px solid transparent; transition: all .2s; }
-  .submenu-search:focus-within { background: var(--surface); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12); }
+  
+  .submenu-search {
+    display: flex; align-items: center; gap: 8px;
+    height: 44px; background: var(--surface-2);
+    border-radius: var(--r-sm); padding: 0 14px;
+    margin-bottom: 10px;
+    border: 2px solid transparent;
+    transition: all .2s;
+  }
+  .submenu-search:focus-within {
+    background: var(--surface); border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+  }
   .submenu-search .ms { font-size: 20px; color: var(--text-3); }
-  .submenu-search input { flex: 1; background: transparent; border: none; outline: none; font-family: inherit; font-size: 14px; font-weight: 500; color: var(--text); }
+  .submenu-search input {
+    flex: 1; background: transparent; border: none; outline: none;
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    color: var(--text);
+  }
   .submenu-search input::placeholder { color: var(--text-3); font-weight: 400; }
-  .submenu-options { display: flex; flex-direction: column; gap: 4px; max-height: 500px; overflow-y: auto; }
-  .submenu-group { margin-top: 8px; margin-bottom: 4px; }
+  
+  .submenu-options {
+    display: flex; flex-direction: column; gap: 4px;
+    max-height: 500px; overflow-y: auto;
+  }
+  
+  .submenu-group {
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
   .submenu-group:first-child { margin-top: 0; }
-  .submenu-group-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 800; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; padding: 8px 8px 4px; display: flex; align-items: center; gap: 6px; }
+  .submenu-group-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 10px; font-weight: 800;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 8px 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
   .submenu-group-label .ms { font-size: 14px; }
-  .submenu-option { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: none; background: transparent; border-radius: var(--r-sm); cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text); transition: background .15s, transform .15s; text-align: left; width: 100%; opacity: 0; transform: translateX(10px); animation: submenuItemIn .3s var(--ease-spring) forwards; }
+  
+  .submenu-option {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border: none; background: transparent;
+    border-radius: var(--r-sm); cursor: pointer;
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    color: var(--text); transition: background .15s, transform .15s;
+    text-align: left; width: 100%;
+    opacity: 0; transform: translateX(10px);
+    animation: submenuItemIn .3s var(--ease-spring) forwards;
+  }
   @keyframes submenuItemIn { to { opacity: 1; transform: translateX(0); } }
   .submenu-option:hover { background: var(--surface-2); }
   .submenu-option:active { transform: scale(0.98); }
-  .submenu-option.active { background: var(--option-bg, var(--primary-container)); color: var(--option-color, var(--primary-dark)); }
-  .submenu-option .ms { font-size: 22px; color: var(--text-2); flex-shrink: 0; transition: color .2s; }
-  .submenu-option.active .ms { color: var(--option-color, var(--primary)); font-variation-settings: 'FILL' 1, 'wght' 500; }
-  .submenu-option .check { margin-left: auto; font-size: 20px; color: var(--option-color, var(--primary)); opacity: 0; transition: opacity .2s; }
+  .submenu-option.active {
+    background: var(--option-bg, var(--primary-container));
+    color: var(--option-color, var(--primary-dark));
+  }
+  .submenu-option .ms {
+    font-size: 22px; color: var(--text-2); flex-shrink: 0;
+    transition: color .2s;
+  }
+  .submenu-option.active .ms {
+    color: var(--option-color, var(--primary));
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+  }
+  .submenu-option .check {
+    margin-left: auto; font-size: 20px;
+    color: var(--option-color, var(--primary));
+    opacity: 0; transition: opacity .2s;
+  }
   .submenu-option.active .check { opacity: 1; }
-  .submenu-empty { text-align: center; padding: 24px 12px; font-size: 13px; color: var(--text-3); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  
+  .submenu-empty {
+    text-align: center; padding: 24px 12px;
+    font-size: 13px; color: var(--text-3);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
   .submenu-empty .ms { font-size: 36px; color: var(--outline-strong); }
-
-  .sidebar { position: absolute; top: 0; left: 0; width: 400px; height: 100%; background: var(--surface); box-shadow: var(--shadow-4); z-index: var(--z-sidebar); transform: translateX(-100%); transition: transform .4s var(--ease-emphasized), background .3s; display: flex; flex-direction: column; padding-top: var(--safe-top); border-right: 1px solid var(--outline); }
+  
+  .sidebar {
+    position: absolute; top: 0; left: 0;
+    width: 400px; height: 100%;
+    background: var(--surface);
+    box-shadow: var(--shadow-4);
+    z-index: var(--z-sidebar);
+    transform: translateX(-100%);
+    transition: transform .4s var(--ease-emphasized), background .3s;
+    display: flex; flex-direction: column;
+    padding-top: var(--safe-top);
+    border-right: 1px solid var(--outline);
+  }
   .sidebar.open { transform: translateX(0); }
-  .sidebar-top { padding: 24px 24px 16px; border-bottom: 1px solid var(--outline); flex-shrink: 0; }
+  
+  .sidebar-top {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid var(--outline);
+    flex-shrink: 0;
+  }
   .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-  .brand-logo { width: 44px; height: 44px; border-radius: var(--r-md); background: linear-gradient(135deg, var(--primary), var(--accent)); display: grid; place-items: center; color: #FFFFFF; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); flex-shrink: 0; }
+  .brand-logo {
+    width: 44px; height: 44px; border-radius: var(--r-md);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: grid; place-items: center; color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    flex-shrink: 0;
+  }
   .brand-text { flex: 1; min-width: 0; }
   .brand-text h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); line-height: 1.1; }
   .brand-text p { font-size: 12px; color: var(--text-3); font-weight: 500; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .close-btn { width: 40px; height: 40px; border-radius: var(--r-full); border: none; background: transparent; color: var(--text-2); display: grid; place-items: center; cursor: pointer; transition: background .2s, color .2s; flex-shrink: 0; }
+  .close-btn {
+    width: 40px; height: 40px; border-radius: var(--r-full);
+    border: none; background: transparent; color: var(--text-2);
+    display: grid; place-items: center; cursor: pointer;
+    transition: background .2s, color .2s; flex-shrink: 0;
+  }
   .close-btn:hover { background: var(--surface-2); color: var(--text); }
-  .lang-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--surface-2); border-radius: var(--r-full); font-size: 11px; font-weight: 700; color: var(--text-3); margin-bottom: 12px; border: 1px solid var(--outline); text-transform: uppercase; letter-spacing: 0.05em; }
+  
+  .lang-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; background: var(--surface-2);
+    border-radius: var(--r-full); font-size: 11px; font-weight: 700;
+    color: var(--text-3); margin-bottom: 12px;
+    border: 1px solid var(--outline);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
   .lang-badge .ms { font-size: 14px; }
-  .search-field { display: flex; align-items: center; height: 52px; background: var(--surface-2); border-radius: var(--r-md); padding: 0 16px; gap: 12px; border: 2px solid transparent; transition: all .2s; margin-bottom: 12px; }
+  
+  .search-field {
+    display: flex; align-items: center;
+    height: 52px; background: var(--surface-2);
+    border-radius: var(--r-md);
+    padding: 0 16px; gap: 12px;
+    border: 2px solid transparent;
+    transition: all .2s; margin-bottom: 12px;
+  }
   .search-field:focus-within { background: var(--surface); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12); }
   .search-field .ms { color: var(--text-3); flex-shrink: 0; }
   .search-field input { flex: 1; background: transparent; border: none; outline: none; font-family: inherit; font-size: 15px; font-weight: 500; color: var(--text); min-width: 0; }
   .search-field input::placeholder { color: var(--text-3); font-weight: 400; }
-  .gps-button { width: 100%; height: 52px; border: none; border-radius: var(--r-md); background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3); transition: transform .2s; }
+  
+  .gps-button {
+    width: 100%; height: 52px;
+    border: none; border-radius: var(--r-md);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #FFFFFF;
+    font-family: inherit; font-size: 15px; font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+    transition: transform .2s;
+  }
   .gps-button:active { transform: scale(0.97); }
   .gps-button.tracking { background: linear-gradient(135deg, var(--tertiary) 0%, #0891B2 100%); }
-  .events-scroll { flex: 1; overflow-y: auto; padding: 16px 16px 100px 16px; display: flex; flex-direction: column; gap: 12px; -webkit-overflow-scrolling: touch; }
+  
+  .events-scroll {
+    flex: 1; overflow-y: auto;
+    padding: 16px 16px 100px 16px;
+    display: flex; flex-direction: column; gap: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
   .events-scroll::-webkit-scrollbar { width: 6px; }
   .events-scroll::-webkit-scrollbar-thumb { background: var(--outline-strong); border-radius: 3px; }
-  .section-label { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 800; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 4px 0; }
-  .event-card { background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-lg); padding: 0; display: flex; gap: 0; cursor: pointer; transition: all .22s var(--ease-standard); position: relative; overflow: hidden; min-height: 100px; animation: fadeInUp .3s var(--ease-emphasized) backwards; }
-  .event-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--card-color, var(--primary)); opacity: 0; transition: opacity .22s; z-index: 2; }
+  
+  .section-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px; font-weight: 800;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 4px 0;
+  }
+  
+  .event-card {
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    border-radius: var(--r-lg);
+    padding: 0;
+    display: flex; gap: 0;
+    cursor: pointer;
+    transition: all .22s var(--ease-standard);
+    position: relative; overflow: hidden;
+    min-height: 100px;
+    animation: fadeInUp .3s var(--ease-emphasized) backwards;
+  }
+  .event-card::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--card-color, var(--primary));
+    opacity: 0; transition: opacity .22s;
+    z-index: 2;
+  }
   .event-card:hover { border-color: var(--outline-strong); box-shadow: var(--shadow-2); transform: translateY(-2px); }
   .event-card:hover::before { opacity: 1; }
   .event-card:active { transform: scale(0.985) translateY(0); }
-  .event-photo { width: 100px; height: 100px; flex-shrink: 0; background: var(--card-bg, var(--primary-container)); display: grid; place-items: center; overflow: hidden; position: relative; }
-  .event-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s var(--ease-standard); }
+  
+  .event-photo {
+    width: 100px; height: 100px; flex-shrink: 0;
+    background: var(--card-bg, var(--primary-container));
+    display: grid; place-items: center; overflow: hidden;
+    position: relative;
+  }
+  .event-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; transition: transform .3s var(--ease-standard);
+  }
   .event-card:hover .event-photo img { transform: scale(1.08); }
-  .event-photo .placeholder { font-family: 'Material Symbols Rounded'; font-size: 36px; color: var(--card-color, var(--primary)); font-variation-settings: 'FILL' 1, 'wght' 500; }
+  .event-photo .placeholder {
+    font-family: 'Material Symbols Rounded';
+    font-size: 36px;
+    color: var(--card-color, var(--primary));
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+  }
+  
   .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; justify-content: center; padding: 14px 16px; }
-  .event-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.3; color: var(--text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
-  .event-venue { font-size: 13px; color: var(--text-2); font-weight: 500; display: flex; align-items: center; gap: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .event-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: -0.015em; line-height: 1.3;
+    color: var(--text);
+    display: -webkit-box;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; word-break: break-word;
+  }
+  .event-venue {
+    font-size: 13px; color: var(--text-2); font-weight: 500;
+    display: flex; align-items: center; gap: 4px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
   .event-footer { display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap; }
-  .event-age-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: var(--r-full); background: var(--age-bg, #E0F5F1); color: var(--age-color, #2A9D8F); text-transform: uppercase; letter-spacing: 0.05em; }
+  .event-age-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10px; font-weight: 800;
+    padding: 3px 8px; border-radius: var(--r-full);
+    background: var(--age-bg, #E0F5F1);
+    color: var(--age-color, #2A9D8F);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
   .event-age-tag .ms { font-size: 12px; }
-  .event-rating { font-size: 12px; color: var(--text-3); font-weight: 600; margin-left: auto; display: flex; align-items: center; gap: 2px; }
+  .event-rating {
+    font-size: 12px; color: var(--text-3); font-weight: 600;
+    margin-left: auto; display: flex; align-items: center; gap: 2px;
+  }
   .event-rating .ms { font-size: 14px; color: var(--secondary); }
-  .empty-state { text-align: center; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  
+  .empty-state {
+    text-align: center; padding: 60px 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
   .empty-state .ms { font-size: 56px; color: var(--outline-strong); }
   .empty-state h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
   .empty-state p { font-size: 13px; color: var(--text-3); max-width: 240px; line-height: 1.5; }
-  .overlay { position: absolute; inset: 0; background: rgba(24, 24, 27, 0.4); z-index: var(--z-overlay); opacity: 0; pointer-events: none; transition: opacity .3s var(--ease-standard); backdrop-filter: blur(4px); }
+  
+  .overlay {
+    position: absolute; inset: 0;
+    background: rgba(24, 24, 27, 0.4);
+    z-index: var(--z-overlay);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s var(--ease-standard);
+    backdrop-filter: blur(4px);
+  }
   .overlay.show { opacity: 1; pointer-events: auto; }
-  .toast-container { position: absolute; bottom: calc(24px + var(--safe-bottom)); left: 50%; transform: translateX(-50%); z-index: var(--z-toast); display: flex; flex-direction: column-reverse; gap: 8px; pointer-events: none; max-width: calc(100% - 32px); align-items: center; }
-  .toast { background: var(--text); color: var(--surface); padding: 14px 22px; border-radius: var(--r-full); font-size: 14px; font-weight: 600; box-shadow: var(--shadow-4); display: flex; align-items: center; gap: 8px; white-space: nowrap; opacity: 0; transform: translateY(20px) scale(0.95); animation: toastIn .3s var(--ease-spring) forwards; pointer-events: auto; max-width: 100%; }
+  
+  .toast-container {
+    position: absolute;
+    bottom: calc(24px + var(--safe-bottom));
+    left: 50%; transform: translateX(-50%);
+    z-index: var(--z-toast);
+    display: flex; flex-direction: column-reverse;
+    gap: 8px; pointer-events: none;
+    max-width: calc(100% - 32px);
+    align-items: center;
+  }
+  .toast {
+    background: var(--text); color: var(--surface);
+    padding: 14px 22px; border-radius: var(--r-full);
+    font-size: 14px; font-weight: 600;
+    box-shadow: var(--shadow-4);
+    display: flex; align-items: center; gap: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    animation: toastIn .3s var(--ease-spring) forwards;
+    pointer-events: auto;
+    max-width: 100%;
+  }
   .toast.leaving { animation: toastOut .3s var(--ease-standard) forwards; }
   @keyframes toastIn { to { opacity: 1; transform: translateY(0) scale(1); } }
   @keyframes toastOut { to { opacity: 0; transform: translateY(20px) scale(0.95); } }
   .toast .ms { font-size: 20px; flex-shrink: 0; }
   .toast span:not(.ms) { overflow: hidden; text-overflow: ellipsis; }
-  .install-banner { position: absolute; bottom: calc(24px + var(--safe-bottom)); left: 50%; transform: translateX(-50%) translateY(200%); z-index: var(--z-banner); background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-lg); box-shadow: var(--shadow-4); padding: 14px 16px; display: flex; align-items: center; gap: 12px; transition: transform .4s var(--ease-spring), opacity .3s; pointer-events: none; max-width: calc(100% - 32px); width: 440px; opacity: 0; }
+  
+  .install-banner {
+    position: absolute;
+    bottom: calc(24px + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%) translateY(200%);
+    z-index: var(--z-banner);
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4);
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+    transition: transform .4s var(--ease-spring), opacity .3s;
+    pointer-events: none;
+    max-width: calc(100% - 32px);
+    width: 440px;
+    opacity: 0;
+  }
   .install-banner.show { transform: translateX(-50%) translateY(0); pointer-events: auto; opacity: 1; }
   .install-banner .ms.install-icon { color: var(--primary); font-size: 28px; flex-shrink: 0; }
   .install-banner-text { flex: 1; min-width: 0; }
   .install-banner-text strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: var(--text); display: block; }
   .install-banner-text span { font-size: 12px; color: var(--text-3); display: block; margin-top: 2px; }
-  .install-banner-btn { padding: 10px 18px; border: none; border-radius: var(--r-full); background: var(--primary); color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .2s, background .2s; flex-shrink: 0; }
+  .install-banner-btn {
+    padding: 10px 18px; border: none; border-radius: var(--r-full);
+    background: var(--primary); color: #FFFFFF;
+    font-family: inherit; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: transform .2s, background .2s;
+    flex-shrink: 0;
+  }
   .install-banner-btn:hover { background: var(--primary-dark); }
   .install-banner-btn:active { transform: scale(0.95); }
-  .install-banner-close { width: 32px; height: 32px; border-radius: var(--r-full); border: none; background: transparent; color: var(--text-3); display: grid; place-items: center; cursor: pointer; flex-shrink: 0; transition: background .2s, color .2s; }
+  .install-banner-close {
+    width: 32px; height: 32px; border-radius: var(--r-full);
+    border: none; background: transparent;
+    color: var(--text-3);
+    display: grid; place-items: center;
+    cursor: pointer; flex-shrink: 0;
+    transition: background .2s, color .2s;
+  }
   .install-banner-close:hover { background: var(--surface-2); color: var(--text); }
   .install-banner-close .ms { font-size: 18px; }
+  
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
+  
   @media (max-width: 1199px) {
-    .main-categories { right: 12px; top: auto; bottom: calc(160px + var(--safe-bottom)); transform: none; flex-direction: column; }
+    .main-categories {
+      right: 12px; top: auto;
+      bottom: calc(160px + var(--safe-bottom));
+      transform: none;
+      flex-direction: column;
+    }
     .cat-btn { width: 52px; height: 52px; }
-    .submenu { right: 76px; top: auto; bottom: calc(160px + var(--safe-bottom)); transform: translateY(0) translateX(20px) scale(0.95); transform-origin: right bottom; max-width: calc(100vw - 100px); }
+    .submenu {
+      right: 76px; top: auto;
+      bottom: calc(160px + var(--safe-bottom));
+      transform: translateY(0) translateX(20px) scale(0.95);
+      transform-origin: right bottom;
+      max-width: calc(100vw - 100px);
+    }
     .submenu.open { transform: translateY(0) translateX(0) scale(1); }
     .header { left: 12px; right: 12px; gap: 8px; }
     .search-pill { height: 52px; padding: 0 16px; }
@@ -217,10 +591,12 @@
     .splash-logo { width: 80px; height: 80px; }
     .splash-logo .ms { font-size: 44px; }
   }
+  
   @media (min-width: 768px) and (max-width: 1199px) {
     .sidebar { width: 420px; }
     .install-banner { width: 480px; }
   }
+  
   @media (min-width: 1200px) {
     .sidebar { transform: translateX(0); }
     body:not(.sidebar-closed) .header { left: 416px; }
@@ -228,6 +604,7 @@
     body.sidebar-closed .sidebar { transform: translateX(-100%); }
     .header { left: 416px; transition: left .4s var(--ease-emphasized); }
   }
+  
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
@@ -236,13 +613,17 @@
 <body>
 
 <div class="splash" id="splash">
-  <div class="splash-logo"><span class="ms fill">location_city</span></div>
+  <div class="splash-logo">
+    <span class="ms fill">location_city</span>
+  </div>
   <div class="splash-greeting">
     <span class="splash-greeting-emoji" id="splashEmoji">☀️</span>
     <span id="splashGreeting">Buenos días</span>
   </div>
   <div class="splash-subtitle" id="splashSubtitle">Descubre museos y eventos en Guadalajara</div>
-  <div class="splash-loader"><div class="splash-loader-bar"></div></div>
+  <div class="splash-loader">
+    <div class="splash-loader-bar"></div>
+  </div>
   <div class="splash-brand">GDL CULTURAL</div>
 </div>
 
@@ -307,7 +688,9 @@
     <span id="installBannerSubtitle">Accede rápido desde tu pantalla de inicio</span>
   </div>
   <button class="install-banner-btn" onclick="installPWA()" id="installBannerBtn">Instalar</button>
-  <button class="install-banner-close" onclick="dismissInstallBanner()" aria-label="Cerrar"><span class="ms">close</span></button>
+  <button class="install-banner-close" onclick="dismissInstallBanner()" aria-label="Cerrar">
+    <span class="ms">close</span>
+  </button>
 </div>
 
 <div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
@@ -322,7 +705,7 @@ const API_KEYS = {
 };
 
 /* ============================================
-   SALUDO
+   SALUDO PERSONALIZADO SEGÚN LA HORA
    ============================================ */
 function getGreeting() {
   const hour = new Date().getHours();
@@ -353,10 +736,13 @@ function getGreeting() {
       evening: { text: 'Guten Abend', emoji: '🌙', subtitle: 'Finden Sie Pläne für heute Abend' }
     }
   };
+  
   let period = 'morning';
   if (hour >= 12 && hour < 19) period = 'afternoon';
   else if (hour >= 19 || hour < 5) period = 'evening';
-  return greetings[currentLang] ? greetings[currentLang][period] : greetings.es[period];
+  
+  const langGreetings = greetings[currentLang] || greetings.es;
+  return langGreetings[period];
 }
 
 function updateSplashGreeting() {
@@ -382,37 +768,69 @@ const AGE_CATEGORIES = {
 };
 
 /* ============================================
-   CATEGORÍAS — Tipos válidos para nearbySearch de Google Places (legacy)
+   CATEGORÍAS DE LUGARES — EXPANDIDAS SEGÚN GOOGLE PLACES TYPES
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
+  
+  // Cultura
   museum:             { icon: 'museum',         color: '#4F46E5', bg: '#EEF2FF', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'exposicion', 'arte'] },
-  art_gallery:        { icon: 'palette',        color: '#F59E0B', bg: '#FEF3C7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'galeria', 'arte', 'gallery'] },
+  art_gallery:        { icon: 'palette',        color: '#F59E0B', bg: '#FEF3C7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'galeria', 'arte', 'gallery', 'exposición'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'church', 'templo', 'parroquia'] },
   library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'library', 'libro', 'lectura'] },
-  tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'turístico', 'monumento'] },
-  park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'park', 'jardín', 'plaza'] },
-  zoo:                { icon: 'pets',           color: '#EC4899', bg: '#FCE7F3', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'zoológico', 'animales'] },
-  aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'peces', 'mar'] },
-  movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'cinema', 'película'] },
-  stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'deporte', 'fútbol'] },
-  shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall', 'tienda'] },
-  restaurant:         { icon: 'restaurant',     color: '#EA580C', bg: '#FFEDD5', type: 'restaurant', group: 'gastronomía', keywords: ['restaurante', 'comida', 'cocina'] },
-  cafe:               { icon: 'local_cafe',     color: '#A16207', bg: '#FEF3C7', type: 'cafe', group: 'gastronomía', keywords: ['café', 'cafetería', 'coffee'] },
-  bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina', 'cerveza'] }
+  tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'atraccion', 'turístico', 'turistico', 'monumento', 'atracciones'] },
+  
+  // Aire libre
+  park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'park', 'jardín', 'jardin', 'plaza', 'área verde', 'area verde'] },
+  zoo:                { icon: 'pets',           color: '#EC4899', bg: '#FCE7F3', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'zoológico', 'zoologico', 'animales'] },
+  aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'aquarium', 'peces', 'mar'] },
+  campground:         { icon: 'camping',        color: '#059669', bg: '#D1FAE5', type: 'campground', group: 'aire libre', keywords: ['campamento', 'camping', 'acampada'] },
+  
+  // Entretenimiento
+  movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'cinema', 'movie', 'película', 'pelicula', 'theater'] },
+  stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'stadium', 'deporte', 'fútbol', 'futbol', 'partido'] },
+  amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones', 'amusement', 'atracciones'] },
+  bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bowling', 'bolos'] },
+  casino:             { icon: 'casino',         color: '#B91C1C', bg: '#FEE2E2', type: 'casino', group: 'entretenimiento', keywords: ['casino', 'juegos', 'apuestas'] },
+  night_club:         { icon: 'nightlife',      color: '#DB2777', bg: '#FCE7F3', type: 'night_club', group: 'entretenimiento', keywords: ['antro', 'discoteca', 'night club', 'fiesta'] },
+  
+  // Gastronomía
+  restaurant:         { icon: 'restaurant',     color: '#EA580C', bg: '#FFEDD5', type: 'restaurant', group: 'gastronomía', keywords: ['restaurante', 'restaurant', 'comida', 'comer', 'cocina'] },
+  cafe:               { icon: 'local_cafe',     color: '#A16207', bg: '#FEF3C7', type: 'cafe', group: 'gastronomía', keywords: ['café', 'cafe', 'coffee', 'cafetería', 'cafeteria'] },
+  bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina', 'cerveza', 'tequila', 'mezcal', 'antros'] },
+  bakery:             { icon: 'bakery_dining',  color: '#CA8A04', bg: '#FEF9C3', type: 'bakery', group: 'gastronomía', keywords: ['panadería', 'panaderia', 'bakery', 'pan', 'pastel'] },
+  meal_takeaway:      { icon: 'takeout_dining', color: '#EA580C', bg: '#FFEDD5', type: 'meal_takeaway', group: 'gastronomía', keywords: ['para llevar', 'takeaway', 'comida rápida', 'comida rapida'] },
+  
+  // Compras
+  shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall', 'tienda', 'shopping', 'plaza comercial'] },
+  clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'clothing', 'tienda de ropa', 'moda'] },
+  bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libreria', 'bookstore', 'libros'] },
+  department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental', 'department', 'tienda departamental'] },
+  supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado', 'supermarket', 'súper', 'super'] },
+  
+  // Servicios y otros
+  gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'gym', 'fitness', 'ejercicio'] },
+  spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'relajación', 'relajacion', 'masaje'] },
+  lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal', 'hostel', 'alojamiento', 'hospedaje'] },
+  hospital:           { icon: 'local_hospital', color: '#DC2626', bg: '#FEE2E2', type: 'hospital', group: 'servicios', keywords: ['hospital', 'clínica', 'clinica', 'salud'] },
+  pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia', 'pharmacy', 'medicina'] }
 };
 
+/* ============================================
+   GRUPOS DE CATEGORÍAS
+   ============================================ */
 const CATEGORY_GROUPS = {
   'general':        { label: 'General', icon: 'explore' },
   'cultura':        { label: 'Cultura', icon: 'palette' },
   'aire libre':     { label: 'Aire libre', icon: 'park' },
   'entretenimiento':{ label: 'Entretenimiento', icon: 'theaters' },
   'gastronomía':    { label: 'Gastronomía', icon: 'restaurant' },
-  'compras':        { label: 'Compras', icon: 'shopping_bag' }
+  'compras':        { label: 'Compras', icon: 'shopping_bag' },
+  'servicios':      { label: 'Servicios', icon: 'build' }
 };
 
 /* ============================================
-   TRADUCCIONES
+   TRADUCCIONES — 5 idiomas
    ============================================ */
 const TRANSLATIONS = {
   es: {
@@ -420,19 +838,24 @@ const TRANSLATIONS = {
     searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar cerca de mí', gpsTracking: 'Ubicación en vivo',
     locationSearching: 'Buscando tu ubicación...', locationFound: 'Ubicación encontrada', locationError: 'No se pudo obtener tu ubicación',
     locationTracking: 'Rastreando ubicación', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
-    noResults: 'Sin resultados', noResultsHint: 'Intenta con otra categoría o mueve el mapa',
+    noResults: 'Sin resultados',
+    noResultsHint: 'Intenta con otra categoría o mueve el mapa',
     viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre',
     age_all: 'Todo público', age_family: 'Familia', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Niños', age_bebes: 'Bebés',
     categoriesLabel: 'Categorías', audienceLabel: 'Audiencia',
     submenuSearchPlaceholder: 'Buscar categoría...',
-    pwaInstalled: 'App instalada correctamente', pwaInstallFallback: 'Usa el menú de Chrome → "Instalar aplicación"',
-    refreshing: 'Actualizando resultados...', updated: 'Resultados actualizados',
+    pwaInstalled: 'App instalada correctamente',
+    pwaInstallFallback: 'Usa el menú de Chrome → "Instalar aplicación"',
+    refreshing: 'Actualizando resultados...',
+    updated: 'Resultados actualizados',
     categories: {
-      all: 'Todas', museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Bibliotecas', tourist_attraction: 'Atracciones',
-      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios',
-      movie_theater: 'Cines', stadium: 'Estadios',
-      shopping_mall: 'Centros comerciales',
-      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares'
+      all: 'Todas',
+      museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Bibliotecas', tourist_attraction: 'Atracciones',
+      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', campground: 'Campamentos',
+      movie_theater: 'Cines', stadium: 'Estadios', amusement_park: 'Parques de diversiones', bowling_alley: 'Boliches', casino: 'Casinos', night_club: 'Antros',
+      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares', bakery: 'Panaderías', meal_takeaway: 'Comida para llevar',
+      shopping_mall: 'Centros comerciales', clothing_store: 'Tiendas de ropa', bookstore: 'Librerías', department_store: 'Tiendas departamentales', supermarket: 'Supermercados',
+      gym: 'Gimnasios', spa: 'Spas', lodging: 'Hoteles', hospital: 'Hospitales', pharmacy: 'Farmacias'
     }
   },
   en: {
@@ -440,19 +863,24 @@ const TRANSLATIONS = {
     searchInputPlaceholder: 'Search event, place...', gpsButton: 'Search near me', gpsTracking: 'Live location',
     locationSearching: 'Searching your location...', locationFound: 'Location found', locationError: 'Could not get your location',
     locationTracking: 'Tracking location', locationTrackingStop: 'Tracking stopped', geoNotAvailable: 'Geolocation not available',
-    noResults: 'No results', noResultsHint: 'Try another category or move the map',
+    noResults: 'No results',
+    noResultsHint: 'Try another category or move the map',
     viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed',
     age_all: 'All ages', age_family: 'Family', age_adults: 'Adults', age_teens: 'Teens', age_kids: 'Kids', age_bebes: 'Babies',
     categoriesLabel: 'Categories', audienceLabel: 'Audience',
     submenuSearchPlaceholder: 'Search category...',
-    pwaInstalled: 'App installed successfully', pwaInstallFallback: 'Use Chrome menu → "Install app"',
-    refreshing: 'Refreshing results...', updated: 'Results updated',
+    pwaInstalled: 'App installed successfully',
+    pwaInstallFallback: 'Use Chrome menu → "Install app"',
+    refreshing: 'Refreshing results...',
+    updated: 'Results updated',
     categories: {
-      all: 'All', museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', tourist_attraction: 'Attractions',
-      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums',
-      movie_theater: 'Cinemas', stadium: 'Stadiums',
-      shopping_mall: 'Shopping Malls',
-      restaurant: 'Restaurants', cafe: 'Cafes', bar: 'Bars'
+      all: 'All',
+      museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', tourist_attraction: 'Attractions',
+      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', campground: 'Campgrounds',
+      movie_theater: 'Cinemas', stadium: 'Stadiums', amusement_park: 'Amusement Parks', bowling_alley: 'Bowling Alleys', casino: 'Casinos', night_club: 'Night Clubs',
+      restaurant: 'Restaurants', cafe: 'Cafes', bar: 'Bars', bakery: 'Bakeries', meal_takeaway: 'Takeaway',
+      shopping_mall: 'Shopping Malls', clothing_store: 'Clothing Stores', bookstore: 'Bookstores', department_store: 'Department Stores', supermarket: 'Supermarkets',
+      gym: 'Gyms', spa: 'Spas', lodging: 'Hotels', hospital: 'Hospitals', pharmacy: 'Pharmacies'
     }
   },
   fr: {
@@ -460,19 +888,24 @@ const TRANSLATIONS = {
     searchInputPlaceholder: 'Rechercher événement, lieu...', gpsButton: 'Rechercher près de moi', gpsTracking: 'Localisation en direct',
     locationSearching: 'Recherche de votre position...', locationFound: 'Position trouvée', locationError: 'Impossible d\'obtenir votre position',
     locationTracking: 'Suivi de la position', locationTrackingStop: 'Suivi arrêté', geoNotAvailable: 'Géolocalisation non disponible',
-    noResults: 'Aucun résultat', noResultsHint: 'Essayez une autre catégorie ou déplacez la carte',
+    noResults: 'Aucun résultat',
+    noResultsHint: 'Essayez une autre catégorie ou déplacez la carte',
     viewMore: 'Voir plus', addressNA: 'Adresse non disponible', noName: 'Sans nom',
     age_all: 'Tout public', age_family: 'Famille', age_adults: 'Adultes', age_teens: 'Ados', age_kids: 'Enfants', age_bebes: 'Bébés',
     categoriesLabel: 'Catégories', audienceLabel: 'Public',
     submenuSearchPlaceholder: 'Rechercher catégorie...',
-    pwaInstalled: 'Application installée avec succès', pwaInstallFallback: 'Utilisez le menu Chrome → "Installer l\'application"',
-    refreshing: 'Actualisation des résultats...', updated: 'Résultats actualisés',
+    pwaInstalled: 'Application installée avec succès',
+    pwaInstallFallback: 'Utilisez le menu Chrome → "Installer l\'application"',
+    refreshing: 'Actualisation des résultats...',
+    updated: 'Résultats actualisés',
     categories: {
-      all: 'Toutes', museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', tourist_attraction: 'Attractions',
-      park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums',
-      movie_theater: 'Cinémas', stadium: 'Stades',
-      shopping_mall: 'Centres commerciaux',
-      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars'
+      all: 'Toutes',
+      museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', tourist_attraction: 'Attractions',
+      park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums', campground: 'Campings',
+      movie_theater: 'Cinémas', stadium: 'Stades', amusement_park: 'Parcs d\'attractions', bowling_alley: 'Bowlings', casino: 'Casinos', night_club: 'Boîtes de nuit',
+      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars', bakery: 'Boulangeries', meal_takeaway: 'À emporter',
+      shopping_mall: 'Centres commerciaux', clothing_store: 'Magasins de vêtements', bookstore: 'Librairies', department_store: 'Grands magasins', supermarket: 'Supermarchés',
+      gym: 'Salles de sport', spa: 'Spas', lodging: 'Hôtels', hospital: 'Hôpitaux', pharmacy: 'Pharmacies'
     }
   },
   pt: {
@@ -480,19 +913,24 @@ const TRANSLATIONS = {
     searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar perto de mim', gpsTracking: 'Localização ao vivo',
     locationSearching: 'Buscando sua localização...', locationFound: 'Localização encontrada', locationError: 'Não foi possível obter sua localização',
     locationTracking: 'Rastreando localização', locationTrackingStop: 'Rastreamento parado', geoNotAvailable: 'Geolocalização indisponível',
-    noResults: 'Sem resultados', noResultsHint: 'Tente outra categoria ou mova o mapa',
+    noResults: 'Sem resultados',
+    noResultsHint: 'Tente outra categoria ou mova o mapa',
     viewMore: 'Ver mais', addressNA: 'Endereço indisponível', noName: 'Sem nome',
     age_all: 'Todos', age_family: 'Família', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Crianças', age_bebes: 'Bebês',
     categoriesLabel: 'Categorias', audienceLabel: 'Público',
     submenuSearchPlaceholder: 'Buscar categoria...',
-    pwaInstalled: 'Aplicativo instalado com sucesso', pwaInstallFallback: 'Use o menu do Chrome → "Instalar aplicativo"',
-    refreshing: 'Atualizando resultados...', updated: 'Resultados atualizados',
+    pwaInstalled: 'Aplicativo instalado com sucesso',
+    pwaInstallFallback: 'Use o menu do Chrome → "Instalar aplicativo"',
+    refreshing: 'Atualizando resultados...',
+    updated: 'Resultados atualizados',
     categories: {
-      all: 'Todas', museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', tourist_attraction: 'Atrações',
-      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários',
-      movie_theater: 'Cinemas', stadium: 'Estádios',
-      shopping_mall: 'Centros comerciais',
-      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares'
+      all: 'Todas',
+      museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', tourist_attraction: 'Atrações',
+      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários', campground: 'Campings',
+      movie_theater: 'Cinemas', stadium: 'Estádios', amusement_park: 'Parques de diversões', bowling_alley: 'Boliches', casino: 'Cassinos', night_club: 'Baladas',
+      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares', bakery: 'Padarias', meal_takeaway: 'Comida para viagem',
+      shopping_mall: 'Centros comerciais', clothing_store: 'Lojas de roupas', bookstore: 'Livrarias', department_store: 'Lojas de departamento', supermarket: 'Supermercados',
+      gym: 'Academias', spa: 'Spas', lodging: 'Hotéis', hospital: 'Hospitais', pharmacy: 'Farmácias'
     }
   },
   de: {
@@ -500,25 +938,30 @@ const TRANSLATIONS = {
     searchInputPlaceholder: 'Veranstaltung, Ort suchen...', gpsButton: 'In meiner Nähe suchen', gpsTracking: 'Live-Standort',
     locationSearching: 'Standort wird gesucht...', locationFound: 'Standort gefunden', locationError: 'Standort konnte nicht abgerufen werden',
     locationTracking: 'Standort wird verfolgt', locationTrackingStop: 'Verfolgung gestoppt', geoNotAvailable: 'Geolokalisierung nicht verfügbar',
-    noResults: 'Keine Ergebnisse', noResultsHint: 'Versuchen Sie eine andere Kategorie oder verschieben Sie die Karte',
+    noResults: 'Keine Ergebnisse',
+    noResultsHint: 'Versuchen Sie eine andere Kategorie oder verschieben Sie die Karte',
     viewMore: 'Mehr anzeigen', addressNA: 'Adresse nicht verfügbar', noName: 'Unbenannt',
     age_all: 'Alle', age_family: 'Familie', age_adults: 'Erwachsene', age_teens: 'Jugendliche', age_kids: 'Kinder', age_bebes: 'Babys',
     categoriesLabel: 'Kategorien', audienceLabel: 'Publikum',
     submenuSearchPlaceholder: 'Kategorie suchen...',
-    pwaInstalled: 'App erfolgreich installiert', pwaInstallFallback: 'Verwenden Sie das Chrome-Menü → "App installieren"',
-    refreshing: 'Ergebnisse werden aktualisiert...', updated: 'Ergebnisse aktualisiert',
+    pwaInstalled: 'App erfolgreich installiert',
+    pwaInstallFallback: 'Verwenden Sie das Chrome-Menü → "App installieren"',
+    refreshing: 'Ergebnisse werden aktualisiert...',
+    updated: 'Ergebnisse aktualisiert',
     categories: {
-      all: 'Alle', museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', tourist_attraction: 'Attraktionen',
-      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien',
-      movie_theater: 'Kinos', stadium: 'Stadien',
-      shopping_mall: 'Einkaufszentren',
-      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars'
+      all: 'Alle',
+      museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', tourist_attraction: 'Attraktionen',
+      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien', campground: 'Campingplätze',
+      movie_theater: 'Kinos', stadium: 'Stadien', amusement_park: 'Freizeitparks', bowling_alley: 'Bowlingbahnen', casino: 'Casinos', night_club: 'Nachtclubs',
+      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars', bakery: 'Bäckereien', meal_takeaway: 'Zum Mitnehmen',
+      shopping_mall: 'Einkaufszentren', clothing_store: 'Bekleidungsgeschäfte', bookstore: 'Buchhandlungen', department_store: 'Kaufhäuser', supermarket: 'Supermärkte',
+      gym: 'Fitnessstudios', spa: 'Spas', lodging: 'Hotels', hospital: 'Krankenhäuser', pharmacy: 'Apotheken'
     }
   }
 };
 
 let map, markers = [], infoWindow, placesService;
-let userMarker = null, isTracking = false;
+let userMarker = null, watchId = null, isTracking = false;
 let currentCategory = 'museum';
 let currentAudience = 'all';
 let currentSearch = '';
@@ -619,6 +1062,9 @@ function detectBrowserLanguage() {
   return 'es';
 }
 
+/* ============================================
+   SISTEMA DE TOASTS EN COLA
+   ============================================ */
 const toastQueue = [];
 let toastActive = 0;
 const MAX_VISIBLE_TOASTS = 2;
@@ -660,7 +1106,6 @@ function checkIfPWAInstalled() {
    INICIALIZACIÓN
    ============================================ */
 window.initMap = function() {
-  console.log('🗺️ initMap iniciado');
   loadPreferences();
   checkIfPWAInstalled();
   
@@ -672,14 +1117,8 @@ window.initMap = function() {
     disableDefaultUI: true
   });
   infoWindow = new google.maps.InfoWindow();
-  
-  try {
-    placesService = new google.maps.places.PlacesService(map);
-    console.log('✅ PlacesService creado correctamente');
-  } catch (e) {
-    console.error('❌ Error al crear PlacesService:', e);
-    placesApiAvailable = false;
-  }
+  try { placesService = new google.maps.places.PlacesService(map); }
+  catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
   map.addListener('click', () => {
     closeSubmenu();
@@ -715,10 +1154,9 @@ function hideSplash() {
 }
 
 /* ============================================
-   BÚSQUEDA PRINCIPAL
+   BÚSQUEDA
    ============================================ */
 async function searchEverything() {
-  console.log('🔍 searchEverything → categoría:', currentCategory, '| audiencia:', currentAudience);
   lastSearchTime = Date.now();
   clearMarkers();
   if (infoWindow) infoWindow.close();
@@ -728,30 +1166,17 @@ async function searchEverything() {
     searchPlacesPromise(), searchTicketmasterPromise()
   ]);
 
-  if (placesRes.status === 'fulfilled') {
-    allPlaces = placesRes.value || [];
-    console.log('📍 Lugares de Google encontrados:', allPlaces.length);
-  } else {
-    console.error('❌ Error Google Places:', placesRes.reason);
-  }
-  
-  if (tmRes.status === 'fulfilled') {
-    allEvents = allEvents.concat(tmRes.value || []);
-    console.log('🎫 Eventos Ticketmaster:', tmRes.value?.length || 0);
-  }
+  if (placesRes.status === 'fulfilled') allPlaces = placesRes.value || [];
+  if (tmRes.status === 'fulfilled') allEvents = allEvents.concat(tmRes.value || []);
 
   allEvents = deduplicateEvents(allEvents);
-  console.log('📊 Total eventos únicos:', allEvents.length, '| Total lugares:', allPlaces.length);
-  
   applyFilters();
   updateBadges();
 }
-
 function applyFilters() {
   let eventsFiltered = allEvents;
   if (currentAudience !== 'all') eventsFiltered = allEvents.filter(e => getAgeCategoryKey(e) === currentAudience);
   unifiedResults = [...eventsFiltered, ...allPlaces];
-  console.log('✅ Unified results:', unifiedResults.length);
   renderMarkersForAll();
   renderUnifiedList();
 }
@@ -767,157 +1192,63 @@ function updateBadges() {
 }
 
 /* ============================================
-   BÚSQUEDA DE LUGARES CON GOOGLE PLACES
+   BÚSQUEDA DE LUGARES
    ============================================ */
 function searchPlacesPromise() {
-  return new Promise((resolve) => {
-    if (!placesService) {
-      console.warn('⚠️ placesService no existe');
-      return resolve([]);
-    }
-    if (!placesApiAvailable) {
-      console.warn('⚠️ placesApiAvailable = false');
-      return resolve([]);
-    }
-
-    const category = CATEGORIES[currentCategory];
-    const center = map.getCenter();
+  return new Promise(async (resolve) => {
+    if (!placesService || !placesApiAvailable) return resolve([]);
     
-    // ✅ MAPEO de categorías a tipos válidos de Google Places
-    // Algunas categorías usan "keyword" en lugar de "type" porque no hay type oficial
-    const typeMapping = {
-      cafe: 'cafe',
-      bar: 'bar',
-      restaurant: 'restaurant',
-      bakery: 'bakery',
-      meal_takeaway: 'meal_takeaway',
-      movie_theater: 'movie_theater',
-      stadium: 'stadium',
-      amusement_park: 'amusement_park',
-      bowling_alley: 'bowling_alley',
-      casino: 'casino',
-      night_club: 'night_club',
-      clothing_store: 'clothing_store',
-      bookstore: 'book_store',
-      department_store: 'department_store',
-      supermarket: 'supermarket',
-      gym: 'gym',
-      spa: 'spa',
-      lodging: 'lodging',
-      hospital: 'hospital',
-      pharmacy: 'pharmacy',
-      campground: 'campground'
-    };
-
-    // Categoría "all": buscar múltiples tipos en paralelo
+    const category = CATEGORIES[currentCategory];
+    
+    // Categoría "todas": buscar múltiples tipos en paralelo
     if (currentCategory === 'all') {
       const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater', 'shopping_mall', 'restaurant', 'cafe', 'bar'];
-      console.log('🔎 Buscando categoría "all" con', typesToFetch.length, 'tipos');
-      
       const promises = typesToFetch.map(type => {
         return new Promise((res) => {
-          const request = { 
-            location: center, 
-            radius: DEFAULT_RADIUS, 
-            type: type  // ✅ STRING, no array
-          };
+          const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type: type };
           if (currentSearch) request.keyword = currentSearch;
-          
-          const timeout = setTimeout(() => {
-            console.warn(`⏱️ Timeout para tipo "${type}"`);
-            res([]);
-          }, 8000);
-          
+          const timeout = setTimeout(() => res([]), 8000);
           try {
             placesService.nearbySearch(request, (results, status) => {
               clearTimeout(timeout);
-              console.log(`  → Tipo "${type}": status=${status}, results=${results?.length || 0}`);
               if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+                // ✅ MARCAR CADA RESULTADO CON SU TIPO
                 const marked = results.map(r => ({ ...r, _searchType: type }));
                 res(marked);
-              } else if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') {
-                placesApiAvailable = false;
-                res([]);
               } else {
                 res([]);
               }
             });
-          } catch (err) {
-            clearTimeout(timeout);
-            console.error(`❌ Error buscando tipo "${type}":`, err);
-            res([]);
-          }
+          } catch (err) { clearTimeout(timeout); res([]); }
         });
       });
-      
-      Promise.all(promises).then(allResults => {
-        const flat = allResults.flat();
-        console.log('📦 Total resultados brutos:', flat.length);
-        const seen = new Set();
-        const unique = flat.filter(p => {
-          if (!p.place_id || seen.has(p.place_id)) return false;
-          seen.add(p.place_id);
-          return true;
-        });
-        console.log('✨ Resultados únicos:', unique.length);
-        resolve(unique.slice(0, 80));
+      const allResults = await Promise.all(promises);
+      const flat = allResults.flat();
+      const seen = new Set();
+      const unique = flat.filter(p => {
+        if (!p.place_id || seen.has(p.place_id)) return false;
+        seen.add(p.place_id);
+        return true;
       });
-      return;
+      return resolve(unique.slice(0, 80));
     }
-
-    // Categoría específica
-    if (!category.type) {
-      console.warn('⚠️ Categoría sin tipo:', currentCategory);
-      return resolve([]);
-    }
-
-    // Usar typeMapping si existe, si no el type de la categoría
-    const searchType = typeMapping[currentCategory] || category.type;
     
-    const request = { 
-      location: center, 
-      radius: DEFAULT_RADIUS, 
-      type: searchType 
-    };
+    if (!category.type) return resolve([]);
+    const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type: category.type };
     if (currentSearch) request.keyword = currentSearch;
-    
-    console.log(`🔎 Buscando tipo "${searchType}" alrededor de`, center.lat(), center.lng());
-    
-    const timeout = setTimeout(() => {
-      console.warn('⏱️ Timeout en nearbySearch');
-      resolve([]);
-    }, 8000);
-    
+    const timeout = setTimeout(() => resolve([]), 8000);
     try {
       placesService.nearbySearch(request, (results, status) => {
         clearTimeout(timeout);
-        console.log(`📡 nearbySearch status: ${status}, results:`, results?.length || 0);
-        
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-          const marked = results.map(r => ({ ...r, _searchType: searchType }));
-          console.log(`✅ ${marked.length} lugares marcados con tipo "${searchType}"`);
+          // ✅ MARCAR CADA RESULTADO CON EL TIPO ACTUAL
+          const marked = results.map(r => ({ ...r, _searchType: category.type }));
           resolve(marked);
-        } else if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-          console.log('ℹ️ ZERO_RESULTS para', searchType);
-          resolve([]);
-        } else if (status === 'REQUEST_DENIED') {
-          console.error('❌ REQUEST_DENIED — Verifica tu API key y facturación');
-          placesApiAvailable = false;
-          resolve([]);
-        } else if (status === 'OVER_QUERY_LIMIT') {
-          console.error('❌ OVER_QUERY_LIMIT — Has excedido la cuota');
-          placesApiAvailable = false;
-          resolve([]);
-        } else {
-          console.warn('⚠️ Status desconocido:', status);
-          resolve([]);
         }
+        else if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') { placesApiAvailable = false; resolve([]); }
+        else resolve([]);
       });
-    } catch (err) {
-      clearTimeout(timeout);
-      console.error('❌ Excepción en nearbySearch:', err);
-      resolve([]);
-    }
+    } catch (err) { clearTimeout(timeout); resolve([]); }
   });
 }
 
@@ -938,13 +1269,9 @@ function searchTicketmasterPromise() {
         return { id: 'tm_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento', date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '', venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url, description: e.info || e.pleaseNote || '', image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
       }).filter(Boolean);
       resolve(events);
-    } catch (err) { 
-      console.warn('Ticketmaster falló:', err.message);
-      resolve([]); 
-    }
+    } catch (err) { resolve([]); }
   });
 }
-
 function deduplicateEvents(events) {
   const seen = new Set();
   return events.filter(e => {
@@ -955,20 +1282,25 @@ function deduplicateEvents(events) {
 }
 
 /* ============================================
-   CATEGORIZACIÓN DE LUGARES
+   CATEGORIZACIÓN DE LUGARES DE GOOGLE
    ============================================ */
 function getPlaceCategory(place) {
+  // ✅ PRIMERO: usar el tipo con el que se buscó (si existe)
   if (place._searchType) {
     for (const key of Object.keys(CATEGORIES)) {
       if (CATEGORIES[key].type === place._searchType) return CATEGORIES[key];
     }
   }
+  
+  // ✅ SEGUNDO: inferir desde los types del place
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) {
     if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) {
       return CATEGORIES[key];
     }
   }
+  
+  // ✅ TERCERO: fallback según el grupo
   return CATEGORIES.tourist_attraction;
 }
 
@@ -978,6 +1310,7 @@ function getCategoryKey(place) {
       if (CATEGORIES[key].type === place._searchType) return key;
     }
   }
+  
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) {
     if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) {
@@ -991,61 +1324,27 @@ function getCategoryKey(place) {
    MARCADORES
    ============================================ */
 function clearMarkers() {
-  markers.forEach(m => { 
-    if (m._label) m._label.setMap(null); 
-    m.setMap(null); 
-  });
+  markers.forEach(m => { if (m._label) m._label.setMap(null); m.setMap(null); });
   markers = [];
 }
-
 function createMarkerSVG(color) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="52" viewBox="0 0 44 52"><defs><filter id="s" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#18181B" flood-opacity="0.25"/></filter></defs><path d="M22 2 C11 2 2 11 2 22 C2 36 22 50 22 50 C22 50 42 36 42 22 C42 11 33 2 22 2 Z" fill="${color}" stroke="white" stroke-width="3" filter="url(#s)"/><circle cx="22" cy="22" r="11" fill="white" fill-opacity="0.95"/></svg>`;
-  return { 
-    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg), 
-    scaledSize: new google.maps.Size(44, 52), 
-    anchor: new google.maps.Point(22, 50) 
-  };
+  return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg), scaledSize: new google.maps.Size(44, 52), anchor: new google.maps.Point(22, 50) };
 }
-
 function renderMarkersForAll() {
-  console.log('🎯 renderMarkersForAll → events:', allEvents.length, '| places:', allPlaces.length);
-  
   allEvents.forEach(event => {
     if (currentAudience !== 'all' && getAgeCategoryKey(event) !== currentAudience) return;
     const ageCat = categorizeEventByAge(event);
-    addMarkerToMap({ 
-      lat: event.lat, lng: event.lng, 
-      icon: createMarkerSVG(ageCat.color), 
-      iconColor: ageCat.color, iconChar: ageCat.icon, 
-      title: event.title, payload: event, payloadType: 'event', id: event.id 
-    });
+    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, iconChar: ageCat.icon, title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
-  
   allPlaces.forEach(place => {
-    if (!place.geometry?.location) {
-      console.warn('⚠️ Lugar sin geometry:', place.name);
-      return;
-    }
+    if (!place.geometry?.location) return;
     const cat = getPlaceCategory(place);
-    addMarkerToMap({ 
-      lat: place.geometry.location.lat(), 
-      lng: place.geometry.location.lng(), 
-      icon: createMarkerSVG(cat.color), 
-      iconColor: cat.color, iconChar: cat.icon, 
-      title: place.name, payload: place, payloadType: 'place', id: place.place_id 
-    });
+    addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, iconChar: cat.icon, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
-  
-  console.log('✅ Marcadores totales en el mapa:', markers.length);
 }
-
 function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, payloadType, id }) {
-  const marker = new google.maps.Marker({ 
-    position: { lat, lng }, 
-    map, icon, title, 
-    animation: google.maps.Animation.DROP 
-  });
-  
+  const marker = new google.maps.Marker({ position: { lat, lng }, map, icon, title, animation: google.maps.Animation.DROP });
   const label = new google.maps.OverlayView();
   label.onAdd = function() {
     const div = document.createElement('div');
@@ -1056,19 +1355,11 @@ function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, p
   };
   label.draw = function() {
     const pos = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(lat, lng));
-    if (pos && this.div) { 
-      this.div.style.left = pos.x + 'px'; 
-      this.div.style.top = (pos.y - 4) + 'px'; 
-    }
+    if (pos && this.div) { this.div.style.left = pos.x + 'px'; this.div.style.top = (pos.y - 4) + 'px'; }
   };
-  label.onRemove = function() { 
-    if (this.div && this.div.parentNode) this.div.parentNode.removeChild(this.div); 
-  };
+  label.onRemove = function() { if (this.div && this.div.parentNode) this.div.parentNode.removeChild(this.div); };
   label.setMap(map);
-  
-  marker._label = label; 
-  marker._payload = payload; 
-  marker._payloadType = payloadType;
+  marker._label = label; marker._payload = payload; marker._payloadType = payloadType;
   marker.addListener('click', () => {
     closeSubmenu();
     if (payloadType === 'event') showInfoWindowEvent(marker, payload);
@@ -1250,7 +1541,7 @@ function renderSubmenuOptions(type, searchTerm) {
     let html = '';
     let animIdx = 0;
     
-    const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'gastronomía', 'compras'];
+    const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'gastronomía', 'compras', 'servicios'];
     const sortedGroups = Object.keys(grouped).sort((a, b) => {
       const ia = groupOrder.indexOf(a);
       const ib = groupOrder.indexOf(b);
@@ -1407,11 +1698,17 @@ function updateOverlay() {
 }
 function handleOverlayClick() { closeSidebar(); closeSubmenu(); }
 
+/* ============================================
+   MENÚ DE OPCIONES
+   ============================================ */
 function toggleOptionsMenu(e) {
   if (e) e.stopPropagation();
   openSubmenu('category');
 }
 
+/* ============================================
+   PREFERENCIAS
+   ============================================ */
 function loadPreferences() {
   currentLang = detectBrowserLanguage();
   currentTheme = localStorage.getItem('gdl-theme') || 'light';
@@ -1421,6 +1718,9 @@ function savePreferences() {
   localStorage.setItem('gdl-theme', currentTheme);
 }
 
+/* ============================================
+   TEMA
+   ============================================ */
 function applyTheme(theme) {
   let effective = theme;
   if (theme === 'auto') effective = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -1440,6 +1740,9 @@ function toggleTheme() {
   setTheme(effective === 'dark' ? 'light' : 'dark');
 }
 
+/* ============================================
+   ACTUALIZACIÓN DE TRADUCCIONES
+   ============================================ */
 function updateAllTranslations() {
   document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'es-MX';
   document.title = currentLang === 'en' ? 'GDL Cultural — Museums & Events' : 'GDL Cultural';
@@ -1465,6 +1768,9 @@ function updateAllTranslations() {
   updateSplashGreeting();
 }
 
+/* ============================================
+   UBICACIÓN
+   ============================================ */
 function searchNearMe() {
   if (!navigator.geolocation) return showToast('error', t('geoNotAvailable'));
   if (isTracking) { stopTracking(); return; }
@@ -1480,6 +1786,7 @@ function searchNearMe() {
 }
 function stopTracking() {
   isTracking = false;
+  if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
   document.getElementById('gpsButtonSidebar').classList.remove('tracking');
   document.getElementById('gpsLabel').textContent = t('gpsButton');
   if (userMarker) { userMarker.setMap(null); userMarker = null; }
@@ -1492,6 +1799,9 @@ function updateUserMarker(loc) {
   }
 }
 
+/* ============================================
+   BÚSQUEDA POR TEXTO
+   ============================================ */
 function onSearchInput() {
   currentSearch = document.getElementById('searchInput').value.trim();
   if (!currentSearch) { applyFilters(); return; }
@@ -1506,6 +1816,9 @@ function onSearchInput() {
   container.innerHTML = `<div class="section-label">${filtered.length} resultados</div>` + filtered.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
 }
 
+/* ============================================
+   PWA
+   ============================================ */
 if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
   isPWAInstalled = true;
 }
@@ -1521,6 +1834,7 @@ function hideInstallBanner() { document.getElementById('installBanner').classLis
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
+  console.log('✅ beforeinstallprompt capturado');
   if (!isPWAInstalled) bannerTimer = setTimeout(showInstallBanner, 2500);
 });
 
@@ -1535,6 +1849,7 @@ async function installPWA() {
       deferredPrompt = null;
       hideInstallBanner();
     } catch (err) {
+      console.error('Error al instalar PWA:', err);
       showToast('error', t('pwaInstallFallback'));
     }
   } else {
@@ -1552,12 +1867,16 @@ function shouldShowInstallBanner() {
   return daysSinceDismissed > 7;
 }
 window.addEventListener('appinstalled', () => {
+  console.log('✅ PWA instalada');
   isPWAInstalled = true;
   deferredPrompt = null;
   hideInstallBanner();
   showToast('check_circle', t('pwaInstalled'));
 });
 
+/* ============================================
+   SERVICE WORKER
+   ============================================ */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
