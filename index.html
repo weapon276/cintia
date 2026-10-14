@@ -70,12 +70,7 @@
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
-  .splash {
-    position: fixed; inset: 0; z-index: var(--z-splash);
-    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 32px;
-    transition: opacity .6s var(--ease-emphasized), visibility .6s;
-  }
+  .splash { position: fixed; inset: 0; z-index: var(--z-splash); background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 32px; transition: opacity .6s var(--ease-emphasized), visibility .6s; }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   html[data-theme="dark"] .splash { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%); }
   .splash-logo { width: 96px; height: 96px; border-radius: 28px; background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 2px solid rgba(255, 255, 255, 0.3); display: grid; place-items: center; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); animation: splashFloat 3s ease-in-out infinite; }
@@ -321,7 +316,6 @@
 const API_KEYS = {
   google: 'AIzaSyD7vyTk4SncfI67G65xCZCZWgihHaMk7Tg',
   ticketmaster: 'X55W4VAAGg4eSGiDibtNacDy7Swfuqzg',
-  // ⚠️ Token de Apify para Eventbrite (obtén uno gratis en https://console.apify.com/account/integrations)
   apify: ''
 };
 
@@ -332,29 +326,29 @@ function getGreeting() {
   const hour = new Date().getHours();
   const greetings = {
     es: {
-      morning: { text: 'Buenos días', emoji: '☀️', subtitle: 'Descubre museos y eventos en Guadalajara' },
+      morning:   { text: 'Buenos días',   emoji: '☀️', subtitle: 'Descubre museos y eventos en Guadalajara' },
       afternoon: { text: 'Buenas tardes', emoji: '🌤️', subtitle: 'Explora la cultura tapatía hoy' },
-      evening: { text: 'Buenas noches', emoji: '🌙', subtitle: 'Encuentra planes para esta noche' }
+      evening:   { text: 'Buenas noches', emoji: '🌙', subtitle: 'Encuentra planes para esta noche' }
     },
     en: {
-      morning: { text: 'Good morning', emoji: '☀️', subtitle: 'Discover museums and events in Guadalajara' },
+      morning:   { text: 'Good morning',   emoji: '☀️', subtitle: 'Discover museums and events in Guadalajara' },
       afternoon: { text: 'Good afternoon', emoji: '🌤️', subtitle: 'Explore the local culture today' },
-      evening: { text: 'Good evening', emoji: '🌙', subtitle: 'Find plans for tonight' }
+      evening:   { text: 'Good evening',   emoji: '🌙', subtitle: 'Find plans for tonight' }
     },
     fr: {
-      morning: { text: 'Bonjour', emoji: '☀️', subtitle: 'Découvrez les musées et événements à Guadalajara' },
+      morning:   { text: 'Bonjour',        emoji: '☀️', subtitle: 'Découvrez les musées et événements à Guadalajara' },
       afternoon: { text: 'Bon après-midi', emoji: '🌤️', subtitle: 'Explorez la culture locale aujourd\'hui' },
-      evening: { text: 'Bonsoir', emoji: '🌙', subtitle: 'Trouvez des idées pour ce soir' }
+      evening:   { text: 'Bonsoir',        emoji: '🌙', subtitle: 'Trouvez des idées pour ce soir' }
     },
     pt: {
-      morning: { text: 'Bom dia', emoji: '☀️', subtitle: 'Descubra museus e eventos em Guadalajara' },
-      afternoon: { text: 'Boa tarde', emoji: '🌤️', subtitle: 'Explore a cultura local hoje' },
-      evening: { text: 'Boa noite', emoji: '🌙', subtitle: 'Encontre planos para hoje à noite' }
+      morning:   { text: 'Bom dia',        emoji: '☀️', subtitle: 'Descubra museus e eventos em Guadalajara' },
+      afternoon: { text: 'Boa tarde',      emoji: '🌤️', subtitle: 'Explore a cultura local hoje' },
+      evening:   { text: 'Boa noite',      emoji: '🌙', subtitle: 'Encontre planos para hoje à noite' }
     },
     de: {
-      morning: { text: 'Guten Morgen', emoji: '☀️', subtitle: 'Entdecken Sie Museen und Veranstaltungen in Guadalajara' },
-      afternoon: { text: 'Guten Tag', emoji: '🌤️', subtitle: 'Erkunden Sie heute die lokale Kultur' },
-      evening: { text: 'Guten Abend', emoji: '🌙', subtitle: 'Finden Sie Pläne für heute Abend' }
+      morning:   { text: 'Guten Morgen',   emoji: '☀️', subtitle: 'Entdecken Sie Museen und Veranstaltungen in Guadalajara' },
+      afternoon: { text: 'Guten Tag',      emoji: '🌤️', subtitle: 'Erkunden Sie heute die lokale Kultur' },
+      evening:   { text: 'Guten Abend',    emoji: '🌙', subtitle: 'Finden Sie Pläne für heute Abend' }
     }
   };
   let period = 'morning';
@@ -391,15 +385,26 @@ const AGE_CATEGORIES = {
    ============================================ */
 const TRANSLATIONS = {
   es: {
-    searchPlaceholder: 'Buscar museos, eventos...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museos y eventos en Guadalajara',
-    searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar cerca de mí', gpsTracking: 'Ubicación en vivo',
-    locationSearching: 'Buscando tu ubicación...', locationFound: 'Ubicación encontrada', locationError: 'No se pudo obtener tu ubicación',
-    locationTracking: 'Rastreando ubicación', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
+    searchPlaceholder: 'Buscar museos, eventos...',
+    brandTitle: 'GDL Cultural',
+    brandSubtitle: 'Museos y eventos en Guadalajara',
+    searchInputPlaceholder: 'Buscar evento, lugar...',
+    gpsButton: 'Buscar cerca de mí',
+    gpsTracking: 'Ubicación en vivo',
+    locationSearching: 'Buscando tu ubicación...',
+    locationFound: 'Ubicación encontrada',
+    locationError: 'No se pudo obtener tu ubicación',
+    locationTracking: 'Rastreando ubicación',
+    locationTrackingStop: 'Rastreo detenido',
+    geoNotAvailable: 'Geolocalización no disponible',
     noResults: 'Sin resultados',
     noResultsHint: 'Intenta con otra categoría o mueve el mapa',
-    viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre',
+    viewMore: 'Ver más',
+    addressNA: 'Dirección no disponible',
+    noName: 'Sin nombre',
     age_all: 'Todo público', age_family: 'Familia', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Niños', age_bebes: 'Bebés',
-    categoriesLabel: 'Categorías', audienceLabel: 'Audiencia',
+    categoriesLabel: 'Categorías',
+    audienceLabel: 'Audiencia',
     pwaInstalled: 'App instalada correctamente',
     pwaInstallFallback: 'Usa el menú de Chrome → "Instalar aplicación"',
     refreshing: 'Actualizando resultados...',
@@ -407,15 +412,26 @@ const TRANSLATIONS = {
     categories: { museum: 'Museos', tourist_attraction: 'Atracciones', art_gallery: 'Galerías', church: 'Iglesias', park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', stadium: 'Estadios', library: 'Bibliotecas', movie_theater: 'Cines', shopping_mall: 'Comercial' }
   },
   en: {
-    searchPlaceholder: 'Search museums, events...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museums and events in Guadalajara',
-    searchInputPlaceholder: 'Search event, place...', gpsButton: 'Search near me', gpsTracking: 'Live location',
-    locationSearching: 'Searching your location...', locationFound: 'Location found', locationError: 'Could not get your location',
-    locationTracking: 'Tracking location', locationTrackingStop: 'Tracking stopped', geoNotAvailable: 'Geolocation not available',
+    searchPlaceholder: 'Search museums, events...',
+    brandTitle: 'GDL Cultural',
+    brandSubtitle: 'Museums and events in Guadalajara',
+    searchInputPlaceholder: 'Search event, place...',
+    gpsButton: 'Search near me',
+    gpsTracking: 'Live location',
+    locationSearching: 'Searching your location...',
+    locationFound: 'Location found',
+    locationError: 'Could not get your location',
+    locationTracking: 'Tracking location',
+    locationTrackingStop: 'Tracking stopped',
+    geoNotAvailable: 'Geolocation not available',
     noResults: 'No results',
     noResultsHint: 'Try another category or move the map',
-    viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed',
+    viewMore: 'View more',
+    addressNA: 'Address not available',
+    noName: 'Unnamed',
     age_all: 'All ages', age_family: 'Family', age_adults: 'Adults', age_teens: 'Teens', age_kids: 'Kids', age_bebes: 'Babies',
-    categoriesLabel: 'Categories', audienceLabel: 'Audience',
+    categoriesLabel: 'Categories',
+    audienceLabel: 'Audience',
     pwaInstalled: 'App installed successfully',
     pwaInstallFallback: 'Use Chrome menu → "Install app"',
     refreshing: 'Refreshing results...',
@@ -423,15 +439,26 @@ const TRANSLATIONS = {
     categories: { museum: 'Museums', tourist_attraction: 'Attractions', art_gallery: 'Galleries', church: 'Churches', park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', stadium: 'Stadiums', library: 'Libraries', movie_theater: 'Cinemas', shopping_mall: 'Shopping' }
   },
   fr: {
-    searchPlaceholder: 'Rechercher musées, événements...', brandTitle: 'GDL Cultural', brandSubtitle: 'Musées et événements à Guadalajara',
-    searchInputPlaceholder: 'Rechercher événement, lieu...', gpsButton: 'Rechercher près de moi', gpsTracking: 'Localisation en direct',
-    locationSearching: 'Recherche de votre position...', locationFound: 'Position trouvée', locationError: 'Impossible d\'obtenir votre position',
-    locationTracking: 'Suivi de la position', locationTrackingStop: 'Suivi arrêté', geoNotAvailable: 'Géolocalisation non disponible',
+    searchPlaceholder: 'Rechercher musées, événements...',
+    brandTitle: 'GDL Cultural',
+    brandSubtitle: 'Musées et événements à Guadalajara',
+    searchInputPlaceholder: 'Rechercher événement, lieu...',
+    gpsButton: 'Rechercher près de moi',
+    gpsTracking: 'Localisation en direct',
+    locationSearching: 'Recherche de votre position...',
+    locationFound: 'Position trouvée',
+    locationError: 'Impossible d\'obtenir votre position',
+    locationTracking: 'Suivi de la position',
+    locationTrackingStop: 'Suivi arrêté',
+    geoNotAvailable: 'Géolocalisation non disponible',
     noResults: 'Aucun résultat',
     noResultsHint: 'Essayez une autre catégorie ou déplacez la carte',
-    viewMore: 'Voir plus', addressNA: 'Adresse non disponible', noName: 'Sans nom',
+    viewMore: 'Voir plus',
+    addressNA: 'Adresse non disponible',
+    noName: 'Sans nom',
     age_all: 'Tout public', age_family: 'Famille', age_adults: 'Adultes', age_teens: 'Ados', age_kids: 'Enfants', age_bebes: 'Bébés',
-    categoriesLabel: 'Catégories', audienceLabel: 'Public',
+    categoriesLabel: 'Catégories',
+    audienceLabel: 'Public',
     pwaInstalled: 'Application installée avec succès',
     pwaInstallFallback: 'Utilisez le menu Chrome → "Installer l\'application"',
     refreshing: 'Actualisation des résultats...',
@@ -439,15 +466,26 @@ const TRANSLATIONS = {
     categories: { museum: 'Musées', tourist_attraction: 'Attractions', art_gallery: 'Galeries', church: 'Églises', park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums', stadium: 'Stades', library: 'Bibliothèques', movie_theater: 'Cinémas', shopping_mall: 'Commercial' }
   },
   pt: {
-    searchPlaceholder: 'Buscar museus, eventos...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museus e eventos em Guadalajara',
-    searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar perto de mim', gpsTracking: 'Localização ao vivo',
-    locationSearching: 'Buscando sua localização...', locationFound: 'Localização encontrada', locationError: 'Não foi possível obter sua localização',
-    locationTracking: 'Rastreando localização', locationTrackingStop: 'Rastreamento parado', geoNotAvailable: 'Geolocalização indisponível',
+    searchPlaceholder: 'Buscar museus, eventos...',
+    brandTitle: 'GDL Cultural',
+    brandSubtitle: 'Museus e eventos em Guadalajara',
+    searchInputPlaceholder: 'Buscar evento, lugar...',
+    gpsButton: 'Buscar perto de mim',
+    gpsTracking: 'Localização ao vivo',
+    locationSearching: 'Buscando sua localização...',
+    locationFound: 'Localização encontrada',
+    locationError: 'Não foi possível obter sua localização',
+    locationTracking: 'Rastreando localização',
+    locationTrackingStop: 'Rastreamento parado',
+    geoNotAvailable: 'Geolocalização indisponível',
     noResults: 'Sem resultados',
     noResultsHint: 'Tente outra categoria ou mova o mapa',
-    viewMore: 'Ver mais', addressNA: 'Endereço indisponível', noName: 'Sem nome',
+    viewMore: 'Ver mais',
+    addressNA: 'Endereço indisponível',
+    noName: 'Sem nome',
     age_all: 'Todos', age_family: 'Família', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Crianças', age_bebes: 'Bebês',
-    categoriesLabel: 'Categorias', audienceLabel: 'Público',
+    categoriesLabel: 'Categorias',
+    audienceLabel: 'Público',
     pwaInstalled: 'Aplicativo instalado com sucesso',
     pwaInstallFallback: 'Use o menu do Chrome → "Instalar aplicativo"',
     refreshing: 'Atualizando resultados...',
@@ -455,15 +493,26 @@ const TRANSLATIONS = {
     categories: { museum: 'Museus', tourist_attraction: 'Atrações', art_gallery: 'Galerias', church: 'Igrejas', park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários', stadium: 'Estádios', library: 'Bibliotecas', movie_theater: 'Cinemas', shopping_mall: 'Comercial' }
   },
   de: {
-    searchPlaceholder: 'Museen, Veranstaltungen suchen...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museen und Veranstaltungen in Guadalajara',
-    searchInputPlaceholder: 'Veranstaltung, Ort suchen...', gpsButton: 'In meiner Nähe suchen', gpsTracking: 'Live-Standort',
-    locationSearching: 'Standort wird gesucht...', locationFound: 'Standort gefunden', locationError: 'Standort konnte nicht abgerufen werden',
-    locationTracking: 'Standort wird verfolgt', locationTrackingStop: 'Verfolgung gestoppt', geoNotAvailable: 'Geolokalisierung nicht verfügbar',
+    searchPlaceholder: 'Museen, Veranstaltungen suchen...',
+    brandTitle: 'GDL Cultural',
+    brandSubtitle: 'Museen und Veranstaltungen in Guadalajara',
+    searchInputPlaceholder: 'Veranstaltung, Ort suchen...',
+    gpsButton: 'In meiner Nähe suchen',
+    gpsTracking: 'Live-Standort',
+    locationSearching: 'Standort wird gesucht...',
+    locationFound: 'Standort gefunden',
+    locationError: 'Standort konnte nicht abgerufen werden',
+    locationTracking: 'Standort wird verfolgt',
+    locationTrackingStop: 'Verfolgung gestoppt',
+    geoNotAvailable: 'Geolokalisierung nicht verfügbar',
     noResults: 'Keine Ergebnisse',
     noResultsHint: 'Versuchen Sie eine andere Kategorie oder verschieben Sie die Karte',
-    viewMore: 'Mehr anzeigen', addressNA: 'Adresse nicht verfügbar', noName: 'Unbenannt',
+    viewMore: 'Mehr anzeigen',
+    addressNA: 'Adresse nicht verfügbar',
+    noName: 'Unbenannt',
     age_all: 'Alle', age_family: 'Familie', age_adults: 'Erwachsene', age_teens: 'Jugendliche', age_kids: 'Kinder', age_bebes: 'Babys',
-    categoriesLabel: 'Kategorien', audienceLabel: 'Publikum',
+    categoriesLabel: 'Kategorien',
+    audienceLabel: 'Publikum',
     pwaInstalled: 'App erfolgreich installiert',
     pwaInstallFallback: 'Verwenden Sie das Chrome-Menü → "App installieren"',
     refreshing: 'Ergebnisse werden aktualisiert...',
@@ -499,7 +548,6 @@ let lastSearchTime = 0;
 let deferredPrompt = null;
 let isPWAInstalled = false;
 let isManualRefreshing = false;
-let mapInteractionTimeout = null;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
@@ -550,7 +598,7 @@ const MAP_STYLES = {
 
 function t(key) { const v = TRANSLATIONS[currentLang][key]; return typeof v === 'function' ? v : (v || key); }
 function tCat(key) { return TRANSLATIONS[currentLang].categories[key] || key; }
-function tAge(key) { return TRANSLATIONS[currentLang][`age_${key}`] || AGE_CATEGORIES[key]?.label || key; }
+function tAge(key) { return TRANSLATIONS[currentLang]['age_' + key] || (AGE_CATEGORIES[key] ? AGE_CATEGORIES[key].label : key); }
 
 function categorizeEventByAge(event) {
   const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
@@ -599,22 +647,24 @@ let toastActive = 0;
 const MAX_VISIBLE_TOASTS = 2;
 
 function showToast(icon, msg) {
-  toastQueue.push({ icon, msg });
+  toastQueue.push({ icon: icon, msg: msg });
   processToastQueue();
 }
 function processToastQueue() {
   if (toastActive >= MAX_VISIBLE_TOASTS) return;
   if (toastQueue.length === 0) return;
-  const { icon, msg } = toastQueue.shift();
+  const item = toastQueue.shift();
+  const icon = item.icon;
+  const msg = item.msg;
   toastActive++;
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
   toast.className = 'toast';
-  toast.innerHTML = `<span class="ms fill">${icon}</span><span>${msg}</span>`;
+  toast.innerHTML = '<span class="ms fill">' + icon + '</span><span>' + msg + '</span>';
   container.appendChild(toast);
-  setTimeout(() => {
+  setTimeout(function() {
     toast.classList.add('leaving');
-    setTimeout(() => {
+    setTimeout(function() {
       toast.remove();
       toastActive--;
       processToastQueue();
@@ -649,17 +699,17 @@ window.initMap = function() {
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
-  map.addListener('click', () => {
+  map.addListener('click', function() {
     closeSubmenu();
     if (infoWindow) infoWindow.close();
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
   });
-  map.addListener('dragstart', () => {
+  map.addListener('dragstart', function() {
     if (infoWindow) infoWindow.close();
     closeSubmenu();
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
   });
-  map.addListener('zoom_changed', () => {
+  map.addListener('zoom_changed', function() {
     if (infoWindow) infoWindow.close();
     closeSubmenu();
   });
@@ -676,7 +726,7 @@ function hideSplash() {
   const splash = document.getElementById('splash');
   if (splash && !splash.classList.contains('hidden')) {
     splash.classList.add('hidden');
-    setTimeout(() => {
+    setTimeout(function() {
       if (splash.parentNode) splash.parentNode.removeChild(splash);
     }, 700);
   }
@@ -691,28 +741,30 @@ async function searchEverything() {
   if (infoWindow) infoWindow.close();
   allPlaces = []; allEvents = []; unifiedResults = [];
 
-  const [placesRes, tmRes, ebRes] = await Promise.allSettled([
+  const results = await Promise.allSettled([
     searchPlacesPromise(), searchTicketmasterPromise(), searchEventbritePromise()
   ]);
 
-  if (placesRes.status === 'fulfilled') allPlaces = placesRes.value || [];
-  if (tmRes.status === 'fulfilled') allEvents = allEvents.concat(tmRes.value || []);
-  if (ebRes.status === 'fulfilled') allEvents = allEvents.concat(ebRes.value || []);
+  if (results[0].status === 'fulfilled') allPlaces = results[0].value || [];
+  if (results[1].status === 'fulfilled') allEvents = allEvents.concat(results[1].value || []);
+  if (results[2].status === 'fulfilled') allEvents = allEvents.concat(results[2].value || []);
 
   allEvents = deduplicateEvents(allEvents);
   applyFilters();
   updateBadges();
 }
+
 function applyFilters() {
   let eventsFiltered = allEvents;
   if (currentAudience !== 'all') eventsFiltered = allEvents.filter(e => getAgeCategoryKey(e) === currentAudience);
-  unifiedResults = [...eventsFiltered, ...allPlaces];
+  unifiedResults = eventsFiltered.concat(allPlaces);
   renderMarkersForAll();
   renderUnifiedList();
 }
+
 function updateBadges() {
-  Object.keys(AGE_CATEGORIES).forEach(key => {
-    const badge = document.querySelector(`.cat-btn[data-audience="${key}"] .badge`);
+  Object.keys(AGE_CATEGORIES).forEach(function(key) {
+    const badge = document.querySelector('.cat-btn[data-audience="' + key + '"] .badge');
     if (badge) {
       let count = key === 'all' ? allEvents.length : allEvents.filter(e => getAgeCategoryKey(e) === key).length;
       badge.textContent = count;
@@ -720,15 +772,16 @@ function updateBadges() {
     }
   });
 }
+
 function searchPlacesPromise() {
-  return new Promise((resolve) => {
+  return new Promise(function(resolve) {
     if (!placesService || !placesApiAvailable) return resolve([]);
     const category = CATEGORIES[currentCategory];
     const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type: category.type };
     if (currentSearch) request.keyword = currentSearch;
-    const timeout = setTimeout(() => resolve([]), 8000);
+    const timeout = setTimeout(function() { resolve([]); }, 8000);
     try {
-      placesService.nearbySearch(request, (results, status) => {
+      placesService.nearbySearch(request, function(results, status) {
         clearTimeout(timeout);
         if (status === google.maps.places.PlacesServiceStatus.OK && results) resolve(results);
         else if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') { placesApiAvailable = false; resolve([]); }
@@ -737,44 +790,59 @@ function searchPlacesPromise() {
     } catch (err) { clearTimeout(timeout); resolve([]); }
   });
 }
+
 function searchTicketmasterPromise() {
-  return new Promise(async (resolve) => {
+  return new Promise(async function(resolve) {
     try {
       const center = map.getCenter();
-      const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEYS.ticketmaster}&latlong=${center.lat()},${center.lng()}&radius=${TICKETMASTER_RADIUS_KM}&unit=km&size=50&sort=date,asc&locale=${currentLang === 'es' ? 'es' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'en-us'}`;
+      const locale = currentLang === 'es' ? 'es' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'en-us';
+      const url = 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=' + API_KEYS.ticketmaster + '&latlong=' + center.lat() + ',' + center.lng() + '&radius=' + TICKETMASTER_RADIUS_KM + '&unit=km&size=50&sort=date,asc&locale=' + locale;
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 8000);
+      const timeout = setTimeout(function() { controller.abort(); }, 8000);
       const response = await fetch(url, { signal: controller.signal });
       clearTimeout(timeout);
       const data = await response.json();
-      const events = (data._embedded?.events || []).map(e => {
-        const venue = e._embedded?.venues?.[0] || {}, location = venue.location || {};
-        const lat = parseFloat(location.latitude), lng = parseFloat(location.longitude);
+      const events = (data._embedded && data._embedded.events ? data._embedded.events : []).map(function(e) {
+        const venue = (e._embedded && e._embedded.venues && e._embedded.venues[0]) || {};
+        const location = venue.location || {};
+        const lat = parseFloat(location.latitude);
+        const lng = parseFloat(location.longitude);
         if (!lat || !lng) return null;
-        return { id: 'tm_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento', date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '', venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url, description: e.info || e.pleaseNote || '', image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
+        return {
+          id: 'tm_' + e.id,
+          type: 'event',
+          source: 'ticketmaster',
+          title: e.name || 'Evento',
+          date: (e.dates && e.dates.start && e.dates.start.localDate) || '',
+          time: (e.dates && e.dates.start && e.dates.start.localTime) || '',
+          venue: venue.name || '',
+          city: (venue.city && venue.city.name) || '',
+          lat: lat, lng: lng,
+          url: e.url,
+          description: e.info || e.pleaseNote || '',
+          image: (e.images && e.images.length > 0) ? e.images[0].url : ''
+        };
       }).filter(Boolean);
       resolve(events);
     } catch (err) { resolve([]); }
   });
 }
+
 /* ============================================
    EVENTBRITE VÍA APIFY
-   La API oficial de Eventbrite ya no permite buscar eventos públicos.
-   Usamos Apify para scraping de la web pública.
    ============================================ */
 function searchEventbritePromise() {
-  return new Promise(async (resolve) => {
-    if (!API_KEYS.apify || API_KEYS.apify === 'apify_api_YinMMkGVGXJLMD1duwnV8QBPevWNlv4tHYXj') {
+  return new Promise(async function(resolve) {
+    if (!API_KEYS.apify || API_KEYS.apify === '') {
       console.warn('Eventbrite: Token de Apify no configurado.');
       return resolve([]);
     }
     try {
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 25000);
+      const timeout = setTimeout(function() { controller.abort(); }, 25000);
       
-      // ✅ Actor logiover/eventbrite-scraper - compatible con plan gratuito
       const response = await fetch(
-        `https://api.apify.com/v2/acts/logiover~eventbrite-scraper/run-sync-get-dataset-items?token=${API_KEYS.apify}`,
+        'https://api.apify.com/v2/acts/logiover~eventbrite-scraper/run-sync-get-dataset-items?token=' + API_KEYS.apify,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -797,12 +865,10 @@ function searchEventbritePromise() {
       const data = await response.json();
       console.log('Eventbrite (Apify) raw data:', data);
       
-      const events = (Array.isArray(data) ? data : []).map(e => {
-        // El actor puede devolver coordenadas directamente o dentro de un objeto venue
-        const lat = parseFloat(e.latitude || e.venue?.latitude);
-        const lng = parseFloat(e.longitude || e.venue?.longitude);
+      const events = (Array.isArray(data) ? data : []).map(function(e) {
+        const lat = parseFloat(e.latitude || (e.venue && e.venue.latitude));
+        const lng = parseFloat(e.longitude || (e.venue && e.venue.longitude));
         if (!lat || !lng) return null;
-        
         return {
           id: 'eb_' + (e.id || e.url || Math.random()),
           type: 'event',
@@ -810,17 +876,16 @@ function searchEventbritePromise() {
           title: e.name || 'Evento',
           date: e.startDate || e.start_date || '',
           time: e.startTime || e.start_time || '',
-          venue: e.venueName || e.venue?.name || '',
+          venue: e.venueName || (e.venue && e.venue.name) || '',
           city: e.city || 'Guadalajara',
-          lat: lat,
-          lng: lng,
+          lat: lat, lng: lng,
           url: e.url || '',
           description: e.summary || '',
           image: e.image || ''
         };
       }).filter(Boolean);
       
-      console.log(`Eventbrite: ${events.length} eventos encontrados`);
+      console.log('Eventbrite: ' + events.length + ' eventos encontrados');
       resolve(events);
       
     } catch (err) {
@@ -831,14 +896,30 @@ function searchEventbritePromise() {
 }
 
 /* ============================================
+   DEDUPLICAR EVENTOS
+   ============================================ */
+function deduplicateEvents(events) {
+  const seen = new Set();
+  return events.filter(function(e) {
+    const key = (e.title || '').toLowerCase().trim() + '|' + (e.venue || '').toLowerCase().trim();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+/* ============================================
    MARCADORES
    ============================================ */
 function clearMarkers() {
-  markers.forEach(m => { if (m._label) m._label.setMap(null); m.setMap(null); });
+  markers.forEach(function(m) {
+    if (m._label) m._label.setMap(null);
+    m.setMap(null);
+  });
   markers = [];
 }
 function createMarkerSVG(color) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="52" viewBox="0 0 44 52"><defs><filter id="s" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#18181B" flood-opacity="0.25"/></filter></defs><path d="M22 2 C11 2 2 11 2 22 C2 36 22 50 22 50 C22 50 42 36 42 22 C42 11 33 2 22 2 Z" fill="${color}" stroke="white" stroke-width="3" filter="url(#s)"/><circle cx="22" cy="22" r="11" fill="white" fill-opacity="0.95"/></svg>`;
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="44" height="52" viewBox="0 0 44 52"><defs><filter id="s" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#18181B" flood-opacity="0.25"/></filter></defs><path d="M22 2 C11 2 2 11 2 22 C2 36 22 50 22 50 C22 50 42 36 42 22 C42 11 33 2 22 2 Z" fill="' + color + '" stroke="white" stroke-width="3" filter="url(#s)"/><circle cx="22" cy="22" r="11" fill="white" fill-opacity="0.95"/></svg>';
   return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg), scaledSize: new google.maps.Size(44, 52), anchor: new google.maps.Point(22, 50) };
 }
 function getPlaceCategory(place) {
@@ -852,23 +933,27 @@ function getCategoryKey(place) {
   return 'tourist_attraction';
 }
 function renderMarkersForAll() {
-  allEvents.forEach(event => {
+  allEvents.forEach(function(event) {
     if (currentAudience !== 'all' && getAgeCategoryKey(event) !== currentAudience) return;
     const ageCat = categorizeEventByAge(event);
     addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, iconChar: ageCat.icon, title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
-  allPlaces.forEach(place => {
-    if (!place.geometry?.location) return;
+  allPlaces.forEach(function(place) {
+    if (!place.geometry || !place.geometry.location) return;
     const cat = getPlaceCategory(place);
     addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, iconChar: cat.icon, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
 }
-function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, payloadType, id }) {
-  const marker = new google.maps.Marker({ position: { lat, lng }, map, icon, title, animation: google.maps.Animation.DROP });
+function addMarkerToMap(opts) {
+  const marker = new google.maps.Marker({ position: { lat: opts.lat, lng: opts.lng }, map: map, icon: opts.icon, title: opts.title, animation: google.maps.Animation.DROP });
   const label = new google.maps.OverlayView();
+  const iconColor = opts.iconColor;
+  const iconChar = opts.iconChar;
+  const lat = opts.lat;
+  const lng = opts.lng;
   label.onAdd = function() {
     const div = document.createElement('div');
-    div.style.cssText = `position:absolute;transform:translate(-50%,-50%);pointer-events:none;color:${iconColor};font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1,'wght' 500;line-height:1;`;
+    div.style.cssText = 'position:absolute;transform:translate(-50%,-50%);pointer-events:none;color:' + iconColor + ';font-family:\'Material Symbols Rounded\';font-size:20px;font-variation-settings:\'FILL\' 1,\'wght\' 500;line-height:1;';
     div.textContent = iconChar;
     this.div = div;
     this.getPanes().overlayMouseTarget.appendChild(div);
@@ -879,13 +964,15 @@ function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, p
   };
   label.onRemove = function() { if (this.div && this.div.parentNode) this.div.parentNode.removeChild(this.div); };
   label.setMap(map);
-  marker._label = label; marker._payload = payload; marker._payloadType = payloadType;
-  marker.addListener('click', () => {
+  marker._label = label;
+  marker._payload = opts.payload;
+  marker._payloadType = opts.payloadType;
+  marker.addListener('click', function() {
     closeSubmenu();
-    if (payloadType === 'event') showInfoWindowEvent(marker, payload);
-    else showInfoWindowGoogle(marker, payload);
+    if (opts.payloadType === 'event') showInfoWindowEvent(marker, opts.payload);
+    else showInfoWindowGoogle(marker, opts.payload);
   });
-  marker.placeId = id;
+  marker.placeId = opts.id;
   markers.push(marker);
 }
 
@@ -894,49 +981,49 @@ function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, p
    ============================================ */
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
-  const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
+  const ratingText = place.rating ? place.rating + ' (' + (place.user_ratings_total || 0) + ')' : '';
   const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 400 }) : '';
-  infoWindow.setContent(`<div style="padding:0;max-width:280px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
-    ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
-    <div style="padding:16px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="width:40px;height:40px;border-radius:12px;background:${cat.bg};color:${cat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${cat.icon}</span></div>
-        <div style="flex:1;min-width:0;"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${place.name || t('noName')}</div></div>
-      </div>
-      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">
-        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${place.vicinity || t('addressNA')}</div>
-        ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F59E0B;">star</span>${ratingText}</div>` : ''}
-      </div>
-      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:#4F46E5;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>
-    </div>
-  </div>`);
+  infoWindow.setContent('<div style="padding:0;max-width:280px;font-family:\'Inter\',sans-serif;overflow:hidden;border-radius:12px;">' +
+    (photoUrl ? '<img src="' + photoUrl + '" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display=\'none\'">' : '') +
+    '<div style="padding:16px;">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">' +
+        '<div style="width:40px;height:40px;border-radius:12px;background:' + cat.bg + ';color:' + cat.color + ';display:grid;place-items:center;flex-shrink:0;"><span style="font-family:\'Material Symbols Rounded\';font-size:22px;font-variation-settings:\'FILL\' 1;">' + cat.icon + '</span></div>' +
+        '<div style="flex:1;min-width:0;"><div style="font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">' + (place.name || t('noName')) + '</div></div>' +
+      '</div>' +
+      '<div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">' +
+        '<div style="display:flex;align-items:center;gap:6px;"><span style="font-family:\'Material Symbols Rounded\';font-size:14px;color:#A1A1AA;">location_on</span>' + (place.vicinity || t('addressNA')) + '</div>' +
+        (ratingText ? '<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:\'Material Symbols Rounded\';font-size:14px;color:#F59E0B;">star</span>' + ratingText + '</div>' : '') +
+      '</div>' +
+      '<button onclick="showToast(\'info\', \'' + t('viewMore') + '\')" style="width:100%;padding:11px;border:none;border-radius:10px;background:#4F46E5;color:white;font-family:\'Inter\',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">' + t('viewMore') + '</button>' +
+    '</div>' +
+  '</div>');
   infoWindow.open(map, marker);
 }
 function showInfoWindowEvent(marker, event) {
   const ageCat = categorizeEventByAge(event);
   const urlBtn = event.url
-    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
-    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>`;
+    ? '<a href="' + event.url + '" target="_blank" rel="noopener" style="display:block;width:100%;padding:11px;border:none;border-radius:10px;background:' + ageCat.color + ';color:white;font-family:\'Inter\',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;">' + t('viewMore') + '</a>'
+    : '<button onclick="showToast(\'info\', \'' + t('viewMore') + '\')" style="width:100%;padding:11px;border:none;border-radius:10px;background:' + ageCat.color + ';color:white;font-family:\'Inter\',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">' + t('viewMore') + '</button>';
   const dateStr = event.date || '';
   const timeStr = event.time ? ' · ' + event.time : '';
   const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
-  infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
-    ${event.image ? `<img src="${event.image}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
-    <div style="padding:16px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}</div>
-          <div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div>
-        </div>
-      </div>
-      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">
-        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${venueStr}</div>
-        ${dateStr ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
-      </div>
-      ${urlBtn}
-    </div>
-  </div>`);
+  infoWindow.setContent('<div style="padding:0;max-width:300px;font-family:\'Inter\',sans-serif;overflow:hidden;border-radius:12px;">' +
+    (event.image ? '<img src="' + event.image + '" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display=\'none\'">' : '') +
+    '<div style="padding:16px;">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">' +
+        '<div style="width:40px;height:40px;border-radius:12px;background:' + ageCat.bg + ';color:' + ageCat.color + ';display:grid;place-items:center;flex-shrink:0;"><span style="font-family:\'Material Symbols Rounded\';font-size:22px;font-variation-settings:\'FILL\' 1;">' + ageCat.icon + '</span></div>' +
+        '<div style="flex:1;min-width:0;">' +
+          '<div style="font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">' + (event.title || 'Evento') + '</div>' +
+          '<div style="font-size:11px;font-weight:700;color:' + ageCat.color + ';margin-top:2px;">' + tAge(getAgeCategoryKey(event)) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">' +
+        '<div style="display:flex;align-items:center;gap:6px;"><span style="font-family:\'Material Symbols Rounded\';font-size:14px;color:#A1A1AA;">location_on</span>' + venueStr + '</div>' +
+        (dateStr ? '<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:\'Material Symbols Rounded\';font-size:14px;color:#A1A1AA;">calendar_today</span>' + dateStr + timeStr + '</div>' : '') +
+      '</div>' +
+      urlBtn +
+    '</div>' +
+  '</div>');
   infoWindow.open(map, marker);
 }
 
@@ -945,19 +1032,19 @@ function showInfoWindowEvent(marker, event) {
    ============================================ */
 function renderGoogleCard(place) {
   const cat = getPlaceCategory(place);
-  const rating = place.rating ? `<span class="event-rating"><span class="ms fill">star</span>${place.rating}</span>` : '';
+  const rating = place.rating ? '<span class="event-rating"><span class="ms fill">star</span>' + place.rating + '</span>' : '';
   const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 200 }) : '';
   const photoHtml = photoUrl
-    ? `<img src="${photoUrl}" alt="${place.name || ''}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${cat.icon}</span>'">`
-    : `<span class="placeholder">${cat.icon}</span>`;
-  return `<div class="event-card" onclick="focusPlace('${place.place_id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
-    <div class="event-photo" style="background:${cat.bg};">${photoHtml}</div>
-    <div class="event-body">
-      <div class="event-title">${place.name || t('noName')}</div>
-      <div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div>
-      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${cat.bg};--age-color:${cat.color};">${tCat(getCategoryKey(place))}</span>${rating}</div>
-    </div>
-  </div>`;
+    ? '<img src="' + photoUrl + '" alt="' + (place.name || '') + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<span class=&quot;placeholder&quot;>' + cat.icon + '</span>\'">'
+    : '<span class="placeholder">' + cat.icon + '</span>';
+  return '<div class="event-card" onclick="focusPlace(\'' + place.place_id + '\')" style="--card-color:' + cat.color + ';--card-bg:' + cat.bg + ';">' +
+    '<div class="event-photo" style="background:' + cat.bg + ';">' + photoHtml + '</div>' +
+    '<div class="event-body">' +
+      '<div class="event-title">' + (place.name || t('noName')) + '</div>' +
+      '<div class="event-venue"><span class="ms">location_on</span>' + (place.vicinity || t('addressNA')) + '</div>' +
+      '<div class="event-footer"><span class="event-age-tag" style="--age-bg:' + cat.bg + ';--age-color:' + cat.color + ';">' + tCat(getCategoryKey(place)) + '</span>' + rating + '</div>' +
+    '</div>' +
+  '</div>';
 }
 function renderEventCard(event) {
   const ageCat = categorizeEventByAge(event);
@@ -966,27 +1053,29 @@ function renderEventCard(event) {
   const venue = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
   const dateInfo = event.date ? event.date + (event.time ? ' · ' + event.time : '') : '';
   const photoHtml = event.image
-    ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${ageCat.icon}</span>'">`
-    : `<span class="placeholder">${ageCat.icon}</span>`;
-  return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};">
-    <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
-    <div class="event-body">
-      <div class="event-title">${title}</div>
-      <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
-      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div>
-    </div>
-  </div>`;
+    ? '<img src="' + event.image + '" alt="' + title + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<span class=&quot;placeholder&quot;>' + ageCat.icon + '</span>\'">'
+    : '<span class="placeholder">' + ageCat.icon + '</span>';
+  return '<div class="event-card" onclick="focusPlace(\'' + event.id + '\')" style="--card-color:' + ageCat.color + ';--card-bg:' + ageCat.bg + ';">' +
+    '<div class="event-photo" style="background:' + ageCat.bg + ';">' + photoHtml + '</div>' +
+    '<div class="event-body">' +
+      '<div class="event-title">' + title + '</div>' +
+      '<div class="event-venue"><span class="ms">location_on</span>' + venue + '</div>' +
+      '<div class="event-footer"><span class="event-age-tag" style="--age-bg:' + ageCat.bg + ';--age-color:' + ageCat.color + ';"><span class="ms">' + ageCat.icon + '</span>' + tAge(ageKey) + '</span>' + (dateInfo ? '<span class="event-rating"><span class="ms">calendar_today</span>' + dateInfo + '</span>' : '') + '</div>' +
+    '</div>' +
+  '</div>';
 }
 function renderUnifiedList() {
   const container = document.getElementById('sidebarEvents');
   if (unifiedResults.length === 0) {
     const msg = !placesApiAvailable ? 'Google Places no disponible.' : t('noResultsHint');
-    container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3><p>${msg}</p></div>`;
+    container.innerHTML = '<div class="empty-state"><span class="ms">search_off</span><h3>' + t('noResults') + '</h3><p>' + msg + '</p></div>';
     return;
   }
   const audienceLabel = currentAudience === 'all' ? t('age_all') : tAge(currentAudience);
-  const label = `${unifiedResults.length} resultados · ${audienceLabel}`;
-  container.innerHTML = `<div class="section-label">${label}</div>` + unifiedResults.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
+  const label = unifiedResults.length + ' resultados · ' + audienceLabel;
+  container.innerHTML = '<div class="section-label">' + label + '</div>' + unifiedResults.map(function(item) {
+    return item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item);
+  }).join('');
 }
 
 /* ============================================
@@ -1004,29 +1093,33 @@ function openSubmenu(type) {
 
   if (type === 'audience') {
     title = t('audienceLabel'); icon = 'groups';
-    options = Object.entries(AGE_CATEGORIES).map(([key, cat]) => ({
-      key, label: tAge(key), icon: cat.icon, color: cat.color, bg: cat.bg, active: key === currentAudience, action: () => setAudience(key)
-    }));
+    options = Object.entries(AGE_CATEGORIES).map(function(entry) {
+      const key = entry[0];
+      const cat = entry[1];
+      return { key: key, label: tAge(key), icon: cat.icon, color: cat.color, bg: cat.bg, active: key === currentAudience, action: function() { setAudience(key); } };
+    });
   } else if (type === 'category') {
     title = t('categoriesLabel'); icon = 'category';
-    options = Object.entries(CATEGORIES).map(([key, cat]) => ({
-      key, label: tCat(key), icon: cat.icon, color: cat.color, bg: cat.bg, active: key === currentCategory, action: () => setCategory(key)
-    }));
+    options = Object.entries(CATEGORIES).map(function(entry) {
+      const key = entry[0];
+      const cat = entry[1];
+      return { key: key, label: tCat(key), icon: cat.icon, color: cat.color, bg: cat.bg, active: key === currentCategory, action: function() { setCategory(key); } };
+    });
   }
 
   titleEl.textContent = title;
   iconEl.textContent = icon;
-  const firstOption = options.find(o => o.active) || options[0];
+  const firstOption = options.find(function(o) { return o.active; }) || options[0];
   submenu.style.setProperty('--submenu-color', firstOption.color);
 
-  optionsContainer.innerHTML = options.map((opt, i) => `
-    <button class="submenu-option ${opt.active ? 'active' : ''}" data-key="${opt.key}" style="--option-color:${opt.color};--option-bg:${opt.bg};animation-delay:${i * 30}ms;">
-      <span class="ms">${opt.icon}</span><span>${opt.label}</span><span class="ms check">check</span>
-    </button>
-  `).join('');
+  optionsContainer.innerHTML = options.map(function(opt, i) {
+    return '<button class="submenu-option ' + (opt.active ? 'active' : '') + '" data-key="' + opt.key + '" style="--option-color:' + opt.color + ';--option-bg:' + opt.bg + ';animation-delay:' + (i * 30) + 'ms;">' +
+      '<span class="ms">' + opt.icon + '</span><span>' + opt.label + '</span><span class="ms check">check</span>' +
+    '</button>';
+  }).join('');
 
-  optionsContainer.querySelectorAll('.submenu-option').forEach((btn, i) => {
-    btn.addEventListener('click', (e) => {
+  optionsContainer.querySelectorAll('.submenu-option').forEach(function(btn, i) {
+    btn.addEventListener('click', function(e) {
       e.stopPropagation();
       options[i].action();
       closeSubmenu();
@@ -1044,27 +1137,26 @@ function closeSubmenu() {
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
-  container.innerHTML = `
-    <button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu('audience')" data-label="${t('audienceLabel')}">
-      <span class="ms fill" id="audienceIcon">${AGE_CATEGORIES[currentAudience].icon}</span>
-      <span class="badge" id="audienceBadge">0</span>
-    </button>
-    <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
-      <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
-      <span class="badge" id="categoryBadge">0</span>
-    </button>
-  `;
+  container.innerHTML =
+    '<button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu(\'audience\')" data-label="' + t('audienceLabel') + '">' +
+      '<span class="ms fill" id="audienceIcon">' + AGE_CATEGORIES[currentAudience].icon + '</span>' +
+      '<span class="badge" id="audienceBadge">0</span>' +
+    '</button>' +
+    '<button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu(\'category\')" data-label="' + t('categoriesLabel') + '">' +
+      '<span class="ms fill" id="categoryIcon">' + CATEGORIES[currentCategory].icon + '</span>' +
+      '<span class="badge" id="categoryBadge">0</span>' +
+    '</button>';
 }
 
 /* ============================================
    ACCIONES
    ============================================ */
 function focusPlace(id) {
-  const marker = markers.find(m => m.placeId === id);
+  const marker = markers.find(function(m) { return m.placeId === id; });
   if (marker) {
     map.panTo(marker.getPosition());
     map.setZoom(16);
-    setTimeout(() => google.maps.event.trigger(marker, 'click'), 500);
+    setTimeout(function() { google.maps.event.trigger(marker, 'click'); }, 500);
     if (!isDesktop()) closeSidebar();
   }
 }
@@ -1098,7 +1190,7 @@ function manualRefresh() {
   if (btn) btn.classList.add('active');
   lastSearchTime = 0;
   if (infoWindow) infoWindow.close();
-  searchEverything().then(() => {
+  searchEverything().then(function() {
     isManualRefreshing = false;
     if (btn) btn.classList.remove('active');
     showToast('check_circle', t('updated'));
@@ -1112,7 +1204,8 @@ function isDesktop() { return window.innerWidth >= 1200; }
 function isSidebarOpen() { return document.getElementById('sidebar').classList.contains('open'); }
 
 function updateSidebarState() {
-  const sidebar = document.getElementById('sidebar'), menuIcon = document.getElementById('menuIcon');
+  const sidebar = document.getElementById('sidebar');
+  const menuIcon = document.getElementById('menuIcon');
   if (isDesktop()) {
     if (document.body.classList.contains('sidebar-closed')) { sidebar.classList.remove('open'); menuIcon.textContent = 'menu'; }
     else { sidebar.classList.add('open'); menuIcon.textContent = 'menu_open'; }
@@ -1181,7 +1274,7 @@ function toggleTheme() {
 function updateAllTranslations() {
   document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'es-MX';
   document.title = currentLang === 'en' ? 'GDL Cultural — Museums & Events' : 'GDL Cultural';
-  const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+  const set = function(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; };
   set('brandTitle', t('brandTitle'));
   set('brandSubtitle', t('brandSubtitle'));
   set('gpsLabel', isTracking ? t('gpsTracking') : t('gpsButton'));
@@ -1195,7 +1288,7 @@ function updateAllTranslations() {
   const langBadge = document.getElementById('langBadgeLabel');
   if (langBadge) {
     const flagMap = { es: '🇲🇽 ES', en: '🇺🇸 EN', fr: '🇫🇷 FR', pt: '🇧🇷 PT', de: '🇩🇪 DE' };
-    langBadge.textContent = `AUTO · ${flagMap[currentLang] || currentLang.toUpperCase()}`;
+    langBadge.textContent = 'AUTO · ' + (flagMap[currentLang] || currentLang.toUpperCase());
   }
   
   updateSplashGreeting();
@@ -1208,14 +1301,14 @@ function searchNearMe() {
   if (!navigator.geolocation) return showToast('error', t('geoNotAvailable'));
   if (isTracking) { stopTracking(); return; }
   showToast('location_searching', t('locationSearching'));
-  navigator.geolocation.getCurrentPosition(pos => {
+  navigator.geolocation.getCurrentPosition(function(pos) {
     const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
     map.panTo(loc); map.setZoom(14); updateUserMarker(loc);
     showToast('check_circle', t('locationFound'));
     lastSearchTime = 0;
     if (infoWindow) infoWindow.close();
     setTimeout(searchEverything, 500);
-  }, () => showToast('error', t('locationError')), { enableHighAccuracy: true, timeout: 10000 });
+  }, function() { showToast('error', t('locationError')); }, { enableHighAccuracy: true, timeout: 10000 });
 }
 function stopTracking() {
   isTracking = false;
@@ -1228,7 +1321,7 @@ function stopTracking() {
 function updateUserMarker(loc) {
   if (userMarker) userMarker.setPosition(loc);
   else {
-    userMarker = new google.maps.Marker({ position: loc, map, icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="#4F46E5" stroke="white" stroke-width="3"/></svg>`), scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) }, title: 'Tu ubicación', zIndex: 9999 });
+    userMarker = new google.maps.Marker({ position: loc, map: map, icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="#4F46E5" stroke="white" stroke-width="3"/></svg>'), scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) }, title: 'Tu ubicación', zIndex: 9999 });
   }
 }
 
@@ -1239,14 +1332,16 @@ function onSearchInput() {
   currentSearch = document.getElementById('searchInput').value.trim();
   if (!currentSearch) { applyFilters(); return; }
   const q = currentSearch.toLowerCase();
-  const filtered = unifiedResults.filter(item => {
+  const filtered = unifiedResults.filter(function(item) {
     const title = (item.title || item.name || '').toLowerCase();
     const venue = (item.venue || item.vicinity || '').toLowerCase();
     return title.includes(q) || venue.includes(q);
   });
   const container = document.getElementById('sidebarEvents');
-  if (filtered.length === 0) { container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3></div>`; return; }
-  container.innerHTML = `<div class="section-label">${filtered.length} resultados</div>` + filtered.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
+  if (filtered.length === 0) { container.innerHTML = '<div class="empty-state"><span class="ms">search_off</span><h3>' + t('noResults') + '</h3></div>'; return; }
+  container.innerHTML = '<div class="section-label">' + filtered.length + ' resultados</div>' + filtered.map(function(item) {
+    return item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item);
+  }).join('');
 }
 
 /* ============================================
@@ -1264,7 +1359,7 @@ function showInstallBanner() {
 }
 function hideInstallBanner() { document.getElementById('installBanner').classList.remove('show'); }
 
-window.addEventListener('beforeinstallprompt', (e) => {
+window.addEventListener('beforeinstallprompt', function(e) {
   e.preventDefault();
   deferredPrompt = e;
   console.log('✅ beforeinstallprompt capturado');
@@ -1276,8 +1371,8 @@ async function installPWA() {
   if (deferredPrompt) {
     try {
       deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') showToast('check_circle', t('pwaInstalled'));
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === 'accepted') showToast('check_circle', t('pwaInstalled'));
       else showToast('info', currentLang === 'en' ? 'You can install later from the menu' : 'Puedes instalar después desde el menú');
       deferredPrompt = null;
       hideInstallBanner();
@@ -1299,7 +1394,7 @@ function shouldShowInstallBanner() {
   const daysSinceDismissed = (Date.now() - parseInt(dismissed)) / (1000 * 60 * 60 * 24);
   return daysSinceDismissed > 7;
 }
-window.addEventListener('appinstalled', () => {
+window.addEventListener('appinstalled', function() {
   console.log('✅ PWA instalada');
   isPWAInstalled = true;
   deferredPrompt = null;
@@ -1311,19 +1406,19 @@ window.addEventListener('appinstalled', () => {
    SERVICE WORKER
    ============================================ */
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  window.addEventListener('load', function() {
     navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('✅ SW registrado:', reg.scope))
-      .catch(err => console.log('⚠️ SW error:', err));
+      .then(function(reg) { console.log('✅ SW registrado:', reg.scope); })
+      .catch(function(err) { console.log('⚠️ SW error:', err); });
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   updateSidebarState();
   checkIfPWAInstalled();
   updateSplashGreeting();
 });
-window.addEventListener('resize', () => { updateSidebarState(); updateOverlay(); });
+window.addEventListener('resize', function() { updateSidebarState(); updateOverlay(); });
 </script>
 
 <script>
@@ -1342,8 +1437,9 @@ window.addEventListener('resize', () => { updateSidebarState(); updateOverlay();
   
   const region = lang === 'es' ? 'MX' : lang === 'en' ? 'US' : lang === 'fr' ? 'FR' : lang === 'pt' ? 'BR' : 'DE';
   const script = document.createElement('script');
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEYS.google}&libraries=places&language=${lang}&region=${region}&callback=initMap`;
-  script.async = true; script.defer = true;
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=' + API_KEYS.google + '&libraries=places&language=' + lang + '&region=' + region + '&callback=initMap';
+  script.async = true;
+  script.defer = true;
   document.head.appendChild(script);
 })();
 </script>
