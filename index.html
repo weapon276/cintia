@@ -300,13 +300,6 @@
   }
   .submenu-option.active .check { opacity: 1; }
   
-  /* RESULTADO DESTACADO DE BÚSQUEDA */
-  .submenu-option.highlighted {
-    background: var(--primary-container);
-    color: var(--primary-dark);
-  }
-  .submenu-option.highlighted .ms { color: var(--primary); }
-  
   .submenu-empty {
     text-align: center; padding: 24px 12px;
     font-size: 13px; color: var(--text-3);
@@ -683,7 +676,6 @@
     <div class="submenu-title"><span class="ms" id="submenuIcon">groups</span><span id="submenuTitle">Audiencia</span></div>
     <button class="submenu-close" onclick="closeSubmenu()"><span class="ms">close</span></button>
   </div>
-  <!-- BUSCADOR DENTRO DEL SUBMENÚ -->
   <div class="submenu-search" id="submenuSearchBox">
     <span class="ms">search</span>
     <input type="text" id="submenuSearchInput" placeholder="Buscar categoría..." oninput="filterSubmenuOptions()" autocomplete="off">
@@ -778,34 +770,65 @@ const AGE_CATEGORIES = {
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES — CON GRUPOS Y PALABRAS CLAVE
+   CATEGORÍAS DE LUGARES — EXPANDIDAS SEGÚN GOOGLE PLACES TYPES
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
+  
+  // Cultura
   museum:             { icon: 'museum',         color: '#4F46E5', bg: '#EEF2FF', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'exposicion', 'arte'] },
-  tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'atraccion', 'turístico', 'turistico', 'monumento', 'atracciones'] },
   art_gallery:        { icon: 'palette',        color: '#F59E0B', bg: '#FEF3C7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'galeria', 'arte', 'gallery', 'exposición'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'church', 'templo', 'parroquia'] },
   library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'library', 'libro', 'lectura'] },
+  tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'atraccion', 'turístico', 'turistico', 'monumento', 'atracciones'] },
+  
+  // Aire libre
   park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'park', 'jardín', 'jardin', 'plaza', 'área verde', 'area verde'] },
   zoo:                { icon: 'pets',           color: '#EC4899', bg: '#FCE7F3', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'zoológico', 'zoologico', 'animales'] },
   aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'aquarium', 'peces', 'mar'] },
-  stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'stadium', 'deporte', 'fútbol', 'futbol', 'partido'] },
+  campground:         { icon: 'camping',        color: '#059669', bg: '#D1FAE5', type: 'campground', group: 'aire libre', keywords: ['campamento', 'camping', 'acampada'] },
+  
+  // Entretenimiento
   movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'cinema', 'movie', 'película', 'pelicula', 'theater'] },
-  shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall', 'tienda', 'shopping', 'plaza comercial'] },
+  stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'stadium', 'deporte', 'fútbol', 'futbol', 'partido'] },
+  amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones', 'amusement', 'atracciones'] },
+  bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bowling', 'bolos'] },
+  casino:             { icon: 'casino',         color: '#B91C1C', bg: '#FEE2E2', type: 'casino', group: 'entretenimiento', keywords: ['casino', 'juegos', 'apuestas'] },
+  night_club:         { icon: 'nightlife',      color: '#DB2777', bg: '#FCE7F3', type: 'night_club', group: 'entretenimiento', keywords: ['antro', 'discoteca', 'night club', 'fiesta'] },
+  
+  // Gastronomía
   restaurant:         { icon: 'restaurant',     color: '#EA580C', bg: '#FFEDD5', type: 'restaurant', group: 'gastronomía', keywords: ['restaurante', 'restaurant', 'comida', 'comer', 'cocina'] },
   cafe:               { icon: 'local_cafe',     color: '#A16207', bg: '#FEF3C7', type: 'cafe', group: 'gastronomía', keywords: ['café', 'cafe', 'coffee', 'cafetería', 'cafeteria'] },
-  bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina', 'cerveza', 'tequila', 'mezcal', 'antros'] }
+  bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina', 'cerveza', 'tequila', 'mezcal', 'antros'] },
+  bakery:             { icon: 'bakery_dining',  color: '#CA8A04', bg: '#FEF9C3', type: 'bakery', group: 'gastronomía', keywords: ['panadería', 'panaderia', 'bakery', 'pan', 'pastel'] },
+  meal_takeaway:      { icon: 'takeout_dining', color: '#EA580C', bg: '#FFEDD5', type: 'meal_takeaway', group: 'gastronomía', keywords: ['para llevar', 'takeaway', 'comida rápida', 'comida rapida'] },
+  
+  // Compras
+  shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall', 'tienda', 'shopping', 'plaza comercial'] },
+  clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'clothing', 'tienda de ropa', 'moda'] },
+  bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libreria', 'bookstore', 'libros'] },
+  department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental', 'department', 'tienda departamental'] },
+  supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado', 'supermarket', 'súper', 'super'] },
+  
+  // Servicios y otros
+  gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'gym', 'fitness', 'ejercicio'] },
+  spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'relajación', 'relajacion', 'masaje'] },
+  lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal', 'hostel', 'alojamiento', 'hospedaje'] },
+  hospital:           { icon: 'local_hospital', color: '#DC2626', bg: '#FEE2E2', type: 'hospital', group: 'servicios', keywords: ['hospital', 'clínica', 'clinica', 'salud'] },
+  pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia', 'pharmacy', 'medicina'] }
 };
 
-/* Agrupación de categorías para mostrar en el submenú */
+/* ============================================
+   GRUPOS DE CATEGORÍAS
+   ============================================ */
 const CATEGORY_GROUPS = {
   'general':        { label: 'General', icon: 'explore' },
   'cultura':        { label: 'Cultura', icon: 'palette' },
   'aire libre':     { label: 'Aire libre', icon: 'park' },
   'entretenimiento':{ label: 'Entretenimiento', icon: 'theaters' },
   'gastronomía':    { label: 'Gastronomía', icon: 'restaurant' },
-  'compras':        { label: 'Compras', icon: 'shopping_bag' }
+  'compras':        { label: 'Compras', icon: 'shopping_bag' },
+  'servicios':      { label: 'Servicios', icon: 'build' }
 };
 
 /* ============================================
@@ -829,10 +852,12 @@ const TRANSLATIONS = {
     updated: 'Resultados actualizados',
     categories: {
       all: 'Todas',
-      museum: 'Museos', tourist_attraction: 'Atracciones', art_gallery: 'Galerías', church: 'Iglesias',
-      library: 'Bibliotecas', park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios',
-      stadium: 'Estadios', movie_theater: 'Cines', shopping_mall: 'Centros comerciales',
-      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares'
+      museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Bibliotecas', tourist_attraction: 'Atracciones',
+      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', campground: 'Campamentos',
+      movie_theater: 'Cines', stadium: 'Estadios', amusement_park: 'Parques de diversiones', bowling_alley: 'Boliches', casino: 'Casinos', night_club: 'Antros',
+      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares', bakery: 'Panaderías', meal_takeaway: 'Comida para llevar',
+      shopping_mall: 'Centros comerciales', clothing_store: 'Tiendas de ropa', bookstore: 'Librerías', department_store: 'Tiendas departamentales', supermarket: 'Supermercados',
+      gym: 'Gimnasios', spa: 'Spas', lodging: 'Hoteles', hospital: 'Hospitales', pharmacy: 'Farmacias'
     }
   },
   en: {
@@ -852,10 +877,12 @@ const TRANSLATIONS = {
     updated: 'Results updated',
     categories: {
       all: 'All',
-      museum: 'Museums', tourist_attraction: 'Attractions', art_gallery: 'Galleries', church: 'Churches',
-      library: 'Libraries', park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums',
-      stadium: 'Stadiums', movie_theater: 'Cinemas', shopping_mall: 'Shopping malls',
-      restaurant: 'Restaurants', cafe: 'Cafes', bar: 'Bars'
+      museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', tourist_attraction: 'Attractions',
+      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', campground: 'Campgrounds',
+      movie_theater: 'Cinemas', stadium: 'Stadiums', amusement_park: 'Amusement Parks', bowling_alley: 'Bowling Alleys', casino: 'Casinos', night_club: 'Night Clubs',
+      restaurant: 'Restaurants', cafe: 'Cafes', bar: 'Bars', bakery: 'Bakeries', meal_takeaway: 'Takeaway',
+      shopping_mall: 'Shopping Malls', clothing_store: 'Clothing Stores', bookstore: 'Bookstores', department_store: 'Department Stores', supermarket: 'Supermarkets',
+      gym: 'Gyms', spa: 'Spas', lodging: 'Hotels', hospital: 'Hospitals', pharmacy: 'Pharmacies'
     }
   },
   fr: {
@@ -875,10 +902,12 @@ const TRANSLATIONS = {
     updated: 'Résultats actualisés',
     categories: {
       all: 'Toutes',
-      museum: 'Musées', tourist_attraction: 'Attractions', art_gallery: 'Galeries', church: 'Églises',
-      library: 'Bibliothèques', park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums',
-      stadium: 'Stades', movie_theater: 'Cinémas', shopping_mall: 'Centres commerciaux',
-      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars'
+      museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', tourist_attraction: 'Attractions',
+      park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums', campground: 'Campings',
+      movie_theater: 'Cinémas', stadium: 'Stades', amusement_park: 'Parcs d\'attractions', bowling_alley: 'Bowlings', casino: 'Casinos', night_club: 'Boîtes de nuit',
+      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars', bakery: 'Boulangeries', meal_takeaway: 'À emporter',
+      shopping_mall: 'Centres commerciaux', clothing_store: 'Magasins de vêtements', bookstore: 'Librairies', department_store: 'Grands magasins', supermarket: 'Supermarchés',
+      gym: 'Salles de sport', spa: 'Spas', lodging: 'Hôtels', hospital: 'Hôpitaux', pharmacy: 'Pharmacies'
     }
   },
   pt: {
@@ -898,10 +927,12 @@ const TRANSLATIONS = {
     updated: 'Resultados atualizados',
     categories: {
       all: 'Todas',
-      museum: 'Museus', tourist_attraction: 'Atrações', art_gallery: 'Galerias', church: 'Igrejas',
-      library: 'Bibliotecas', park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários',
-      stadium: 'Estádios', movie_theater: 'Cinemas', shopping_mall: 'Centros comerciais',
-      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares'
+      museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', tourist_attraction: 'Atrações',
+      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários', campground: 'Campings',
+      movie_theater: 'Cinemas', stadium: 'Estádios', amusement_park: 'Parques de diversões', bowling_alley: 'Boliches', casino: 'Cassinos', night_club: 'Baladas',
+      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares', bakery: 'Padarias', meal_takeaway: 'Comida para viagem',
+      shopping_mall: 'Centros comerciais', clothing_store: 'Lojas de roupas', bookstore: 'Livrarias', department_store: 'Lojas de departamento', supermarket: 'Supermercados',
+      gym: 'Academias', spa: 'Spas', lodging: 'Hotéis', hospital: 'Hospitais', pharmacy: 'Farmácias'
     }
   },
   de: {
@@ -921,10 +952,12 @@ const TRANSLATIONS = {
     updated: 'Ergebnisse aktualisiert',
     categories: {
       all: 'Alle',
-      museum: 'Museen', tourist_attraction: 'Attraktionen', art_gallery: 'Galerien', church: 'Kirchen',
-      library: 'Bibliotheken', park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien',
-      stadium: 'Stadien', movie_theater: 'Kinos', shopping_mall: 'Einkaufszentren',
-      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars'
+      museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', tourist_attraction: 'Attraktionen',
+      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien', campground: 'Campingplätze',
+      movie_theater: 'Kinos', stadium: 'Stadien', amusement_park: 'Freizeitparks', bowling_alley: 'Bowlingbahnen', casino: 'Casinos', night_club: 'Nachtclubs',
+      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars', bakery: 'Bäckereien', meal_takeaway: 'Zum Mitnehmen',
+      shopping_mall: 'Einkaufszentren', clothing_store: 'Bekleidungsgeschäfte', bookstore: 'Buchhandlungen', department_store: 'Kaufhäuser', supermarket: 'Supermärkte',
+      gym: 'Fitnessstudios', spa: 'Spas', lodging: 'Hotels', hospital: 'Krankenhäuser', pharmacy: 'Apotheken'
     }
   }
 };
@@ -1171,7 +1204,7 @@ function searchPlacesPromise() {
     
     // Si la categoría es "all", hacer múltiples búsquedas en paralelo
     if (currentCategory === 'all') {
-      const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater', 'shopping_mall'];
+      const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater', 'shopping_mall', 'restaurant', 'cafe', 'bar'];
       const promises = typesToFetch.map(type => {
         return new Promise((res) => {
           const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type: type };
@@ -1188,17 +1221,15 @@ function searchPlacesPromise() {
       });
       const allResults = await Promise.all(promises);
       const flat = allResults.flat();
-      // Eliminar duplicados por place_id
       const seen = new Set();
       const unique = flat.filter(p => {
         if (!p.place_id || seen.has(p.place_id)) return false;
         seen.add(p.place_id);
         return true;
       });
-      return resolve(unique.slice(0, 60)); // Limitar a 60 resultados
+      return resolve(unique.slice(0, 80));
     }
     
-    // Si no es "all", buscar solo el tipo seleccionado
     if (!category.type) return resolve([]);
     const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type: category.type };
     if (currentSearch) request.keyword = currentSearch;
@@ -1416,7 +1447,6 @@ function openSubmenu(type) {
   const searchBox = document.getElementById('submenuSearchBox');
   const searchInput = document.getElementById('submenuSearchInput');
   
-  // Mostrar/ocultar buscador según el tipo
   if (type === 'category') {
     searchBox.style.display = 'flex';
     searchInput.value = '';
@@ -1454,7 +1484,6 @@ function renderSubmenuOptions(type, searchTerm) {
     titleEl.textContent = t('categoriesLabel');
     iconEl.textContent = 'category';
     
-    // Filtrar categorías por término de búsqueda (nombre traducido + keywords)
     let filteredKeys = Object.keys(CATEGORIES);
     if (q) {
       filteredKeys = filteredKeys.filter(key => {
@@ -1470,7 +1499,6 @@ function renderSubmenuOptions(type, searchTerm) {
       return;
     }
     
-    // Agrupar las categorías filtradas
     const grouped = {};
     filteredKeys.forEach(key => {
       const group = CATEGORIES[key].group || 'general';
@@ -1481,8 +1509,7 @@ function renderSubmenuOptions(type, searchTerm) {
     let html = '';
     let animIdx = 0;
     
-    // Ordenar grupos: general primero, luego los demás
-    const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'gastronomía', 'compras'];
+    const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'gastronomía', 'compras', 'servicios'];
     const sortedGroups = Object.keys(grouped).sort((a, b) => {
       const ia = groupOrder.indexOf(a);
       const ib = groupOrder.indexOf(b);
@@ -1510,12 +1537,11 @@ function renderSubmenuOptions(type, searchTerm) {
     
     optionsContainer.innerHTML = html;
     
-    // Bind events
     optionsContainer.querySelectorAll('.submenu-option').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const key = btn.dataset.key;
-        if (type === 'category') setCategory(key);
+        setCategory(key);
         closeSubmenu();
       });
     });
