@@ -225,7 +225,6 @@
   .submenu-close:hover { background: var(--surface-2); color: var(--text); }
   .submenu-close .ms { font-size: 20px; }
   
-  /* BUSCADOR DENTRO DEL SUBMENÚ */
   .submenu-search {
     display: flex; align-items: center; gap: 8px;
     height: 44px; background: var(--surface-2);
@@ -251,7 +250,6 @@
     max-height: 500px; overflow-y: auto;
   }
   
-  /* GRUPOS DE OPCIONES */
   .submenu-group {
     margin-top: 8px;
     margin-bottom: 4px;
@@ -1194,7 +1192,7 @@ function updateBadges() {
 }
 
 /* ============================================
-   BÚSQUEDA DE LUGARES — SOPORTA "TODAS" Y MÚLTIPLES TIPOS
+   BÚSQUEDA DE LUGARES
    ============================================ */
 function searchPlacesPromise() {
   return new Promise(async (resolve) => {
@@ -1202,7 +1200,7 @@ function searchPlacesPromise() {
     
     const category = CATEGORIES[currentCategory];
     
-    // Si la categoría es "all", hacer múltiples búsquedas en paralelo
+    // Categoría "todas": buscar múltiples tipos en paralelo
     if (currentCategory === 'all') {
       const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater', 'shopping_mall', 'restaurant', 'cafe', 'bar'];
       const promises = typesToFetch.map(type => {
@@ -1213,8 +1211,13 @@ function searchPlacesPromise() {
           try {
             placesService.nearbySearch(request, (results, status) => {
               clearTimeout(timeout);
-              if (status === google.maps.places.PlacesServiceStatus.OK && results) res(results);
-              else res([]);
+              if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+                // ✅ MARCAR CADA RESULTADO CON SU TIPO
+                const marked = results.map(r => ({ ...r, _searchType: type }));
+                res(marked);
+              } else {
+                res([]);
+              }
             });
           } catch (err) { clearTimeout(timeout); res([]); }
         });
@@ -1237,7 +1240,11 @@ function searchPlacesPromise() {
     try {
       placesService.nearbySearch(request, (results, status) => {
         clearTimeout(timeout);
-        if (status === google.maps.places.PlacesServiceStatus.OK && results) resolve(results);
+        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+          // ✅ MARCAR CADA RESULTADO CON EL TIPO ACTUAL
+          const marked = results.map(r => ({ ...r, _searchType: category.type }));
+          resolve(marked);
+        }
         else if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') { placesApiAvailable = false; resolve([]); }
         else resolve([]);
       });
@@ -1275,6 +1282,45 @@ function deduplicateEvents(events) {
 }
 
 /* ============================================
+   CATEGORIZACIÓN DE LUGARES DE GOOGLE
+   ============================================ */
+function getPlaceCategory(place) {
+  // ✅ PRIMERO: usar el tipo con el que se buscó (si existe)
+  if (place._searchType) {
+    for (const key of Object.keys(CATEGORIES)) {
+      if (CATEGORIES[key].type === place._searchType) return CATEGORIES[key];
+    }
+  }
+  
+  // ✅ SEGUNDO: inferir desde los types del place
+  const types = place.types || [];
+  for (const key of Object.keys(CATEGORIES)) {
+    if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) {
+      return CATEGORIES[key];
+    }
+  }
+  
+  // ✅ TERCERO: fallback según el grupo
+  return CATEGORIES.tourist_attraction;
+}
+
+function getCategoryKey(place) {
+  if (place._searchType) {
+    for (const key of Object.keys(CATEGORIES)) {
+      if (CATEGORIES[key].type === place._searchType) return key;
+    }
+  }
+  
+  const types = place.types || [];
+  for (const key of Object.keys(CATEGORIES)) {
+    if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) {
+      return key;
+    }
+  }
+  return 'tourist_attraction';
+}
+
+/* ============================================
    MARCADORES
    ============================================ */
 function clearMarkers() {
@@ -1284,20 +1330,6 @@ function clearMarkers() {
 function createMarkerSVG(color) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="52" viewBox="0 0 44 52"><defs><filter id="s" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#18181B" flood-opacity="0.25"/></filter></defs><path d="M22 2 C11 2 2 11 2 22 C2 36 22 50 22 50 C22 50 42 36 42 22 C42 11 33 2 22 2 Z" fill="${color}" stroke="white" stroke-width="3" filter="url(#s)"/><circle cx="22" cy="22" r="11" fill="white" fill-opacity="0.95"/></svg>`;
   return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg), scaledSize: new google.maps.Size(44, 52), anchor: new google.maps.Point(22, 50) };
-}
-function getPlaceCategory(place) {
-  const types = place.types || [];
-  for (const key of Object.keys(CATEGORIES)) {
-    if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) return CATEGORIES[key];
-  }
-  return CATEGORIES.tourist_attraction;
-}
-function getCategoryKey(place) {
-  const types = place.types || [];
-  for (const key of Object.keys(CATEGORIES)) {
-    if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) return key;
-  }
-  return 'tourist_attraction';
 }
 function renderMarkersForAll() {
   allEvents.forEach(event => {
@@ -1439,7 +1471,7 @@ function renderUnifiedList() {
 }
 
 /* ============================================
-   SUBMENÚ CON BUSCADOR Y GRUPOS
+   SUBMENÚ
    ============================================ */
 function openSubmenu(type) {
   currentSubmenuType = type;
