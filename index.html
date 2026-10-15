@@ -1296,27 +1296,27 @@ function searchTicketmasterPromise() {
 }
 
 /* ============================================
-   ✅ NUEVO: BÚSQUEDA DE EVENTBRITE VÍA APIFY
+   ✅ BÚSQUEDA DE EVENTBRITE VÍA APIFY (CORREGIDA)
    ============================================
    Llama al endpoint run-sync-get-dataset-items del actor aitorsm~eventbrite.
-   El actor recibe: location (texto), query (opcional), maxItems.
-   Devuelve un array de items que normalizamos al formato interno del app.
+   El actor recibe: country, city, category, keyword, price, maxResults.
+   Estos nombres de campo coinciden con el ejemplo de código proporcionado.
    ============================================ */
 function searchApifyEventbritePromise() {
   return new Promise(async (resolve) => {
     if (!apifyEventbriteAvailable) return resolve([]);
     try {
-      const center = map.getCenter();
-      
       // Input del actor aitorsm~eventbrite.
-      // - location: acepta nombre de ciudad o "lat,lng"
-      // - query: término de búsqueda opcional (lo tomamos del buscador si existe)
-      // - maxItems: límite de eventos
-      // Nota: si el actor ignora location por coordenadas, también acepta el slug "guadalajara".
+      // Basado en el ejemplo oficial y la documentación del actor:
+      // https://apify.com/aitorsm/eventbrite/api/javascript
       const actorInput = {
-        location: `${center.lat()},${center.lng()}`,
-        query: currentSearch || 'cultural',
-        maxItems: APIFY_CONFIG.maxEvents
+        country: "Mexico",
+        city: "Jalisco", // Eventbrite usa "Jalisco" o "Guadalajara" para esta región
+        category: "",
+        keyword: currentSearch || "",
+        price: "",
+        maxResults: APIFY_CONFIG.maxEvents,
+        enrichOrganizers: false
       };
 
       const controller = new AbortController();
@@ -1333,8 +1333,8 @@ function searchApifyEventbritePromise() {
 
       if (!response.ok) {
         console.warn('⚠️ Apify Eventbrite HTTP', response.status);
-        // Si es 401/403, desactivamos el actor para no insistir
-        if (response.status === 401 || response.status === 403 || response.status === 402) {
+        // Si es 401/403/402, desactivamos el actor para no insistir
+        if ([401, 402, 403].includes(response.status)) {
           apifyEventbriteAvailable = false;
         }
         return resolve([]);
@@ -1343,24 +1343,24 @@ function searchApifyEventbritePromise() {
       const items = await response.json();
       if (!Array.isArray(items)) return resolve([]);
 
-      // Normalizar items de Eventbrite → formato interno del app
+      // Normalizar items de Eventbrite → formato interno del app.
+      // Los nombres de campo devueltos por este actor están documentados como:
+      // name, startDate, startTime, venueName, city, latitude, longitude, url, imageUrl, etc.
       const events = items.map((raw, idx) => {
-        // El actor puede devolver distintas claves según su versión.
-        // Probamos varias alternativas para ser robustos.
         const lat = parseFloat(
-          raw.latitude ?? raw.lat ?? raw.venue_latitude ?? raw.venue?.latitude ?? 0
+          raw.latitude ?? raw.lat ?? raw.venue?.latitude ?? 0
         );
         const lng = parseFloat(
-          raw.longitude ?? raw.lng ?? raw.venue_longitude ?? raw.venue?.longitude ?? 0
+          raw.longitude ?? raw.lng ?? raw.venue?.longitude ?? 0
         );
         if (!lat || !lng) return null;
 
-        const title = raw.name || raw.title || raw.event_name || 'Evento Eventbrite';
-        const dateStr = raw.start_date || raw.startDate || raw.date || raw.start?.local || '';
-        const timeStr = raw.start_time || raw.startTime || raw.time || '';
-        const venueName = raw.venue_name || raw.venueName || raw.venue?.name || '';
-        const cityName = raw.venue_city || raw.city || raw.venue?.city || '';
-        const img = raw.image_url || raw.imageUrl || raw.image || raw.logo?.url || '';
+        const title = raw.name || raw.title || 'Evento Eventbrite';
+        const dateStr = raw.startDate || raw.start_date || raw.date || '';
+        const timeStr = raw.startTime || raw.start_time || raw.time || '';
+        const venueName = raw.venueName || raw.venue_name || raw.venue?.name || '';
+        const cityName = raw.city || raw.venue_city || raw.venue?.city || '';
+        const img = raw.imageUrl || raw.image_url || raw.image || '';
         const url = raw.url || raw.event_url || raw.link || '';
         const description = raw.summary || raw.description || raw.about || '';
 
