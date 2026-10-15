@@ -701,7 +701,24 @@
    ============================================ */
 const API_KEYS = {
   google: 'AIzaSyD7vyTk4SncfI67G65xCZCZWgihHaMk7Tg',
-  ticketmaster: 'X55W4VAAGg4eSGiDibtNacDy7Swfuqzg'
+  ticketmaster: 'X55W4VAAGg4eSGiDibtNacDy7Swfuqzg',
+  // ✅ NUEVO: Apify token para Eventbrite
+  apify: 'apify_api_YinMMkGVGXJLMD1duwnV8QBPevWNlv4tHYXj'
+};
+
+/* ============================================
+   ✅ CONFIGURACIÓN APIFY / EVENTBRITE
+   ============================================ */
+const APIFY_CONFIG = {
+  actorId: 'aitorsm~eventbrite',
+  // Endpoint sync que devuelve dataset items directamente (una sola llamada)
+  get endpoint() {
+    return `https://api.apify.com/v2/actors/${this.actorId}/run-sync-get-dataset-items?token=${API_KEYS.apify}`;
+  },
+  // Límite de eventos a pedir por búsqueda
+  maxEvents: 60,
+  // Timeout de la petición (ms) - Apify puede tardar si el actor hace scraping
+  timeoutMs: 60000
 };
 
 /* ============================================
@@ -975,6 +992,9 @@ let isPWAInstalled = false;
 let isManualRefreshing = false;
 let currentSubmenuType = null;
 
+// ✅ NUEVO: estado para Apify
+let apifyEventbriteAvailable = true;
+
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
 const TICKETMASTER_RADIUS_KM = 25;
@@ -1162,12 +1182,16 @@ async function searchEverything() {
   if (infoWindow) infoWindow.close();
   allPlaces = []; allEvents = []; unifiedResults = [];
 
-  const [placesRes, tmRes] = await Promise.allSettled([
-    searchPlacesPromise(), searchTicketmasterPromise()
+  // ✅ NUEVO: se añade la búsqueda de Apify/Eventbrite al Promise.allSettled
+  const [placesRes, tmRes, apifyRes] = await Promise.allSettled([
+    searchPlacesPromise(),
+    searchTicketmasterPromise(),
+    searchApifyEventbritePromise()
   ]);
 
   if (placesRes.status === 'fulfilled') allPlaces = placesRes.value || [];
   if (tmRes.status === 'fulfilled') allEvents = allEvents.concat(tmRes.value || []);
+  if (apifyRes.status === 'fulfilled') allEvents = allEvents.concat(apifyRes.value || []);
 
   allEvents = deduplicateEvents(allEvents);
   applyFilters();
@@ -1212,7 +1236,6 @@ function searchPlacesPromise() {
             placesService.nearbySearch(request, (results, status) => {
               clearTimeout(timeout);
               if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-                // ✅ MARCAR CADA RESULTADO CON SU TIPO
                 const marked = results.map(r => ({ ...r, _searchType: type }));
                 res(marked);
               } else {
@@ -1241,7 +1264,6 @@ function searchPlacesPromise() {
       placesService.nearbySearch(request, (results, status) => {
         clearTimeout(timeout);
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-          // ✅ MARCAR CADA RESULTADO CON EL TIPO ACTUAL
           const marked = results.map(r => ({ ...r, _searchType: category.type }));
           resolve(marked);
         }
@@ -1272,6 +1294,100 @@ function searchTicketmasterPromise() {
     } catch (err) { resolve([]); }
   });
 }
+
+/* ============================================
+   ✅ NUEVO: BÚSQUEDA DE EVENTBRITE VÍA APIFY
+   ============================================
+   Llama al endpoint run-sync-get-dataset-items del actor aitorsm~eventbrite.
+   El actor recibe: location (texto), query (opcional), maxItems.
+   Devuelve un array de items que normalizamos al formato interno del app.
+   ============================================ */
+function searchApifyEventbritePromise() {
+  return new Promise(async (resolve) => {
+    if (!apifyEventbriteAvailable) return resolve([]);
+    try {
+      const center = map.getCenter();
+      
+      // Input del actor aitorsm~eventbrite.
+      // - location: acepta nombre de ciudad o "lat,lng"
+      // - query: término de búsqueda opcional (lo tomamos del buscador si existe)
+      // - maxItems: límite de eventos
+      // Nota: si el actor ignora location por coordenadas, también acepta el slug "guadalajara".
+      const actorInput = {
+        location: `${center.lat()},${center.lng()}`,
+        query: currentSearch || 'cultural',
+        maxItems: APIFY_CONFIG.maxEvents
+      };
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), APIFY_CONFIG.timeoutMs);
+
+      const response = await fetch(APIFY_CONFIG.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(actorInput),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeout);
+
+      if (!response.ok) {
+        console.warn('⚠️ Apify Eventbrite HTTP', response.status);
+        // Si es 401/403, desactivamos el actor para no insistir
+        if (response.status === 401 || response.status === 403 || response.status === 402) {
+          apifyEventbriteAvailable = false;
+        }
+        return resolve([]);
+      }
+
+      const items = await response.json();
+      if (!Array.isArray(items)) return resolve([]);
+
+      // Normalizar items de Eventbrite → formato interno del app
+      const events = items.map((raw, idx) => {
+        // El actor puede devolver distintas claves según su versión.
+        // Probamos varias alternativas para ser robustos.
+        const lat = parseFloat(
+          raw.latitude ?? raw.lat ?? raw.venue_latitude ?? raw.venue?.latitude ?? 0
+        );
+        const lng = parseFloat(
+          raw.longitude ?? raw.lng ?? raw.venue_longitude ?? raw.venue?.longitude ?? 0
+        );
+        if (!lat || !lng) return null;
+
+        const title = raw.name || raw.title || raw.event_name || 'Evento Eventbrite';
+        const dateStr = raw.start_date || raw.startDate || raw.date || raw.start?.local || '';
+        const timeStr = raw.start_time || raw.startTime || raw.time || '';
+        const venueName = raw.venue_name || raw.venueName || raw.venue?.name || '';
+        const cityName = raw.venue_city || raw.city || raw.venue?.city || '';
+        const img = raw.image_url || raw.imageUrl || raw.image || raw.logo?.url || '';
+        const url = raw.url || raw.event_url || raw.link || '';
+        const description = raw.summary || raw.description || raw.about || '';
+
+        return {
+          id: 'eb_' + (raw.id || raw.event_id || idx),
+          type: 'event',
+          source: 'eventbrite',
+          title,
+          date: typeof dateStr === 'string' ? dateStr.slice(0, 10) : '',
+          time: timeStr,
+          venue: venueName,
+          city: cityName,
+          lat, lng, url,
+          description,
+          image: img
+        };
+      }).filter(Boolean);
+
+      resolve(events);
+    } catch (err) {
+      // Silencioso: no rompemos la app si Apify falla
+      console.warn('⚠️ Apify Eventbrite error:', err?.message || err);
+      resolve([]);
+    }
+  });
+}
+
 function deduplicateEvents(events) {
   const seen = new Set();
   return events.filter(e => {
@@ -1285,22 +1401,17 @@ function deduplicateEvents(events) {
    CATEGORIZACIÓN DE LUGARES DE GOOGLE
    ============================================ */
 function getPlaceCategory(place) {
-  // ✅ PRIMERO: usar el tipo con el que se buscó (si existe)
   if (place._searchType) {
     for (const key of Object.keys(CATEGORIES)) {
       if (CATEGORIES[key].type === place._searchType) return CATEGORIES[key];
     }
   }
-  
-  // ✅ SEGUNDO: inferir desde los types del place
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) {
     if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) {
       return CATEGORIES[key];
     }
   }
-  
-  // ✅ TERCERO: fallback según el grupo
   return CATEGORIES.tourist_attraction;
 }
 
@@ -1310,7 +1421,6 @@ function getCategoryKey(place) {
       if (CATEGORIES[key].type === place._searchType) return key;
     }
   }
-  
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) {
     if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) {
@@ -1400,13 +1510,19 @@ function showInfoWindowEvent(marker, event) {
   const dateStr = event.date || '';
   const timeStr = event.time ? ' · ' + event.time : '';
   const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
+  // ✅ NUEVO: badge de fuente (Eventbrite / Ticketmaster)
+  const sourceBadge = event.source === 'eventbrite'
+    ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Eventbrite</span>`
+    : event.source === 'ticketmaster'
+      ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Ticketmaster</span>`
+      : '';
   infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
     ${event.image ? `<img src="${event.image}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
     <div style="padding:16px;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
         <div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
         <div style="flex:1;min-width:0;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}</div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}${sourceBadge}</div>
           <div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div>
         </div>
       </div>
@@ -1448,12 +1564,16 @@ function renderEventCard(event) {
   const photoHtml = event.image
     ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${ageCat.icon}</span>'">`
     : `<span class="placeholder">${ageCat.icon}</span>`;
+  // ✅ NUEVO: tag visual para Eventbrite (mantiene Ticketmaster sin tag extra para no cambiar el diseño)
+  const srcTag = event.source === 'eventbrite'
+    ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
+    : '';
   return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};">
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
       <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
-      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div>
+      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${srcTag}${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div>
     </div>
   </div>`;
 }
@@ -1663,6 +1783,8 @@ function manualRefresh() {
   if (btn) btn.classList.add('active');
   lastSearchTime = 0;
   if (infoWindow) infoWindow.close();
+  // ✅ NUEVO: re-habilitar Apify al refrescar manualmente
+  apifyEventbriteAvailable = true;
   searchEverything().then(() => {
     isManualRefreshing = false;
     if (btn) btn.classList.remove('active');
