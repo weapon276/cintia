@@ -1302,22 +1302,45 @@ function searchTicketmasterPromise() {
    El actor recibe: country, city, category, keyword, price, maxResults.
    Estos nombres de campo coinciden con el ejemplo de código proporcionado.
    ============================================ */
+/* ============================================
+   ✅ BÚSQUEDA DE EVENTBRITE VÍA APIFY (v3)
+   ============================================
+   Actor: aitorsm~eventbrite
+   Input schema según documentación del usuario:
+   - country: "mexico"
+   - city: "jalisco" (o "guadalajara")
+   - category: "" (opcional)
+   - keyword: "" (opcional, lo tomamos del buscador)
+   - price: "" (opcional)
+   - maxResults: 50
+   - enrichOrganizers: false
+   ============================================ */
 function searchApifyEventbritePromise() {
   return new Promise(async (resolve) => {
     if (!apifyEventbriteAvailable) return resolve([]);
     try {
-      // Input del actor aitorsm~eventbrite.
-      // Basado en el ejemplo oficial y la documentación del actor:
-      // https://apify.com/aitorsm/eventbrite/api/javascript
+      // Determinar la ciudad según el centro del mapa.
+      // Si el usuario movió el mapa fuera de GDL, usamos la ciudad más cercana conocida.
+      const center = map.getCenter();
+      const isNearGDL = Math.abs(center.lat() - GDL_CENTER.lat) < 0.5 &&
+                        Math.abs(center.lng() - GDL_CENTER.lng) < 0.5;
+
+      // Eventbrite usa "jalisco" como ciudad/estado. Si el usuario está cerca de GDL, usamos jalisco.
+      // Para otras ubicaciones, podrías expandir este mapeo.
+      const city = isNearGDL ? 'jalisco' : 'jalisco';
+
+      // Input EXACTO según el esquema del actor aitorsm~eventbrite
       const actorInput = {
-        country: "Mexico",
-        city: "Jalisco", // Eventbrite usa "Jalisco" o "Guadalajara" para esta región
-        category: "",
-        keyword: currentSearch || "",
-        price: "",
+        country: 'mexico',
+        city: city,
+        category: '',
+        keyword: currentSearch || '',
+        price: '',
         maxResults: APIFY_CONFIG.maxEvents,
         enrichOrganizers: false
       };
+
+      console.log('🎬 Apify Eventbrite input:', JSON.stringify(actorInput));
 
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), APIFY_CONFIG.timeoutMs);
@@ -1332,8 +1355,10 @@ function searchApifyEventbritePromise() {
       clearTimeout(timeout);
 
       if (!response.ok) {
-        console.warn('⚠️ Apify Eventbrite HTTP', response.status);
-        // Si es 401/403/402, desactivamos el actor para no insistir
+        const errorBody = await response.text().catch(() => '');
+        console.warn(`⚠️ Apify HTTP ${response.status}`, errorBody.slice(0, 300));
+
+        // Desactivar solo si es error de autenticación o crédito
         if ([401, 402, 403].includes(response.status)) {
           apifyEventbriteAvailable = false;
         }
@@ -1341,27 +1366,55 @@ function searchApifyEventbritePromise() {
       }
 
       const items = await response.json();
-      if (!Array.isArray(items)) return resolve([]);
+      if (!Array.isArray(items)) {
+        console.warn('⚠️ Apify no devolvió un array:', typeof items);
+        return resolve([]);
+      }
+
+      console.log(`✅ Apify Eventbrite: ${items.length} items recibidos`);
 
       // Normalizar items de Eventbrite → formato interno del app.
-      // Los nombres de campo devueltos por este actor están documentados como:
-      // name, startDate, startTime, venueName, city, latitude, longitude, url, imageUrl, etc.
+      // El actor aitorsm~eventbrite devuelve campos como: name, url, startDate, endDate,
+      // venueName, venueAddress, latitude, longitude, imageUrl, organizerName, etc.
       const events = items.map((raw, idx) => {
-        const lat = parseFloat(
-          raw.latitude ?? raw.lat ?? raw.venue?.latitude ?? 0
+        // Coordenadas: el actor puede usar latitude/longitude o lat/lng o venue.latitude
+        const latVal = parseFloat(
+          raw.latitude ?? raw.lat ?? raw.venue_latitude ?? raw.venue?.latitude ?? 0
         );
-        const lng = parseFloat(
-          raw.longitude ?? raw.lng ?? raw.venue?.longitude ?? 0
+        const lngVal = parseFloat(
+          raw.longitude ?? raw.lng ?? raw.venue_longitude ?? raw.venue?.longitude ?? 0
         );
-        if (!lat || !lng) return null;
 
-        const title = raw.name || raw.title || 'Evento Eventbrite';
-        const dateStr = raw.startDate || raw.start_date || raw.date || '';
-        const timeStr = raw.startTime || raw.start_time || raw.time || '';
+        // Si no hay coordenadas válidas, no podemos poner el marcador → descartamos
+        if (!latVal || !lngVal) return null;
+
+        // Título: probamos name, title, event_name
+        const title = raw.name || raw.title || raw.event_name || 'Evento Eventbrite';
+
+        // Fecha: el actor usa startDate (ISO 8601). Extraemos solo la parte de fecha.
+        let dateStr = '';
+        let timeStr = '';
+        const startRaw = raw.startDate || raw.start_date || raw.date || '';
+        if (startRaw && typeof startRaw === 'string') {
+          dateStr = startRaw.slice(0, 10); // "2025-03-15"
+          // Intentar extraer hora si está en formato ISO
+          if (startRaw.includes('T')) {
+            const timePart = startRaw.split('T')[1];
+            if (timePart) timeStr = timePart.slice(0, 5); // "20:30"
+          }
+        }
+
+        // Venue
         const venueName = raw.venueName || raw.venue_name || raw.venue?.name || '';
-        const cityName = raw.city || raw.venue_city || raw.venue?.city || '';
-        const img = raw.imageUrl || raw.image_url || raw.image || '';
+        const cityName = raw.venueCity || raw.venue_city || raw.city || '';
+
+        // Imagen
+        const img = raw.imageUrl || raw.image_url || raw.image || raw.logo?.url || '';
+
+        // URL
         const url = raw.url || raw.event_url || raw.link || '';
+
+        // Descripción
         const description = raw.summary || raw.description || raw.about || '';
 
         return {
@@ -1369,19 +1422,22 @@ function searchApifyEventbritePromise() {
           type: 'event',
           source: 'eventbrite',
           title,
-          date: typeof dateStr === 'string' ? dateStr.slice(0, 10) : '',
+          date: dateStr,
           time: timeStr,
           venue: venueName,
           city: cityName,
-          lat, lng, url,
+          lat: latVal,
+          lng: lngVal,
+          url,
           description,
           image: img
         };
       }).filter(Boolean);
 
+      console.log(`✅ Apify Eventbrite normalizados: ${events.length} eventos con coordenadas`);
       resolve(events);
+
     } catch (err) {
-      // Silencioso: no rompemos la app si Apify falla
       console.warn('⚠️ Apify Eventbrite error:', err?.message || err);
       resolve([]);
     }
