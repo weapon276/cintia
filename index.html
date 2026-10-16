@@ -708,13 +708,10 @@ const API_KEYS = {
    CONFIGURACIÓN DE EVENTOS LOCALES (JSON)
    ============================================ */
 const LOCAL_EVENTS_CONFIG = {
-  // Ruta al archivo JSON con los eventos de Eventbrite
   filePath: 'dataset_eventbrite.json',
-  // Fuente que se asigna a los eventos cargados de este JSON
   source: 'eventbrite'
 };
 
-// Buffer en memoria para los eventos cargados del JSON local
 let localEventbriteEvents = [];
 let localEventsLoaded = false;
 
@@ -782,47 +779,35 @@ const AGE_CATEGORIES = {
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES — EXPANDIDAS SEGÚN GOOGLE PLACES TYPES
+   CATEGORÍAS DE LUGARES
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
-  
-  // Cultura
   museum:             { icon: 'museum',         color: '#4F46E5', bg: '#EEF2FF', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'exposicion', 'arte'] },
   art_gallery:        { icon: 'palette',        color: '#F59E0B', bg: '#FEF3C7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'galeria', 'arte', 'gallery', 'exposición'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'church', 'templo', 'parroquia'] },
   library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'library', 'libro', 'lectura'] },
   tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'atraccion', 'turístico', 'turistico', 'monumento', 'atracciones'] },
-  
-  // Aire libre
   park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'park', 'jardín', 'jardin', 'plaza', 'área verde', 'area verde'] },
   zoo:                { icon: 'pets',           color: '#EC4899', bg: '#FCE7F3', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'zoológico', 'zoologico', 'animales'] },
   aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'aquarium', 'peces', 'mar'] },
   campground:         { icon: 'camping',        color: '#059669', bg: '#D1FAE5', type: 'campground', group: 'aire libre', keywords: ['campamento', 'camping', 'acampada'] },
-  
-  // Entretenimiento
   movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'cinema', 'movie', 'película', 'pelicula', 'theater'] },
   stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'stadium', 'deporte', 'fútbol', 'futbol', 'partido'] },
   amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones', 'amusement', 'atracciones'] },
   bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bowling', 'bolos'] },
   casino:             { icon: 'casino',         color: '#B91C1C', bg: '#FEE2E2', type: 'casino', group: 'entretenimiento', keywords: ['casino', 'juegos', 'apuestas'] },
   night_club:         { icon: 'nightlife',      color: '#DB2777', bg: '#FCE7F3', type: 'night_club', group: 'entretenimiento', keywords: ['antro', 'discoteca', 'night club', 'fiesta'] },
-  
-  // Gastronomía
   restaurant:         { icon: 'restaurant',     color: '#EA580C', bg: '#FFEDD5', type: 'restaurant', group: 'gastronomía', keywords: ['restaurante', 'restaurant', 'comida', 'comer', 'cocina'] },
   cafe:               { icon: 'local_cafe',     color: '#A16207', bg: '#FEF3C7', type: 'cafe', group: 'gastronomía', keywords: ['café', 'cafe', 'coffee', 'cafetería', 'cafeteria'] },
   bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina', 'cerveza', 'tequila', 'mezcal', 'antros'] },
   bakery:             { icon: 'bakery_dining',  color: '#CA8A04', bg: '#FEF9C3', type: 'bakery', group: 'gastronomía', keywords: ['panadería', 'panaderia', 'bakery', 'pan', 'pastel'] },
   meal_takeaway:      { icon: 'takeout_dining', color: '#EA580C', bg: '#FFEDD5', type: 'meal_takeaway', group: 'gastronomía', keywords: ['para llevar', 'takeaway', 'comida rápida', 'comida rapida'] },
-  
-  // Compras
   shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall', 'tienda', 'shopping', 'plaza comercial'] },
   clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'clothing', 'tienda de ropa', 'moda'] },
   bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libreria', 'bookstore', 'libros'] },
   department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental', 'department', 'tienda departamental'] },
   supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado', 'supermarket', 'súper', 'super'] },
-  
-  // Servicios y otros
   gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'gym', 'fitness', 'ejercicio'] },
   spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'relajación', 'relajacion', 'masaje'] },
   lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal', 'hostel', 'alojamiento', 'hospedaje'] },
@@ -830,9 +815,6 @@ const CATEGORIES = {
   pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia', 'pharmacy', 'medicina'] }
 };
 
-/* ============================================
-   GRUPOS DE CATEGORÍAS
-   ============================================ */
 const CATEGORY_GROUPS = {
   'general':        { label: 'General', icon: 'explore' },
   'cultura':        { label: 'Cultura', icon: 'palette' },
@@ -1402,7 +1384,7 @@ function getCategoryKey(place) {
    MARCADORES — DISEÑO MINIMALISTA SIN LAG
    ============================================
    - Sin OverlayView (causa lag al mover/zoom).
-   - El icono Material Symbol va incrustado como <text> dentro del SVG,
+   - El icono Material Symbol va incrustado como <path> dentro del SVG,
      así se renderiza como una sola imagen y Google Maps lo maneja con GPU.
    - Diseño: círculo sólido pequeño con borde blanco sutil + icono blanco centrado.
    - Pines de eventos eliminados (solo se pintan los de Google Places).
@@ -1449,13 +1431,11 @@ const MATERIAL_ICON_PATHS = {
  * - Círculo sólido del color de la categoría.
  * - Borde blanco semitransparente.
  * - Icono Material Symbols (path) blanco al centro.
- * - Sin sombra pesada: solo un drop-shadow muy sutil.
+ * - Sombra sutil (drop-shadow con stdDeviation 1.5 y opacidad 0.22).
  */
 function createMarkerSVG(color, iconName) {
-  // El path del icono se escala desde viewBox 24x24 al área del círculo.
-  // El círculo interior mide 18px de diámetro, centrado en 22,22 con radio 22.
   const path = MATERIAL_ICON_PATHS[iconName] || MATERIAL_ICON_PATHS.default;
-  // Escala el icono 24→18 y lo centra.
+  // Escala el icono 24→18 y lo centra en el círculo (radio 18, centro 22,22).
   const iconScale = 0.75;
   const iconOffset = 22 - (24 * iconScale) / 2; // 22 - 9 = 13
 
@@ -1837,7 +1817,6 @@ function manualRefresh() {
   if (btn) btn.classList.add('active');
   lastSearchTime = 0;
   if (infoWindow) infoWindow.close();
-  // Forzar recarga del JSON local
   localEventsLoaded = false;
   localEventbriteEvents = [];
   searchEverything().then(() => {
