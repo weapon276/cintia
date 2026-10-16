@@ -708,13 +708,10 @@ const API_KEYS = {
    CONFIGURACIÓN DE EVENTOS LOCALES (JSON)
    ============================================ */
 const LOCAL_EVENTS_CONFIG = {
-  // Ruta al archivo JSON con los eventos de Eventbrite
   filePath: 'dataset_eventbrite.json',
-  // Fuente que se asigna a los eventos cargados de este JSON
   source: 'eventbrite'
 };
 
-// Buffer en memoria para los eventos cargados del JSON local
 let localEventbriteEvents = [];
 let localEventsLoaded = false;
 
@@ -782,47 +779,35 @@ const AGE_CATEGORIES = {
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES — EXPANDIDAS SEGÚN GOOGLE PLACES TYPES
+   CATEGORÍAS DE LUGARES
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
-  
-  // Cultura
   museum:             { icon: 'museum',         color: '#4F46E5', bg: '#EEF2FF', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'exposicion', 'arte'] },
   art_gallery:        { icon: 'palette',        color: '#F59E0B', bg: '#FEF3C7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'galeria', 'arte', 'gallery', 'exposición'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'church', 'templo', 'parroquia'] },
   library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'library', 'libro', 'lectura'] },
   tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'atraccion', 'turístico', 'turistico', 'monumento', 'atracciones'] },
-  
-  // Aire libre
   park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'park', 'jardín', 'jardin', 'plaza', 'área verde', 'area verde'] },
   zoo:                { icon: 'pets',           color: '#EC4899', bg: '#FCE7F3', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'zoológico', 'zoologico', 'animales'] },
   aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'aquarium', 'peces', 'mar'] },
   campground:         { icon: 'camping',        color: '#059669', bg: '#D1FAE5', type: 'campground', group: 'aire libre', keywords: ['campamento', 'camping', 'acampada'] },
-  
-  // Entretenimiento
   movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'cinema', 'movie', 'película', 'pelicula', 'theater'] },
   stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'stadium', 'deporte', 'fútbol', 'futbol', 'partido'] },
   amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones', 'amusement', 'atracciones'] },
   bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bowling', 'bolos'] },
   casino:             { icon: 'casino',         color: '#B91C1C', bg: '#FEE2E2', type: 'casino', group: 'entretenimiento', keywords: ['casino', 'juegos', 'apuestas'] },
   night_club:         { icon: 'nightlife',      color: '#DB2777', bg: '#FCE7F3', type: 'night_club', group: 'entretenimiento', keywords: ['antro', 'discoteca', 'night club', 'fiesta'] },
-  
-  // Gastronomía
   restaurant:         { icon: 'restaurant',     color: '#EA580C', bg: '#FFEDD5', type: 'restaurant', group: 'gastronomía', keywords: ['restaurante', 'restaurant', 'comida', 'comer', 'cocina'] },
   cafe:               { icon: 'local_cafe',     color: '#A16207', bg: '#FEF3C7', type: 'cafe', group: 'gastronomía', keywords: ['café', 'cafe', 'coffee', 'cafetería', 'cafeteria'] },
   bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina', 'cerveza', 'tequila', 'mezcal', 'antros'] },
   bakery:             { icon: 'bakery_dining',  color: '#CA8A04', bg: '#FEF9C3', type: 'bakery', group: 'gastronomía', keywords: ['panadería', 'panaderia', 'bakery', 'pan', 'pastel'] },
   meal_takeaway:      { icon: 'takeout_dining', color: '#EA580C', bg: '#FFEDD5', type: 'meal_takeaway', group: 'gastronomía', keywords: ['para llevar', 'takeaway', 'comida rápida', 'comida rapida'] },
-  
-  // Compras
   shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall', 'tienda', 'shopping', 'plaza comercial'] },
   clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'clothing', 'tienda de ropa', 'moda'] },
   bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libreria', 'bookstore', 'libros'] },
   department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental', 'department', 'tienda departamental'] },
   supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado', 'supermarket', 'súper', 'super'] },
-  
-  // Servicios y otros
   gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'gym', 'fitness', 'ejercicio'] },
   spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'relajación', 'relajacion', 'masaje'] },
   lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal', 'hostel', 'alojamiento', 'hospedaje'] },
@@ -830,9 +815,6 @@ const CATEGORIES = {
   pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia', 'pharmacy', 'medicina'] }
 };
 
-/* ============================================
-   GRUPOS DE CATEGORÍAS
-   ============================================ */
 const CATEGORY_GROUPS = {
   'general':        { label: 'General', icon: 'explore' },
   'cultura':        { label: 'Cultura', icon: 'palette' },
@@ -1118,9 +1100,6 @@ function checkIfPWAInstalled() {
 
 /* ============================================
    CARGA DE EVENTOS DESDE JSON LOCAL
-   ============================================
-   Lee dataset_eventbrite.json (array de eventos de Eventbrite),
-   normaliza cada item al formato interno y los cachea.
    ============================================ */
 async function loadLocalEventbriteEvents() {
   if (localEventsLoaded) return localEventbriteEvents;
@@ -1138,36 +1117,21 @@ async function loadLocalEventbriteEvents() {
       return [];
     }
 
-    // Normalización: adapta cada item al formato interno del app
     const normalized = raw.map((item, idx) => {
-      // Coordenadas (pueden venir como string o número, en el root o dentro de primary_venue.address)
       const latRaw = item.latitude ?? item.lat ?? item.primary_venue?.address?.latitude;
       const lngRaw = item.longitude ?? item.lng ?? item.primary_venue?.address?.longitude;
       const lat = parseFloat(latRaw);
       const lng = parseFloat(lngRaw);
       if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) return null;
 
-      // Título
       const title = item.name || item.title || item.event_name || 'Evento Eventbrite';
-
-      // Fechas
       const dateStr = item.start_date || item.startDate || item.start_datetime?.slice(0, 10) || '';
       const timeStr = item.start_time || item.startTime || '';
-
-      // Venue
       const venueName = item.primary_venue?.name || item.venue_name || item.venueName || '';
       const cityName = item.primary_venue?.address?.city || item.venue_city || item.city || '';
-
-      // Imagen
       const img = item.image_url || item.image?.url || item.imageUrl || '';
-
-      // URL
       const url = item.url || item.event_url || '';
-
-      // Descripción
       const description = item.summary || item.description || '';
-
-      // ID único
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
       return {
@@ -1226,10 +1190,6 @@ window.initMap = function() {
     closeSubmenu();
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
   });
-  map.addListener('zoom_changed', () => {
-    if (infoWindow) infoWindow.close();
-    closeSubmenu();
-  });
 
   updateAllTranslations();
   renderMainCategories();
@@ -1258,7 +1218,6 @@ async function searchEverything() {
   if (infoWindow) infoWindow.close();
   allPlaces = []; allEvents = []; unifiedResults = [];
 
-  // Ejecuta en paralelo: Google Places + Ticketmaster + JSON local (Eventbrite)
   const [placesRes, tmRes, localRes] = await Promise.allSettled([
     searchPlacesPromise(),
     searchTicketmasterPromise(),
@@ -1412,51 +1371,77 @@ function getCategoryKey(place) {
 }
 
 /* ============================================
-   MARCADORES
+   MARCADORES — DISEÑO MINIMALISTA Y OPTIMIZADO
+   ============================================
+   - SVG embebido en el icono (1 solo elemento por marcador)
+   - optimized: true para renderizado en canvas
+   - Sin OverlayView por marcador (era la causa del lag)
+   - Sin Animation.DROP (costoso con muchos marcadores)
    ============================================ */
 function clearMarkers() {
-  markers.forEach(m => { if (m._label) m._label.setMap(null); m.setMap(null); });
+  markers.forEach(m => m.setMap(null));
   markers = [];
 }
-function createMarkerSVG(color) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="52" viewBox="0 0 44 52"><defs><filter id="s" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#18181B" flood-opacity="0.25"/></filter></defs><path d="M22 2 C11 2 2 11 2 22 C2 36 22 50 22 50 C22 50 42 36 42 22 C42 11 33 2 22 2 Z" fill="${color}" stroke="white" stroke-width="3" filter="url(#s)"/><circle cx="22" cy="22" r="11" fill="white" fill-opacity="0.95"/></svg>`;
-  return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg), scaledSize: new google.maps.Size(44, 52), anchor: new google.maps.Point(22, 50) };
+
+/**
+ * Genera un SVG minimalista tipo "pin" con un punto de color en el centro.
+ * Fondo blanco, borde sutil del color, punto central del color.
+ */
+function createMinimalPin(color) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36">
+    <defs>
+      <filter id="pinShadow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#000" flood-opacity="0.22"/>
+      </filter>
+    </defs>
+    <path d="M14 1 C7.4 1 2 6.4 2 13 C2 21.5 14 35 14 35 C14 35 26 21.5 26 13 C26 6.4 20.6 1 14 1 Z"
+          fill="#FFFFFF" stroke="${color}" stroke-width="1.6" filter="url(#pinShadow)"/>
+    <circle cx="14" cy="13" r="4.5" fill="${color}"/>
+  </svg>`;
+  return {
+    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg),
+    scaledSize: new google.maps.Size(28, 36),
+    anchor: new google.maps.Point(14, 35)
+  };
 }
+
+/**
+ * Renderiza SOLO los pines de Google Places.
+ * Los eventos (Eventbrite, Ticketmaster) ya no aparecen como pines en el mapa
+ * para mantener la vista limpia y mejorar el rendimiento.
+ */
 function renderMarkersForAll() {
-  allEvents.forEach(event => {
-    if (currentAudience !== 'all' && getAgeCategoryKey(event) !== currentAudience) return;
-    const ageCat = categorizeEventByAge(event);
-    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, iconChar: ageCat.icon, title: event.title, payload: event, payloadType: 'event', id: event.id });
-  });
+  // ✅ Solo lugares (Google Places)
   allPlaces.forEach(place => {
     if (!place.geometry?.location) return;
     const cat = getPlaceCategory(place);
-    addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, iconChar: cat.icon, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
+    addPlaceMarker({
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng(),
+      icon: createMinimalPin(cat.color),
+      title: place.name,
+      place
+    });
   });
+  // ❌ Los eventos NO se renderizan en el mapa
 }
-function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, payloadType, id }) {
-  const marker = new google.maps.Marker({ position: { lat, lng }, map, icon, title, animation: google.maps.Animation.DROP });
-  const label = new google.maps.OverlayView();
-  label.onAdd = function() {
-    const div = document.createElement('div');
-    div.style.cssText = `position:absolute;transform:translate(-50%,-50%);pointer-events:none;color:${iconColor};font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1,'wght' 500;line-height:1;`;
-    div.textContent = iconChar;
-    this.div = div;
-    this.getPanes().overlayMouseTarget.appendChild(div);
-  };
-  label.draw = function() {
-    const pos = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(lat, lng));
-    if (pos && this.div) { this.div.style.left = pos.x + 'px'; this.div.style.top = (pos.y - 4) + 'px'; }
-  };
-  label.onRemove = function() { if (this.div && this.div.parentNode) this.div.parentNode.removeChild(this.div); };
-  label.setMap(map);
-  marker._label = label; marker._payload = payload; marker._payloadType = payloadType;
+
+function addPlaceMarker({ lat, lng, icon, title, place }) {
+  const marker = new google.maps.Marker({
+    position: { lat, lng },
+    map,
+    icon,
+    title,
+    optimized: true,           // ✅ renderizado en canvas (mucho más rápido)
+    animation: null            // ✅ sin animación DROP
+  });
+  marker._payload = place;
+  marker._payloadType = 'place';
   marker.addListener('click', () => {
     closeSubmenu();
-    if (payloadType === 'event') showInfoWindowEvent(marker, payload);
-    else showInfoWindowGoogle(marker, payload);
+    showInfoWindowGoogle(marker, place);
   });
-  marker.placeId = id;
+  marker.placeId = place.place_id;
   markers.push(marker);
 }
 
@@ -1479,38 +1464,6 @@ function showInfoWindowGoogle(marker, place) {
         ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F59E0B;">star</span>${ratingText}</div>` : ''}
       </div>
       <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:#4F46E5;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>
-    </div>
-  </div>`);
-  infoWindow.open(map, marker);
-}
-function showInfoWindowEvent(marker, event) {
-  const ageCat = categorizeEventByAge(event);
-  const urlBtn = event.url
-    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
-    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>`;
-  const dateStr = event.date || '';
-  const timeStr = event.time ? ' · ' + event.time : '';
-  const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
-  const sourceBadge = event.source === 'eventbrite'
-    ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Eventbrite</span>`
-    : event.source === 'ticketmaster'
-      ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Ticketmaster</span>`
-      : '';
-  infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
-    ${event.image ? `<img src="${event.image}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
-    <div style="padding:16px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}${sourceBadge}</div>
-          <div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div>
-        </div>
-      </div>
-      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">
-        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${venueStr}</div>
-        ${dateStr ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
-      </div>
-      ${urlBtn}
     </div>
   </div>`);
   infoWindow.open(map, marker);
@@ -1547,7 +1500,7 @@ function renderEventCard(event) {
   const srcTag = event.source === 'eventbrite'
     ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : '';
-  return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};">
+  return `<div class="event-card" onclick="focusEvent('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};">
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
@@ -1728,10 +1681,56 @@ function focusPlace(id) {
   if (marker) {
     map.panTo(marker.getPosition());
     map.setZoom(16);
-    setTimeout(() => google.maps.event.trigger(marker, 'click'), 500);
+    setTimeout(() => google.maps.event.trigger(marker, 'click'), 400);
     if (!isDesktop()) closeSidebar();
   }
 }
+
+/**
+ * Al hacer clic en una tarjeta de evento, centra el mapa en las coordenadas
+ * del evento y abre un InfoWindow temporal (ya que no tiene pin propio).
+ */
+function focusEvent(id) {
+  const event = allEvents.find(e => e.id === id);
+  if (!event) return;
+  if (!isFinite(event.lat) || !isFinite(event.lng)) return;
+  map.panTo({ lat: event.lat, lng: event.lng });
+  map.setZoom(16);
+  const tempMarker = new google.maps.Marker({
+    position: { lat: event.lat, lng: event.lng },
+    map,
+    icon: createMinimalPin('#DB2777'),
+    optimized: true
+  });
+  const ageCat = categorizeEventByAge(event);
+  const urlBtn = event.url
+    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
+    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>`;
+  const dateStr = event.date || '';
+  const timeStr = event.time ? ' · ' + event.time : '';
+  const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
+  infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
+    ${event.image ? `<img src="${event.image}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
+    <div style="padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}</div>
+          <div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">
+        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${venueStr}</div>
+        ${dateStr ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
+      </div>
+      ${urlBtn}
+    </div>
+  </div>`);
+  infoWindow.open(map, tempMarker);
+  setTimeout(() => { tempMarker.setMap(null); }, 6000);
+  if (!isDesktop()) closeSidebar();
+}
+
 function setAudience(audience) {
   currentAudience = audience;
   applyFilters();
@@ -1762,7 +1761,6 @@ function manualRefresh() {
   if (btn) btn.classList.add('active');
   lastSearchTime = 0;
   if (infoWindow) infoWindow.close();
-  // Forzar recarga del JSON local
   localEventsLoaded = false;
   localEventbriteEvents = [];
   searchEverything().then(() => {
