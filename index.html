@@ -708,13 +708,10 @@ const API_KEYS = {
    CONFIGURACIÓN DE EVENTOS LOCALES (JSON)
    ============================================ */
 const LOCAL_EVENTS_CONFIG = {
-  // Ruta al archivo JSON con los eventos de Eventbrite
   filePath: 'dataset_eventbrite.json',
-  // Fuente que se asigna a los eventos cargados de este JSON
   source: 'eventbrite'
 };
 
-// Buffer en memoria para los eventos cargados del JSON local
 let localEventbriteEvents = [];
 let localEventsLoaded = false;
 
@@ -782,47 +779,35 @@ const AGE_CATEGORIES = {
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES — EXPANDIDAS SEGÚN GOOGLE PLACES TYPES
+   CATEGORÍAS DE LUGARES
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
-  
-  // Cultura
   museum:             { icon: 'museum',         color: '#4F46E5', bg: '#EEF2FF', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'exposicion', 'arte'] },
   art_gallery:        { icon: 'palette',        color: '#F59E0B', bg: '#FEF3C7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'galeria', 'arte', 'gallery', 'exposición'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'church', 'templo', 'parroquia'] },
   library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'library', 'libro', 'lectura'] },
   tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'atraccion', 'turístico', 'turistico', 'monumento', 'atracciones'] },
-  
-  // Aire libre
   park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'park', 'jardín', 'jardin', 'plaza', 'área verde', 'area verde'] },
   zoo:                { icon: 'pets',           color: '#EC4899', bg: '#FCE7F3', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'zoológico', 'zoologico', 'animales'] },
   aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'aquarium', 'peces', 'mar'] },
   campground:         { icon: 'camping',        color: '#059669', bg: '#D1FAE5', type: 'campground', group: 'aire libre', keywords: ['campamento', 'camping', 'acampada'] },
-  
-  // Entretenimiento
   movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'cinema', 'movie', 'película', 'pelicula', 'theater'] },
   stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'stadium', 'deporte', 'fútbol', 'futbol', 'partido'] },
   amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones', 'amusement', 'atracciones'] },
   bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bowling', 'bolos'] },
   casino:             { icon: 'casino',         color: '#B91C1C', bg: '#FEE2E2', type: 'casino', group: 'entretenimiento', keywords: ['casino', 'juegos', 'apuestas'] },
   night_club:         { icon: 'nightlife',      color: '#DB2777', bg: '#FCE7F3', type: 'night_club', group: 'entretenimiento', keywords: ['antro', 'discoteca', 'night club', 'fiesta'] },
-  
-  // Gastronomía
   restaurant:         { icon: 'restaurant',     color: '#EA580C', bg: '#FFEDD5', type: 'restaurant', group: 'gastronomía', keywords: ['restaurante', 'restaurant', 'comida', 'comer', 'cocina'] },
   cafe:               { icon: 'local_cafe',     color: '#A16207', bg: '#FEF3C7', type: 'cafe', group: 'gastronomía', keywords: ['café', 'cafe', 'coffee', 'cafetería', 'cafeteria'] },
   bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina', 'cerveza', 'tequila', 'mezcal', 'antros'] },
   bakery:             { icon: 'bakery_dining',  color: '#CA8A04', bg: '#FEF9C3', type: 'bakery', group: 'gastronomía', keywords: ['panadería', 'panaderia', 'bakery', 'pan', 'pastel'] },
   meal_takeaway:      { icon: 'takeout_dining', color: '#EA580C', bg: '#FFEDD5', type: 'meal_takeaway', group: 'gastronomía', keywords: ['para llevar', 'takeaway', 'comida rápida', 'comida rapida'] },
-  
-  // Compras
   shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall', 'tienda', 'shopping', 'plaza comercial'] },
   clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'clothing', 'tienda de ropa', 'moda'] },
   bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libreria', 'bookstore', 'libros'] },
   department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental', 'department', 'tienda departamental'] },
   supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado', 'supermarket', 'súper', 'super'] },
-  
-  // Servicios y otros
   gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'gym', 'fitness', 'ejercicio'] },
   spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'relajación', 'relajacion', 'masaje'] },
   lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal', 'hostel', 'alojamiento', 'hospedaje'] },
@@ -830,9 +815,6 @@ const CATEGORIES = {
   pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia', 'pharmacy', 'medicina'] }
 };
 
-/* ============================================
-   GRUPOS DE CATEGORÍAS
-   ============================================ */
 const CATEGORY_GROUPS = {
   'general':        { label: 'General', icon: 'explore' },
   'cultura':        { label: 'Cultura', icon: 'palette' },
@@ -1118,9 +1100,6 @@ function checkIfPWAInstalled() {
 
 /* ============================================
    CARGA DE EVENTOS DESDE JSON LOCAL
-   ============================================
-   Lee dataset_eventbrite.json (array de eventos de Eventbrite),
-   normaliza cada item al formato interno y los cachea.
    ============================================ */
 async function loadLocalEventbriteEvents() {
   if (localEventsLoaded) return localEventbriteEvents;
@@ -1138,36 +1117,21 @@ async function loadLocalEventbriteEvents() {
       return [];
     }
 
-    // Normalización: adapta cada item al formato interno del app
     const normalized = raw.map((item, idx) => {
-      // Coordenadas (pueden venir como string o número, en el root o dentro de primary_venue.address)
       const latRaw = item.latitude ?? item.lat ?? item.primary_venue?.address?.latitude;
       const lngRaw = item.longitude ?? item.lng ?? item.primary_venue?.address?.longitude;
       const lat = parseFloat(latRaw);
       const lng = parseFloat(lngRaw);
       if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) return null;
 
-      // Título
       const title = item.name || item.title || item.event_name || 'Evento Eventbrite';
-
-      // Fechas
       const dateStr = item.start_date || item.startDate || item.start_datetime?.slice(0, 10) || '';
       const timeStr = item.start_time || item.startTime || '';
-
-      // Venue
       const venueName = item.primary_venue?.name || item.venue_name || item.venueName || '';
       const cityName = item.primary_venue?.address?.city || item.venue_city || item.city || '';
-
-      // Imagen
       const img = item.image_url || item.image?.url || item.imageUrl || '';
-
-      // URL
       const url = item.url || item.event_url || '';
-
-      // Descripción
       const description = item.summary || item.description || '';
-
-      // ID único
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
       return {
@@ -1210,7 +1174,13 @@ window.initMap = function() {
     styles: currentTheme === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light,
     mapTypeControl: false, streetViewControl: false, fullscreenControl: false,
     zoomControl: false, clickableIcons: false, gestureHandling: 'greedy',
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    // ✅ Optimizaciones de rendimiento del mapa
+    optimized: true,
+    // ✅ Deshabilitar 45° tilt (ahorra render)
+    tilt: 0,
+    // ✅ Deshabilitar rotación
+    rotateControl: false
   });
   infoWindow = new google.maps.InfoWindow();
   try { placesService = new google.maps.places.PlacesService(map); }
@@ -1258,7 +1228,6 @@ async function searchEverything() {
   if (infoWindow) infoWindow.close();
   allPlaces = []; allEvents = []; unifiedResults = [];
 
-  // Ejecuta en paralelo: Google Places + Ticketmaster + JSON local (Eventbrite)
   const [placesRes, tmRes, localRes] = await Promise.allSettled([
     searchPlacesPromise(),
     searchTicketmasterPromise(),
@@ -1412,50 +1381,136 @@ function getCategoryKey(place) {
 }
 
 /* ============================================
-   MARCADORES
+   MARCADORES — DISEÑO MINIMALISTA SIN LAG
+   ============================================
+   - Sin OverlayView (causa lag al mover/zoom).
+   - El icono Material Symbols va incrustado como <path> dentro del SVG,
+     así se renderiza como una sola imagen y Google Maps lo maneja con GPU.
+   - Diseño: círculo sólido pequeño con borde blanco sutil + icono blanco centrado.
+   - Pines de eventos eliminados (solo se pintan los de Google Places).
    ============================================ */
+
+// Mapa de códigos de iconos Material Symbols → paths SVG (fuente Material Symbols).
+// Se usan los paths oficiales del set "Material Symbols Rounded" para 24px.
+// Solo se incluyen los iconos usados por las categorías de lugares.
+const MATERIAL_ICON_PATHS = {
+  museum: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
+  palette: 'M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.2-.64-1.67-.08-.1-.13-.21-.13-.33 0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9zm5.5 11c-.83 0-1.5-.67-1.5-1.5S16.67 10 17.5 10s1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm-3-4c-.83 0-1.5-.67-1.5-1.5S13.67 6 14.5 6s1.5.67 1.5 1.5S15.33 9 14.5 9zM5 9.5C5 8.67 5.67 8 6.5 8S8 8.67 8 9.5 7.33 11 6.5 11 5 10.33 5 9.5zm6-4C11 4.67 11.67 4 12.5 4S14 4.67 14 5.5 13.33 7 12.5 7 11 6.33 11 5.5z',
+  church: 'M18 12.22V9l-5-2.5V5h2V3h-2V1h-2v2H9v2h2v1.5L6 9v3.22L2 14v8h8v-5h4v5h8v-8l-4-1.78zM12 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z',
+  local_library: 'M12 11.55C9.64 9.35 6.48 8 3 8v11c3.48 0 6.64 1.35 9 3.55 2.36-2.19 5.52-3.55 9-3.55V8c-3.48 0-6.64 1.35-9 3.55zM12 8c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z',
+  attractions: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+  park: 'M17 12h2L12 2 5.05 12H7l-3.9 6h6.92v4h3.96v-4H21z',
+  pets: 'M4.5 9.5m-2.5 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0M9 5.5m-2.5 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0M15 5.5m-2.5 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0M19.5 9.5m-2.5 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0M17.34 14.86c-.87-1.02-1.6-1.89-2.48-2.91-.46-.54-1.05-1.08-1.75-1.32-.11-.04-.22-.07-.33-.09-.25-.04-.52-.04-.78-.04s-.53 0-.79.05c-.11.02-.22.05-.33.09-.7.24-1.28.78-1.75 1.32-.87 1.02-1.6 1.89-2.48 2.91-1.31 1.31-2.92 2.76-2.62 4.79.29 1.02 1.02 2.03 2.33 2.32.73.15 3.06-.44 5.54-.44h.18c2.48 0 4.81.58 5.54.44 1.31-.29 2.04-1.31 2.33-2.32.31-2.04-1.3-3.49-2.61-4.8z',
+  water: 'M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8zm0 18c-3.35 0-6-2.57-6-6.2 0-2.34 1.95-5.44 6-9.14 4.05 3.7 6 6.79 6 9.14 0 3.63-2.65 6.2-6 6.2z',
+  camping: 'M20 18l-3-3V6c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v9l-3 3v2h16v-2zm-7-6h-2v-4h2v4zm-2 4h2v-2h-2v2z',
+  theaters: 'M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z',
+  stadium: 'M7 5L3 7V3l4 2zm0 2v7c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2zm2 0h6v7H9V7zm11-4v4l-4-2 4-2zM4 21h16v-2H4v2z',
+  sports_esports: 'M21.58 16.09l-1.09-7.66C20.21 6.46 18.52 5 16.53 5H7.47C5.48 5 3.79 6.46 3.51 8.43l-1.09 7.66C2.2 17.63 3.39 19 4.94 19c.68 0 1.32-.27 1.8-.75L9 16h6l2.25 2.25c.48.48 1.13.75 1.8.75 1.56 0 2.75-1.37 2.53-2.91zM11 11H9v2H8v-2H6v-1h2V8h1v2h2v1zm4-1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2 3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z',
+  casino: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7.5 18c-.83 0-1.5-.67-1.5-1.5S6.67 15 7.5 15s1.5.67 1.5 1.5S8.33 18 7.5 18zm0-9C6.67 9 6 8.33 6 7.5S6.67 6 7.5 6 9 6.67 9 7.5 8.33 9 7.5 9zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm0-9c-.83 0-1.5-.67-1.5-1.5S15.67 6 16.5 6s1.5.67 1.5 1.5S17.33 9 16.5 9z',
+  nightlife: 'M12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z',
+  restaurant: 'M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z',
+  local_cafe: 'M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z',
+  sports_bar: 'M21 5v4h-2v4c0 1.1-.9 2-2 2h-5v2l-2 2H5l-2-2v-2c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h16c1.1 0 2 .9 2 2zm-4 5.5c0-1.38-1.12-2.5-2.5-2.5S12 9.12 12 10.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5zM8 9.5C8 8.12 6.88 7 5.5 7S3 8.12 3 9.5 4.12 12 5.5 12 8 10.88 8 9.5z',
+  bakery_dining: 'M12 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm6.71-2.21L12 2 5.29 8.29C3.84 9.74 3 11.66 3 13.7V22h18v-8.3c0-2.04-.84-3.96-2.29-5.41zM18 20H6v-6h12v6z',
+  takeout_dining: 'M5.26 11h13.48l-.67 9H5.93l-.67-9zm13.4-2l-.38-3H5.72l-.38 3h13.32zm1.6-5H3.74l-1.5 12H2v2h20v-2h-.24l-1.5-12z',
+  shopping_bag: 'M18 6h-2c0-2.21-1.79-4-4-4S8 3.79 8 6H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm0 10c-2.76 0-5-2.24-5-5h2c0 1.66 1.34 3 3 3s3-1.34 3-3h2c0 2.76-2.24 5-5 5z',
+  checkroom: 'M21.6 18.2L13 11.75v-.91c1.16-.41 2-1.51 2-2.84 0-1.66-1.34-3-3-3s-3 1.34-3 3h2c0-.55.45-1 1-1s1 .45 1 1c0 .55-.45 1-1 1h-.5v1.5L2.4 18.2c-.77.58-.36 1.8.6 1.8h18c.96 0 1.37-1.22.6-1.8zM6 18l6-4.5 6 4.5H6z',
+  menu_book: 'M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z',
+  storefront: 'M21.9 8.89l-1.05-4.37c-.22-.9-1-1.52-1.91-1.52H5.05c-.9 0-1.69.63-1.9 1.52L2.1 8.89c-.24 1.02-.02 2.06.62 2.88.08.11.19.19.28.29V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6.94c.09-.09.2-.18.28-.28.64-.82.87-1.87.62-2.89zm-2.99-3.9l1.05 4.37c.1.42.01.84-.25 1.17-.14.18-.44.47-.94.47-.61 0-1.14-.49-1.21-1.14L16.98 5l1.93-.01zM13 5h1.96l.54 4.52c.05.39-.07.78-.33 1.07-.22.26-.54.41-.95.41-.67 0-1.22-.59-1.22-1.31V5zM8.49 9.52L9.04 5H11v4.69c0 .72-.55 1.31-1.22 1.31-.41 0-.73-.15-.95-.41-.27-.29-.39-.68-.34-1.07zM5.25 5l1.93.01-1.71 4.95c-.07.65-.6 1.14-1.21 1.14-.5 0-.8-.29-.94-.47-.26-.33-.35-.75-.25-1.17l1.05-4.37c.22-.89 1.01-1.52 1.91-1.52zM12 19H7v-4h5v4zm5 0h-5v-4h5v4z',
+  local_grocery_store: 'M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z',
+  fitness_center: 'M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z',
+  spa: 'M8.55 12c-1.07-.71-2.25-1.27-3.53-1.61 1.28.34 2.46.9 3.53 1.61zm10.43-1.61c-1.29.34-2.49.91-3.57 1.64 1.08-.73 2.28-1.3 3.57-1.64zM15.49 9.63c-.18-2.79-1.31-5.51-3.43-7.63-2.14 2.14-3.32 4.86-3.55 7.63 1.28.68 2.46 1.56 3.49 2.63 1.03-1.06 2.21-1.94 3.49-2.63zm-6.5 2.65c-.14-.1-.3-.19-.45-.29.15.11.31.19.45.29zm6.42-.25c-.13.09-.27.16-.4.26.13-.1.27-.17.4-.26zM12 15.45C9.85 12.17 6.18 10 2 10c0 5.32 3.36 9.82 8.03 11.49.63.23 1.29.4 1.97.51.68-.12 1.33-.29 1.97-.51C18.64 19.82 22 15.32 22 10c-4.18 0-7.85 2.17-10 5.45z',
+  hotel: 'M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z',
+  local_hospital: 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
+  local_pharmacy: 'M21 5h-2.64l1.14-3.14L17.15 1l-1.46 4H3v2l2 6-2 6v2h18v-2l-2-6 2-6V5zm-5 9h-3v3h-2v-3H8v-2h3V9h2v3h3v2z',
+  default: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'
+};
+
+/**
+ * Crea el SVG de un marcador minimalista.
+ * - Círculo sólido del color de la categoría.
+ * - Borde blanco semitransparente.
+ * - Icono Material Symbols (path) blanco al centro.
+ * - Sombra sutil (drop-shadow con stdDeviation 1.5 y opacidad 0.22).
+ */
+function createMarkerSVG(color, iconName) {
+  const path = MATERIAL_ICON_PATHS[iconName] || MATERIAL_ICON_PATHS.default;
+  // Escala el icono 24→18 y lo centra en el círculo (radio 18, centro 22,22).
+  const iconScale = 0.75;
+  const iconOffset = 22 - (24 * iconScale) / 2; // 22 - 9 = 13
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+    <defs>
+      <filter id="ms" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#18181B" flood-opacity="0.22"/>
+      </filter>
+    </defs>
+    <circle cx="22" cy="22" r="18" fill="${color}" filter="url(#ms)"/>
+    <circle cx="22" cy="22" r="18" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.9"/>
+    <g transform="translate(${iconOffset}, ${iconOffset}) scale(${iconScale})">
+      <path d="${path}" fill="#FFFFFF"/>
+    </g>
+  </svg>`;
+
+  return {
+    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg),
+    scaledSize: new google.maps.Size(44, 44),
+    anchor: new google.maps.Point(22, 22)
+  };
+}
+
 function clearMarkers() {
-  markers.forEach(m => { if (m._label) m._label.setMap(null); m.setMap(null); });
+  markers.forEach(m => { m.setMap(null); });
   markers = [];
 }
-function createMarkerSVG(color) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="52" viewBox="0 0 44 52"><defs><filter id="s" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#18181B" flood-opacity="0.25"/></filter></defs><path d="M22 2 C11 2 2 11 2 22 C2 36 22 50 22 50 C22 50 42 36 42 22 C42 11 33 2 22 2 Z" fill="${color}" stroke="white" stroke-width="3" filter="url(#s)"/><circle cx="22" cy="22" r="11" fill="white" fill-opacity="0.95"/></svg>`;
-  return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg), scaledSize: new google.maps.Size(44, 52), anchor: new google.maps.Point(22, 50) };
-}
+
+/**
+ * Renderiza SOLO los marcadores de lugares de Google Places.
+ * Los eventos (Eventbrite/Ticketmaster) ya no se pintan en el mapa,
+ * lo que reduce drásticamente el número de marcadores y elimina el lag.
+ */
 function renderMarkersForAll() {
-  allEvents.forEach(event => {
-    if (currentAudience !== 'all' && getAgeCategoryKey(event) !== currentAudience) return;
-    const ageCat = categorizeEventByAge(event);
-    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, iconChar: ageCat.icon, title: event.title, payload: event, payloadType: 'event', id: event.id });
-  });
+  // ⚡ Los pines de eventos fueron removidos por rendimiento y preferencia visual.
+  // Los eventos siguen visibles en la lista del sidebar y sus badges.
+
+  // Solo dibuja marcadores para Google Places.
   allPlaces.forEach(place => {
     if (!place.geometry?.location) return;
     const cat = getPlaceCategory(place);
-    addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, iconChar: cat.icon, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
+    const iconKey = getCategoryKey(place);
+    const iconName = CATEGORIES[iconKey]?.icon || cat.icon || 'default';
+    addMarkerToMap({
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng(),
+      icon: createMarkerSVG(cat.color, iconName),
+      title: place.name,
+      payload: place,
+      payloadType: 'place',
+      id: place.place_id
+    });
   });
 }
-function addMarkerToMap({ lat, lng, icon, iconColor, iconChar, title, payload, payloadType, id }) {
-  const marker = new google.maps.Marker({ position: { lat, lng }, map, icon, title, animation: google.maps.Animation.DROP });
-  const label = new google.maps.OverlayView();
-  label.onAdd = function() {
-    const div = document.createElement('div');
-    div.style.cssText = `position:absolute;transform:translate(-50%,-50%);pointer-events:none;color:${iconColor};font-family:'Material Symbols Rounded';font-size:20px;font-variation-settings:'FILL' 1,'wght' 500;line-height:1;`;
-    div.textContent = iconChar;
-    this.div = div;
-    this.getPanes().overlayMouseTarget.appendChild(div);
-  };
-  label.draw = function() {
-    const pos = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(lat, lng));
-    if (pos && this.div) { this.div.style.left = pos.x + 'px'; this.div.style.top = (pos.y - 4) + 'px'; }
-  };
-  label.onRemove = function() { if (this.div && this.div.parentNode) this.div.parentNode.removeChild(this.div); };
-  label.setMap(map);
-  marker._label = label; marker._payload = payload; marker._payloadType = payloadType;
+
+function addMarkerToMap({ lat, lng, icon, title, payload, payloadType, id }) {
+  const marker = new google.maps.Marker({
+    position: { lat, lng },
+    map,
+    icon,
+    title,
+    optimized: true,           // ✅ Render con GPU
+    animation: null,           // ✅ Sin animación DROP (más fluido en zoom/drag)
+    zIndex: payloadType === 'event' ? 2 : 1
+  });
+
+  marker._payload = payload;
+  marker._payloadType = payloadType;
+
   marker.addListener('click', () => {
     closeSubmenu();
     if (payloadType === 'event') showInfoWindowEvent(marker, payload);
     else showInfoWindowGoogle(marker, payload);
   });
+
   marker.placeId = id;
   markers.push(marker);
 }
@@ -1704,8 +1759,7 @@ function closeSubmenu() {
 }
 
 /* ============================================
-   BOTONES DE CATEGORÍA
-   ============================================ */
+   BOTONES DE CATEGORÍA   ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
   container.innerHTML = `
@@ -1762,7 +1816,6 @@ function manualRefresh() {
   if (btn) btn.classList.add('active');
   lastSearchTime = 0;
   if (infoWindow) infoWindow.close();
-  // Forzar recarga del JSON local
   localEventsLoaded = false;
   localEventbriteEvents = [];
   searchEverything().then(() => {
@@ -1897,7 +1950,16 @@ function stopTracking() {
 function updateUserMarker(loc) {
   if (userMarker) userMarker.setPosition(loc);
   else {
-    userMarker = new google.maps.Marker({ position: loc, map, icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="#4F46E5" stroke="white" stroke-width="3"/></svg>`), scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) }, title: 'Tu ubicación', zIndex: 9999 });
+    userMarker = new google.maps.Marker({
+      position: loc, map,
+      icon: {
+        url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="#4F46E5" stroke="white" stroke-width="3"/></svg>`),
+        scaledSize: new google.maps.Size(22, 22),
+        anchor: new google.maps.Point(11, 11)
+      },
+      title: 'Tu ubicación', zIndex: 9999,
+      optimized: true
+    });
   }
 }
 
