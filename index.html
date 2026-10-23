@@ -304,31 +304,7 @@
     display: flex; flex-direction: column; align-items: center; gap: 6px;
   }
   .submenu-empty .ms { font-size: 36px; color: var(--outline-strong); }
-
-  /* ESTILOS PARA EL FILTRO DE FECHAS */
-  .date-input-wrapper {
-    display: flex; flex-direction: column; gap: 8px; padding: 8px;
-  }
-  .date-input-wrapper label {
-    font-size: 12px; font-weight: 700; color: var(--text-2);
-  }
-  .date-input-wrapper input[type="date"] {
-    width: 100%; height: 44px; padding: 0 12px;
-    border-radius: var(--r-sm); border: 1px solid var(--outline);
-    background: var(--surface-2); color: var(--text);
-    font-family: inherit; font-size: 14px;
-  }
-  .date-input-wrapper input[type="date"]:focus {
-    outline: none; border-color: var(--primary);
-  }
-  .date-clear-btn {
-    margin-top: 8px; width: 100%; padding: 10px;
-    border: none; border-radius: var(--r-sm);
-    background: var(--surface-3); color: var(--text);
-    font-weight: 600; cursor: pointer;
-  }
-  .date-clear-btn:hover { background: var(--outline-strong); }
-
+  
   .sidebar {
     position: absolute; top: 0; left: 0;
     width: 400px; height: 100%;
@@ -632,6 +608,33 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
+
+  /* Estilos específicos para el input de fecha */
+  .date-input-wrapper {
+    padding: 8px 4px;
+    margin-top: 4px;
+  }
+  .date-input-wrapper input[type="date"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--outline);
+    background: var(--surface-2);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .date-input-wrapper input[type="date"]:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    background: var(--surface);
+  }
+  html[data-theme="dark"] .date-input-wrapper input[type="date"] {
+    color-scheme: dark;
+  }
 </style>
 </head>
 <body>
@@ -687,8 +690,7 @@
   <div class="header-actions">
     <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar tema" id="themeBtn"><span class="ms" id="themeIcon">dark_mode</span></button>
     <button class="icon-btn" onclick="manualRefresh()" aria-label="Actualizar resultados" id="refreshBtn" title="Actualizar resultados"><span class="ms">refresh</span></button>
-    <!-- BOTÓN DE FILTRO DE FECHAS -->
-    <button class="icon-btn" onclick="toggleDateFilterMenu(event)" aria-label="Filtrar por fecha" id="dateFilterBtn" title="Filtrar por fecha"><span class="ms">tune</span></button>
+    <button class="icon-btn" onclick="toggleOptionsMenu(event)" aria-label="Filtrar por fecha" id="optionsBtn"><span class="ms">tune</span></button>
   </div>
 </header>
 
@@ -872,13 +874,18 @@ const TRANSLATIONS = {
     pwaInstallFallback: 'Usa el menú de Chrome → "Instalar aplicación"',
     refreshing: 'Actualizando resultados...',
     updated: 'Resultados actualizados',
-    dateFilterLabel: 'Filtrar por Fecha',
-    dateFilterAll: 'Todos los eventos',
-    dateFilterToday: 'Hoy',
-    dateFilterTomorrow: 'Mañana',
-    dateFilterWeekend: 'Este fin de semana',
-    dateFilterCustom: 'Fecha personalizada',
-    dateFilterClear: 'Limpiar filtro',
+    dateFilterLabel: 'Filtrar por fecha',
+    dateOptions: {
+      all: 'Cualquier fecha',
+      today: 'Hoy',
+      tomorrow: 'Mañana',
+      this_weekend: 'Este fin de semana',
+      next_7_days: 'Próximos 7 días',
+      this_month: 'Este mes',
+      custom: 'Fecha específica'
+    },
+    dateSelected: 'Fecha seleccionada',
+    clearDateFilter: 'Limpiar filtro de fecha',
     categories: {
       all: 'Todas',
       museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Bibliotecas', tourist_attraction: 'Atracciones',
@@ -904,13 +911,18 @@ const TRANSLATIONS = {
     pwaInstallFallback: 'Use Chrome menu → "Install app"',
     refreshing: 'Refreshing results...',
     updated: 'Results updated',
-    dateFilterLabel: 'Filter by Date',
-    dateFilterAll: 'All events',
-    dateFilterToday: 'Today',
-    dateFilterTomorrow: 'Tomorrow',
-    dateFilterWeekend: 'This weekend',
-    dateFilterCustom: 'Custom date',
-    dateFilterClear: 'Clear filter',
+    dateFilterLabel: 'Filter by date',
+    dateOptions: {
+      all: 'Any date',
+      today: 'Today',
+      tomorrow: 'Tomorrow',
+      this_weekend: 'This weekend',
+      next_7_days: 'Next 7 days',
+      this_month: 'This month',
+      custom: 'Specific date'
+    },
+    dateSelected: 'Date selected',
+    clearDateFilter: 'Clear date filter',
     categories: {
       all: 'All',
       museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', tourist_attraction: 'Attractions',
@@ -937,12 +949,17 @@ const TRANSLATIONS = {
     refreshing: 'Actualisation des résultats...',
     updated: 'Résultats actualisés',
     dateFilterLabel: 'Filtrer par date',
-    dateFilterAll: 'Tous les événements',
-    dateFilterToday: 'Aujourd\'hui',
-    dateFilterTomorrow: 'Demain',
-    dateFilterWeekend: 'Ce week-end',
-    dateFilterCustom: 'Date personnalisée',
-    dateFilterClear: 'Effacer le filtre',
+    dateOptions: {
+      all: 'Toute date',
+      today: 'Aujourd\'hui',
+      tomorrow: 'Demain',
+      this_weekend: 'Ce week-end',
+      next_7_days: '7 prochains jours',
+      this_month: 'Ce mois-ci',
+      custom: 'Date spécifique'
+    },
+    dateSelected: 'Date sélectionnée',
+    clearDateFilter: 'Effacer le filtre de date',
     categories: {
       all: 'Toutes',
       museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', tourist_attraction: 'Attractions',
@@ -969,12 +986,17 @@ const TRANSLATIONS = {
     refreshing: 'Atualizando resultados...',
     updated: 'Resultados atualizados',
     dateFilterLabel: 'Filtrar por data',
-    dateFilterAll: 'Todos os eventos',
-    dateFilterToday: 'Hoje',
-    dateFilterTomorrow: 'Amanhã',
-    dateFilterWeekend: 'Este fim de semana',
-    dateFilterCustom: 'Data personalizada',
-    dateFilterClear: 'Limpar filtro',
+    dateOptions: {
+      all: 'Qualquer data',
+      today: 'Hoje',
+      tomorrow: 'Amanhã',
+      this_weekend: 'Este fim de semana',
+      next_7_days: 'Próximos 7 dias',
+      this_month: 'Este mês',
+      custom: 'Data específica'
+    },
+    dateSelected: 'Data selecionada',
+    clearDateFilter: 'Limpar filtro de data',
     categories: {
       all: 'Todas',
       museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', tourist_attraction: 'Atrações',
@@ -1001,12 +1023,17 @@ const TRANSLATIONS = {
     refreshing: 'Ergebnisse werden aktualisiert...',
     updated: 'Ergebnisse aktualisiert',
     dateFilterLabel: 'Nach Datum filtern',
-    dateFilterAll: 'Alle Veranstaltungen',
-    dateFilterToday: 'Heute',
-    dateFilterTomorrow: 'Morgen',
-    dateFilterWeekend: 'Dieses Wochenende',
-    dateFilterCustom: 'Benutzerdefiniertes Datum',
-    dateFilterClear: 'Filter löschen',
+    dateOptions: {
+      all: 'Jedes Datum',
+      today: 'Heute',
+      tomorrow: 'Morgen',
+      this_weekend: 'Dieses Wochenende',
+      next_7_days: 'Nächste 7 Tage',
+      this_month: 'Diesen Monat',
+      custom: 'Bestimmtes Datum'
+    },
+    dateSelected: 'Datum ausgewählt',
+    clearDateFilter: 'Datumsfilter löschen',
     categories: {
       all: 'Alle',
       museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', tourist_attraction: 'Attraktionen',
@@ -1023,9 +1050,9 @@ let map, markers = [], infoWindow, placesService;
 let userMarker = null, watchId = null, isTracking = false;
 let currentCategory = 'museum';
 let currentAudience = 'all';
+let currentDateFilter = 'all'; // Nuevo filtro de fecha
+let currentCustomDate = ''; // Para fecha personalizada
 let currentSearch = '';
-let currentDateFilter = 'all'; // 'all', 'today', 'tomorrow', 'weekend', 'custom'
-let currentCustomDate = '';
 let currentLang = 'es';
 let currentTheme = 'light';
 let allPlaces = [], allEvents = [], unifiedResults = [];
@@ -1036,9 +1063,9 @@ let isPWAInstalled = false;
 let isManualRefreshing = false;
 let currentSubmenuType = null;
 
-// Variables para el debounce del mapa
+// Variables para el debounce del mapa (evitar lag)
 let mapIdleTimer = null;
-const MAP_IDLE_DELAY = 400;
+const MAP_IDLE_DELAY = 400; // ms de espera después de mover/hacer zoom
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
@@ -1090,6 +1117,7 @@ const MAP_STYLES = {
 function t(key) { const v = TRANSLATIONS[currentLang][key]; return typeof v === 'function' ? v : (v || key); }
 function tCat(key) { return TRANSLATIONS[currentLang].categories[key] || key; }
 function tAge(key) { return TRANSLATIONS[currentLang][`age_${key}`] || AGE_CATEGORIES[key]?.label || key; }
+function tDate(key) { return TRANSLATIONS[currentLang].dateOptions[key] || key; }
 
 function categorizeEventByAge(event) {
   const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
@@ -1110,58 +1138,6 @@ function categorizeEventByAge(event) {
 function getAgeCategoryKey(event) {
   const cat = categorizeEventByAge(event);
   return Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat) || 'all';
-}
-
-// NUEVA FUNCIÓN: Verifica si un evento ya pasó (basado en fecha)
-function isEventPast(event) {
-  if (!event.date) return false; // Si no tiene fecha, asumimos que no ha pasado
-  const eventDate = new Date(event.date + 'T23:59:59'); // Fin del día del evento
-  const now = new Date();
-  return eventDate < now;
-}
-
-// NUEVA FUNCIÓN: Filtra eventos según la fecha seleccionada
-function filterEventsByDate(events) {
-  if (currentDateFilter === 'all') return events;
-  
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  
-  return events.filter(e => {
-    if (!e.date) return false;
-    const eDate = new Date(e.date + 'T12:00:00');
-    eDate.setHours(0, 0, 0, 0);
-    
-    if (currentDateFilter === 'today') {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      return eDate.getTime() === today.getTime();
-    }
-    if (currentDateFilter === 'tomorrow') {
-      const tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
-      return eDate.getTime() === tomorrow.getTime();
-    }
-    if (currentDateFilter === 'weekend') {
-      // Próximo fin de semana (sábado y domingo)
-      const dayOfWeek = now.getDay(); // 0=Dom, 6=Sáb
-      const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
-      const saturday = new Date(now);
-      saturday.setDate(now.getDate() + daysUntilSaturday);
-      const sunday = new Date(saturday);
-      sunday.setDate(saturday.getDate() + 1);
-      
-      return (eDate.getTime() === saturday.getTime() || eDate.getTime() === sunday.getTime());
-    }
-    if (currentDateFilter === 'custom' && currentCustomDate) {
-      const custom = new Date(currentCustomDate + 'T12:00:00');
-      custom.setHours(0, 0, 0, 0);
-      return eDate.getTime() === custom.getTime();
-    }
-    
-    return true;
-  });
 }
 
 function detectBrowserLanguage() {
@@ -1291,12 +1267,14 @@ window.initMap = function() {
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
+  // Eventos del mapa con DEBOUNCE para evitar lag
   map.addListener('click', () => {
     closeSubmenu();
     if (infoWindow) infoWindow.close();
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
   });
 
+  // Debounce en dragend y zoom_changed para evitar lentitud
   map.addListener('dragend', () => {
     if (infoWindow) infoWindow.close();
     closeSubmenu();
@@ -1318,18 +1296,27 @@ window.initMap = function() {
   setTimeout(hideSplash, 2500);
 };
 
+// Función que espera a que el usuario deje de mover/hacer zoom para actualizar
 function scheduleMapIdleUpdate() {
   if (mapIdleTimer) clearTimeout(mapIdleTimer);
   mapIdleTimer = setTimeout(() => {
     console.log('🔍 Mapa inactivo, actualizando marcadores...');
     if (infoWindow) infoWindow.close();
+    // Refrescar marcadores sin borrar los existentes (actualización ligera)
     updateMarkersOnMap();
   }, MAP_IDLE_DELAY);
 }
 
+// Actualiza los marcadores basados en la vista actual del mapa
 function updateMarkersOnMap() {
   if (allPlaces.length === 0 && allEvents.length === 0) return;
-  // Aquí podrías filtrar por viewport si es necesario. Por ahora mantenemos.
+  
+  const bounds = map.getBounds();
+  if (!bounds) return;
+  
+  // Aquí podrías filtrar qué eventos mostrar según el viewport,
+  // pero para no eliminar marcadores, simplemente re-renderizamos
+  // los que ya están visibles. 
 }
 
 function hideSplash() {
@@ -1367,22 +1354,73 @@ async function searchEverything() {
 }
 
 function applyFilters() {
-  // 1. Filtrar por audiencia
   let eventsFiltered = allEvents;
-  if (currentAudience !== 'all') eventsFiltered = allEvents.filter(e => getAgeCategoryKey(e) === currentAudience);
   
-  // 2. Filtrar por fecha (si aplica)
-  eventsFiltered = filterEventsByDate(eventsFiltered);
-  
-  // 3. Unificar resultados (eventos filtrados + lugares)
+  // Filtro por audiencia
+  if (currentAudience !== 'all') {
+    eventsFiltered = eventsFiltered.filter(e => getAgeCategoryKey(e) === currentAudience);
+  }
+
+  // Filtro por fecha
+  if (currentDateFilter !== 'all') {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    eventsFiltered = eventsFiltered.filter(e => {
+      if (!e.date) return false; // Si no tiene fecha, no se puede filtrar
+      
+      // Parsear la fecha del evento (asumiendo formato YYYY-MM-DD)
+      const parts = e.date.split('-');
+      if (parts.length !== 3) return false;
+      const eventDate = new Date(parts[0], parts[1] - 1, parts[2]);
+      eventDate.setHours(0, 0, 0, 0);
+
+      if (currentDateFilter === 'today') {
+        return eventDate.getTime() === today.getTime();
+      } else if (currentDateFilter === 'tomorrow') {
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        return eventDate.getTime() === tomorrow.getTime();
+      } else if (currentDateFilter === 'this_weekend') {
+        const dayOfWeek = today.getDay(); // 0 = Domingo, 6 = Sábado
+        const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+        const thisSaturday = new Date(today);
+        thisSaturday.setDate(today.getDate() + daysUntilSaturday);
+        
+        // Si hoy es sábado o domingo, incluirlo
+        if (dayOfWeek === 0) { // Domingo
+           const thisSunday = new Date(today);
+           return eventDate.getTime() === thisSunday.getTime();
+        } else if (dayOfWeek === 6) { // Sábado
+           const thisSunday = new Date(today);
+           thisSunday.setDate(today.getDate() + 1);
+           return eventDate.getTime() === today.getTime() || eventDate.getTime() === thisSunday.getTime();
+        } else {
+           const thisSunday = new Date(thisSaturday);
+           thisSunday.setDate(thisSaturday.getDate() + 1);
+           return eventDate.getTime() === thisSaturday.getTime() || eventDate.getTime() === thisSunday.getTime();
+        }
+      } else if (currentDateFilter === 'next_7_days') {
+        const next7Days = new Date(today);
+        next7Days.setDate(today.getDate() + 7);
+        return eventDate >= today && eventDate <= next7Days;
+      } else if (currentDateFilter === 'this_month') {
+        return eventDate.getMonth() === today.getMonth() && eventDate.getFullYear() === today.getFullYear();
+      } else if (currentDateFilter === 'custom' && currentCustomDate) {
+        const customParts = currentCustomDate.split('-');
+        if (customParts.length === 3) {
+          const customDateObj = new Date(customParts[0], customParts[1] - 1, customParts[2]);
+          customDateObj.setHours(0, 0, 0, 0);
+          return eventDate.getTime() === customDateObj.getTime();
+        }
+        return false;
+      }
+      return true;
+    });
+  }
+
   unifiedResults = [...eventsFiltered, ...allPlaces];
-  
-  // 4. Renderizar en el mapa (SOLO eventos NO pasados para no saturar)
-  // Nota: Los eventos que ya pasaron se excluyen del mapa, pero siguen en la lista si el filtro es 'all'
-  const eventsForMap = eventsFiltered.filter(e => !isEventPast(e));
-  renderMarkersForAll(eventsForMap);
-  
-  // 5. Renderizar en la lista
+  renderMarkersForAll();
   renderUnifiedList();
 }
 
@@ -1518,7 +1556,7 @@ function getCategoryKey(place) {
 }
 
 /* ============================================
-   MARCADORES - DISEÑO MINIMALISTA
+   MARCADORES - DISEÑO MINIMALISTA Y ELEGANTE
    ============================================ */
 function clearMarkers() {
   markers.forEach(m => { if (m._label) m._label.setMap(null); m.setMap(null); });
@@ -1543,22 +1581,31 @@ function createMarkerSVG(color) {
   };
 }
 
-function renderMarkersForAll(eventsForMap = []) {
-  eventsForMap.forEach(event => {
-    if (currentAudience !== 'all' && getAgeCategoryKey(event) !== currentAudience) return;
-    const ageCat = categorizeEventByAge(event);
-    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: event.title, payload: event, payloadType: 'event', id: event.id });
+function renderMarkersForAll() {
+  allEvents.forEach(event => {
+    // Ya no filtramos por audiencia aquí, porque applyFilters ya filtró unifiedResults.
+    // Pero para los marcadores, necesitamos renderizar solo los que pasaron los filtros.
+    // Sin embargo, renderMarkersForAll se llama DESPUÉS de applyFilters, y renderiza allEvents y allPlaces.
+    // Para que los marcadores coincidan con la lista, deberíamos iterar sobre unifiedResults.
+    
+    // Corrección: Iterar sobre unifiedResults para renderizar solo lo que está visible.
   });
-  allPlaces.forEach(place => {
-    if (!place.geometry?.location) return;
-    const cat = getPlaceCategory(place);
-    addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
+
+  // Mejor: renderizar basado en unifiedResults
+  unifiedResults.forEach(item => {
+    if (item.type === 'event') {
+      const ageCat = categorizeEventByAge(item);
+      addMarkerToMap({ lat: item.lat, lng: item.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: item.title, payload: item, payloadType: 'event', id: item.id });
+    } else {
+      if (!item.geometry?.location) return;
+      const cat = getPlaceCategory(item);
+      addMarkerToMap({ lat: item.geometry.location.lat(), lng: item.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, title: item.name, payload: item, payloadType: 'place', id: item.place_id });
+    }
   });
 }
 
 function addMarkerToMap({ lat, lng, icon, iconColor, title, payload, payloadType, id }) {
   const marker = new google.maps.Marker({ position: { lat, lng }, map, icon, title, animation: google.maps.Animation.DROP });
-  
   marker._payload = payload; marker._payloadType = payloadType;
   marker.addListener('click', () => {
     closeSubmenu();
@@ -1656,8 +1703,7 @@ function renderEventCard(event) {
   const srcTag = event.source === 'eventbrite'
     ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : '';
-  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; // Marcar visualmente eventos pasados
-  return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};${pastClass}">
+  return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};">
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
@@ -1675,7 +1721,7 @@ function renderUnifiedList() {
   }
   const audienceLabel = currentAudience === 'all' ? t('age_all') : tAge(currentAudience);
   const categoryLabel = currentCategory === 'all' ? tCat('all') : tCat(currentCategory);
-  const dateLabel = currentDateFilter === 'all' ? '' : ` · Filtro: ${currentDateFilter}`;
+  const dateLabel = currentDateFilter === 'all' ? '' : ` · ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
   const label = `${unifiedResults.length} resultados · ${audienceLabel} · ${categoryLabel}${dateLabel}`;
   container.innerHTML = `<div class="section-label">${label}</div>` + unifiedResults.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
 }
@@ -1722,6 +1768,46 @@ function renderSubmenuOptions(type, searchTerm) {
     
     bindSubmenuOptionEvents(type, options);
     
+  } else if (type === 'date') {
+    titleEl.textContent = t('dateFilterLabel');
+    iconEl.textContent = 'calendar_month';
+    
+    const dateOptions = [
+      { key: 'all', label: tDate('all'), icon: 'event_available' },
+      { key: 'today', label: tDate('today'), icon: 'today' },
+      { key: 'tomorrow', label: tDate('tomorrow'), icon: 'event' },
+      { key: 'this_weekend', label: tDate('this_weekend'), icon: 'weekend' },
+      { key: 'next_7_days', label: tDate('next_7_days'), icon: 'date_range' },
+      { key: 'this_month', label: tDate('this_month'), icon: 'calendar_month' }
+    ];
+    
+    let html = dateOptions.map((opt, i) => `
+      <button class="submenu-option ${currentDateFilter === opt.key ? 'active' : ''}" data-key="${opt.key}" style="--option-color:var(--primary);--option-bg:var(--primary-container);animation-delay:${i * 30}ms;">
+        <span class="ms">${opt.icon}</span><span>${opt.label}</span><span class="ms check">check</span>
+      </button>
+    `).join('');
+    
+    // Añadir separador para fecha personalizada
+    html += `<div class="submenu-group-label" style="margin-top:8px;"><span class="ms">edit_calendar</span>${tDate('custom')}</div>`;
+    html += `<div class="date-input-wrapper">
+      <input type="date" id="customDateInput" value="${currentCustomDate}" onchange="onCustomDateChange(this.value)">
+    </div>`;
+    
+    optionsContainer.innerHTML = html;
+    
+    // Bind events for the date options
+    optionsContainer.querySelectorAll('.submenu-option').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const key = btn.dataset.key;
+        setDateFilter(key);
+        closeSubmenu();
+      });
+    });
+
+    // Bind event for custom date input
+    // (Handled by onchange in HTML)
+
   } else if (type === 'category') {
     titleEl.textContent = t('categoriesLabel');
     iconEl.textContent = 'category';
@@ -1815,89 +1901,6 @@ function closeSubmenu() {
 }
 
 /* ============================================
-   FILTRO DE FECHAS (NUEVO)
-   ============================================ */
-function toggleDateFilterMenu(e) {
-  if (e) e.stopPropagation();
-  const submenu = document.getElementById('submenu');
-  const titleEl = document.getElementById('submenuTitle');
-  const iconEl = document.getElementById('submenuIcon');
-  const searchBox = document.getElementById('submenuSearchBox');
-  const optionsContainer = document.getElementById('submenuOptions');
-  
-  if (submenu.classList.contains('open') && currentSubmenuType === 'date') {
-    closeSubmenu();
-    return;
-  }
-  
-  currentSubmenuType = 'date';
-  titleEl.textContent = t('dateFilterLabel');
-  iconEl.textContent = 'calendar_month';
-  searchBox.style.display = 'none';
-  
-  const dates = [
-    { key: 'all', label: t('dateFilterAll'), icon: 'event_available' },
-    { key: 'today', label: t('dateFilterToday'), icon: 'today' },
-    { key: 'tomorrow', label: t('dateFilterTomorrow'), icon: 'event' },
-    { key: 'weekend', label: t('dateFilterWeekend'), icon: 'weekend' }
-  ];
-  
-  let html = dates.map((d, i) => `
-    <button class="submenu-option ${currentDateFilter === d.key ? 'active' : ''}" data-key="${d.key}" style="--option-color:var(--primary);--option-bg:var(--primary-container);animation-delay:${i * 30}ms;">
-      <span class="ms">${d.icon}</span><span>${d.label}</span><span class="ms check">check</span>
-    </button>
-  `).join('');
-  
-  // Agregar selector de fecha personalizado
-  html += `<div class="date-input-wrapper">
-    <label>${t('dateFilterCustom')}</label>
-    <input type="date" id="customDateInput" value="${currentCustomDate}" onchange="applyCustomDate(this.value)">
-  </div>`;
-  
-  if (currentDateFilter !== 'all') {
-    html += `<button class="date-clear-btn" onclick="clearDateFilter()">${t('dateFilterClear')}</button>`;
-  }
-  
-  optionsContainer.innerHTML = html;
-  
-  optionsContainer.querySelectorAll('.submenu-option').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      setDateFilter(btn.dataset.key);
-      closeSubmenu();
-    });
-  });
-  
-  submenu.classList.add('open');
-}
-
-function setDateFilter(filter) {
-  currentDateFilter = filter;
-  if (filter !== 'custom') currentCustomDate = '';
-  applyFilters();
-  const icon = currentDateFilter === 'all' ? 'tune' : 'event_available';
-  showToast('calendar_month', currentDateFilter === 'all' ? 'Mostrando todos los eventos' : `Filtrando por: ${currentDateFilter}`);
-  if (!isDesktop() && isSidebarOpen()) closeSidebar();
-}
-
-function applyCustomDate(dateStr) {
-  if (!dateStr) return;
-  currentDateFilter = 'custom';
-  currentCustomDate = dateStr;
-  applyFilters();
-  showToast('calendar_month', `Filtrando por: ${dateStr}`);
-  closeSubmenu();
-}
-
-function clearDateFilter() {
-  currentDateFilter = 'all';
-  currentCustomDate = '';
-  applyFilters();
-  showToast('calendar_month', 'Filtro de fecha eliminado');
-  closeSubmenu();
-}
-
-/* ============================================
    BOTONES DE CATEGORÍA
    ============================================ */
 function renderMainCategories() {
@@ -1948,6 +1951,23 @@ function setCategory(cat) {
   showToast(CATEGORIES[cat].icon, tCat(cat));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
 }
+function setDateFilter(key) {
+  currentDateFilter = key;
+  if (key !== 'custom') {
+    currentCustomDate = ''; // Limpiar fecha personalizada si se elige otra opción
+  }
+  applyFilters();
+  showToast('calendar_month', tDate(key));
+  if (!isDesktop() && isSidebarOpen()) closeSidebar();
+}
+function onCustomDateChange(val) {
+  currentCustomDate = val;
+  currentDateFilter = 'custom';
+  applyFilters();
+  showToast('calendar_month', `${tDate('custom')}: ${val}`);
+  // No cerramos el submenú para permitir ajustes
+}
+
 function manualRefresh() {
   if (isManualRefreshing) return;
   isManualRefreshing = true;
@@ -1994,9 +2014,12 @@ function updateOverlay() {
 function handleOverlayClick() { closeSidebar(); closeSubmenu(); }
 
 /* ============================================
-   MENÚ DE OPCIONES
+   MENÚ DE OPCIONES (AHORA FILTRO DE FECHA)
    ============================================ */
-// Reemplazado por toggleDateFilterMenu
+function toggleOptionsMenu(e) {
+  if (e) e.stopPropagation();
+  openSubmenu('date');
+}
 
 /* ============================================
    PREFERENCIAS
