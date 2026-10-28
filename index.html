@@ -304,7 +304,31 @@
     display: flex; flex-direction: column; align-items: center; gap: 6px;
   }
   .submenu-empty .ms { font-size: 36px; color: var(--outline-strong); }
-  
+
+  /* ESTILOS PARA EL FILTRO DE FECHAS */
+  .date-input-wrapper {
+    display: flex; flex-direction: column; gap: 8px; padding: 8px;
+  }
+  .date-input-wrapper label {
+    font-size: 12px; font-weight: 700; color: var(--text-2);
+  }
+  .date-input-wrapper input[type="date"] {
+    width: 100%; height: 44px; padding: 0 12px;
+    border-radius: var(--r-sm); border: 1px solid var(--outline);
+    background: var(--surface-2); color: var(--text);
+    font-family: inherit; font-size: 14px;
+  }
+  .date-input-wrapper input[type="date"]:focus {
+    outline: none; border-color: var(--primary);
+  }
+  .date-clear-btn {
+    margin-top: 8px; width: 100%; padding: 10px;
+    border: none; border-radius: var(--r-sm);
+    background: var(--surface-3); color: var(--text);
+    font-weight: 600; cursor: pointer;
+  }
+  .date-clear-btn:hover { background: var(--outline-strong); }
+
   .sidebar {
     position: absolute; top: 0; left: 0;
     width: 400px; height: 100%;
@@ -318,6 +342,21 @@
     border-right: 1px solid var(--outline);
   }
   .sidebar.open { transform: translateX(0); }
+
+  /* NUEVO PANEL ESCAPADITAS (DERECHA) */
+  .sidebar-right {
+    position: absolute; top: 0; right: 0;
+    width: 400px; height: 100%;
+    background: var(--surface);
+    box-shadow: var(--shadow-4);
+    z-index: var(--z-sidebar);
+    transform: translateX(100%);
+    transition: transform .4s var(--ease-emphasized), background .3s;
+    display: flex; flex-direction: column;
+    padding-top: var(--safe-top);
+    border-left: 1px solid var(--outline);
+  }
+  .sidebar-right.open { transform: translateX(0); }
   
   .sidebar-top {
     padding: 24px 24px 16px;
@@ -584,6 +623,7 @@
     .search-pill span { font-size: 14px; }
     .icon-btn { width: 52px; height: 52px; }
     .sidebar { width: 92%; max-width: 400px; }
+    .sidebar-right { width: 92%; max-width: 400px; }
     .install-banner { width: calc(100% - 32px); }
     .event-photo { width: 88px; height: 88px; }
     .splash-greeting { font-size: 26px; }
@@ -594,50 +634,34 @@
   
   @media (min-width: 768px) and (max-width: 1199px) {
     .sidebar { width: 420px; }
+    .sidebar-right { width: 420px; }
     .install-banner { width: 480px; }
   }
   
   @media (min-width: 1200px) {
     .sidebar { transform: translateX(0); }
+    .sidebar-right { transform: translateX(0); } /* En desktop, Escapaditas también se abre por defecto si se desea, pero lo controlamos con JS */
     body:not(.sidebar-closed) .header { left: 416px; }
     body.sidebar-closed .header { left: 16px; }
     body.sidebar-closed .sidebar { transform: translateX(-100%); }
+    
+    body:not(.escapaditas-closed) .sidebar-right { transform: translateX(0); }
+    body.escapaditas-closed .sidebar-right { transform: translateX(100%); }
+    
     .header { left: 416px; transition: left .4s var(--ease-emphasized); }
+    /* Ajuste para cuando ambas están abiertas */
+    body:not(.sidebar-closed):not(.escapaditas-closed) .header {
+      left: 416px;
+      right: 416px;
+    }
   }
   
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   }
-
-  /* Estilos específicos para el input de fecha */
-  .date-input-wrapper {
-    padding: 8px 4px;
-    margin-top: 4px;
-  }
-  .date-input-wrapper input[type="date"] {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: var(--r-sm);
-    border: 1px solid var(--outline);
-    background: var(--surface-2);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    outline: none;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .date-input-wrapper input[type="date"]:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-    background: var(--surface);
-  }
-  html[data-theme="dark"] .date-input-wrapper input[type="date"] {
-    color-scheme: dark;
-  }
 </style>
 </head>
-<body>
+<body class="escapaditas-closed">
 
 <div class="splash" id="splash">
   <div class="splash-logo">
@@ -656,6 +680,7 @@
 
 <div class="overlay" id="overlay" onclick="handleOverlayClick()"></div>
 
+<!-- SIDEBAR IZQUIERDO (RESULTADOS) -->
 <aside class="sidebar" id="sidebar" aria-label="Panel de resultados">
   <div class="sidebar-top">
     <div class="brand">
@@ -682,6 +707,35 @@
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
+<!-- NUEVO SIDEBAR DERECHO (ESCAPADITAS) -->
+<aside class="sidebar-right" id="sidebarRight" aria-label="Panel de Escapaditas">
+  <div class="sidebar-top">
+    <div class="brand">
+      <div class="brand-logo" style="background: linear-gradient(135deg, var(--accent), var(--secondary));"><span class="ms fill">luggage</span></div>
+      <div class="brand-text">
+        <h1>Escapaditas</h1>
+        <p>Eventos a 3 horas a la redonda</p>
+      </div>
+      <button class="close-btn" onclick="closeEscapaditas()" aria-label="Cerrar panel"><span class="ms">close</span></button>
+    </div>
+    <div class="search-field">
+      <span class="ms">my_location</span>
+      <input type="text" id="escapaditasLocationInput" placeholder="Usando tu ubicación actual..." readonly>
+    </div>
+    <button class="gps-button" onclick="updateEscapaditasLocation()" id="gpsButtonEscapaditas" style="background: linear-gradient(135deg, var(--accent) 0%, #BE185D 100%);">
+      <span class="ms fill">explore</span>
+      <span>Actualizar ubicación</span>
+    </button>
+  </div>
+  <div class="events-scroll" id="sidebarEscapaditasEvents">
+    <div class="empty-state">
+      <span class="ms">travel_explore</span>
+      <h3>Buscando escapaditas...</h3>
+      <p>Toca "Actualizar ubicación" para encontrar eventos cerca de ti.</p>
+    </div>
+  </div>
+</aside>
+
 <div id="map" role="application" aria-label="Mapa de lugares"></div>
 
 <header class="header" id="header">
@@ -691,6 +745,10 @@
     <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar tema" id="themeBtn"><span class="ms" id="themeIcon">dark_mode</span></button>
     <button class="icon-btn" onclick="manualRefresh()" aria-label="Actualizar resultados" id="refreshBtn" title="Actualizar resultados"><span class="ms">refresh</span></button>
     <button class="icon-btn" onclick="toggleOptionsMenu(event)" aria-label="Filtrar por fecha" id="optionsBtn"><span class="ms">tune</span></button>
+    <!-- BOTÓN ESCAPADITAS -->
+    <button class="icon-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" id="escapaditasBtn" style="background: var(--accent); color: white; border-color: var(--accent);">
+      <span class="ms fill">luggage</span>
+    </button>
   </div>
 </header>
 
@@ -886,6 +944,9 @@ const TRANSLATIONS = {
     },
     dateSelected: 'Fecha seleccionada',
     clearDateFilter: 'Limpiar filtro de fecha',
+    escapaditas: 'Escapaditas',
+    escapaditasHint: 'Eventos a 3 horas a la redonda de tu ubicación actual.',
+    updateLocation: 'Actualizar ubicación',
     categories: {
       all: 'Todas',
       museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Bibliotecas', tourist_attraction: 'Atracciones',
@@ -923,6 +984,9 @@ const TRANSLATIONS = {
     },
     dateSelected: 'Date selected',
     clearDateFilter: 'Clear date filter',
+    escapaditas: 'Escapaditas',
+    escapaditasHint: 'Events within 3 hours driving distance from your current location.',
+    updateLocation: 'Update location',
     categories: {
       all: 'All',
       museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', tourist_attraction: 'Attractions',
@@ -960,6 +1024,9 @@ const TRANSLATIONS = {
     },
     dateSelected: 'Date sélectionnée',
     clearDateFilter: 'Effacer le filtre de date',
+    escapaditas: 'Escapaditas',
+    escapaditasHint: 'Événements à moins de 3 heures de route de votre position actuelle.',
+    updateLocation: 'Mettre à jour la position',
     categories: {
       all: 'Toutes',
       museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', tourist_attraction: 'Attractions',
@@ -997,6 +1064,9 @@ const TRANSLATIONS = {
     },
     dateSelected: 'Data selecionada',
     clearDateFilter: 'Limpar filtro de data',
+    escapaditas: 'Escapaditas',
+    escapaditasHint: 'Eventos a menos de 3 horas de carro da sua localização atual.',
+    updateLocation: 'Atualizar localização',
     categories: {
       all: 'Todas',
       museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', tourist_attraction: 'Atrações',
@@ -1034,6 +1104,9 @@ const TRANSLATIONS = {
     },
     dateSelected: 'Datum ausgewählt',
     clearDateFilter: 'Datumsfilter löschen',
+    escapaditas: 'Escapaditas',
+    escapaditasHint: 'Veranstaltungen im Umkreis von 3 Fahrstunden von Ihrem aktuellen Standort.',
+    updateLocation: 'Standort aktualisieren',
     categories: {
       all: 'Alle',
       museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', tourist_attraction: 'Attraktionen',
@@ -1050,8 +1123,8 @@ let map, markers = [], infoWindow, placesService;
 let userMarker = null, watchId = null, isTracking = false;
 let currentCategory = 'museum';
 let currentAudience = 'all';
-let currentDateFilter = 'all'; // Nuevo filtro de fecha
-let currentCustomDate = ''; // Para fecha personalizada
+let currentDateFilter = 'all'; 
+let currentCustomDate = ''; 
 let currentSearch = '';
 let currentLang = 'es';
 let currentTheme = 'light';
@@ -1062,14 +1135,18 @@ let deferredPrompt = null;
 let isPWAInstalled = false;
 let isManualRefreshing = false;
 let currentSubmenuType = null;
+let escapaditasEvents = []; // Almacena eventos de escapaditas
+let escapaditasLocation = null; // Ubicación actual para escapaditas
 
-// Variables para el debounce del mapa (evitar lag)
 let mapIdleTimer = null;
-const MAP_IDLE_DELAY = 400; // ms de espera después de mover/hacer zoom
+const MAP_IDLE_DELAY = 400;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
 const TICKETMASTER_RADIUS_KM = 25;
+// Radio aproximado para 3 horas de camino (asumiendo 80-100 km/h en promedio -> ~240-300 km)
+// Para la API de Google Places, usaremos 250,000 metros (250 km)
+const ESCAPADITAS_RADIUS_METERS = 250000;
 
 const MAP_STYLES = {
   light: [
@@ -1138,6 +1215,14 @@ function categorizeEventByAge(event) {
 function getAgeCategoryKey(event) {
   const cat = categorizeEventByAge(event);
   return Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat) || 'all';
+}
+
+// NUEVA FUNCIÓN: Verifica si un evento ya pasó (basado en fecha)
+function isEventPast(event) {
+  if (!event.date) return false; 
+  const eventDate = new Date(event.date + 'T23:59:59'); 
+  const now = new Date();
+  return eventDate < now;
 }
 
 function detectBrowserLanguage() {
@@ -1267,18 +1352,18 @@ window.initMap = function() {
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
 
-  // Eventos del mapa con DEBOUNCE para evitar lag
   map.addListener('click', () => {
     closeSubmenu();
     if (infoWindow) infoWindow.close();
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
+    if (!isDesktop() && isEscapaditasOpen()) closeEscapaditas();
   });
 
-  // Debounce en dragend y zoom_changed para evitar lentitud
   map.addListener('dragend', () => {
     if (infoWindow) infoWindow.close();
     closeSubmenu();
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
+    if (!isDesktop() && isEscapaditasOpen()) closeEscapaditas();
     scheduleMapIdleUpdate();
   });
 
@@ -1296,27 +1381,17 @@ window.initMap = function() {
   setTimeout(hideSplash, 2500);
 };
 
-// Función que espera a que el usuario deje de mover/hacer zoom para actualizar
 function scheduleMapIdleUpdate() {
   if (mapIdleTimer) clearTimeout(mapIdleTimer);
   mapIdleTimer = setTimeout(() => {
     console.log('🔍 Mapa inactivo, actualizando marcadores...');
     if (infoWindow) infoWindow.close();
-    // Refrescar marcadores sin borrar los existentes (actualización ligera)
     updateMarkersOnMap();
   }, MAP_IDLE_DELAY);
 }
 
-// Actualiza los marcadores basados en la vista actual del mapa
 function updateMarkersOnMap() {
-  if (allPlaces.length === 0 && allEvents.length === 0) return;
-  
-  const bounds = map.getBounds();
-  if (!bounds) return;
-  
-  // Aquí podrías filtrar qué eventos mostrar según el viewport,
-  // pero para no eliminar marcadores, simplemente re-renderizamos
-  // los que ya están visibles. 
+  if (allPlaces.length === 0 && allEvents.length === 0 && escapaditasEvents.length === 0) return;
 }
 
 function hideSplash() {
@@ -1330,7 +1405,7 @@ function hideSplash() {
 }
 
 /* ============================================
-   BÚSQUEDA
+   BÚSQUEDA PRINCIPAL
    ============================================ */
 async function searchEverything() {
   lastSearchTime = Date.now();
@@ -1356,57 +1431,45 @@ async function searchEverything() {
 function applyFilters() {
   let eventsFiltered = allEvents;
   
-  // Filtro por audiencia
-  if (currentAudience !== 'all') {
-    eventsFiltered = eventsFiltered.filter(e => getAgeCategoryKey(e) === currentAudience);
-  }
-
-  // Filtro por fecha
+  // 1. Filtrar por fecha (si aplica)
   if (currentDateFilter !== 'all') {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
     eventsFiltered = eventsFiltered.filter(e => {
-      if (!e.date) return false; // Si no tiene fecha, no se puede filtrar
-      
-      // Parsear la fecha del evento (asumiendo formato YYYY-MM-DD)
+      if (!e.date) return false;
       const parts = e.date.split('-');
       if (parts.length !== 3) return false;
       const eventDate = new Date(parts[0], parts[1] - 1, parts[2]);
       eventDate.setHours(0, 0, 0, 0);
 
-      if (currentDateFilter === 'today') {
-        return eventDate.getTime() === today.getTime();
-      } else if (currentDateFilter === 'tomorrow') {
+      if (currentDateFilter === 'today') return eventDate.getTime() === today.getTime();
+      if (currentDateFilter === 'tomorrow') {
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
         return eventDate.getTime() === tomorrow.getTime();
-      } else if (currentDateFilter === 'this_weekend') {
-        const dayOfWeek = today.getDay(); // 0 = Domingo, 6 = Sábado
+      }
+      if (currentDateFilter === 'this_weekend') {
+        const dayOfWeek = today.getDay();
         const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
         const thisSaturday = new Date(today);
         thisSaturday.setDate(today.getDate() + daysUntilSaturday);
+        const thisSunday = new Date(thisSaturday);
+        thisSunday.setDate(thisSaturday.getDate() + 1);
         
-        // Si hoy es sábado o domingo, incluirlo
-        if (dayOfWeek === 0) { // Domingo
-           const thisSunday = new Date(today);
-           return eventDate.getTime() === thisSunday.getTime();
-        } else if (dayOfWeek === 6) { // Sábado
-           const thisSunday = new Date(today);
-           thisSunday.setDate(today.getDate() + 1);
-           return eventDate.getTime() === today.getTime() || eventDate.getTime() === thisSunday.getTime();
-        } else {
-           const thisSunday = new Date(thisSaturday);
-           thisSunday.setDate(thisSaturday.getDate() + 1);
-           return eventDate.getTime() === thisSaturday.getTime() || eventDate.getTime() === thisSunday.getTime();
-        }
-      } else if (currentDateFilter === 'next_7_days') {
+        if (dayOfWeek === 0) return eventDate.getTime() === today.getTime();
+        if (dayOfWeek === 6) return eventDate.getTime() === today.getTime() || eventDate.getTime() === thisSunday.getTime();
+        return eventDate.getTime() === thisSaturday.getTime() || eventDate.getTime() === thisSunday.getTime();
+      }
+      if (currentDateFilter === 'next_7_days') {
         const next7Days = new Date(today);
         next7Days.setDate(today.getDate() + 7);
         return eventDate >= today && eventDate <= next7Days;
-      } else if (currentDateFilter === 'this_month') {
+      }
+      if (currentDateFilter === 'this_month') {
         return eventDate.getMonth() === today.getMonth() && eventDate.getFullYear() === today.getFullYear();
-      } else if (currentDateFilter === 'custom' && currentCustomDate) {
+      }
+      if (currentDateFilter === 'custom' && currentCustomDate) {
         const customParts = currentCustomDate.split('-');
         if (customParts.length === 3) {
           const customDateObj = new Date(customParts[0], customParts[1] - 1, customParts[2]);
@@ -1419,8 +1482,25 @@ function applyFilters() {
     });
   }
 
-  unifiedResults = [...eventsFiltered, ...allPlaces];
-  renderMarkersForAll();
+  // 2. Filtrar por audiencia
+  if (currentAudience !== 'all') {
+    eventsFiltered = eventsFiltered.filter(e => getAgeCategoryKey(e) === currentAudience);
+  }
+
+  // 3. REGLA DE ORO: Eliminar eventos pasados de la lista principal y del mapa
+  //    Esto asegura que la app siempre muestre información vigente.
+  //    Si el filtro es 'custom' y el usuario elige una fecha pasada, podríamos permitirlo,
+  //    pero por defecto, los eventos vencidos se ocultan.
+  const eventsForList = eventsFiltered.filter(e => !isEventPast(e) || (currentDateFilter === 'custom' && currentCustomDate));
+  
+  // 4. Unificar resultados (eventos vigentes + lugares)
+  unifiedResults = [...eventsForList, ...allPlaces];
+  
+  // 5. Renderizar en el mapa (SOLO eventos vigentes para no saturar)
+  const eventsForMap = eventsForList.filter(e => !isEventPast(e));
+  renderMarkersForAll(eventsForMap);
+  
+  // 6. Renderizar en la lista
   renderUnifiedList();
 }
 
@@ -1428,7 +1508,7 @@ function updateBadges() {
   Object.keys(AGE_CATEGORIES).forEach(key => {
     const badge = document.querySelector(`.cat-btn[data-audience="${key}"] .badge`);
     if (badge) {
-      let count = key === 'all' ? allEvents.length : allEvents.filter(e => getAgeCategoryKey(e) === key).length;
+      let count = key === 'all' ? allEvents.filter(e => !isEventPast(e)).length : allEvents.filter(e => getAgeCategoryKey(e) === key && !isEventPast(e)).length;
       badge.textContent = count;
       badge.classList.toggle('show', count > 0);
     }
@@ -1436,7 +1516,7 @@ function updateBadges() {
 }
 
 /* ============================================
-   BÚSQUEDA DE LUGARES
+   BÚSQUEDA DE LUGARES (Principal)
    ============================================ */
 function searchPlacesPromise() {
   return new Promise(async (resolve) => {
@@ -1556,7 +1636,7 @@ function getCategoryKey(place) {
 }
 
 /* ============================================
-   MARCADORES - DISEÑO MINIMALISTA Y ELEGANTE
+   MARCADORES
    ============================================ */
 function clearMarkers() {
   markers.forEach(m => { if (m._label) m._label.setMap(null); m.setMap(null); });
@@ -1581,31 +1661,31 @@ function createMarkerSVG(color) {
   };
 }
 
-function renderMarkersForAll() {
-  allEvents.forEach(event => {
-    // Ya no filtramos por audiencia aquí, porque applyFilters ya filtró unifiedResults.
-    // Pero para los marcadores, necesitamos renderizar solo los que pasaron los filtros.
-    // Sin embargo, renderMarkersForAll se llama DESPUÉS de applyFilters, y renderiza allEvents y allPlaces.
-    // Para que los marcadores coincidan con la lista, deberíamos iterar sobre unifiedResults.
-    
-    // Corrección: Iterar sobre unifiedResults para renderizar solo lo que está visible.
+function renderMarkersForAll(eventsForMap = []) {
+  // Limpiar marcadores anteriores y renderizar los nuevos
+  clearMarkers();
+  
+  eventsForMap.forEach(event => {
+    if (currentAudience !== 'all' && getAgeCategoryKey(event) !== currentAudience) return;
+    const ageCat = categorizeEventByAge(event);
+    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: event.title, payload: event, payloadType: 'event', id: event.id });
+  });
+  allPlaces.forEach(place => {
+    if (!place.geometry?.location) return;
+    const cat = getPlaceCategory(place);
+    addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
 
-  // Mejor: renderizar basado en unifiedResults
-  unifiedResults.forEach(item => {
-    if (item.type === 'event') {
-      const ageCat = categorizeEventByAge(item);
-      addMarkerToMap({ lat: item.lat, lng: item.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: item.title, payload: item, payloadType: 'event', id: item.id });
-    } else {
-      if (!item.geometry?.location) return;
-      const cat = getPlaceCategory(item);
-      addMarkerToMap({ lat: item.geometry.location.lat(), lng: item.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, title: item.name, payload: item, payloadType: 'place', id: item.place_id });
-    }
+  // También renderizar los eventos de escapaditas si están cargados
+  escapaditasEvents.forEach(event => {
+    const ageCat = categorizeEventByAge(event);
+    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
 }
 
 function addMarkerToMap({ lat, lng, icon, iconColor, title, payload, payloadType, id }) {
   const marker = new google.maps.Marker({ position: { lat, lng }, map, icon, title, animation: google.maps.Animation.DROP });
+  
   marker._payload = payload; marker._payloadType = payloadType;
   marker.addListener('click', () => {
     closeSubmenu();
@@ -1703,7 +1783,8 @@ function renderEventCard(event) {
   const srcTag = event.source === 'eventbrite'
     ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : '';
-  return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};">
+  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; // Marcar visualmente eventos pasados
+  return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};${pastClass}">
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
@@ -1787,7 +1868,6 @@ function renderSubmenuOptions(type, searchTerm) {
       </button>
     `).join('');
     
-    // Añadir separador para fecha personalizada
     html += `<div class="submenu-group-label" style="margin-top:8px;"><span class="ms">edit_calendar</span>${tDate('custom')}</div>`;
     html += `<div class="date-input-wrapper">
       <input type="date" id="customDateInput" value="${currentCustomDate}" onchange="onCustomDateChange(this.value)">
@@ -1795,7 +1875,6 @@ function renderSubmenuOptions(type, searchTerm) {
     
     optionsContainer.innerHTML = html;
     
-    // Bind events for the date options
     optionsContainer.querySelectorAll('.submenu-option').forEach((btn) => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -1804,9 +1883,6 @@ function renderSubmenuOptions(type, searchTerm) {
         closeSubmenu();
       });
     });
-
-    // Bind event for custom date input
-    // (Handled by onchange in HTML)
 
   } else if (type === 'category') {
     titleEl.textContent = t('categoriesLabel');
@@ -1927,6 +2003,7 @@ function focusPlace(id) {
     map.setZoom(16);
     setTimeout(() => google.maps.event.trigger(marker, 'click'), 500);
     if (!isDesktop()) closeSidebar();
+    if (!isDesktop()) closeEscapaditas();
   }
 }
 function setAudience(audience) {
@@ -1954,7 +2031,7 @@ function setCategory(cat) {
 function setDateFilter(key) {
   currentDateFilter = key;
   if (key !== 'custom') {
-    currentCustomDate = ''; // Limpiar fecha personalizada si se elige otra opción
+    currentCustomDate = ''; 
   }
   applyFilters();
   showToast('calendar_month', tDate(key));
@@ -1965,7 +2042,6 @@ function onCustomDateChange(val) {
   currentDateFilter = 'custom';
   applyFilters();
   showToast('calendar_month', `${tDate('custom')}: ${val}`);
-  // No cerramos el submenú para permitir ajustes
 }
 
 function manualRefresh() {
@@ -1986,10 +2062,11 @@ function manualRefresh() {
 }
 
 /* ============================================
-   SIDEBAR
+   SIDEBAR Y ESCAPADITAS
    ============================================ */
 function isDesktop() { return window.innerWidth >= 1200; }
 function isSidebarOpen() { return document.getElementById('sidebar').classList.contains('open'); }
+function isEscapaditasOpen() { return document.getElementById('sidebarRight').classList.contains('open'); }
 
 function updateSidebarState() {
   const sidebar = document.getElementById('sidebar'), menuIcon = document.getElementById('menuIcon');
@@ -2007,14 +2084,208 @@ function toggleSidebar() {
 function openSidebar() { document.getElementById('sidebar').classList.add('open'); updateSidebarState(); updateOverlay(); }
 function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); updateSidebarState(); updateOverlay(); }
 
+// FUNCIONES ESCAPADITAS
+function toggleEscapaditas() {
+  if (isDesktop()) {
+    document.body.classList.toggle('escapaditas-closed');
+    document.getElementById('sidebarRight').classList.toggle('open');
+  } else {
+    if (isEscapaditasOpen()) closeEscapaditas();
+    else openEscapaditas();
+  }
+}
+function openEscapaditas() {
+  document.getElementById('sidebarRight').classList.add('open');
+  document.body.classList.remove('escapaditas-closed');
+  updateOverlay();
+  // Auto-actualizar ubicación al abrir
+  updateEscapaditasLocation();
+}
+function closeEscapaditas() {
+  document.getElementById('sidebarRight').classList.remove('open');
+  document.body.classList.add('escapaditas-closed');
+  updateOverlay();
+}
+
 function updateOverlay() {
   const sidebarOpen = isSidebarOpen() && !isDesktop();
-  document.getElementById('overlay').classList.toggle('show', sidebarOpen);
+  const escapaditasOpen = isEscapaditasOpen() && !isDesktop();
+  document.getElementById('overlay').classList.toggle('show', sidebarOpen || escapaditasOpen);
 }
-function handleOverlayClick() { closeSidebar(); closeSubmenu(); }
+function handleOverlayClick() { closeSidebar(); closeEscapaditas(); closeSubmenu(); }
 
 /* ============================================
-   MENÚ DE OPCIONES (AHORA FILTRO DE FECHA)
+   LÓGICA DE ESCAPADITAS (GEOLOCALIZACIÓN + BÚSQUEDA)
+   ============================================ */
+function updateEscapaditasLocation() {
+  const input = document.getElementById('escapaditasLocationInput');
+  input.value = 'Obteniendo ubicación...';
+  input.placeholder = 'Obteniendo ubicación...';
+
+  if (!navigator.geolocation) {
+    showToast('error', t('geoNotAvailable'));
+    input.value = 'Geolocalización no disponible';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      escapaditasLocation = loc;
+      input.value = `Lat: ${loc.lat.toFixed(4)}, Lng: ${loc.lng.toFixed(4)}`;
+      showToast('location_on', 'Ubicación actualizada');
+      
+      // Mover el mapa a la ubicación actual (opcional, pero útil para contexto)
+      map.panTo(loc);
+      map.setZoom(10);
+      
+      // Buscar eventos en un radio de 3 horas
+      searchEscapaditas(loc);
+    },
+    (err) => {
+      console.error('Error obteniendo ubicación:', err);
+      showToast('error', 'No se pudo obtener la ubicación. Usando GDL por defecto.');
+      input.value = 'Usando Guadalajara por defecto';
+      // Fallback a GDL
+      escapaditasLocation = GDL_CENTER;
+      searchEscapaditas(GDL_CENTER);
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+}
+
+async function searchEscapaditas(location) {
+  const container = document.getElementById('sidebarEscapaditasEvents');
+  container.innerHTML = `<div class="empty-state"><span class="ms">travel_explore</span><h3>Buscando escapaditas...</h3><p>Explorando eventos en un radio de 3 horas.</p></div>`;
+
+  try {
+    // Buscar eventos usando Ticketmaster y Google Places (simulando eventos)
+    const [tmRes, placesRes] = await Promise.allSettled([
+      searchTicketmasterEscapaditas(location),
+      searchPlacesEscapaditas(location)
+    ]);
+
+    let events = [];
+    if (tmRes.status === 'fulfilled') events = events.concat(tmRes.value || []);
+    if (placesRes.status === 'fulfilled') events = events.concat(placesRes.value || []);
+
+    // Filtrar eventos pasados y duplicados
+    events = deduplicateEvents(events).filter(e => !isEventPast(e));
+
+    escapaditasEvents = events;
+
+    if (events.length === 0) {
+      container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>Sin escapaditas cercanas</h3><p>No encontramos eventos en este radio. Intenta actualizar la ubicación o mover el mapa.</p></div>`;
+      return;
+    }
+
+    // Renderizar lista
+    container.innerHTML = `<div class="section-label">${events.length} escapaditas encontradas</div>` + 
+      events.map(item => renderEventCard(item)).join('');
+
+    // Renderizar marcadores en el mapa (ya se hace en renderMarkersForAll, pero forzamos actualización)
+    renderMarkersForAll(events.filter(e => !isEventPast(e))); // Solo eventos vigentes en el mapa
+
+    showToast('check_circle', `${events.length} escapaditas encontradas`);
+
+  } catch (err) {
+    console.error('Error buscando escapaditas:', err);
+    container.innerHTML = `<div class="empty-state"><span class="ms">error</span><h3>Error al buscar</h3><p>Intenta de nuevo más tarde.</p></div>`;
+  }
+}
+
+// Ticketmaster para Escapaditas (radio grande)
+function searchTicketmasterEscapaditas(location) {
+  return new Promise(async (resolve) => {
+    try {
+      // Radio de 250 km (aprox 3 horas)
+      const radiusKm = 250; 
+      const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEYS.ticketmaster}&latlong=${location.lat},${location.lng}&radius=${radiusKm}&unit=km&size=50&sort=date,asc&locale=${currentLang === 'es' ? 'es' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'en-us'}`;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+      const data = await response.json();
+      const events = (data._embedded?.events || []).map(e => {
+        const venue = e._embedded?.venues?.[0] || {}, loc = venue.location || {};
+        const lat = parseFloat(loc.latitude), lng = parseFloat(loc.longitude);
+        if (!lat || !lng) return null;
+        return { id: 'tm_esc_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento', date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '', venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url, description: e.info || e.pleaseNote || '', image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
+      }).filter(Boolean);
+      resolve(events);
+    } catch (err) { resolve([]); }
+  });
+}
+
+// Google Places para Escapaditas (radio grande)
+function searchPlacesEscapaditas(location) {
+  return new Promise((resolve) => {
+    if (!placesService || !placesApiAvailable) return resolve([]);
+    
+    // Buscar lugares turísticos y culturales en un radio grande
+    const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'park', 'zoo', 'aquarium', 'stadium'];
+    const promises = typesToFetch.map(type => {
+      return new Promise((res) => {
+        const request = { 
+          location: new google.maps.LatLng(location.lat, location.lng), 
+          radius: ESCAPADITAS_RADIUS_METERS, 
+          type: type 
+        };
+        const timeout = setTimeout(() => res([]), 10000);
+        try {
+          placesService.nearbySearch(request, (results, status) => {
+            clearTimeout(timeout);
+            if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+              // Convertir lugares a formato evento "simulado" para la lista
+              const placesAsEvents = results.map(p => ({
+                id: 'place_esc_' + p.place_id,
+                type: 'place', // Mantenemos el tipo place para renderizar con renderGoogleCard
+                source: 'google',
+                title: p.name,
+                date: '', // Los lugares no tienen fecha
+                time: '',
+                venue: p.vicinity || '',
+                city: '',
+                lat: p.geometry.location.lat(),
+                lng: p.geometry.location.lng(),
+                url: '',
+                description: '',
+                image: p.photos && p.photos.length > 0 ? p.photos[0].getUrl({ maxWidth: 200 }) : '',
+                // Metadatos extra para renderGoogleCard
+                _isPlace: true,
+                rating: p.rating,
+                user_ratings_total: p.user_ratings_total,
+                place_id: p.place_id,
+                photos: p.photos,
+                vicinity: p.vicinity,
+                types: p.types,
+                _searchType: type
+              }));
+              res(placesAsEvents);
+            } else {
+              res([]);
+            }
+          });
+        } catch (err) { clearTimeout(timeout); res([]); }
+      });
+    });
+
+    Promise.all(promises).then(allResults => {
+      const flat = allResults.flat();
+      // Deduplicar por place_id
+      const seen = new Set();
+      const unique = flat.filter(p => {
+        if (!p.place_id || seen.has(p.place_id)) return false;
+        seen.add(p.place_id);
+        return true;
+      });
+      resolve(unique);
+    });
+  });
+}
+
+/* ============================================
+   MENÚ DE OPCIONES (FILTRO DE FECHA)
    ============================================ */
 function toggleOptionsMenu(e) {
   if (e) e.stopPropagation();
