@@ -13004,4 +13004,341 @@
     "start_datetime": "2026-11-07T10:00:00"
   }
 ]
-
+[
+  {
+    "start_date": "2026-10-29",
+    "end_date": "2026-10-30",
+    "name": "Festival del Pan de Muerto 2026 - Sede Casa Rosa Luis Barragán",
+    "tickets_by": "Feria de Productores",
+    "image_id": null,
+    "series_id": "feria_pan_muerto_2026_casa_rosa",
+    "language": "es-mx",
+    "eventbrite_event_id": null,
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "50.00 MXN",
+        "major_value": "50.00",
+        "currency": "MXN",
+        "value": 5000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "50.00 MXN",
+        "major_value": "50.00",
+        "currency": "MXN",
+        "value": 5000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "external",
+    "id": "pan_muerto_2026_01",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+        "small": "https://www.feriamx.com/images/pan_de_muerto_sm.jpg",
+        "medium": "https://www.feriamx.com/images/pan_de_muerto_md.jpg"
+      },
+      "id": "img_pan_muerto_2026",
+      "edge_color": "#d97736",
+      "url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "16:00",
+    "end_time": "21:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Casa Rosa Luis Barragán",
+      "id": "venue_casa_rosa_barragan",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.3892",
+        "localized_multi_line_address_display": [
+          "Av. de las Rosas #543, Chapalita Sur",
+          "Zapopan, JAL 45040"
+        ],
+        "postal_code": "45040",
+        "region": "JAL",
+        "latitude": "20.6582",
+        "localized_address_display": "Av. de las Rosas #543, Chapalita Sur, Zapopan, JAL 45040",
+        "address_1": "Av. de las Rosas #543",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Chapalita Sur",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "panmuertocasarosa2026",
+    "published": "2026-09-25T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "feria_productores_mx",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Feria de Productores",
+      "website_url": "https://www.feriamx.com",
+      "image_id": "img_pan_muerto_2026",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Colectivo que promueve eventos gastronómicos, culturales y la exposición de panadería tradicional y productos artesanales locales.",
+      "facebook": null,
+      "id": "feria_productores_mx",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+      "num_followers": 1200,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Food & Drink",
+        "tag": "EventbriteCategory/110",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "pan de muerto",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/pandemuerto"
+      },
+      {
+        "_type": "tag",
+        "display_name": "gastronomia",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/gastronomia"
+      },
+      {
+        "_type": "tag",
+        "display_name": "dia de muertos",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/diademuertos"
+      }
+    ],
+    "primary_venue_id": "venue_casa_rosa_barragan",
+    "summary": "Muestra de panadería artesanal de temporada, opciones tradicionales, rellenos, veganos y de masa madre, además de talleres interactivos (recuperación de $50 MXN solo adultos).",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-09-25T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-09-25T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-10-30T21:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-30T15:00:00"
+      }
+    },
+    "tickets_url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "is_cancelled": null,
+    "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.6582",
+    "longitude": "-103.3892",
+    "venue_address": "Av. de las Rosas #543, Chapalita Sur, Zapopan, JAL 45040",
+    "image_url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+    "start_datetime": "2026-10-29T16:00:00"
+  },
+  {
+    "start_date": "2026-10-31",
+    "end_date": "2026-11-01",
+    "name": "Festival del Pan de Muerto 2026 - Sede Club de Leones de Guadalajara",
+    "tickets_by": "Feria de Productores",
+    "image_id": null,
+    "series_id": "feria_pan_muerto_2026_club_leones",
+    "language": "es-mx",
+    "eventbrite_event_id": null,
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "0.00 MXN",
+        "major_value": "0.00",
+        "currency": "MXN",
+        "value": 0
+      },
+      "has_bogo_tickets": false,
+      "is_free": true,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "0.00 MXN",
+        "major_value": "0.00",
+        "currency": "MXN",
+        "value": 0
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "external",
+    "id": "pan_muerto_2026_02",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+        "small": "https://www.feriamx.com/images/pan_de_muerto_sm.jpg",
+        "medium": "https://www.feriamx.com/images/pan_de_muerto_md.jpg"
+      },
+      "id": "img_pan_muerto_2026",
+      "edge_color": "#d97736",
+      "url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "13:00",
+    "end_time": "19:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Club de Leones de Guadalajara",
+      "id": "venue_club_de_leones",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.3985",
+        "localized_multi_line_address_display": [
+          "Av. de los Leones #75, Tepeyac Casino",
+          "Zapopan, JAL 45040"
+        ],
+        "postal_code": "45040",
+        "region": "JAL",
+        "latitude": "20.6515",
+        "localized_address_display": "Av. de los Leones #75, Tepeyac Casino, Zapopan, JAL 45040",
+        "address_1": "Av. de los Leones #75",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Tepeyac Casino",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "panmuertoclubleones2026",
+    "published": "2026-09-25T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "feria_productores_mx",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Feria de Productores",
+      "website_url": "https://www.feriamx.com",
+      "image_id": "img_pan_muerto_2026",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Colectivo que promueve eventos gastronómicos, culturales y la exposición de panadería tradicional y productos artesanales locales.",
+      "facebook": null,
+      "id": "feria_productores_mx",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+      "num_followers": 1200,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Food & Drink",
+        "tag": "EventbriteCategory/110",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "pan de muerto",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/pandemuerto"
+      },
+      {
+        "_type": "tag",
+        "display_name": "feria familiar",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/feriafamiliar"
+      },
+      {
+        "_type": "tag",
+        "display_name": "chocolate",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/chocolate"
+      }
+    ],
+    "primary_venue_id": "venue_club_de_leones",
+    "summary": "Gran expo gastronómica familiar con entrada libre. Variedad de panaderos locales, chocolate artesanal, productos tradicionales e interpretaciones gastronómicas de Día de Muertos. Horarios: 31 de oct de 13:00 a 19:00 hrs y 1 de nov de 10:00 a 15:00 hrs.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-09-25T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-09-25T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-11-01T15:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-11-01T09:00:00"
+      }
+    },
+    "tickets_url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "is_cancelled": null,
+    "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.6515",
+    "longitude": "-103.3985",
+    "venue_address": "Av. de los Leones #75, Tepeyac Casino, Zapopan, JAL 45040",
+    "image_url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+    "start_datetime": "2026-10-31T13:00:00"
+  }
+]
