@@ -12333,3 +12333,1567 @@
   "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1182090285%2F2425230194151%2F1%2Foriginal.20260413-234024?crop=focalpoint&fit=crop&h=200&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=1384228a02db1176a25203155fc386c6",
   "start_datetime": "2026-10-18T09:30:00"
 }]
+
+[
+  {
+    "start_date": "2026-10-29",
+    "end_date": "2026-10-29",
+    "name": "Manuel Turizo - Foro Principal Fiestas de Octubre 2026",
+    "tickets_by": "Boletomóvil / Patronato Fiestas de Octubre",
+    "image_id": "fo2026_turizo",
+    "series_id": "foro_principal_2026",
+    "language": "es-mx",
+    "eventbrite_event_id": null,
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "60.00 MXN",
+        "major_value": "60.00",
+        "currency": "MXN",
+        "value": 6000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "1800.00 MXN",
+        "major_value": "1800.00",
+        "currency": "MXN",
+        "value": 180000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "external",
+    "id": "fo_2026_manuel_turizo",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://fiestasdeoctubre.jalisco.gob.mx/images/manuel_turizo.jpg",
+        "small": "https://fiestasdeoctubre.jalisco.gob.mx/images/manuel_turizo_sm.jpg",
+        "medium": "https://fiestasdeoctubre.jalisco.gob.mx/images/manuel_turizo_md.jpg"
+      },
+      "id": "fo2026_turizo",
+      "edge_color": "#1a365d",
+      "url": "https://fiestasdeoctubre.jalisco.gob.mx/images/manuel_turizo.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://fiestasdeoctubre.jalisco.gob.mx/images/manuel_turizo.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "20:00",
+    "end_time": "23:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Foro Principal - Auditorio Benito Juárez",
+      "id": "venue_auditorio_benito_juarez",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.352821",
+        "localized_multi_line_address_display": [
+          "Av. Mariano Bárcena s/n, Col. Auditorio",
+          "Zapopan, JAL 45190"
+        ],
+        "postal_code": "45190",
+        "region": "JAL",
+        "latitude": "20.725805",
+        "localized_address_display": "Av. Mariano Bárcena s/n, Col. Auditorio, Zapopan, JAL 45190",
+        "address_1": "Av. Mariano Bárcena s/n",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Col. Auditorio",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "turizofo2026",
+    "published": "2026-09-05T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "patronato_fiestas_octubre",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Patronato Fiestas de Octubre de Guadalajara",
+      "website_url": "https://fiestasdeoctubre.jalisco.gob.mx",
+      "image_id": "fo2026_turizo",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Organismo oficial encargado de la realización de la feria tradicional Fiestas de Octubre en Jalisco.",
+      "facebook": null,
+      "id": "patronato_fiestas_octubre",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+      "num_followers": 5500,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Concert",
+        "tag": "EventbriteCategory/103",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "fiestas de octubre",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/fiestasdeoctubre"
+      }
+    ],
+    "primary_venue_id": "venue_auditorio_benito_juarez",
+    "summary": "Presentación estelar de Manuel Turizo en el Foro Principal. Acceso a grada general incluido con el boleto de ingreso a la feria.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-09-05T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-09-05T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-10-29T23:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-29T17:00:00"
+      }
+    },
+    "tickets_url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "start_time": "20:00",
+    "is_cancelled": null,
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "venue_address": "Av. Mariano Bárcena s/n, Col. Auditorio, Zapopan, JAL 45190",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/manuel_turizo.jpg",
+    "start_datetime": "2026-10-29T20:00:00"
+  },
+  {
+    "start_date": "2026-10-29",
+    "end_date": "2026-10-30",
+    "name": "Julión Álvarez - Palenque Fiestas de Octubre 2026",
+    "tickets_by": "Boletomóvil",
+    "image_id": "fo2026_julion",
+    "series_id": "palenque_2026",
+    "language": "es-mx",
+    "eventbrite_event_id": null,
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "600.00 MXN",
+        "major_value": "600.00",
+        "currency": "MXN",
+        "value": 60000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "4500.00 MXN",
+        "major_value": "4500.00",
+        "currency": "MXN",
+        "value": 450000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "external",
+    "id": "fo_2026_julion_alvarez",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://fiestasdeoctubre.jalisco.gob.mx/images/julion_alvarez.jpg",
+        "small": "https://fiestasdeoctubre.jalisco.gob.mx/images/julion_alvarez_sm.jpg",
+        "medium": "https://fiestasdeoctubre.jalisco.gob.mx/images/julion_alvarez_md.jpg"
+      },
+      "id": "fo2026_julion",
+      "edge_color": "#4a121a",
+      "url": "https://fiestasdeoctubre.jalisco.gob.mx/images/julion_alvarez.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://fiestasdeoctubre.jalisco.gob.mx/images/julion_alvarez.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "23:55",
+    "end_time": "03:30",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Palenque Fiestas de Octubre (Auditorio Benito Juárez)",
+      "id": "venue_palenque_benito_juarez",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.352821",
+        "localized_multi_line_address_display": [
+          "Av. Mariano Bárcena s/n, Col. Auditorio",
+          "Zapopan, JAL 45190"
+        ],
+        "postal_code": "45190",
+        "region": "JAL",
+        "latitude": "20.725805",
+        "localized_address_display": "Av. Mariano Bárcena s/n, Col. Auditorio, Zapopan, JAL 45190",
+        "address_1": "Av. Mariano Bárcena s/n",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Col. Auditorio",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "julionpalenque2026",
+    "published": "2026-09-01T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "patronato_fiestas_octubre",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Patronato Fiestas de Octubre de Guadalajara",
+      "website_url": "https://fiestasdeoctubre.jalisco.gob.mx",
+      "image_id": "fo2026_julion",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Organismo oficial encargado de la realización de la feria tradicional Fiestas de Octubre en Jalisco.",
+      "facebook": null,
+      "id": "patronato_fiestas_octubre",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+      "num_followers": 5500,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Palenque",
+        "tag": "EventbriteSubCategory/3001",
+        "prefix": "EventbriteSubCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "regional mexicano",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/regionalmexicano"
+      }
+    ],
+    "primary_venue_id": "venue_palenque_benito_juarez",
+    "summary": "Concierto nocturno de Julión Álvarez y su Norteño Banda en el Palenque de las Fiestas de Octubre.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-09-01T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-09-01T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-10-29T23:55:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-29T17:55:00"
+      }
+    },
+    "tickets_url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "is_cancelled": null,
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "venue_address": "Av. Mariano Bárcena s/n, Col. Auditorio, Zapopan, JAL 45190",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/julion_alvarez.jpg",
+    "start_datetime": "2026-10-29T23:55:00"
+  },
+  {
+    "start_date": "2026-10-29",
+    "end_date": "2026-10-30",
+    "name": "Festival del Pan de Muerto 2026 - Sede Casa Rosa Luis Barragán",
+    "tickets_by": "Feria de Productores",
+    "image_id": "img_pan_muerto_2026",
+    "series_id": "feria_pan_muerto_2026_casa_rosa",
+    "language": "es-mx",
+    "eventbrite_event_id": null,
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "50.00 MXN",
+        "major_value": "50.00",
+        "currency": "MXN",
+        "value": 5000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "50.00 MXN",
+        "major_value": "50.00",
+        "currency": "MXN",
+        "value": 5000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "external",
+    "id": "pan_muerto_2026_01",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+        "small": "https://www.feriamx.com/images/pan_de_muerto_sm.jpg",
+        "medium": "https://www.feriamx.com/images/pan_de_muerto_md.jpg"
+      },
+      "id": "img_pan_muerto_2026",
+      "edge_color": "#d97736",
+      "url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "16:00",
+    "end_time": "21:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Casa Rosa Luis Barragán",
+      "id": "venue_casa_rosa_barragan",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.389240",
+        "localized_multi_line_address_display": [
+          "Av. de las Rosas #543, Chapalita Sur",
+          "Zapopan, JAL 45040"
+        ],
+        "postal_code": "45040",
+        "region": "JAL",
+        "latitude": "20.658210",
+        "localized_address_display": "Av. de las Rosas #543, Chapalita Sur, Zapopan, JAL 45040",
+        "address_1": "Av. de las Rosas #543",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Chapalita Sur",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "panmuertocasarosa2026",
+    "published": "2026-09-25T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "feria_productores_mx",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Feria de Productores",
+      "website_url": "https://www.feriamx.com",
+      "image_id": "img_pan_muerto_2026",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Colectivo que promueve eventos gastronómicos, culturales y la exposición de panadería tradicional y productos artesanales locales.",
+      "facebook": null,
+      "id": "feria_productores_mx",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+      "num_followers": 1200,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Food & Drink",
+        "tag": "EventbriteCategory/110",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "pan de muerto",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/pandemuerto"
+      }
+    ],
+    "primary_venue_id": "venue_casa_rosa_barragan",
+    "summary": "Muestra de panadería artesanal de temporada, opciones tradicionales, rellenos, veganos y de masa madre con catas de chocolate.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-09-25T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-09-25T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-10-30T21:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-30T15:00:00"
+      }
+    },
+    "tickets_url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "is_cancelled": null,
+    "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.658210",
+    "longitude": "-103.389240",
+    "venue_address": "Av. de las Rosas #543, Chapalita Sur, Zapopan, JAL 45040",
+    "image_url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+    "start_datetime": "2026-10-29T16:00:00"
+  },
+  {
+    "start_date": "2026-10-29",
+    "end_date": "2026-10-29",
+    "name": "Taller Interactivo de Ciencia y Creatividad para Niños",
+    "tickets_by": "Eventbrite",
+    "image_id": "1200112233",
+    "series_id": "210011223344",
+    "language": "es-mx",
+    "eventbrite_event_id": "202610290001",
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "80.00 MXN",
+        "major_value": "80.00",
+        "currency": "MXN",
+        "value": 8000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "80.00 MXN",
+        "major_value": "80.00",
+        "currency": "MXN",
+        "value": 8000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "widget",
+    "id": "202610290001",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg?w=1024",
+        "small": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg?w=320",
+        "medium": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg?w=640"
+      },
+      "id": "1200112233",
+      "edge_color": "#2a75d3",
+      "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "10:00",
+    "end_time": "17:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Museo Trompo Mágico (Jalisco Paseo Interactivo)",
+      "id": "venue_trompo_magico",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.415234",
+        "localized_multi_line_address_display": [
+          "Av. Central Guillermo González Camarena #750",
+          "Zapopan, JAL 45136"
+        ],
+        "postal_code": "45136",
+        "region": "JAL",
+        "latitude": "20.722512",
+        "localized_address_display": "Av. Central Guillermo González Camarena #750, Zapopan, JAL 45136",
+        "address_1": "Av. Central Guillermo González Camarena #750",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Residencial Poniente",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "trompo2026",
+    "published": "2026-10-01T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "organizer_trompo_magico",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Museo Trompo Mágico",
+      "website_url": "https://trompomagico.jalisco.gob.mx",
+      "image_id": "1200112233",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Espacio interactivo enfocado en el aprendizaje, creatividad e innovación para niñas, niños y sus familias.",
+      "facebook": null,
+      "id": "organizer_trompo_magico",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.eventbrite.com.mx/o/trompo-magico",
+      "num_followers": 520,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Family & Kids",
+        "tag": "EventbriteCategory/115",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "niños",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/ninos"
+      }
+    ],
+    "primary_venue_id": "venue_trompo_magico",
+    "summary": "Experimentos dinámicos, robótica básica y talleres de pintura diseñados para niños de 5 a 12 años.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-10-01T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-01T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-10-29T23:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-29T17:00:00"
+      }
+    },
+    "tickets_url": "https://www.eventbrite.com/checkout-external?eid=202610290001",
+    "is_cancelled": null,
+    "url": "https://www.eventbrite.com.mx/e/taller-interactivo-de-ciencia-y-creatividad-tickets-202610290001",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.722512",
+    "longitude": "-103.415234",
+    "venue_address": "Av. Central Guillermo González Camarena #750, Zapopan, JAL 45136",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg",
+    "start_datetime": "2026-10-29T10:00:00"
+  },
+  {
+    "start_date": "2026-10-31",
+    "end_date": "2026-11-01",
+    "name": "Festival del Pan de Muerto 2026 - Sede Club de Leones de Guadalajara",
+    "tickets_by": "Feria de Productores",
+    "image_id": "img_pan_muerto_2026",
+    "series_id": "feria_pan_muerto_2026_club_leones",
+    "language": "es-mx",
+    "eventbrite_event_id": null,
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "0.00 MXN",
+        "major_value": "0.00",
+        "currency": "MXN",
+        "value": 0
+      },
+      "has_bogo_tickets": false,
+      "is_free": true,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "0.00 MXN",
+        "major_value": "0.00",
+        "currency": "MXN",
+        "value": 0
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "external",
+    "id": "pan_muerto_2026_02",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+        "small": "https://www.feriamx.com/images/pan_de_muerto_sm.jpg",
+        "medium": "https://www.feriamx.com/images/pan_de_muerto_md.jpg"
+      },
+      "id": "img_pan_muerto_2026",
+      "edge_color": "#d97736",
+      "url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "13:00",
+    "end_time": "19:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Club de Leones de Guadalajara",
+      "id": "venue_club_de_leones",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.398510",
+        "localized_multi_line_address_display": [
+          "Av. de los Leones #75, Tepeyac Casino",
+          "Zapopan, JAL 45040"
+        ],
+        "postal_code": "45040",
+        "region": "JAL",
+        "latitude": "20.651530",
+        "localized_address_display": "Av. de los Leones #75, Tepeyac Casino, Zapopan, JAL 45040",
+        "address_1": "Av. de los Leones #75",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Tepeyac Casino",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "panmuertoclubleones2026",
+    "published": "2026-09-25T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "feria_productores_mx",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Feria de Productores",
+      "website_url": "https://www.feriamx.com",
+      "image_id": "img_pan_muerto_2026",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Colectivo que promueve eventos gastronómicos, culturales y la exposición de panadería tradicional y productos artesanales locales.",
+      "facebook": null,
+      "id": "feria_productores_mx",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+      "num_followers": 1200,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Food & Drink",
+        "tag": "EventbriteCategory/110",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "pan de muerto",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/pandemuerto"
+      }
+    ],
+    "primary_venue_id": "venue_club_de_leones",
+    "summary": "Gran expo gastronómica familiar con entrada libre. Exposición de panaderos locales, chocolatatería artesanal y actividades culturales para toda la familia.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-09-25T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-09-25T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-11-01T15:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-11-01T09:00:00"
+      }
+    },
+    "tickets_url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "is_cancelled": null,
+    "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.651530",
+    "longitude": "-103.398510",
+    "venue_address": "Av. de los Leones #75, Tepeyac Casino, Zapopan, JAL 45040",
+    "image_url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+    "start_datetime": "2026-10-31T13:00:00"
+  },
+  {
+    "start_date": "2026-10-31",
+    "end_date": "2026-10-31",
+    "name": "Noche de Galerías y Arte Contemporáneo para Jóvenes",
+    "tickets_by": "Eventbrite",
+    "image_id": "1200445566",
+    "series_id": "210044556677",
+    "language": "es-mx",
+    "eventbrite_event_id": "202610310002",
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "0.00 MXN",
+        "major_value": "0.00",
+        "currency": "MXN",
+        "value": 0
+      },
+      "has_bogo_tickets": false,
+      "is_free": true,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "0.00 MXN",
+        "major_value": "0.00",
+        "currency": "MXN",
+        "value": 0
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "widget",
+    "id": "202610310002",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg?w=1024",
+        "small": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg?w=320",
+        "medium": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg?w=640"
+      },
+      "id": "1200445566",
+      "edge_color": "#1a1a1a",
+      "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "18:00",
+    "end_time": "22:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Museo de las Artes de la Universidad de Guadalajara (MUSA)",
+      "id": "venue_musa",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.359210",
+        "localized_multi_line_address_display": [
+          "Av. Juárez #975, Zona Centro",
+          "Guadalajara, JAL 44100"
+        ],
+        "postal_code": "44100",
+        "region": "JAL",
+        "latitude": "20.674812",
+        "localized_address_display": "Av. Juárez #975, Zona Centro, Guadalajara, JAL 44100",
+        "address_1": "Av. Juárez #975",
+        "country": "MX",
+        "localized_area_display": "Guadalajara, JAL",
+        "address_2": "Zona Centro",
+        "city": "Guadalajara"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "musa2026",
+    "published": "2026-10-05T12:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "organizer_musa",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "MUSA Guadalajara",
+      "website_url": "https://www.musaudg.mx",
+      "image_id": "1200445566",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Espacio cultural universitario dedicado a la difusión del arte nacional e internacional.",
+      "facebook": null,
+      "id": "organizer_musa",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.eventbrite.com.mx/o/musa-guadalajara",
+      "num_followers": 890,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Arts & Culture",
+        "tag": "EventbriteCategory/105",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "adolescentes",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/adolescentes"
+      }
+    ],
+    "primary_venue_id": "venue_musa",
+    "summary": "Recorrido nocturno especial con guías expertos, música en vivo y talleres creativos de artes plásticas orientados a jóvenes y adolescentes.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-10-05T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-05T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-10-31T22:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-31T16:00:00"
+      }
+    },
+    "tickets_url": "https://www.eventbrite.com/checkout-external?eid=202610310002",
+    "is_cancelled": null,
+    "url": "https://www.eventbrite.com.mx/e/noche-de-galerias-y-arte-contemporaneo-tickets-202610310002",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.674812",
+    "longitude": "-103.359210",
+    "venue_address": "Av. Juárez #975, Zona Centro, Guadalajara, JAL 44100",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg",
+    "start_datetime": "2026-10-31T18:00:00"
+  },
+  {
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-01",
+    "name": "Festival de Día de Muertos: Recorrido y Talleres Familiares",
+    "tickets_by": "Eventbrite",
+    "image_id": "1200778899",
+    "series_id": "210077889900",
+    "language": "es-mx",
+    "eventbrite_event_id": "202611010003",
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "70.00 MXN",
+        "major_value": "70.00",
+        "currency": "MXN",
+        "value": 7000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "70.00 MXN",
+        "major_value": "70.00",
+        "currency": "MXN",
+        "value": 7000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "widget",
+    "id": "202611010003",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg?w=1024",
+        "small": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg?w=320",
+        "medium": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg?w=640"
+      },
+      "id": "1200778899",
+      "edge_color": "#d3412a",
+      "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "11:00",
+    "end_time": "20:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Museo Cabañas (Hospicio Cabañas)",
+      "id": "venue_museo_cabanas",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.337840",
+        "localized_multi_line_address_display": [
+          "C. Cabañas #8, Las Fresas",
+          "Guadalajara, JAL 44360"
+        ],
+        "postal_code": "44360",
+        "region": "JAL",
+        "latitude": "20.676915",
+        "localized_address_display": "C. Cabañas #8, Las Fresas, Guadalajara, JAL 44360",
+        "address_1": "C. Cabañas #8",
+        "country": "MX",
+        "localized_area_display": "Guadalajara, JAL",
+        "address_2": "Las Fresas",
+        "city": "Guadalajara"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "cabanas2026",
+    "published": "2026-10-10T09:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "organizer_museo_cabanas",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Instituto Cultural Cabañas",
+      "website_url": "https://museocabanas.jalisco.gob.mx",
+      "image_id": "1200778899",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Patrimonio de la Humanidad, recinto cultural con exposiciones de arte histórico y contemporáneo.",
+      "facebook": null,
+      "id": "organizer_museo_cabanas",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.eventbrite.com.mx/o/museo-cabanas",
+      "num_followers": 1420,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Culture & Heritage",
+        "tag": "EventbriteCategory/109",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "familia",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/familia"
+      }
+    ],
+    "primary_venue_id": "venue_museo_cabanas",
+    "summary": "Ofrendas monumentales, talleres de elaboración de calaveritas, pintura facial para niños y recorridos guiados por los murales de Orozco.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-10-10T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-10T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-11-01T20:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-11-01T14:00:00"
+      }
+    },
+    "tickets_url": "https://www.eventbrite.com/checkout-external?eid=202611010003",
+    "is_cancelled": null,
+    "url": "https://www.eventbrite.com.mx/e/festival-de-dia-de-muertos-recintos-y-talleres-tickets-202611010003",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.676915",
+    "longitude": "-103.337840",
+    "venue_address": "C. Cabañas #8, Las Fresas, Guadalajara, JAL 44360",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg",
+    "start_datetime": "2026-11-01T11:00:00"
+  },
+  {
+    "start_date": "2026-11-01",
+    "end_date": "2026-11-01",
+    "name": "El Tri - Foro Principal Fiestas de Octubre 2026",
+    "tickets_by": "Boletomóvil / Patronato Fiestas de Octubre",
+    "image_id": "fo2026_eltri",
+    "series_id": "foro_principal_2026",
+    "language": "es-mx",
+    "eventbrite_event_id": null,
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "60.00 MXN",
+        "major_value": "60.00",
+        "currency": "MXN",
+        "value": 6000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "1500.00 MXN",
+        "major_value": "1500.00",
+        "currency": "MXN",
+        "value": 150000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "external",
+    "id": "fo_2026_el_tri",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri.jpg",
+        "small": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri_sm.jpg",
+        "medium": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri_md.jpg"
+      },
+      "id": "fo2026_eltri",
+      "edge_color": "#111111",
+      "url": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "20:00",
+    "end_time": "23:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Foro Principal - Auditorio Benito Juárez",
+      "id": "venue_auditorio_benito_juarez",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.352821",
+        "localized_multi_line_address_display": [
+          "Av. Mariano Bárcena s/n, Col. Auditorio",
+          "Zapopan, JAL 45190"
+        ],
+        "postal_code": "45190",
+        "region": "JAL",
+        "latitude": "20.725805",
+        "localized_address_display": "Av. Mariano Bárcena s/n, Col. Auditorio, Zapopan, JAL 45190",
+        "address_1": "Av. Mariano Bárcena s/n",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Col. Auditorio",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "eltrifo2026",
+    "published": "2026-09-05T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "patronato_fiestas_octubre",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Patronato Fiestas de Octubre de Guadalajara",
+      "website_url": "https://fiestasdeoctubre.jalisco.gob.mx",
+      "image_id": "fo2026_eltri",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Organismo oficial encargado de la realización de la feria tradicional Fiestas de Octubre en Jalisco.",
+      "facebook": null,
+      "id": "patronato_fiestas_octubre",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+      "num_followers": 5500,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Rock",
+        "tag": "EventbriteSubCategory/3002",
+        "prefix": "EventbriteSubCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "rock mexicano",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/rockmexicano"
+      }
+    ],
+    "primary_venue_id": "venue_auditorio_benito_juarez",
+    "summary": "Alex Lora y El Tri encendiendo el Foro Principal con el mejor rock mexicano previo al gran cierre de feria.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-09-05T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-09-05T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-11-01T23:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-11-01T17:00:00"
+      }
+    },
+    "tickets_url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "is_cancelled": null,
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "venue_address": "Av. Mariano Bárcena s/n, Col. Auditorio, Zapopan, JAL 45190",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri.jpg",
+    "start_datetime": "2026-11-01T20:00:00"
+  },
+  {
+    "start_date": "2026-11-02",
+    "end_date": "2026-11-02",
+    "name": "Carlos Rivera - Gran Cierre Foro Principal Fiestas de Octubre 2026",
+    "tickets_by": "Boletomóvil / Patronato Fiestas de Octubre",
+    "image_id": "fo2026_carlosrivera",
+    "series_id": "foro_principal_2026",
+    "language": "es-mx",
+    "eventbrite_event_id": null,
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "60.00 MXN",
+        "major_value": "60.00",
+        "currency": "MXN",
+        "value": 6000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "2300.00 MXN",
+        "major_value": "2300.00",
+        "currency": "MXN",
+        "value": 230000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "external",
+    "id": "fo_2026_carlos_rivera",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera.jpg",
+        "small": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera_sm.jpg",
+        "medium": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera_md.jpg"
+      },
+      "id": "fo2026_carlosrivera",
+      "edge_color": "#2c3e50",
+      "url": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "20:00",
+    "end_time": "23:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Foro Principal - Auditorio Benito Juárez",
+      "id": "venue_auditorio_benito_juarez",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.352821",
+        "localized_multi_line_address_display": [
+          "Av. Mariano Bárcena s/n, Col. Auditorio",
+          "Zapopan, JAL 45190"
+        ],
+        "postal_code": "45190",
+        "region": "JAL",
+        "latitude": "20.725805",
+        "localized_address_display": "Av. Mariano Bárcena s/n, Col. Auditorio, Zapopan, JAL 45190",
+        "address_1": "Av. Mariano Bárcena s/n",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "Col. Auditorio",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "carlosriverafo2026",
+    "published": "2026-09-05T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "patronato_fiestas_octubre",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Patronato Fiestas de Octubre de Guadalajara",
+      "website_url": "https://fiestasdeoctubre.jalisco.gob.mx",
+      "image_id": "fo2026_carlosrivera",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Organismo oficial encargado de la realización de la feria tradicional Fiestas de Octubre en Jalisco.",
+      "facebook": null,
+      "id": "patronato_fiestas_octubre",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+      "num_followers": 5500,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Pop / Latin",
+        "tag": "EventbriteCategory/103",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "cierre fiestas de octubre",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/cierre"
+      }
+    ],
+    "primary_venue_id": "venue_auditorio_benito_juarez",
+    "summary": "Concierto de clausura oficial de las Fiestas de Octubre 2026 con la presentación estelar de Carlos Rivera.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-09-05T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-09-05T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-11-02T23:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-11-02T17:00:00"
+      }
+    },
+    "tickets_url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "is_cancelled": null,
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "venue_address": "Av. Mariano Bárcena s/n, Col. Auditorio, Zapopan, JAL 45190",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera.jpg",
+    "start_datetime": "2026-11-02T20:00:00"
+  },
+  {
+    "start_date": "2026-11-07",
+    "end_date": "2026-11-07",
+    "name": "Aventura Paleontológica: Expo Dinosaurios y Fósiles de Jalisco",
+    "tickets_by": "Eventbrite",
+    "image_id": "1200991122",
+    "series_id": "210099112233",
+    "language": "es-mx",
+    "eventbrite_event_id": "202611070004",
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "35.00 MXN",
+        "major_value": "35.00",
+        "currency": "MXN",
+        "value": 3500
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "35.00 MXN",
+        "major_value": "35.00",
+        "currency": "MXN",
+        "value": 3500
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "widget",
+    "id": "202611070004",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg?w=1024",
+        "small": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg?w=320",
+        "medium": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg?w=640"
+      },
+      "id": "1200991122",
+      "edge_color": "#7a5c28",
+      "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "start_time": "10:00",
+    "end_time": "16:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Museo de Paleontología de Guadalajara",
+      "id": "venue_paleontologia",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.351225",
+        "localized_multi_line_address_display": [
+          "Av. Dr. Roberto Michel #520, San Carlos",
+          "Guadalajara, JAL 44460"
+        ],
+        "postal_code": "44460",
+        "region": "JAL",
+        "latitude": "20.662104",
+        "localized_address_display": "Av. Dr. Roberto Michel #520, San Carlos, Guadalajara, JAL 44460",
+        "address_1": "Av. Dr. Roberto Michel #520",
+        "country": "MX",
+        "localized_area_display": "Guadalajara, JAL",
+        "address_2": "San Carlos",
+        "city": "Guadalajara"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "paleo2026",
+    "published": "2026-10-15T11:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "organizer_paleontologia",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Museo de Paleontología de Guadalajara",
+      "website_url": "https://guadalajara.gob.mx/museopaleontologia",
+      "image_id": "1200991122",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Museo dedicado a la exhibición y conservación de la megafauna pleistocénica y especies prehistóricas de la región.",
+      "facebook": null,
+      "id": "organizer_paleontologia",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.eventbrite.com.mx/o/museo-paleontologia",
+      "num_followers": 610,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Science & Nature",
+        "tag": "EventbriteCategory/102",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "dinosaurios",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/dinosaurios"
+      }
+    ],
+    "primary_venue_id": "venue_paleontologia",
+    "summary": "Taller interactivo de excavación de fósiles para niños y recorrido temático sobre la megafauna prehistórica en Jalisco.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-10-15T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-15T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-11-07T16:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-11-07T10:00:00"
+      }
+    },
+    "tickets_url": "https://www.eventbrite.com/checkout-external?eid=202611070004",
+    "is_cancelled": null,
+    "url": "https://www.eventbrite.com.mx/e/aventura-paleontologica-expo-dinosaurios-tickets-202611070004",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.662104",
+    "longitude": "-103.351225",
+    "venue_address": "Av. Dr. Roberto Michel #520, San Carlos, Guadalajara, JAL 44460",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg",
+    "start_datetime": "2026-11-07T10:00:00"
+  }
+]
