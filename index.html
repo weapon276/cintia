@@ -157,36 +157,58 @@
   .icon-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; }
   
-  /* CONTENEDOR DE CATEGORÍAS (DERECHA) */
+  /* CONTENEDOR DE CATEGORÍAS (DERECHA) - ESTILO PÍLDORA */
   .main-categories {
     position: absolute; right: 16px; top: 50%;
     transform: translateY(-50%); z-index: var(--z-chips);
     display: flex; flex-direction: column; gap: 12px;
     pointer-events: auto;
   }
-  .cat-btn {
-    width: 56px; height: 56px; border-radius: var(--r-lg);
-    background: var(--surface); border: 1px solid var(--outline);
-    display: grid; place-items: center;
-    box-shadow: var(--shadow-3); cursor: pointer;
-    color: var(--text); position: relative;
-    transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s;
-  }
-  .cat-btn .ms { font-size: 26px; }
-  .cat-btn:hover { transform: scale(1.05); }
-  .cat-btn:active { transform: scale(0.92); }
-  .cat-btn .badge {
-    position: absolute; top: -4px; right: -4px;
-    min-width: 22px; height: 22px; padding: 0 6px;
-    border-radius: var(--r-full);
-    background: var(--primary); color: #FFFFFF;
-    font-size: 11px; font-weight: 800;
-    display: grid; place-items: center;
-    border: 2px solid var(--surface);
-    opacity: 0; transition: opacity .2s, transform .2s;
-  }
-  .cat-btn .badge.show { opacity: 1; }
   
+  .cat-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: transparent; border: none;
+    cursor: pointer; padding: 0;
+    transition: all 0.3s var(--ease-spring);
+    opacity: 0.6; /* Estado translúcido por defecto */
+  }
+  .cat-pill:hover { opacity: 1; transform: scale(1.02); }
+  .cat-pill.active { opacity: 1; }
+  
+  .cat-pill-icon {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--cat-color, var(--primary));
+    display: grid; place-items: center;
+    color: #FFFFFF; font-size: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border: 3px solid rgba(255,255,255,0.3);
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .cat-pill.active .cat-pill-icon {
+    border-color: #FFFFFF;
+    box-shadow: 0 0 0 4px var(--cat-color, var(--primary)), 0 4px 12px rgba(0,0,0,0.3);
+  }
+  
+  .cat-pill-label {
+    background: #18181B; /* Negro como en la foto */
+    color: #FFFFFF;
+    padding: 6px 14px;
+    border-radius: 0 20px 20px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px; font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+    margin-left: -10px; /* Se superpone un poco al círculo */
+    z-index: -1;
+    padding-left: 20px;
+    transition: all 0.3s;
+  }
+  .cat-pill.active .cat-pill-label {
+    background: #000000;
+    font-weight: 800;
+  }
+
   .submenu {
     position: absolute; right: 84px; top: 50%;
     transform: translateY(-50%);
@@ -344,71 +366,38 @@
     color: var(--primary);
     font-size: 22px;
   }
-  
-  /* NUEVOS ESTILOS PARA ICONOS TIPO PÍLDORA */
-  .pill-option {
+  .date-option {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px;
-    border-radius: var(--r-full);
+    padding: 12px;
+    border-radius: var(--r-sm);
     border: none;
     background: transparent;
     cursor: pointer;
     width: 100%;
     text-align: left;
     font-family: inherit;
-    transition: all .2s;
-    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    transition: background .2s;
+    margin-bottom: 4px;
   }
-  .pill-option:hover {
+  .date-option:hover {
     background: var(--surface-2);
   }
-  .pill-icon-wrapper {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    opacity: 0.6;
-    transition: opacity .2s, transform .2s, box-shadow .2s;
+  .date-option.active {
+    background: var(--primary-container);
+    color: var(--primary-dark);
   }
-  .pill-option.active .pill-icon-wrapper {
-    opacity: 1;
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  .date-option .ms {
+    font-size: 22px;
+    color: var(--text-3);
   }
-  .pill-icon-wrapper .ms {
-    color: white;
-    font-size: 24px;
+  .date-option.active .ms {
+    color: var(--primary);
   }
-  .pill-label {
-    background: #1F2937;
-    color: white;
-    padding: 8px 16px;
-    border-radius: var(--r-full);
-    font-size: 14px;
-    font-weight: 700;
-    opacity: 0.6;
-    transition: opacity .2s, background .2s;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .pill-option.active .pill-label {
-    opacity: 1;
-    background: #111827;
-  }
-  .pill-label .check {
-    opacity: 0;
-    transition: opacity .2s;
-  }
-  .pill-option.active .pill-label .check {
-    opacity: 1;
-  }
-
   .date-input-wrapper {
     margin-top: 12px;
     padding-top: 12px;
@@ -568,7 +557,7 @@
     cursor: pointer;
     transition: all .22s var(--ease-standard);
     position: relative; overflow: hidden;
-    min-height: 100px;
+    min-height: 120px; /* Más alto para la descripción */
     animation: fadeInUp .3s var(--ease-emphasized) backwards;
   }
   .event-card::before {
@@ -583,7 +572,7 @@
   .event-card:active { transform: scale(0.985) translateY(0); }
   
   .event-photo {
-    width: 100px; height: 100px; flex-shrink: 0;
+    width: 120px; height: 120px; flex-shrink: 0;
     background: var(--card-bg, var(--primary-container));
     display: grid; place-items: center; overflow: hidden;
     position: relative;
@@ -603,63 +592,49 @@
   .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 12px 14px; }
   .event-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     letter-spacing: -0.015em; line-height: 1.3;
     color: var(--text);
     display: -webkit-box;
     -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden; word-break: break-word;
   }
-  .event-desc-mini {
-    font-size: 11px;
-    color: var(--text-2);
-    line-height: 1.3;
+  .event-desc {
+    font-size: 11px; color: var(--text-2); line-height: 1.3;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
   .event-venue {
-    font-size: 12px; color: var(--text-2); font-weight: 500;
+    font-size: 12px; color: var(--text-3); font-weight: 500;
     display: flex; align-items: center; gap: 4px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
+  .event-venue .ms { font-size: 12px; color: var(--text-3); flex-shrink: 0; }
+  .event-footer { display: flex; align-items: center; gap: 6px; margin-top: 2px; flex-wrap: wrap; }
   
-  .event-tags-row {
-    display: flex;
-    gap: 4px;
-    margin-top: 4px;
-    flex-wrap: wrap;
+  /* NUEVOS ICONOS PEQUEÑOS EN TARJETAS */
+  .event-icons-row {
+    display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;
   }
-  .mini-tag {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    color: white;
+  .icon-tag {
+    width: 20px; height: 20px; border-radius: 50%;
+    display: grid; place-items: center;
+    color: #FFFFFF; font-size: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
-  .mini-tag .ms {
-    font-size: 12px;
-  }
+  .icon-tag .ms { font-size: 12px; }
 
-  .event-footer { display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap; }
   .event-age-tag {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 10px; font-weight: 800;
-    padding: 3px 8px; border-radius: var(--r-full);
+    font-size: 9px; font-weight: 800;
+    padding: 2px 6px; border-radius: var(--r-full);
     background: var(--age-bg, #E0F5F1);
     color: var(--age-color, #2A9D8F);
     text-transform: uppercase; letter-spacing: 0.05em;
   }
-  .event-age-tag .ms { font-size: 12px; }
-  .event-rating {
-    font-size: 12px; color: var(--text-3); font-weight: 600;
-    margin-left: auto; display: flex; align-items: center; gap: 2px;
-  }
-  .event-rating .ms { font-size: 14px; color: var(--secondary); }
+  .event-age-tag .ms { font-size: 10px; }
   
   .empty-state {
     text-align: center; padding: 60px 20px;
@@ -760,7 +735,8 @@
       transform: none;
       flex-direction: column;
     }
-    .cat-btn { width: 52px; height: 52px; }
+    .cat-pill-icon { width: 44px; height: 44px; font-size: 22px; }
+    .cat-pill-label { font-size: 12px; padding: 4px 10px 4px 16px; }
     .submenu {
       right: 76px; top: auto;
       bottom: calc(160px + var(--safe-bottom));
@@ -776,7 +752,7 @@
     .sidebar { width: 92%; max-width: 400px; }
     .sidebar-right { width: 92%; max-width: 400px; }
     .install-banner { width: calc(100% - 32px); }
-    .event-photo { width: 88px; height: 88px; }
+    .event-photo { width: 100px; height: 100px; }
     .splash-greeting { font-size: 26px; }
     .splash-greeting-emoji { font-size: 40px; }
     .splash-logo { width: 80px; height: 80px; }
@@ -912,54 +888,35 @@
     <span>Filtrar por fecha</span>
   </div>
   
-  <button class="pill-option" data-date="all" onclick="setDateFilter('all')">
-    <div class="pill-icon-wrapper" style="background: #EC4899;">
-      <span class="ms fill">calendar_month</span>
-    </div>
-    <div class="pill-label">
-      <span>Todos los eventos</span>
-      <span class="ms check">check</span>
-    </div>
+  <button class="date-option" data-date="all" onclick="setDateFilter('all')">
+    <span class="ms">event_available</span>
+    <span>Cualquier fecha</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
-  
-  <button class="pill-option" data-date="today" onclick="setDateFilter('today')">
-    <div class="pill-icon-wrapper" style="background: #06B6D4;">
-      <span class="ms fill">today</span>
-    </div>
-    <div class="pill-label">
-      <span>Hoy</span>
-      <span class="ms check">check</span>
-    </div>
+  <button class="date-option" data-date="today" onclick="setDateFilter('today')">
+    <span class="ms">today</span>
+    <span>Hoy</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
-  
-  <button class="pill-option" data-date="tomorrow" onclick="setDateFilter('tomorrow')">
-    <div class="pill-icon-wrapper" style="background: #8B5CF6;">
-      <span class="ms fill">event</span>
-    </div>
-    <div class="pill-label">
-      <span>Mañana</span>
-      <span class="ms check">check</span>
-    </div>
+  <button class="date-option" data-date="tomorrow" onclick="setDateFilter('tomorrow')">
+    <span class="ms">event</span>
+    <span>Mañana</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
-  
-  <button class="pill-option" data-date="this_weekend" onclick="setDateFilter('this_weekend')">
-    <div class="pill-icon-wrapper" style="background: #F59E0B;">
-      <span class="ms fill">weekend</span>
-    </div>
-    <div class="pill-label">
-      <span>Este fin de semana</span>
-      <span class="ms check">check</span>
-    </div>
+  <button class="date-option" data-date="this_weekend" onclick="setDateFilter('this_weekend')">
+    <span class="ms">weekend</span>
+    <span>Este fin de semana</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
-  
-  <button class="pill-option" data-date="this_month" onclick="setDateFilter('this_month')">
-    <div class="pill-icon-wrapper" style="background: #10B981;">
-      <span class="ms fill">landscape</span>
-    </div>
-    <div class="pill-label">
-      <span>Escapada de 1 día</span>
-      <span class="ms check">check</span>
-    </div>
+  <button class="date-option" data-date="next_7_days" onclick="setDateFilter('next_7_days')">
+    <span class="ms">date_range</span>
+    <span>Próximos 7 días</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+  </button>
+  <button class="date-option" data-date="this_month" onclick="setDateFilter('this_month')">
+    <span class="ms">calendar_month</span>
+    <span>Este mes</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
   
   <div class="date-input-wrapper">
@@ -1077,12 +1034,11 @@ function updateSplashGreeting() {
    ============================================ */
 const AGE_CATEGORIES = {
   all:      { label: 'Todo público', icon: 'groups',          color: '#4F46E5', bg: '#EEF2FF' },
-  family:   { label: 'Familia',      icon: 'house',           color: '#06B6D4', bg: '#CFFAFE' },
-  adults:   { label: 'Hombres',      icon: 'man',             color: '#3B82F6', bg: '#DBEAFE' }, // Simulando Hombres/Mujeres con iconos
-  women:    { label: 'Mujeres',      icon: 'woman',           color: '#EC4899', bg: '#FCE7F3' },
-  teens:    { label: 'Adolescentes', icon: 'face',            color: '#8B5CF6', bg: '#EDE9FE' },
+  family:   { label: 'Familia',      icon: 'family_restroom', color: '#06B6D4', bg: '#CFFAFE' },
+  adults:   { label: 'Adultos',      icon: 'wine_bar',        color: '#EC4899', bg: '#FCE7F3' },
+  teens:    { label: 'Adolescentes', icon: 'sports_esports',  color: '#8B5CF6', bg: '#EDE9FE' },
   kids:     { label: 'Niños',        icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' },
-  bebes:    { label: 'Bebés',        icon: 'stroller',        color: '#14B8A6', bg: '#CCFBF1' }
+  bebes:    { label: 'Bebés',        icon: 'stroller',        color: '#10B981', bg: '#D1FAE5' }
 };
 
 /* ============================================
@@ -1147,7 +1103,7 @@ const TRANSLATIONS = {
     noResults: 'Sin resultados',
     noResultsHint: 'Intenta con otra categoría o mueve el mapa',
     viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre',
-    age_all: 'Todo público', age_family: 'Familia', age_adults: 'Hombres', age_women: 'Mujeres', age_teens: 'Adolescentes', age_kids: 'Niños', age_bebes: 'Bebés',
+    age_all: 'Todo público', age_family: 'Familia', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Niños', age_bebes: 'Bebés',
     categoriesLabel: 'Categorías', audienceLabel: 'Audiencia',
     submenuSearchPlaceholder: 'Buscar categoría...',
     pwaInstalled: 'App instalada correctamente',
@@ -1156,12 +1112,12 @@ const TRANSLATIONS = {
     updated: 'Resultados actualizados',
     dateFilterLabel: 'Filtrar por fecha',
     dateOptions: {
-      all: 'Todos los eventos',
+      all: 'Cualquier fecha',
       today: 'Hoy',
       tomorrow: 'Mañana',
       this_weekend: 'Este fin de semana',
       next_7_days: 'Próximos 7 días',
-      this_month: 'Escapada de 1 día',
+      this_month: 'Este mes',
       custom: 'Fecha específica'
     },
     dateSelected: 'Fecha seleccionada',
@@ -1187,7 +1143,7 @@ const TRANSLATIONS = {
     noResults: 'No results',
     noResultsHint: 'Try another category or move the map',
     viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed',
-    age_all: 'All ages', age_family: 'Family', age_adults: 'Men', age_women: 'Women', age_teens: 'Teens', age_kids: 'Kids', age_bebes: 'Babies',
+    age_all: 'All ages', age_family: 'Family', age_adults: 'Adults', age_teens: 'Teens', age_kids: 'Kids', age_bebes: 'Babies',
     categoriesLabel: 'Categories', audienceLabel: 'Audience',
     submenuSearchPlaceholder: 'Search category...',
     pwaInstalled: 'App installed successfully',
@@ -1196,12 +1152,12 @@ const TRANSLATIONS = {
     updated: 'Results updated',
     dateFilterLabel: 'Filter by date',
     dateOptions: {
-      all: 'All events',
+      all: 'Any date',
       today: 'Today',
       tomorrow: 'Tomorrow',
       this_weekend: 'This weekend',
       next_7_days: 'Next 7 days',
-      this_month: '1-day getaway',
+      this_month: 'This month',
       custom: 'Specific date'
     },
     dateSelected: 'Date selected',
@@ -1227,7 +1183,7 @@ const TRANSLATIONS = {
     noResults: 'Aucun résultat',
     noResultsHint: 'Essayez une autre catégorie ou déplacez la carte',
     viewMore: 'Voir plus', addressNA: 'Adresse non disponible', noName: 'Sans nom',
-    age_all: 'Tout public', age_family: 'Famille', age_adults: 'Hommes', age_women: 'Femmes', age_teens: 'Ados', age_kids: 'Enfants', age_bebes: 'Bébés',
+    age_all: 'Tout public', age_family: 'Famille', age_adults: 'Adultes', age_teens: 'Ados', age_kids: 'Enfants', age_bebes: 'Bébés',
     categoriesLabel: 'Catégories', audienceLabel: 'Public',
     submenuSearchPlaceholder: 'Rechercher catégorie...',
     pwaInstalled: 'Application installée avec succès',
@@ -1236,12 +1192,12 @@ const TRANSLATIONS = {
     updated: 'Résultats actualisés',
     dateFilterLabel: 'Filtrer par date',
     dateOptions: {
-      all: 'Tous les événements',
+      all: 'Toute date',
       today: 'Aujourd\'hui',
       tomorrow: 'Demain',
       this_weekend: 'Ce week-end',
       next_7_days: '7 prochains jours',
-      this_month: 'Escapade d\'1 jour',
+      this_month: 'Ce mois-ci',
       custom: 'Date spécifique'
     },
     dateSelected: 'Date sélectionnée',
@@ -1267,7 +1223,7 @@ const TRANSLATIONS = {
     noResults: 'Sem resultados',
     noResultsHint: 'Tente outra categoria ou mova o mapa',
     viewMore: 'Ver mais', addressNA: 'Endereço indisponível', noName: 'Sem nome',
-    age_all: 'Todos', age_family: 'Família', age_adults: 'Homens', age_women: 'Mulheres', age_teens: 'Adolescentes', age_kids: 'Crianças', age_bebes: 'Bebês',
+    age_all: 'Todos', age_family: 'Família', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Crianças', age_bebes: 'Bebês',
     categoriesLabel: 'Categorias', audienceLabel: 'Público',
     submenuSearchPlaceholder: 'Buscar categoria...',
     pwaInstalled: 'Aplicativo instalado com sucesso',
@@ -1276,12 +1232,12 @@ const TRANSLATIONS = {
     updated: 'Resultados atualizados',
     dateFilterLabel: 'Filtrar por data',
     dateOptions: {
-      all: 'Todos os eventos',
+      all: 'Qualquer data',
       today: 'Hoje',
       tomorrow: 'Amanhã',
       this_weekend: 'Este fim de semana',
       next_7_days: 'Próximos 7 dias',
-      this_month: 'Escapada de 1 dia',
+      this_month: 'Este mês',
       custom: 'Data específica'
     },
     dateSelected: 'Data selecionada',
@@ -1307,7 +1263,7 @@ const TRANSLATIONS = {
     noResults: 'Keine Ergebnisse',
     noResultsHint: 'Versuchen Sie eine andere Kategorie oder verschieben Sie die Karte',
     viewMore: 'Mehr anzeigen', addressNA: 'Adresse nicht verfügbar', noName: 'Unbenannt',
-    age_all: 'Alle', age_family: 'Familie', age_adults: 'Männer', age_women: 'Frauen', age_teens: 'Jugendliche', age_kids: 'Kinder', age_bebes: 'Babys',
+    age_all: 'Alle', age_family: 'Familie', age_adults: 'Erwachsene', age_teens: 'Jugendliche', age_kids: 'Kinder', age_bebes: 'Babys',
     categoriesLabel: 'Kategorien', audienceLabel: 'Publikum',
     submenuSearchPlaceholder: 'Kategorie suchen...',
     pwaInstalled: 'App erfolgreich installiert',
@@ -1316,12 +1272,12 @@ const TRANSLATIONS = {
     updated: 'Ergebnisse aktualisiert',
     dateFilterLabel: 'Nach Datum filtern',
     dateOptions: {
-      all: 'Alle Veranstaltungen',
+      all: 'Jedes Datum',
       today: 'Heute',
       tomorrow: 'Morgen',
       this_weekend: 'Dieses Wochenende',
       next_7_days: 'Nächste 7 Tage',
-      this_month: '1-Tages-Ausflug',
+      this_month: 'Diesen Monat',
       custom: 'Bestimmtes Datum'
     },
     dateSelected: 'Datum ausgewählt',
@@ -1425,36 +1381,18 @@ function categorizeEventByAge(event) {
     kids:   /\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|pintura|danza infantil|teatro infantil)\b/i,
     teens:  /\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer)\b/i,
     adults: /\b(adultos|adults|bar|cerveza|tequila|mezcal|vino|noche|night|party|fiesta|discoteca|club|cata|degustación|18\+|21\+|solo adultos|networking|conferencia)\b/i,
-    women:  /\b(mujeres|women|femenino|femenina|dama|damas)\b/i,
     family: /\b(familiar|familia|family|niños|kids|infantil|todos|all ages|para toda la familia|recreativo|parque|zoo|circo|festival|taller|obra|teatro)\b/i
   };
   if (patterns.bebes.test(text)) return AGE_CATEGORIES.bebes;
   if (patterns.kids.test(text)) return AGE_CATEGORIES.kids;
   if (patterns.teens.test(text)) return AGE_CATEGORIES.teens;
   if (patterns.adults.test(text)) return AGE_CATEGORIES.adults;
-  if (patterns.women.test(text)) return AGE_CATEGORIES.women;
   if (patterns.family.test(text)) return AGE_CATEGORIES.family;
   return AGE_CATEGORIES.all;
 }
 function getAgeCategoryKey(event) {
   const cat = categorizeEventByAge(event);
   return Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat) || 'all';
-}
-
-function detectEventCategories(event) {
-  const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
-  const matched = [];
-  for (const key of Object.keys(CATEGORIES)) {
-    if (key === 'all') continue;
-    const cat = CATEGORIES[key];
-    if (cat.keywords && cat.keywords.some(kw => text.includes(kw.toLowerCase()))) {
-      matched.push({ key, ...cat });
-    }
-  }
-  if (matched.length === 0) {
-    matched.push({ key: 'tourist_attraction', ...CATEGORIES.tourist_attraction });
-  }
-  return matched.slice(0, 4); // Max 4 iconos
 }
 
 // NUEVA FUNCIÓN: Verifica si un evento ya pasó (basado en fecha)
@@ -1710,10 +1648,8 @@ function applyFilters() {
         next7Days.setDate(today.getDate() + 7);
         return eventDate >= today && eventDate <= next7Days;
       }
-      if (currentDateFilter === 'this_month') { // Usado como "Escapada de 1 día"
-        const next1Day = new Date(today);
-        next1Day.setDate(today.getDate() + 1);
-        return eventDate >= today && eventDate <= next1Day;
+      if (currentDateFilter === 'this_month') {
+        return eventDate.getMonth() === today.getMonth() && eventDate.getFullYear() === today.getFullYear();
       }
       if (currentDateFilter === 'custom' && currentCustomDate) {
         const customParts = currentCustomDate.split('-');
@@ -1734,6 +1670,9 @@ function applyFilters() {
   }
 
   // 3. REGLA DE ORO: Eliminar eventos pasados de la lista principal y del mapa
+  //    Esto asegura que la app siempre muestre información vigente.
+  //    Si el filtro es 'custom' y el usuario elige una fecha pasada, podríamos permitirlo,
+  //    pero por defecto, los eventos vencidos se ocultan.
   const eventsForList = eventsFiltered.filter(e => !isEventPast(e) || (currentDateFilter === 'custom' && currentCustomDate));
   
   // 4. Unificar resultados (eventos vigentes + lugares)
@@ -1940,105 +1879,82 @@ function addMarkerToMap({ lat, lng, icon, iconColor, title, payload, payloadType
 }
 
 /* ============================================
-   INFO WINDOWS (TARJETA PREMIUM OSCURA)
+   INFO WINDOWS
    ============================================ */
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
   const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
   const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 400 }) : '';
-  
-  // Simular iconos de categoría para lugares
-  const categories = [cat];
-  
-  infoWindow.setContent(`
-    <div style="background:#121212;color:white;border-radius:16px;overflow:hidden;max-width:320px;font-family:'Inter',sans-serif;box-shadow:0 10px 30px rgba(0,0,0,0.5);">
-      ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:150px;object-fit:cover;display:block;">` : ''}
-      <div style="padding:16px;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-          <div style="width:48px;height:48px;background:${cat.bg};border-radius:12px;display:grid;place-items:center;color:${cat.color};">
-            <span class="ms fill" style="font-size:28px;">${cat.icon}</span>
-          </div>
-          <div>
-            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;line-height:1.2;">${place.name || t('noName')}</div>
-            <div style="font-size:11px;color:#A1A1AA;margin-top:2px;">${place.vicinity || t('addressNA')}</div>
-          </div>
-        </div>
-        
-        ${ratingText ? `<div style="font-size:12px;font-weight:600;color:#F59E0B;margin-bottom:12px;">⭐ ${ratingText}</div>` : ''}
-        
-        <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;">
-          ${categories.map(c => `
-            <div style="width:28px;height:28px;border-radius:50%;background:${c.color};display:grid;place-items:center;" title="${tCat(getCategoryKey(place))}">
-              <span class="ms fill" style="color:white;font-size:16px;">${c.icon}</span>
-            </div>
-          `).join('')}
-        </div>
-        
-        <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:12px;border:none;border-radius:12px;background:#4F46E5;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">${t('viewMore')}</button>
+  infoWindow.setContent(`<div style="padding:0;max-width:280px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
+    ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
+    <div style="padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="width:40px;height:40px;border-radius:12px;background:${cat.bg};color:${cat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${cat.icon}</span></div>
+        <div style="flex:1;min-width:0;"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${place.name || t('noName')}</div></div>
       </div>
+      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">
+        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${place.vicinity || t('addressNA')}</div>
+        ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F59E0B;">star</span>${ratingText}</div>` : ''}
+      </div>
+      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:#4F46E5;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>
     </div>
-  `);
+  </div>`);
   infoWindow.open(map, marker);
 }
-
 function showInfoWindowEvent(marker, event) {
   const ageCat = categorizeEventByAge(event);
+  const ageKey = getAgeCategoryKey(event);
+  
+  // Iconos de accesibilidad (simulados basados en descripción)
+  const text = ((event.title || '') + ' ' + (event.description || '')).toLowerCase();
+  const isWheelchair = /silla de ruedas|accesible|discapacidad/i.test(text);
+  const isPetFriendly = /mascota|pet friendly|perro/i.test(text);
+  const isSmokeFree = /libre de humo|no fumar|fumar/i.test(text);
+
+  const accessibilityIcons = [];
+  if (isWheelchair) accessibilityIcons.push(`<span class="icon-tag" style="background:#8B5CF6" title="Silla de ruedas"><span class="ms">accessible</span></span>`);
+  if (isPetFriendly) accessibilityIcons.push(`<span class="icon-tag" style="background:#10B981" title="Pet Friendly"><span class="ms">pets</span></span>`);
+  if (isSmokeFree) accessibilityIcons.push(`<span class="icon-tag" style="background:#F59E0B" title="Libre de humo"><span class="ms">smoke_free</span></span>`);
+
   const urlBtn = event.url
-    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:12px;border:none;border-radius:12px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:14px;cursor:pointer;text-align:center;text-decoration:none;margin-top:12px;">Ver más</a>`
-    : `<button onclick="showToast('info', 'Ver más')" style="width:100%;padding:12px;border:none;border-radius:12px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:14px;cursor:pointer;margin-top:12px;">Ver más</button>`;
-    
+    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:8px;border:none;border-radius:8px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:11px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
+    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:11px;cursor:pointer;">${t('viewMore')}</button>`;
+  
   const dateStr = event.date || '';
   const timeStr = event.time ? ' · ' + event.time : '';
   const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
-  
   const sourceBadge = event.source === 'eventbrite'
-    ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Eventbrite</span>`
+    ? `<span style="display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : event.source === 'ticketmaster'
-      ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:4px 10px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Ticketmaster</span>`
+      ? `<span style="display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">TM</span>`
       : '';
-      
-  const categories = detectEventCategories(event);
-      
-  infoWindow.setContent(`
-    <div style="background:#121212;color:white;border-radius:16px;overflow:hidden;max-width:320px;font-family:'Inter',sans-serif;box-shadow:0 10px 30px rgba(0,0,0,0.5);">
-      ${event.image ? `<img src="${event.image}" style="width:100%;height:160px;object-fit:cover;display:block;">` : ''}
-      <div style="padding:16px;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-          <div style="width:48px;height:48px;background:${ageCat.bg};border-radius:12px;display:grid;place-items:center;color:${ageCat.color};">
-            <span class="ms fill" style="font-size:28px;">${ageCat.icon}</span>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:16px;line-height:1.2;margin-bottom:4px;">${event.title || 'Evento'} ${sourceBadge}</div>
-            <div style="font-size:11px;font-weight:700;color:${ageCat.color};text-transform:uppercase;">${tAge(getAgeCategoryKey(event))}</div>
-          </div>
+
+  infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
+    ${event.image ? `<img src="${event.image}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
+    <div style="padding:12px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <div style="width:32px;height:32px;border-radius:10px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}${sourceBadge}</div>
+          <div style="font-size:10px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(ageKey)}</div>
         </div>
-        
-        <div style="font-size:12px;color:#D4D4D8;line-height:1.4;margin-bottom:12px;">
-          ${event.description ? `<div style="margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${event.description}</div>` : ''}
-          <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
-            <span class="ms fill" style="font-size:16px;color:#A1A1AA;">location_on</span>
-            <span>${venueStr}</span>
-          </div>
-          ${dateStr ? `
-          <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
-            <span class="ms fill" style="font-size:16px;color:#A1A1AA;">calendar_today</span>
-            <span>${dateStr}${timeStr}</span>
-          </div>
-          ` : ''}
-        </div>
-        
-        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
-          ${categories.map(c => `
-            <div style="width:32px;height:32px;border-radius:50%;background:${c.color};display:grid;place-items:center;box-shadow:0 2px 5px rgba(0,0,0,0.3);" title="${tCat(c.key)}">
-              <span class="ms fill" style="color:white;font-size:18px;">${c.icon}</span>
-            </div>
-          `).join('')}
-        </div>
-        
-        ${urlBtn}
       </div>
+      
+      <div style="font-size:11px;color:#52525B;line-height:1.4;margin-bottom:8px;font-weight:500; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+        ${event.description || 'Descubre más sobre este evento.'}
+      </div>
+
+      <div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;">
+        ${accessibilityIcons.join('')}
+      </div>
+
+      <div style="font-size:11px;color:#52525B;line-height:1.4;margin-bottom:8px;font-weight:500;">
+        <div style="display:flex;align-items:center;gap:4px;"><span style="font-family:'Material Symbols Rounded';font-size:12px;color:#A1A1AA;">location_on</span>${venueStr}</div>
+        ${dateStr ? `<div style="display:flex;align-items:center;gap:4px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:12px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
+      </div>
+      ${urlBtn}
     </div>
-  `);
+  </div>`);
   infoWindow.open(map, marker);
 }
 
@@ -2052,21 +1968,12 @@ function renderGoogleCard(place) {
   const photoHtml = photoUrl
     ? `<img src="${photoUrl}" alt="${place.name || ''}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${cat.icon}</span>'">`
     : `<span class="placeholder">${cat.icon}</span>`;
-    
   return `<div class="event-card" onclick="focusPlace('${place.place_id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
     <div class="event-photo" style="background:${cat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${place.name || t('noName')}</div>
-      <div class="event-desc-mini">${place.vicinity || ''}</div>
-      <div class="event-tags-row">
-         <div class="mini-tag" style="background:${cat.color}" title="${tCat(getCategoryKey(place))}">
-            <span class="ms fill">${cat.icon}</span>
-         </div>
-      </div>
-      <div class="event-footer">
-         <span class="event-age-tag" style="--age-bg:${cat.bg};--age-color:${cat.color};">${tCat(getCategoryKey(place))}</span>
-         ${rating}
-      </div>
+      <div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div>
+      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${cat.bg};--age-color:${cat.color};">${tCat(getCategoryKey(place))}</span>${rating}</div>
     </div>
   </div>`;
 }
@@ -2077,32 +1984,46 @@ function renderEventCard(event) {
   const title = event.title || 'Evento sin título';
   const venue = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
   const dateInfo = event.date ? event.date + (event.time ? ' · ' + event.time : '') : '';
+  const desc = event.description || 'Descubre más sobre este evento.';
+  
   const photoHtml = event.image
     ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${ageCat.icon}</span>'">`
     : `<span class="placeholder">${ageCat.icon}</span>`;
-  const srcTag = event.source === 'eventbrite'
-    ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
-    : '';
-  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; 
   
-  const categories = detectEventCategories(event);
+  const srcTag = event.source === 'eventbrite'
+    ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:800;padding:2px 5px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
+    : '';
+
+  // Iconos de accesibilidad
+  const text = ((event.title || '') + ' ' + (event.description || '')).toLowerCase();
+  const isWheelchair = /silla de ruedas|accesible|discapacidad/i.test(text);
+  const isPetFriendly = /mascota|pet friendly|perro/i.test(text);
+  const isSmokeFree = /libre de humo|no fumar|fumar/i.test(text);
+
+  const accessibilityIcons = [];
+  if (isWheelchair) accessibilityIcons.push(`<span class="icon-tag" style="background:#8B5CF6" title="Silla de ruedas"><span class="ms">accessible</span></span>`);
+  if (isPetFriendly) accessibilityIcons.push(`<span class="icon-tag" style="background:#10B981" title="Pet Friendly"><span class="ms">pets</span></span>`);
+  if (isSmokeFree) accessibilityIcons.push(`<span class="icon-tag" style="background:#F59E0B" title="Libre de humo"><span class="ms">smoke_free</span></span>`);
+
+  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; 
   
   return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};${pastClass}">
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
-      ${event.description ? `<div class="event-desc-mini">${event.description}</div>` : ''}
+      <div class="event-desc">${desc}</div>
       <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
       
-      <div class="event-tags-row">
-        ${categories.map(c => `
-          <div class="mini-tag" style="background:${c.color}" title="${tCat(c.key)}">
-            <span class="ms fill">${c.icon}</span>
-          </div>
-        `).join('')}
+      <!-- ICONOS DE AUDIENCIA Y ACCESIBILIDAD -->
+      <div class="event-icons-row">
+        <span class="icon-tag" style="background:${ageCat.color}" title="${tAge(ageKey)}"><span class="ms">${ageCat.icon}</span></span>
+        ${accessibilityIcons.join('')}
       </div>
-      
-      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${srcTag}${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div>
+
+      <div class="event-footer">
+        ${srcTag}
+        ${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}
+      </div>
     </div>
   </div>`;
 }
@@ -2151,24 +2072,53 @@ function renderSubmenuOptions(type, searchTerm) {
   if (type === 'audience') {
     titleEl.textContent = t('audienceLabel');
     iconEl.textContent = 'groups';
-    
-    // Usando el nuevo diseño de píldoras
     const options = Object.entries(AGE_CATEGORIES).map(([key, cat]) => ({
       key, label: tAge(key), icon: cat.icon, color: cat.color, bg: cat.bg, active: key === currentAudience
     }));
     
-    optionsContainer.innerHTML = options.map(opt => `
-      <button class="pill-option ${opt.active ? 'active' : ''}" data-key="${opt.key}" onclick="setAudience('${opt.key}')">
-        <div class="pill-icon-wrapper" style="background:${opt.color};">
-          <span class="ms fill">${opt.icon}</span>
-        </div>
-        <div class="pill-label">
-          <span>${opt.label}</span>
-          <span class="ms check">check</span>
-        </div>
+    optionsContainer.innerHTML = options.map((opt, i) => `
+      <button class="submenu-option ${opt.active ? 'active' : ''}" data-key="${opt.key}" style="--option-color:${opt.color};--option-bg:${opt.bg};animation-delay:${i * 30}ms;">
+        <span class="ms">${opt.icon}</span><span>${opt.label}</span><span class="ms check">check</span>
       </button>
     `).join('');
     
+    bindSubmenuOptionEvents(type, options);
+    
+  } else if (type === 'date') {
+    titleEl.textContent = t('dateFilterLabel');
+    iconEl.textContent = 'calendar_month';
+    
+    const dateOptions = [
+      { key: 'all', label: tDate('all'), icon: 'event_available' },
+      { key: 'today', label: tDate('today'), icon: 'today' },
+      { key: 'tomorrow', label: tDate('tomorrow'), icon: 'event' },
+      { key: 'this_weekend', label: tDate('this_weekend'), icon: 'weekend' },
+      { key: 'next_7_days', label: tDate('next_7_days'), icon: 'date_range' },
+      { key: 'this_month', label: tDate('this_month'), icon: 'calendar_month' }
+    ];
+    
+    let html = dateOptions.map((opt, i) => `
+      <button class="submenu-option ${currentDateFilter === opt.key ? 'active' : ''}" data-key="${opt.key}" style="--option-color:var(--primary);--option-bg:var(--primary-container);animation-delay:${i * 30}ms;">
+        <span class="ms">${opt.icon}</span><span>${opt.label}</span><span class="ms check">check</span>
+      </button>
+    `).join('');
+    
+    html += `<div class="submenu-group-label" style="margin-top:8px;"><span class="ms">edit_calendar</span>${tDate('custom')}</div>`;
+    html += `<div class="date-input-wrapper">
+      <input type="date" id="customDateInput" value="${currentCustomDate}" onchange="onCustomDateChange(this.value)">
+    </div>`;
+    
+    optionsContainer.innerHTML = html;
+    
+    optionsContainer.querySelectorAll('.submenu-option').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const key = btn.dataset.key;
+        setDateFilter(key);
+        closeSubmenu();
+      });
+    });
+
   } else if (type === 'category') {
     titleEl.textContent = t('categoriesLabel');
     iconEl.textContent = 'category';
@@ -2196,6 +2146,8 @@ function renderSubmenuOptions(type, searchTerm) {
     });
     
     let html = '';
+    let animIdx = 0;
+    
     const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'gastronomía', 'compras', 'servicios'];
     const sortedGroups = Object.keys(grouped).sort((a, b) => {
       const ia = groupOrder.indexOf(a);
@@ -2212,10 +2164,11 @@ function renderSubmenuOptions(type, searchTerm) {
         const cat = CATEGORIES[key];
         const isActive = key === currentCategory;
         html += `
-          <button class="submenu-option ${isActive ? 'active' : ''}" data-key="${key}" style="--option-color:${cat.color};--option-bg:${cat.bg};">
+          <button class="submenu-option ${isActive ? 'active' : ''}" data-key="${key}" style="--option-color:${cat.color};--option-bg:${cat.bg};animation-delay:${animIdx * 20}ms;">
             <span class="ms">${cat.icon}</span><span>${tCat(key)}</span><span class="ms check">check</span>
           </button>
         `;
+        animIdx++;
       });
       
       html += `</div>`;
@@ -2234,6 +2187,18 @@ function renderSubmenuOptions(type, searchTerm) {
   }
 }
 
+function bindSubmenuOptionEvents(type, options) {
+  const optionsContainer = document.getElementById('submenuOptions');
+  optionsContainer.querySelectorAll('.submenu-option').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const key = btn.dataset.key;
+      if (type === 'audience') setAudience(key);
+      closeSubmenu();
+    });
+  });
+}
+
 function filterSubmenuOptions() {
   const searchTerm = document.getElementById('submenuSearchInput').value;
   if (currentSubmenuType) {
@@ -2247,22 +2212,32 @@ function closeSubmenu() {
 }
 
 /* ============================================
-   BOTONES DE CATEGORÍA Y ESCAPADITAS
+   BOTONES DE CATEGORÍA Y ESCAPADITAS (ESTILO PÍLDORA)
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
+  
+  // Ya NO renderizamos el botón de Audiencia aquí, solo el de Categoría y Escapaditas
   container.innerHTML = `
-    <button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu('audience')" data-label="${t('audienceLabel')}">
-      <span class="ms fill" id="audienceIcon">${AGE_CATEGORIES[currentAudience].icon}</span>
-      <span class="badge" id="audienceBadge">0</span>
+    <button class="cat-pill ${currentCategory === 'all' ? 'active' : ''}" onclick="event.stopPropagation(); openSubmenu('category')" data-cat="all" style="--cat-color: #4F46E5;">
+      <div class="cat-pill-icon"><span class="ms fill">explore</span></div>
+      <div class="cat-pill-label">Todas</div>
     </button>
-    <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
-      <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
-      <span class="badge" id="categoryBadge">0</span>
+    <button class="cat-pill ${currentCategory === 'museum' ? 'active' : ''}" onclick="event.stopPropagation(); setCategory('museum')" data-cat="museum" style="--cat-color: #4F46E5;">
+      <div class="cat-pill-icon"><span class="ms fill">museum</span></div>
+      <div class="cat-pill-label">Museos</div>
     </button>
-    <!-- BOTÓN ESCAPADITAS AQUÍ -->
-    <button class="cat-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" style="background: var(--accent); color: white; border-color: var(--accent);">
-      <span class="ms fill">luggage</span>
+    <button class="cat-pill ${currentCategory === 'park' ? 'active' : ''}" onclick="event.stopPropagation(); setCategory('park')" data-cat="park" style="--cat-color: #10B981;">
+      <div class="cat-pill-icon"><span class="ms fill">park</span></div>
+      <div class="cat-pill-label">Parques</div>
+    </button>
+    <button class="cat-pill ${currentCategory === 'restaurant' ? 'active' : ''}" onclick="event.stopPropagation(); setCategory('restaurant')" data-cat="restaurant" style="--cat-color: #EA580C;">
+      <div class="cat-pill-icon"><span class="ms fill">restaurant</span></div>
+      <div class="cat-pill-label">Restaurantes</div>
+    </button>
+    <button class="cat-pill" onclick="toggleEscapaditas()" style="--cat-color: #EC4899;">
+      <div class="cat-pill-icon"><span class="ms fill">luggage</span></div>
+      <div class="cat-pill-label">Escapaditas</div>
     </button>
   `;
 }
@@ -2288,21 +2263,27 @@ function setAudience(audience) {
   if (icon) icon.textContent = AGE_CATEGORIES[audience].icon;
   showToast(AGE_CATEGORIES[audience].icon, tAge(audience));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
-  closeSubmenu();
 }
 function setCategory(cat) {
   currentCategory = cat;
   currentSearch = '';
   const searchInput = document.getElementById('searchInput');
   if (searchInput) searchInput.value = '';
-  const icon = document.getElementById('categoryIcon');
-  if (icon) icon.textContent = CATEGORIES[cat].icon;
+  
+  // Actualizar UI de píldoras
+  document.querySelectorAll('.cat-pill').forEach(pill => {
+    if (pill.dataset.cat === cat) {
+      pill.classList.add('active');
+    } else {
+      pill.classList.remove('active');
+    }
+  });
+  
   lastSearchTime = 0;
   if (infoWindow) infoWindow.close();
   searchEverything();
   showToast(CATEGORIES[cat].icon, tCat(cat));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
-  closeSubmenu();
 }
 function setDateFilter(key) {
   currentDateFilter = key;
@@ -2311,11 +2292,14 @@ function setDateFilter(key) {
   }
   applyFilters();
   
+  // ACTUALIZAR ESCAPADITAS SI ESTÁ ABIERTO
   if (isEscapaditasOpen() && escapaditasLocation) {
     searchEscapaditas(escapaditasLocation);
   }
   
+  // Actualizar indicadores visuales
   updateDateFilterUI();
+  
   showToast('calendar_month', tDate(key));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
   closeDateFilterPanel();
@@ -2326,6 +2310,7 @@ function onCustomDateChange(val) {
   currentDateFilter = 'custom';
   applyFilters();
   
+  // ACTUALIZAR ESCAPADITAS SI ESTÁ ABIERTO
   if (isEscapaditasOpen() && escapaditasLocation) {
     searchEscapaditas(escapaditasLocation);
   }
@@ -2376,15 +2361,21 @@ function closeDateFilterPanel() {
 }
 
 function updateDateFilterUI() {
-  document.querySelectorAll('.pill-option').forEach(btn => {
+  // Actualizar clases activas en las opciones
+  document.querySelectorAll('.date-option').forEach(btn => {
     const key = btn.dataset.date;
     if (key === currentDateFilter) {
       btn.classList.add('active');
+      const check = btn.querySelector('.check');
+      if (check) check.style.opacity = '1';
     } else {
       btn.classList.remove('active');
+      const check = btn.querySelector('.check');
+      if (check) check.style.opacity = '0';
     }
   });
   
+  // Actualizar input de fecha personalizada
   const input = document.getElementById('customDateInput');
   if (input) {
     input.value = currentCustomDate;
@@ -2428,6 +2419,7 @@ function openEscapaditas() {
   document.getElementById('sidebarRight').classList.add('open');
   document.body.classList.remove('escapaditas-closed');
   updateOverlay();
+  // Auto-actualizar ubicación al abrir
   updateEscapaditasLocation();
 }
 function closeEscapaditas() {
@@ -2464,15 +2456,18 @@ function updateEscapaditasLocation() {
       input.value = `Lat: ${loc.lat.toFixed(4)}, Lng: ${loc.lng.toFixed(4)}`;
       showToast('location_on', 'Ubicación actualizada');
       
+      // Mover el mapa a la ubicación actual (opcional, pero útil para contexto)
       map.panTo(loc);
       map.setZoom(10);
       
+      // Buscar eventos en un radio de 3 horas
       searchEscapaditas(loc);
     },
     (err) => {
       console.error('Error obteniendo ubicación:', err);
       showToast('error', 'No se pudo obtener la ubicación. Usando GDL por defecto.');
       input.value = 'Usando Guadalajara por defecto';
+      // Fallback a GDL
       escapaditasLocation = GDL_CENTER;
       searchEscapaditas(GDL_CENTER);
     },
@@ -2486,6 +2481,7 @@ async function searchEscapaditas(location) {
   const dateIndicator = document.getElementById('escapaditasDateFilterIndicator');
   const dateLabel = document.getElementById('escapaditasDateLabel');
   
+  // Actualizar el subtítulo y el indicador de fecha
   if (currentDateFilter !== 'all') {
     subtitleEl.textContent = `Eventos · ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
     dateIndicator.style.display = 'flex';
@@ -2498,6 +2494,7 @@ async function searchEscapaditas(location) {
   container.innerHTML = `<div class="empty-state"><span class="ms">travel_explore</span><h3>Buscando escapaditas...</h3><p>Explorando eventos en un radio de 3 horas.</p></div>`;
 
   try {
+    // Buscar eventos usando Ticketmaster y Google Places (simulando eventos)
     const [tmRes, placesRes] = await Promise.allSettled([
       searchTicketmasterEscapaditas(location),
       searchPlacesEscapaditas(location)
@@ -2507,8 +2504,10 @@ async function searchEscapaditas(location) {
     if (tmRes.status === 'fulfilled') events = events.concat(tmRes.value || []);
     if (placesRes.status === 'fulfilled') events = events.concat(placesRes.value || []);
 
+    // Filtrar eventos pasados y duplicados
     events = deduplicateEvents(events).filter(e => !isEventPast(e));
 
+    // **FILTRAR POR FECHA SELECCIONADA EN ESCAPADITAS**
     if (currentDateFilter !== 'all') {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -2538,10 +2537,13 @@ async function searchEscapaditas(location) {
           if (dayOfWeek === 6) return eventDate.getTime() === today.getTime() || eventDate.getTime() === thisSunday.getTime();
           return eventDate.getTime() === thisSaturday.getTime() || eventDate.getTime() === thisSunday.getTime();
         }
+        if (currentDateFilter === 'next_7_days') {
+          const next7Days = new Date(today);
+          next7Days.setDate(today.getDate() + 7);
+          return eventDate >= today && eventDate <= next7Days;
+        }
         if (currentDateFilter === 'this_month') {
-          const next1Day = new Date(today);
-          next1Day.setDate(today.getDate() + 1);
-          return eventDate >= today && eventDate <= next1Day;
+          return eventDate.getMonth() === today.getMonth() && eventDate.getFullYear() === today.getFullYear();
         }
         if (currentDateFilter === 'custom' && currentCustomDate) {
           const customParts = currentCustomDate.split('-');
@@ -2563,10 +2565,12 @@ async function searchEscapaditas(location) {
       return;
     }
 
+    // Renderizar lista
     container.innerHTML = `<div class="section-label">${events.length} escapaditas encontradas${currentDateFilter !== 'all' ? ' · ' + tDate(currentDateFilter) : ''}</div>` + 
       events.map(item => renderEventCard(item)).join('');
 
-    renderMarkersForAll(events.filter(e => !isEventPast(e)));
+    // Renderizar marcadores en el mapa (ya se hace en renderMarkersForAll, pero forzamos actualización)
+    renderMarkersForAll(events.filter(e => !isEventPast(e))); // Solo eventos vigentes en el mapa
 
     showToast('check_circle', `${events.length} escapaditas encontradas${currentDateFilter !== 'all' ? ' para ' + tDate(currentDateFilter) : ''}`);
 
@@ -2580,6 +2584,7 @@ async function searchEscapaditas(location) {
 function searchTicketmasterEscapaditas(location) {
   return new Promise(async (resolve) => {
     try {
+      // Radio de 250 km (aprox 3 horas)
       const radiusKm = 250; 
       const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEYS.ticketmaster}&latlong=${location.lat},${location.lng}&radius=${radiusKm}&unit=km&size=50&sort=date,asc&locale=${currentLang === 'es' ? 'es' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'en-us'}`;
       const controller = new AbortController();
@@ -2603,6 +2608,7 @@ function searchPlacesEscapaditas(location) {
   return new Promise((resolve) => {
     if (!placesService || !placesApiAvailable) return resolve([]);
     
+    // Buscar lugares turísticos y culturales en un radio grande
     const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'park', 'zoo', 'aquarium', 'stadium'];
     const promises = typesToFetch.map(type => {
       return new Promise((res) => {
@@ -2616,20 +2622,22 @@ function searchPlacesEscapaditas(location) {
           placesService.nearbySearch(request, (results, status) => {
             clearTimeout(timeout);
             if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+              // Convertir lugares a formato evento "simulado" para la lista
               const placesAsEvents = results.map(p => ({
                 id: 'place_esc_' + p.place_id,
-                type: 'place', 
+                type: 'place', // Mantenemos el tipo place para renderizar con renderGoogleCard
                 source: 'google',
                 title: p.name,
-                date: '', 
+                date: '', // Los lugares no tienen fecha
                 time: '',
                 venue: p.vicinity || '',
                 city: '',
                 lat: p.geometry.location.lat(),
                 lng: p.geometry.location.lng(),
                 url: '',
-                description: 'Lugar de interés',
+                description: '',
                 image: p.photos && p.photos.length > 0 ? p.photos[0].getUrl({ maxWidth: 200 }) : '',
+                // Metadatos extra para renderGoogleCard
                 _isPlace: true,
                 rating: p.rating,
                 user_ratings_total: p.user_ratings_total,
@@ -2650,6 +2658,7 @@ function searchPlacesEscapaditas(location) {
 
     Promise.all(promises).then(allResults => {
       const flat = allResults.flat();
+      // Deduplicar por place_id
       const seen = new Set();
       const unique = flat.filter(p => {
         if (!p.place_id || seen.has(p.place_id)) return false;
