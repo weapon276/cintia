@@ -157,36 +157,41 @@
   .icon-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; }
   
-  /* CONTENEDOR DE CATEGORÍAS (DERECHA) */
+  /* NUEVO DISEÑO DE BOTONES DE CATEGORÍA (ESTILO TARJETA) */
   .main-categories {
     position: absolute; right: 16px; top: 50%;
     transform: translateY(-50%); z-index: var(--z-chips);
     display: flex; flex-direction: column; gap: 12px;
     pointer-events: auto;
   }
-  .cat-btn {
-    width: 56px; height: 56px; border-radius: var(--r-lg);
-    background: var(--surface); border: 1px solid var(--outline);
-    display: grid; place-items: center;
-    box-shadow: var(--shadow-3); cursor: pointer;
-    color: var(--text); position: relative;
-    transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s;
-  }
-  .cat-btn .ms { font-size: 26px; }
-  .cat-btn:hover { transform: scale(1.05); }
-  .cat-btn:active { transform: scale(0.92); }
-  .cat-btn .badge {
-    position: absolute; top: -4px; right: -4px;
-    min-width: 22px; height: 22px; padding: 0 6px;
+  .cat-card {
+    display: flex; align-items: center;
+    background: #1F2937; /* Gris muy oscuro para contrastar */
     border-radius: var(--r-full);
-    background: var(--primary); color: #FFFFFF;
-    font-size: 11px; font-weight: 800;
-    display: grid; place-items: center;
-    border: 2px solid var(--surface);
-    opacity: 0; transition: opacity .2s, transform .2s;
+    padding: 4px 16px 4px 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: transform .2s var(--ease-spring), box-shadow .2s;
+    border: none;
+    width: fit-content;
+    align-self: flex-end;
   }
-  .cat-btn .badge.show { opacity: 1; }
-  
+  .cat-card:active { transform: scale(0.95); }
+  .cat-card-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .cat-card-icon .ms { color: #FFFFFF; font-size: 24px; }
+  .cat-card-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: #FFFFFF;
+    white-space: nowrap;
+  }
+
   .submenu {
     position: absolute; right: 84px; top: 50%;
     transform: translateY(-50%);
@@ -535,7 +540,7 @@
     cursor: pointer;
     transition: all .22s var(--ease-standard);
     position: relative; overflow: hidden;
-    min-height: 100px;
+    min-height: 120px;
     animation: fadeInUp .3s var(--ease-emphasized) backwards;
   }
   .event-card::before {
@@ -550,7 +555,7 @@
   .event-card:active { transform: scale(0.985) translateY(0); }
   
   .event-photo {
-    width: 100px; height: 100px; flex-shrink: 0;
+    width: 100px; height: 100%; flex-shrink: 0;
     background: var(--card-bg, var(--primary-container));
     display: grid; place-items: center; overflow: hidden;
     position: relative;
@@ -567,7 +572,7 @@
     font-variation-settings: 'FILL' 1, 'wght' 500;
   }
   
-  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; justify-content: center; padding: 14px 16px; }
+  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 12px 14px; }
   .event-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px; font-weight: 700;
@@ -577,13 +582,23 @@
     -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden; word-break: break-word;
   }
+  .event-description {
+    font-size: 12px;
+    color: var(--text-2);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 2px;
+  }
   .event-venue {
-    font-size: 13px; color: var(--text-2); font-weight: 500;
+    font-size: 12px; color: var(--text-3); font-weight: 500;
     display: flex; align-items: center; gap: 4px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
-  .event-footer { display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap; }
+  .event-footer { display: flex; align-items: center; gap: 6px; margin-top: 2px; flex-wrap: wrap; }
   .event-age-tag {
     display: inline-flex; align-items: center; gap: 4px;
     font-size: 10px; font-weight: 800;
@@ -594,10 +609,10 @@
   }
   .event-age-tag .ms { font-size: 12px; }
   .event-rating {
-    font-size: 12px; color: var(--text-3); font-weight: 600;
+    font-size: 11px; color: var(--text-3); font-weight: 600;
     margin-left: auto; display: flex; align-items: center; gap: 2px;
   }
-  .event-rating .ms { font-size: 14px; color: var(--secondary); }
+  .event-rating .ms { font-size: 13px; color: var(--secondary); }
   
   .empty-state {
     text-align: center; padding: 60px 20px;
@@ -697,8 +712,13 @@
       bottom: calc(160px + var(--safe-bottom));
       transform: none;
       flex-direction: column;
+      align-items: flex-end;
     }
-    .cat-btn { width: 52px; height: 52px; }
+    .cat-card { padding: 3px 12px 3px 3px; }
+    .cat-card-icon { width: 38px; height: 38px; margin-right: 8px; }
+    .cat-card-icon .ms { font-size: 20px; }
+    .cat-card-label { font-size: 12px; }
+    
     .submenu {
       right: 76px; top: auto;
       bottom: calc(160px + var(--safe-bottom));
@@ -714,7 +734,7 @@
     .sidebar { width: 92%; max-width: 400px; }
     .sidebar-right { width: 92%; max-width: 400px; }
     .install-banner { width: calc(100% - 32px); }
-    .event-photo { width: 88px; height: 88px; }
+    .event-photo { width: 88px; }
     .splash-greeting { font-size: 26px; }
     .splash-greeting-emoji { font-size: 40px; }
     .splash-logo { width: 80px; height: 80px; }
@@ -730,7 +750,7 @@
   
   @media (min-width: 1200px) {
     .sidebar { transform: translateX(0); }
-    .sidebar-right { transform: translateX(0); } /* En desktop, Escapaditas también se abre por defecto si se desea, pero lo controlamos con JS */
+    .sidebar-right { transform: translateX(0); }
     body:not(.sidebar-closed) .header { left: 416px; }
     body.sidebar-closed .header { left: 16px; }
     body.sidebar-closed .sidebar { transform: translateX(-100%); }
@@ -739,7 +759,6 @@
     body.escapaditas-closed .sidebar-right { transform: translateX(100%); }
     
     .header { left: 416px; transition: left .4s var(--ease-emphasized); }
-    /* Ajuste para cuando ambas están abiertas */
     body:not(.sidebar-closed):not(.escapaditas-closed) .header {
       left: 416px;
       right: 416px;
@@ -816,7 +835,6 @@
       <span class="ms fill">explore</span>
       <span>Actualizar ubicación</span>
     </button>
-    <!-- INDICADOR DE FILTRO DE FECHA EN ESCAPADITAS -->
     <div id="escapaditasDateFilterIndicator" style="display:none; margin-top: 12px; padding: 8px 12px; background: var(--accent-container); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 6px;">
       <span class="ms fill" style="font-size: 16px;">calendar_month</span>
       <span id="escapaditasDateLabel">Filtrando por fecha</span>
@@ -1932,6 +1950,7 @@ function renderEventCard(event) {
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
+      <div class="event-description">${event.description || 'Sin descripción disponible.'}</div>
       <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
       <div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${srcTag}${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div>
     </div>
@@ -2125,18 +2144,28 @@ function closeSubmenu() {
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
+  
+  // Nuevos botones estilo tarjeta flotante con iconos contrastados
   container.innerHTML = `
-    <button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu('audience')" data-label="${t('audienceLabel')}">
-      <span class="ms fill" id="audienceIcon">${AGE_CATEGORIES[currentAudience].icon}</span>
-      <span class="badge" id="audienceBadge">0</span>
+    <button class="cat-card" onclick="toggleEscapaditas()" aria-label="Escapaditas">
+      <div class="cat-card-icon" style="background: linear-gradient(135deg, #10B981, #059669);">
+        <span class="ms fill">landscape</span>
+      </div>
+      <span class="cat-card-label">Escapada de 1 día</span>
     </button>
-    <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
-      <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
-      <span class="badge" id="categoryBadge">0</span>
+
+    <button class="cat-card" onclick="openSubmenu('category')" aria-label="Todas las categorías">
+      <div class="cat-card-icon" style="background: linear-gradient(135deg, #EC4899, #BE185D);">
+        <span class="ms fill">event</span>
+      </div>
+      <span class="cat-card-label">Todos los eventos</span>
     </button>
-    <!-- BOTÓN ESCAPADITAS AQUÍ -->
-    <button class="cat-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" style="background: var(--accent); color: white; border-color: var(--accent);">
-      <span class="ms fill">luggage</span>
+    
+    <button class="cat-card" onclick="openSubmenu('audience')" aria-label="Audiencia">
+      <div class="cat-card-icon" style="background: linear-gradient(135deg, #4F46E5, #4338CA);">
+        <span class="ms fill">groups</span>
+      </div>
+      <span class="cat-card-label">Audiencia</span>
     </button>
   `;
 }
