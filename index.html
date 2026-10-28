@@ -170,11 +170,12 @@
     display: grid; place-items: center;
     box-shadow: var(--shadow-3); cursor: pointer;
     color: var(--text); position: relative;
-    transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s;
+    transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s, opacity .2s;
   }
   .cat-btn .ms { font-size: 26px; }
   .cat-btn:hover { transform: scale(1.05); }
   .cat-btn:active { transform: scale(0.92); }
+  .cat-btn.dimmed { opacity: 0.3; }
   .cat-btn .badge {
     position: absolute; top: -4px; right: -4px;
     min-width: 22px; height: 22px; padding: 0 6px;
@@ -272,7 +273,7 @@
     padding: 12px 14px; border: none; background: transparent;
     border-radius: var(--r-sm); cursor: pointer;
     font-family: inherit; font-size: 14px; font-weight: 600;
-    color: var(--text); transition: background .15s, transform .15s;
+    color: var(--text); transition: background .15s, transform .15s, opacity .2s;
     text-align: left; width: 100%;
     opacity: 0; transform: translateX(10px);
     animation: submenuItemIn .3s var(--ease-spring) forwards;
@@ -280,6 +281,7 @@
   @keyframes submenuItemIn { to { opacity: 1; transform: translateX(0); } }
   .submenu-option:hover { background: var(--surface-2); }
   .submenu-option:active { transform: scale(0.98); }
+  .submenu-option.dimmed { opacity: 0.4; }
   .submenu-option.active {
     background: var(--option-bg, var(--primary-container));
     color: var(--option-color, var(--primary-dark));
@@ -535,7 +537,7 @@
     cursor: pointer;
     transition: all .22s var(--ease-standard);
     position: relative; overflow: hidden;
-    min-height: 100px;
+    min-height: 120px;
     animation: fadeInUp .3s var(--ease-emphasized) backwards;
   }
   .event-card::before {
@@ -550,7 +552,7 @@
   .event-card:active { transform: scale(0.985) translateY(0); }
   
   .event-photo {
-    width: 100px; height: 100px; flex-shrink: 0;
+    width: 100px; height: auto; flex-shrink: 0;
     background: var(--card-bg, var(--primary-container));
     display: grid; place-items: center; overflow: hidden;
     position: relative;
@@ -567,7 +569,7 @@
     font-variation-settings: 'FILL' 1, 'wght' 500;
   }
   
-  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; justify-content: center; padding: 14px 16px; }
+  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 12px 14px; }
   .event-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px; font-weight: 700;
@@ -577,13 +579,22 @@
     -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden; word-break: break-word;
   }
+  .event-description {
+    font-size: 11px;
+    color: var(--text-2);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 2px;
+  }
   .event-venue {
-    font-size: 13px; color: var(--text-2); font-weight: 500;
+    font-size: 12px; color: var(--text-2); font-weight: 500;
     display: flex; align-items: center; gap: 4px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
-  .event-footer { display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap; }
+  .event-footer { display: flex; align-items: center; gap: 6px; margin-top: 2px; flex-wrap: wrap; }
   .event-age-tag {
     display: inline-flex; align-items: center; gap: 4px;
     font-size: 10px; font-weight: 800;
@@ -599,6 +610,87 @@
   }
   .event-rating .ms { font-size: 14px; color: var(--secondary); }
   
+  /* ICONOS DE ACCESIBILIDAD Y SERVICIOS (PEQUEÑOS) */
+  .event-badges {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+  .badge-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    color: var(--text-2);
+    font-size: 14px;
+  }
+  .badge-icon .ms {
+    font-size: 14px;
+  }
+  .badge-icon.wheelchair { color: #4F46E5; background: #EEF2FF; }
+  .badge-icon.pet { color: #10B981; background: #D1FAE5; }
+  .badge-icon.smoke-free { color: #F59E0B; background: #FEF3C7; }
+
+  /* NUEVOS ICONOS DE CATEGORÍA (ESTILO IMAGEN) */
+  .category-pill-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .category-pill-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--cat-color, var(--primary));
+    color: #FFFFFF;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .category-pill-icon .ms {
+    font-size: 16px;
+  }
+  .category-pill-label {
+    background: #1A1A1A;
+    color: #FFFFFF;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  /* ICONOS DE AUDIENCIA (PEQUEÑOS EN TARJETA) */
+  .audience-icons {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+  .audience-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--aud-bg, #EEF2FF);
+    color: var(--aud-color, #4F46E5);
+    font-size: 12px;
+  }
+  .audience-icon .ms {
+    font-size: 12px;
+  }
+
   .empty-state {
     text-align: center; padding: 60px 20px;
     display: flex; flex-direction: column; align-items: center; gap: 12px;
@@ -714,7 +806,7 @@
     .sidebar { width: 92%; max-width: 400px; }
     .sidebar-right { width: 92%; max-width: 400px; }
     .install-banner { width: calc(100% - 32px); }
-    .event-photo { width: 88px; height: 88px; }
+    .event-photo { width: 88px; }
     .splash-greeting { font-size: 26px; }
     .splash-greeting-emoji { font-size: 40px; }
     .splash-logo { width: 80px; height: 80px; }
@@ -891,12 +983,12 @@
   </button>
 </div>
 
-<!-- CONTENEDOR DE CATEGORÍAS Y ESCAPADITAS A LA DERECHA -->
+<!-- CONTENEDOR DE CATEGORÍAS Y ESCAPADITAS A LA DERECHA (SOLO DOS BOTONES) -->
 <div class="main-categories" id="mainCategories"></div>
 
 <div class="submenu" id="submenu">
   <div class="submenu-header">
-    <div class="submenu-title"><span class="ms" id="submenuIcon">groups</span><span id="submenuTitle">Audiencia</span></div>
+    <div class="submenu-title"><span class="ms" id="submenuIcon">category</span><span id="submenuTitle">Categorías</span></div>
     <button class="submenu-close" onclick="closeSubmenu()"><span class="ms">close</span></button>
   </div>
   <div class="submenu-search" id="submenuSearchBox">
@@ -992,19 +1084,20 @@ function updateSplashGreeting() {
 }
 
 /* ============================================
-   CATEGORÍAS DE AUDIENCIA
+   CATEGORÍAS DE AUDIENCIA (ICONOS Y COLORES DE LA IMAGEN)
    ============================================ */
 const AGE_CATEGORIES = {
   all:      { label: 'Todo público', icon: 'groups',          color: '#4F46E5', bg: '#EEF2FF' },
-  family:   { label: 'Familia',      icon: 'family_restroom', color: '#06B6D4', bg: '#CFFAFE' },
-  adults:   { label: 'Adultos',      icon: 'wine_bar',        color: '#EC4899', bg: '#FCE7F3' },
-  teens:    { label: 'Adolescentes', icon: 'sports_esports',  color: '#8B5CF6', bg: '#EDE9FE' },
-  kids:     { label: 'Niños',        icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' },
-  bebes:    { label: 'Bebés',        icon: 'stroller',        color: '#10B981', bg: '#D1FAE5' }
+  family:   { label: 'Familia',      icon: 'home',            color: '#000000', bg: '#F4F4F5' }, // Negro de la imagen
+  adults_m: { label: 'Hombres',      icon: 'man',             color: '#2563EB', bg: '#DBEAFE' }, // Azul de la imagen
+  adults_w: { label: 'Mujeres',      icon: 'woman',           color: '#EC4899', bg: '#FCE7F3' }, // Rosa de la imagen
+  teens:    { label: 'Adolescentes', icon: 'sports_esports',  color: '#8B5CF6', bg: '#EDE9FE' }, // Morado de la imagen
+  kids:     { label: 'Niños',        icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' }, // Naranja de la imagen
+  bebes:    { label: 'Bebés',        icon: 'stroller',        color: '#06B6D4', bg: '#CFFAFE' }  // Cyan de la imagen
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES
+   CATEGORÍAS DE LUGARES (ESTILO IMAGEN)
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
@@ -1065,7 +1158,7 @@ const TRANSLATIONS = {
     noResults: 'Sin resultados',
     noResultsHint: 'Intenta con otra categoría o mueve el mapa',
     viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre',
-    age_all: 'Todo público', age_family: 'Familia', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Niños', age_bebes: 'Bebés',
+    age_all: 'Todo público', age_family: 'Familia', age_adults_m: 'Hombres', age_adults_w: 'Mujeres', age_teens: 'Adolescentes', age_kids: 'Niños', age_bebes: 'Bebés',
     categoriesLabel: 'Categorías', audienceLabel: 'Audiencia',
     submenuSearchPlaceholder: 'Buscar categoría...',
     pwaInstalled: 'App instalada correctamente',
@@ -1105,7 +1198,7 @@ const TRANSLATIONS = {
     noResults: 'No results',
     noResultsHint: 'Try another category or move the map',
     viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed',
-    age_all: 'All ages', age_family: 'Family', age_adults: 'Adults', age_teens: 'Teens', age_kids: 'Kids', age_bebes: 'Babies',
+    age_all: 'All ages', age_family: 'Family', age_adults_m: 'Men', age_adults_w: 'Women', age_teens: 'Teens', age_kids: 'Kids', age_bebes: 'Babies',
     categoriesLabel: 'Categories', audienceLabel: 'Audience',
     submenuSearchPlaceholder: 'Search category...',
     pwaInstalled: 'App installed successfully',
@@ -1145,7 +1238,7 @@ const TRANSLATIONS = {
     noResults: 'Aucun résultat',
     noResultsHint: 'Essayez une autre catégorie ou déplacez la carte',
     viewMore: 'Voir plus', addressNA: 'Adresse non disponible', noName: 'Sans nom',
-    age_all: 'Tout public', age_family: 'Famille', age_adults: 'Adultes', age_teens: 'Ados', age_kids: 'Enfants', age_bebes: 'Bébés',
+    age_all: 'Tout public', age_family: 'Famille', age_adults_m: 'Hommes', age_adults_w: 'Femmes', age_teens: 'Ados', age_kids: 'Enfants', age_bebes: 'Bébés',
     categoriesLabel: 'Catégories', audienceLabel: 'Public',
     submenuSearchPlaceholder: 'Rechercher catégorie...',
     pwaInstalled: 'Application installée avec succès',
@@ -1185,7 +1278,7 @@ const TRANSLATIONS = {
     noResults: 'Sem resultados',
     noResultsHint: 'Tente outra categoria ou mova o mapa',
     viewMore: 'Ver mais', addressNA: 'Endereço indisponível', noName: 'Sem nome',
-    age_all: 'Todos', age_family: 'Família', age_adults: 'Adultos', age_teens: 'Adolescentes', age_kids: 'Crianças', age_bebes: 'Bebês',
+    age_all: 'Todos', age_family: 'Família', age_adults_m: 'Homens', age_adults_w: 'Mulheres', age_teens: 'Adolescentes', age_kids: 'Crianças', age_bebes: 'Bebês',
     categoriesLabel: 'Categorias', audienceLabel: 'Público',
     submenuSearchPlaceholder: 'Buscar categoria...',
     pwaInstalled: 'Aplicativo instalado com sucesso',
@@ -1225,7 +1318,7 @@ const TRANSLATIONS = {
     noResults: 'Keine Ergebnisse',
     noResultsHint: 'Versuchen Sie eine andere Kategorie oder verschieben Sie die Karte',
     viewMore: 'Mehr anzeigen', addressNA: 'Adresse nicht verfügbar', noName: 'Unbenannt',
-    age_all: 'Alle', age_family: 'Familie', age_adults: 'Erwachsene', age_teens: 'Jugendliche', age_kids: 'Kinder', age_bebes: 'Babys',
+    age_all: 'Alle', age_family: 'Familie', age_adults_m: 'Männer', age_adults_w: 'Frauen', age_teens: 'Jugendliche', age_kids: 'Kinder', age_bebes: 'Babys',
     categoriesLabel: 'Kategorien', audienceLabel: 'Publikum',
     submenuSearchPlaceholder: 'Kategorie suchen...',
     pwaInstalled: 'App erfolgreich installiert',
@@ -1262,7 +1355,7 @@ const TRANSLATIONS = {
 let map, markers = [], infoWindow, placesService;
 let userMarker = null, watchId = null, isTracking = false;
 let currentCategory = 'museum';
-let currentAudience = 'all';
+let currentAudience = 'all'; // Ya no se usa para filtrar, pero se mantiene por compatibilidad
 let currentDateFilter = 'all'; 
 let currentCustomDate = ''; 
 let currentSearch = '';
@@ -1342,13 +1435,17 @@ function categorizeEventByAge(event) {
     bebes:  /\b(bebé|bebe|baby|babies|maternal|estimulación temprana|lactante|0 años|1 año|2 años|hasta 3 años|stroller)\b/i,
     kids:   /\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|pintura|danza infantil|teatro infantil)\b/i,
     teens:  /\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer)\b/i,
+    adults_w: /\b(mujer|mujeres|women|femenino|dama)\b/i,
+    adults_m: /\b(hombre|hombres|men|masculino|caballero)\b/i,
     adults: /\b(adultos|adults|bar|cerveza|tequila|mezcal|vino|noche|night|party|fiesta|discoteca|club|cata|degustación|18\+|21\+|solo adultos|networking|conferencia)\b/i,
     family: /\b(familiar|familia|family|niños|kids|infantil|todos|all ages|para toda la familia|recreativo|parque|zoo|circo|festival|taller|obra|teatro)\b/i
   };
   if (patterns.bebes.test(text)) return AGE_CATEGORIES.bebes;
   if (patterns.kids.test(text)) return AGE_CATEGORIES.kids;
   if (patterns.teens.test(text)) return AGE_CATEGORIES.teens;
-  if (patterns.adults.test(text)) return AGE_CATEGORIES.adults;
+  if (patterns.adults_w.test(text)) return AGE_CATEGORIES.adults_w;
+  if (patterns.adults_m.test(text)) return AGE_CATEGORIES.adults_m;
+  if (patterns.adults.test(text)) return AGE_CATEGORIES.adults_m; // Fallback
   if (patterns.family.test(text)) return AGE_CATEGORIES.family;
   return AGE_CATEGORIES.all;
 }
@@ -1460,10 +1557,53 @@ async function loadLocalEventbriteEvents() {
       const description = item.summary || item.description || '';
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
+      // --- LÓGICA DE ACCESIBILIDAD Y SERVICIOS (BASADA EN INVESTIGACIÓN) ---
+      // Valores por defecto
+      let wheelchairAccessible = false;
+      let petFriendly = false;
+      let smokeFree = false;
+
+      const lowerTitle = title.toLowerCase();
+      const lowerVenue = venueName.toLowerCase();
+
+      // 1. Museos y espacios culturales conocidos
+      if (lowerVenue.includes('cabañas')) {
+        wheelchairAccessible = true; // Tiene programa de inclusión [citation:3]
+      }
+      if (lowerVenue.includes('teatro diana')) {
+        wheelchairAccessible = true; // Tiene elevador y lugares designados [citation:10]
+        petFriendly = false; // No se permiten mascotas [citation:4][citation:10]
+      }
+      if (lowerVenue.includes('trompo mágico')) {
+        wheelchairAccessible = true; // Acceso para discapacidad [citation:5]
+      }
+      if (lowerVenue.includes('paleontología')) {
+        wheelchairAccessible = true; // Tiene rampa para sillas de ruedas [citation:19]
+      }
+      if (lowerVenue.includes('parque alcalde')) {
+        wheelchairAccessible = true; // Tiene rampas [citation:17]
+      }
+      if (lowerVenue.includes('parque de las niñas')) {
+        wheelchairAccessible = true; // Accesibilidad universal [citation:22][citation:26]
+        petFriendly = true; // Se admiten perros [citation:26]
+      }
+
+      // 2. Tours de Tequila (al aire libre, se asume Pet Friendly)
+      if (lowerTitle.includes('tequila') || lowerTitle.includes('cantaritos')) {
+        petFriendly = true; // Asunción por ser tour al aire libre
+        smokeFree = true; // Asunción por ser tour
+      }
+
+      // 3. Eventos en lugares cerrados (se asume libre de humo)
+      if (lowerVenue.includes('foro') || lowerVenue.includes('teatro') || lowerVenue.includes('museo') || lowerVenue.includes('auditorio')) {
+        smokeFree = true;
+      }
+
       return {
         id, type: 'event', source: LOCAL_EVENTS_CONFIG.source,
         title, date: typeof dateStr === 'string' ? dateStr.slice(0, 10) : '', time: timeStr,
-        venue: venueName, city: cityName, lat, lng, url, description, image: img
+        venue: venueName, city: cityName, lat, lng, url, description, image: img,
+        wheelchairAccessible, petFriendly, smokeFree
       };
     }).filter(Boolean);
 
@@ -1626,10 +1766,10 @@ function applyFilters() {
     });
   }
 
-  // 2. Filtrar por audiencia
-  if (currentAudience !== 'all') {
-    eventsFiltered = eventsFiltered.filter(e => getAgeCategoryKey(e) === currentAudience);
-  }
+  // 2. Filtrar por audiencia (ELIMINADO, SE MUESTRA EN TARJETA)
+  // if (currentAudience !== 'all') {
+  //   eventsFiltered = eventsFiltered.filter(e => getAgeCategoryKey(e) === currentAudience);
+  // }
 
   // 3. REGLA DE ORO: Eliminar eventos pasados de la lista principal y del mapa
   //    Esto asegura que la app siempre muestre información vigente.
@@ -1649,14 +1789,7 @@ function applyFilters() {
 }
 
 function updateBadges() {
-  Object.keys(AGE_CATEGORIES).forEach(key => {
-    const badge = document.querySelector(`.cat-btn[data-audience="${key}"] .badge`);
-    if (badge) {
-      let count = key === 'all' ? allEvents.filter(e => !isEventPast(e)).length : allEvents.filter(e => getAgeCategoryKey(e) === key && !isEventPast(e)).length;
-      badge.textContent = count;
-      badge.classList.toggle('show', count > 0);
-    }
-  });
+  // Ya no se usan badges de audiencia
 }
 
 /* ============================================
@@ -1810,7 +1943,6 @@ function renderMarkersForAll(eventsForMap = []) {
   clearMarkers();
   
   eventsForMap.forEach(event => {
-    if (currentAudience !== 'all' && getAgeCategoryKey(event) !== currentAudience) return;
     const ageCat = categorizeEventByAge(event);
     addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
@@ -1841,54 +1973,105 @@ function addMarkerToMap({ lat, lng, icon, iconColor, title, payload, payloadType
 }
 
 /* ============================================
-   INFO WINDOWS
+   INFO WINDOWS (CON ICONOS Y DESCRIPCIÓN)
    ============================================ */
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
   const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
   const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 400 }) : '';
-  infoWindow.setContent(`<div style="padding:0;max-width:280px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
-    ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
-    <div style="padding:16px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="width:40px;height:40px;border-radius:12px;background:${cat.bg};color:${cat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${cat.icon}</span></div>
-        <div style="flex:1;min-width:0;"><div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${place.name || t('noName')}</div></div>
+  
+  // Icono de categoría estilo píldora
+  const catIconHtml = `
+    <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px;">
+      <div style="width:32px; height:32px; border-radius:50%; background:${cat.color}; color:white; display:grid; place-items:center;">
+        <span style="font-family:'Material Symbols Rounded'; font-size:18px;">${cat.icon}</span>
       </div>
-      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">
+      <div style="background:#1A1A1A; color:white; padding:4px 10px; border-radius:99px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">
+        ${tCat(getCategoryKey(place))}
+      </div>
+    </div>
+  `;
+
+  infoWindow.setContent(`<div style="padding:0;max-width:280px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
+    ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
+    <div style="padding:12px;">
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;margin-bottom:6px;">${place.name || t('noName')}</div>
+      ${catIconHtml}
+      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:10px;font-weight:500;">
         <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${place.vicinity || t('addressNA')}</div>
         ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F59E0B;">star</span>${ratingText}</div>` : ''}
       </div>
-      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:#4F46E5;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>
+      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#4F46E5;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;cursor:pointer;">${t('viewMore')}</button>
     </div>
   </div>`);
   infoWindow.open(map, marker);
 }
+
 function showInfoWindowEvent(marker, event) {
   const ageCat = categorizeEventByAge(event);
+  const ageKey = getAgeCategoryKey(event);
+  
+  // Iconos de audiencia (pequeños)
+  const audienceIconsHtml = Object.values(AGE_CATEGORIES).filter(a => a.label !== 'Todo público').map(cat => {
+    // Lógica simple para mostrar iconos de audiencia según el texto del evento
+    const text = (event.title + ' ' + event.description).toLowerCase();
+    const matches = {
+      family: /familia|familiar|niños|infantil/.test(text),
+      adults_m: /hombre|masculino|caballero/.test(text),
+      adults_w: /mujer|femenino|dama/.test(text),
+      teens: /adolescente|joven|teen/.test(text),
+      kids: /niño|infantil|kids/.test(text),
+      bebes: /bebé|bebe|baby/.test(text)
+    };
+    if (matches[Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat)]) {
+      return `<span class="audience-icon" style="--aud-color:${cat.color}; --aud-bg:${cat.bg};" title="${cat.label}"><span class="ms fill">${cat.icon}</span></span>`;
+    }
+    return '';
+  }).join('');
+
+  // Iconos de accesibilidad y servicios
+  let accessibilityIconsHtml = '';
+  if (event.wheelchairAccessible) {
+    accessibilityIconsHtml += `<span class="badge-icon wheelchair" title="Accesible para sillas de ruedas"><span class="ms fill">accessible</span></span>`;
+  }
+  if (event.petFriendly) {
+    accessibilityIconsHtml += `<span class="badge-icon pet" title="Pet Friendly"><span class="ms fill">pets</span></span>`;
+  }
+  if (event.smokeFree) {
+    accessibilityIconsHtml += `<span class="badge-icon smoke-free" title="Libre de humo"><span class="ms fill">smoke_free</span></span>`;
+  }
+
   const urlBtn = event.url
-    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
-    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>`;
+    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:8px;border:none;border-radius:8px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;cursor:pointer;text-align:center;text-decoration:none;margin-top:8px;">${t('viewMore')}</a>`
+    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;cursor:pointer;margin-top:8px;">${t('viewMore')}</button>`;
+  
   const dateStr = event.date || '';
   const timeStr = event.time ? ' · ' + event.time : '';
   const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
   const sourceBadge = event.source === 'eventbrite'
-    ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Eventbrite</span>`
+    ? `<span style="display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:4px;text-transform:uppercase;">EB</span>`
     : event.source === 'ticketmaster'
-      ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Ticketmaster</span>`
+      ? `<span style="display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:4px;text-transform:uppercase;">TM</span>`
       : '';
+
   infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
-    ${event.image ? `<img src="${event.image}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
-    <div style="padding:16px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        <div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
+    ${event.image ? `<img src="${event.image}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
+    <div style="padding:12px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        <div style="width:32px;height:32px;border-radius:8px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
         <div style="flex:1;min-width:0;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}${sourceBadge}</div>
-          <div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}${sourceBadge}</div>
         </div>
       </div>
-      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">
-        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${venueStr}</div>
-        ${dateStr ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
+      
+      <div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px;">
+        ${audienceIconsHtml}
+        ${accessibilityIconsHtml}
+      </div>
+
+      <div style="font-size:11px;color:#52525B;line-height:1.4;margin-bottom:8px;font-weight:500;">
+        <div style="display:flex;align-items:center;gap:4px;"><span style="font-family:'Material Symbols Rounded';font-size:12px;color:#A1A1AA;">location_on</span>${venueStr}</div>
+        ${dateStr ? `<div style="display:flex;align-items:center;gap:4px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:12px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
       </div>
       ${urlBtn}
     </div>
@@ -1897,7 +2080,7 @@ function showInfoWindowEvent(marker, event) {
 }
 
 /* ============================================
-   TARJETAS
+   TARJETAS (CON ICONOS Y DESCRIPCIÓN)
    ============================================ */
 function renderGoogleCard(place) {
   const cat = getPlaceCategory(place);
@@ -1906,15 +2089,25 @@ function renderGoogleCard(place) {
   const photoHtml = photoUrl
     ? `<img src="${photoUrl}" alt="${place.name || ''}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${cat.icon}</span>'">`
     : `<span class="placeholder">${cat.icon}</span>`;
+  
+  const catPill = `
+    <div class="category-pill-container">
+      <div class="category-pill-icon" style="--cat-color:${cat.color};"><span class="ms">${cat.icon}</span></div>
+      <div class="category-pill-label">${tCat(getCategoryKey(place))}</div>
+    </div>
+  `;
+
   return `<div class="event-card" onclick="focusPlace('${place.place_id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
     <div class="event-photo" style="background:${cat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${place.name || t('noName')}</div>
       <div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div>
-      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${cat.bg};--age-color:${cat.color};">${tCat(getCategoryKey(place))}</span>${rating}</div>
+      ${catPill}
+      ${rating ? `<div class="event-footer">${rating}</div>` : ''}
     </div>
   </div>`;
 }
+
 function renderEventCard(event) {
   const ageCat = categorizeEventByAge(event);
   const ageKey = getAgeCategoryKey(event);
@@ -1924,19 +2117,73 @@ function renderEventCard(event) {
   const photoHtml = event.image
     ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${ageCat.icon}</span>'">`
     : `<span class="placeholder">${ageCat.icon}</span>`;
+  
+  // Descripción breve (resumen)
+  const description = event.description || 'Sin descripción disponible.';
+
+  // Iconos de audiencia
+  const audienceIconsHtml = Object.values(AGE_CATEGORIES).filter(a => a.label !== 'Todo público').map(cat => {
+    const text = (event.title + ' ' + event.description).toLowerCase();
+    const matches = {
+      family: /familia|familiar|niños|infantil/.test(text),
+      adults_m: /hombre|masculino|caballero/.test(text),
+      adults_w: /mujer|femenino|dama/.test(text),
+      teens: /adolescente|joven|teen/.test(text),
+      kids: /niño|infantil|kids/.test(text),
+      bebes: /bebé|bebe|baby/.test(text)
+    };
+    if (matches[Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat)]) {
+      return `<span class="audience-icon" style="--aud-color:${cat.color}; --aud-bg:${cat.bg};" title="${cat.label}"><span class="ms fill">${cat.icon}</span></span>`;
+    }
+    return '';
+  }).join('');
+
+  // Iconos de accesibilidad y servicios
+  let accessibilityIconsHtml = '';
+  if (event.wheelchairAccessible) {
+    accessibilityIconsHtml += `<span class="badge-icon wheelchair" title="Accesible para sillas de ruedas"><span class="ms fill">accessible</span></span>`;
+  }
+  if (event.petFriendly) {
+    accessibilityIconsHtml += `<span class="badge-icon pet" title="Pet Friendly"><span class="ms fill">pets</span></span>`;
+  }
+  if (event.smokeFree) {
+    accessibilityIconsHtml += `<span class="badge-icon smoke-free" title="Libre de humo"><span class="ms fill">smoke_free</span></span>`;
+  }
+
   const srcTag = event.source === 'eventbrite'
     ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : '';
   const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; // Marcar visualmente eventos pasados
+  
+  // Icono de categoría (asumiendo que el evento tiene una categoría, por defecto usamos 'tourist_attraction')
+  // Esto es una simplificación, ya que los eventos de Eventbrite no tienen el type de Google Places.
+  // Usamos el icono de la categoría actual o uno genérico.
+  const catIcon = CATEGORIES[currentCategory]?.icon || 'event';
+  const catColor = CATEGORIES[currentCategory]?.color || '#4F46E5';
+  const catPill = `
+    <div class="category-pill-container">
+      <div class="category-pill-icon" style="--cat-color:${catColor};"><span class="ms">${catIcon}</span></div>
+      <div class="category-pill-label">${tCat(currentCategory)}</div>
+    </div>
+  `;
+
   return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};${pastClass}">
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
+      <div class="event-description">${description}</div>
       <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
-      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${srcTag}${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div>
+      ${catPill}
+      <div class="event-footer">
+        <div class="audience-icons">${audienceIconsHtml}</div>
+        <div class="event-badges">${accessibilityIconsHtml}</div>
+        ${srcTag}
+        ${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}
+      </div>
     </div>
   </div>`;
 }
+
 function renderUnifiedList() {
   const container = document.getElementById('sidebarEvents');
   if (unifiedResults.length === 0) {
@@ -1944,15 +2191,14 @@ function renderUnifiedList() {
     container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3><p>${msg}</p></div>`;
     return;
   }
-  const audienceLabel = currentAudience === 'all' ? t('age_all') : tAge(currentAudience);
   const categoryLabel = currentCategory === 'all' ? tCat('all') : tCat(currentCategory);
   const dateLabel = currentDateFilter === 'all' ? '' : ` · ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
-  const label = `${unifiedResults.length} resultados · ${audienceLabel} · ${categoryLabel}${dateLabel}`;
+  const label = `${unifiedResults.length} resultados · ${categoryLabel}${dateLabel}`;
   container.innerHTML = `<div class="section-label">${label}</div>` + unifiedResults.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
 }
 
 /* ============================================
-   SUBMENÚ
+   SUBMENÚ (CON OPACIDAD AL SELECCIONAR)
    ============================================ */
 function openSubmenu(type) {
   currentSubmenuType = type;
@@ -1978,57 +2224,7 @@ function renderSubmenuOptions(type, searchTerm) {
   
   const q = (searchTerm || '').toLowerCase().trim();
   
-  if (type === 'audience') {
-    titleEl.textContent = t('audienceLabel');
-    iconEl.textContent = 'groups';
-    const options = Object.entries(AGE_CATEGORIES).map(([key, cat]) => ({
-      key, label: tAge(key), icon: cat.icon, color: cat.color, bg: cat.bg, active: key === currentAudience
-    }));
-    
-    optionsContainer.innerHTML = options.map((opt, i) => `
-      <button class="submenu-option ${opt.active ? 'active' : ''}" data-key="${opt.key}" style="--option-color:${opt.color};--option-bg:${opt.bg};animation-delay:${i * 30}ms;">
-        <span class="ms">${opt.icon}</span><span>${opt.label}</span><span class="ms check">check</span>
-      </button>
-    `).join('');
-    
-    bindSubmenuOptionEvents(type, options);
-    
-  } else if (type === 'date') {
-    titleEl.textContent = t('dateFilterLabel');
-    iconEl.textContent = 'calendar_month';
-    
-    const dateOptions = [
-      { key: 'all', label: tDate('all'), icon: 'event_available' },
-      { key: 'today', label: tDate('today'), icon: 'today' },
-      { key: 'tomorrow', label: tDate('tomorrow'), icon: 'event' },
-      { key: 'this_weekend', label: tDate('this_weekend'), icon: 'weekend' },
-      { key: 'next_7_days', label: tDate('next_7_days'), icon: 'date_range' },
-      { key: 'this_month', label: tDate('this_month'), icon: 'calendar_month' }
-    ];
-    
-    let html = dateOptions.map((opt, i) => `
-      <button class="submenu-option ${currentDateFilter === opt.key ? 'active' : ''}" data-key="${opt.key}" style="--option-color:var(--primary);--option-bg:var(--primary-container);animation-delay:${i * 30}ms;">
-        <span class="ms">${opt.icon}</span><span>${opt.label}</span><span class="ms check">check</span>
-      </button>
-    `).join('');
-    
-    html += `<div class="submenu-group-label" style="margin-top:8px;"><span class="ms">edit_calendar</span>${tDate('custom')}</div>`;
-    html += `<div class="date-input-wrapper">
-      <input type="date" id="customDateInput" value="${currentCustomDate}" onchange="onCustomDateChange(this.value)">
-    </div>`;
-    
-    optionsContainer.innerHTML = html;
-    
-    optionsContainer.querySelectorAll('.submenu-option').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const key = btn.dataset.key;
-        setDateFilter(key);
-        closeSubmenu();
-      });
-    });
-
-  } else if (type === 'category') {
+  if (type === 'category') {
     titleEl.textContent = t('categoriesLabel');
     iconEl.textContent = 'category';
     
@@ -2072,8 +2268,9 @@ function renderSubmenuOptions(type, searchTerm) {
       grouped[groupKey].forEach(key => {
         const cat = CATEGORIES[key];
         const isActive = key === currentCategory;
+        const isDimmed = currentCategory !== 'all' && currentCategory !== key;
         html += `
-          <button class="submenu-option ${isActive ? 'active' : ''}" data-key="${key}" style="--option-color:${cat.color};--option-bg:${cat.bg};animation-delay:${animIdx * 20}ms;">
+          <button class="submenu-option ${isActive ? 'active' : ''} ${isDimmed ? 'dimmed' : ''}" data-key="${key}" style="--option-color:${cat.color};--option-bg:${cat.bg};animation-delay:${animIdx * 20}ms;">
             <span class="ms">${cat.icon}</span><span>${tCat(key)}</span><span class="ms check">check</span>
           </button>
         `;
@@ -2089,29 +2286,15 @@ function renderSubmenuOptions(type, searchTerm) {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const key = btn.dataset.key;
-        setCategory(key);
+        if (key === currentCategory) {
+            // Si se hace clic en la misma categoría, deseleccionar (volver a 'all')
+            setCategory('all');
+        } else {
+            setCategory(key);
+        }
         closeSubmenu();
       });
     });
-  }
-}
-
-function bindSubmenuOptionEvents(type, options) {
-  const optionsContainer = document.getElementById('submenuOptions');
-  optionsContainer.querySelectorAll('.submenu-option').forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const key = btn.dataset.key;
-      if (type === 'audience') setAudience(key);
-      closeSubmenu();
-    });
-  });
-}
-
-function filterSubmenuOptions() {
-  const searchTerm = document.getElementById('submenuSearchInput').value;
-  if (currentSubmenuType) {
-    renderSubmenuOptions(currentSubmenuType, searchTerm);
   }
 }
 
@@ -2121,15 +2304,11 @@ function closeSubmenu() {
 }
 
 /* ============================================
-   BOTONES DE CATEGORÍA Y ESCAPADITAS
+   BOTONES DE CATEGORÍA Y ESCAPADITAS (SOLO DOS)
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
   container.innerHTML = `
-    <button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu('audience')" data-label="${t('audienceLabel')}">
-      <span class="ms fill" id="audienceIcon">${AGE_CATEGORIES[currentAudience].icon}</span>
-      <span class="badge" id="audienceBadge">0</span>
-    </button>
     <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
       <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
       <span class="badge" id="categoryBadge">0</span>
@@ -2154,15 +2333,7 @@ function focusPlace(id) {
     if (!isDesktop()) closeEscapaditas();
   }
 }
-function setAudience(audience) {
-  currentAudience = audience;
-  applyFilters();
-  updateBadges();
-  const icon = document.getElementById('audienceIcon');
-  if (icon) icon.textContent = AGE_CATEGORIES[audience].icon;
-  showToast(AGE_CATEGORIES[audience].icon, tAge(audience));
-  if (!isDesktop() && isSidebarOpen()) closeSidebar();
-}
+
 function setCategory(cat) {
   currentCategory = cat;
   currentSearch = '';
@@ -2176,6 +2347,7 @@ function setCategory(cat) {
   showToast(CATEGORIES[cat].icon, tCat(cat));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
 }
+
 function setDateFilter(key) {
   currentDateFilter = key;
   if (key !== 'custom') {
