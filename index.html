@@ -715,17 +715,10 @@
       <div class="brand-logo" style="background: linear-gradient(135deg, var(--accent), var(--secondary));"><span class="ms fill">luggage</span></div>
       <div class="brand-text">
         <h1>Escapaditas</h1>
-        <p>Eventos cerca de ti</p>
+        <p id="escapaditasSubtitle">Eventos a 3 horas a la redonda</p>
       </div>
       <button class="close-btn" onclick="closeEscapaditas()" aria-label="Cerrar panel"><span class="ms">close</span></button>
     </div>
-    
-    <!-- Indicador de Filtro de Fecha Activo -->
-    <div id="escapaditasDateFilterBadge" style="display: none; margin-bottom: 12px; padding: 8px 12px; background: var(--primary-container); border-radius: var(--r-sm); font-size: 12px; font-weight: 700; color: var(--primary); align-items: center; gap: 6px;">
-      <span class="ms fill" style="font-size: 16px;">calendar_month</span>
-      <span id="escapaditasDateLabel">Filtrando por: Hoy</span>
-    </div>
-
     <div class="search-field">
       <span class="ms">my_location</span>
       <input type="text" id="escapaditasLocationInput" placeholder="Usando tu ubicación actual..." readonly>
@@ -734,6 +727,11 @@
       <span class="ms fill">explore</span>
       <span>Actualizar ubicación</span>
     </button>
+    <!-- INDICADOR DE FILTRO DE FECHA EN ESCAPADITAS -->
+    <div id="escapaditasDateFilterIndicator" style="display:none; margin-top: 12px; padding: 8px 12px; background: var(--accent-container); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 6px;">
+      <span class="ms fill" style="font-size: 16px;">calendar_month</span>
+      <span id="escapaditasDateLabel">Filtrando por fecha</span>
+    </div>
   </div>
   <div class="events-scroll" id="sidebarEscapaditasEvents">
     <div class="empty-state">
@@ -2047,36 +2045,26 @@ function setDateFilter(key) {
     currentCustomDate = ''; 
   }
   applyFilters();
+  
+  // ACTUALIZAR ESCAPADITAS SI ESTÁ ABIERTO
+  if (isEscapaditasOpen() && escapaditasLocation) {
+    searchEscapaditas(escapaditasLocation);
+  }
+  
   showToast('calendar_month', tDate(key));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
-  
-  // Actualizar el badge de Escapaditas si está abierto
-  updateEscapaditasDateBadge();
 }
 function onCustomDateChange(val) {
   currentCustomDate = val;
   currentDateFilter = 'custom';
   applyFilters();
-  showToast('calendar_month', `${tDate('custom')}: ${val}`);
   
-  // Actualizar el badge de Escapaditas si está abierto
-  updateEscapaditasDateBadge();
-}
-
-function updateEscapaditasDateBadge() {
-  const badge = document.getElementById('escapaditasDateFilterBadge');
-  const label = document.getElementById('escapaditasDateLabel');
-  if (badge && label) {
-    if (currentDateFilter === 'all') {
-      badge.style.display = 'none';
-    } else {
-      badge.style.display = 'flex';
-      const dateText = currentDateFilter === 'custom' && currentCustomDate 
-        ? `${tDate('custom')}: ${currentCustomDate}` 
-        : tDate(currentDateFilter);
-      label.textContent = `${t('dateFilterLabel')}: ${dateText}`;
-    }
+  // ACTUALIZAR ESCAPADITAS SI ESTÁ ABIERTO
+  if (isEscapaditasOpen() && escapaditasLocation) {
+    searchEscapaditas(escapaditasLocation);
   }
+  
+  showToast('calendar_month', `${tDate('custom')}: ${val}`);
 }
 
 function manualRefresh() {
@@ -2133,7 +2121,6 @@ function openEscapaditas() {
   document.getElementById('sidebarRight').classList.add('open');
   document.body.classList.remove('escapaditas-closed');
   updateOverlay();
-  updateEscapaditasDateBadge();
   // Auto-actualizar ubicación al abrir
   updateEscapaditasLocation();
 }
@@ -2192,6 +2179,20 @@ function updateEscapaditasLocation() {
 
 async function searchEscapaditas(location) {
   const container = document.getElementById('sidebarEscapaditasEvents');
+  const subtitleEl = document.getElementById('escapaditasSubtitle');
+  const dateIndicator = document.getElementById('escapaditasDateFilterIndicator');
+  const dateLabel = document.getElementById('escapaditasDateLabel');
+  
+  // Actualizar el subtítulo y el indicador de fecha
+  if (currentDateFilter !== 'all') {
+    subtitleEl.textContent = `Eventos · ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
+    dateIndicator.style.display = 'flex';
+    dateLabel.textContent = `Filtrando por: ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
+  } else {
+    subtitleEl.textContent = 'Eventos a 3 horas a la redonda';
+    dateIndicator.style.display = 'none';
+  }
+
   container.innerHTML = `<div class="empty-state"><span class="ms">travel_explore</span><h3>Buscando escapaditas...</h3><p>Explorando eventos en un radio de 3 horas.</p></div>`;
 
   try {
@@ -2208,21 +2209,72 @@ async function searchEscapaditas(location) {
     // Filtrar eventos pasados y duplicados
     events = deduplicateEvents(events).filter(e => !isEventPast(e));
 
+    // **FILTRAR POR FECHA SELECCIONADA EN ESCAPADITAS**
+    if (currentDateFilter !== 'all') {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      events = events.filter(e => {
+        if (!e.date) return false;
+        const parts = e.date.split('-');
+        if (parts.length !== 3) return false;
+        const eventDate = new Date(parts[0], parts[1] - 1, parts[2]);
+        eventDate.setHours(0, 0, 0, 0);
+
+        if (currentDateFilter === 'today') return eventDate.getTime() === today.getTime();
+        if (currentDateFilter === 'tomorrow') {
+          const tomorrow = new Date(today);
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          return eventDate.getTime() === tomorrow.getTime();
+        }
+        if (currentDateFilter === 'this_weekend') {
+          const dayOfWeek = today.getDay();
+          const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+          const thisSaturday = new Date(today);
+          thisSaturday.setDate(today.getDate() + daysUntilSaturday);
+          const thisSunday = new Date(thisSaturday);
+          thisSunday.setDate(thisSaturday.getDate() + 1);
+          
+          if (dayOfWeek === 0) return eventDate.getTime() === today.getTime();
+          if (dayOfWeek === 6) return eventDate.getTime() === today.getTime() || eventDate.getTime() === thisSunday.getTime();
+          return eventDate.getTime() === thisSaturday.getTime() || eventDate.getTime() === thisSunday.getTime();
+        }
+        if (currentDateFilter === 'next_7_days') {
+          const next7Days = new Date(today);
+          next7Days.setDate(today.getDate() + 7);
+          return eventDate >= today && eventDate <= next7Days;
+        }
+        if (currentDateFilter === 'this_month') {
+          return eventDate.getMonth() === today.getMonth() && eventDate.getFullYear() === today.getFullYear();
+        }
+        if (currentDateFilter === 'custom' && currentCustomDate) {
+          const customParts = currentCustomDate.split('-');
+          if (customParts.length === 3) {
+            const customDateObj = new Date(customParts[0], customParts[1] - 1, customParts[2]);
+            customDateObj.setHours(0, 0, 0, 0);
+            return eventDate.getTime() === customDateObj.getTime();
+          }
+          return false;
+        }
+        return true;
+      });
+    }
+
     escapaditasEvents = events;
 
     if (events.length === 0) {
-      container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>Sin escapaditas cercanas</h3><p>No encontramos eventos en este radio. Intenta actualizar la ubicación o mover el mapa.</p></div>`;
+      container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>Sin escapaditas cercanas</h3><p>No encontramos eventos en este radio${currentDateFilter !== 'all' ? ' para la fecha seleccionada' : ''}. Intenta actualizar la ubicación o cambiar el filtro de fecha.</p></div>`;
       return;
     }
 
     // Renderizar lista
-    container.innerHTML = `<div class="section-label">${events.length} escapaditas encontradas</div>` + 
+    container.innerHTML = `<div class="section-label">${events.length} escapaditas encontradas${currentDateFilter !== 'all' ? ' · ' + tDate(currentDateFilter) : ''}</div>` + 
       events.map(item => renderEventCard(item)).join('');
 
     // Renderizar marcadores en el mapa (ya se hace en renderMarkersForAll, pero forzamos actualización)
     renderMarkersForAll(events.filter(e => !isEventPast(e))); // Solo eventos vigentes en el mapa
 
-    showToast('check_circle', `${events.length} escapaditas encontradas`);
+    showToast('check_circle', `${events.length} escapaditas encontradas${currentDateFilter !== 'all' ? ' para ' + tDate(currentDateFilter) : ''}`);
 
   } catch (err) {
     console.error('Error buscando escapaditas:', err);
