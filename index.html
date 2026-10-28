@@ -526,17 +526,16 @@
     padding: 4px 4px 0;
   }
   
-  /* TARJETA DE EVENTO REDISEÑADA CON DESCRIPCIÓN E ICONOS */
   .event-card {
     background: var(--surface);
     border: 1px solid var(--outline);
     border-radius: var(--r-lg);
     padding: 0;
-    display: flex;
-    flex-direction: column;
+    display: flex; gap: 0;
     cursor: pointer;
     transition: all .22s var(--ease-standard);
     position: relative; overflow: hidden;
+    min-height: 100px;
     animation: fadeInUp .3s var(--ease-emphasized) backwards;
   }
   .event-card::before {
@@ -549,13 +548,7 @@
   .event-card:hover { border-color: var(--outline-strong); box-shadow: var(--shadow-2); transform: translateY(-2px); }
   .event-card:hover::before { opacity: 1; }
   .event-card:active { transform: scale(0.985) translateY(0); }
-
-  .event-header {
-    display: flex;
-    gap: 0;
-    width: 100%;
-  }
-
+  
   .event-photo {
     width: 100px; height: 100px; flex-shrink: 0;
     background: var(--card-bg, var(--primary-container));
@@ -584,50 +577,22 @@
     -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden; word-break: break-word;
   }
+  .event-description {
+    font-size: 12px;
+    color: var(--text-3);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 2px;
+  }
   .event-venue {
     font-size: 13px; color: var(--text-2); font-weight: 500;
     display: flex; align-items: center; gap: 4px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
-  
-  /* DESCRIPCIÓN BREVE */
-  .event-desc {
-    font-size: 12px;
-    color: var(--text-3);
-    line-height: 1.4;
-    margin-top: 2px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  /* ICONOS DE CATEGORÍA EN LA TARJETA */
-  .event-icons-row {
-    display: flex;
-    gap: 6px;
-    margin-top: 4px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  .event-icon-chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--chip-bg, var(--surface-2));
-    color: var(--chip-color, var(--text-3));
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    border: 1px solid rgba(0,0,0,0.05);
-  }
-  .event-icon-chip .ms {
-    font-size: 14px;
-  }
-
   .event-footer { display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap; }
   .event-age-tag {
     display: inline-flex; align-items: center; gap: 4px;
@@ -638,6 +603,20 @@
     text-transform: uppercase; letter-spacing: 0.05em;
   }
   .event-age-tag .ms { font-size: 12px; }
+  .event-category-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: var(--r-full);
+    background: var(--cat-bg, #F4F4F5);
+    color: var(--cat-color, #52525B);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .event-category-tag .ms { font-size: 12px; }
   .event-rating {
     font-size: 12px; color: var(--text-3); font-weight: 600;
     margin-left: auto; display: flex; align-items: center; gap: 2px;
@@ -1942,7 +1921,7 @@ function showInfoWindowEvent(marker, event) {
 }
 
 /* ============================================
-   TARJETAS REDISEÑADAS
+   TARJETAS
    ============================================ */
 function renderGoogleCard(place) {
   const cat = getPlaceCategory(place);
@@ -1952,61 +1931,48 @@ function renderGoogleCard(place) {
     ? `<img src="${photoUrl}" alt="${place.name || ''}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${cat.icon}</span>'">`
     : `<span class="placeholder">${cat.icon}</span>`;
   return `<div class="event-card" onclick="focusPlace('${place.place_id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
-    <div class="event-header">
-      <div class="event-photo" style="background:${cat.bg};">${photoHtml}</div>
-      <div class="event-body">
-        <div class="event-title">${place.name || t('noName')}</div>
-        <div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div>
-        <div class="event-footer"><span class="event-age-tag" style="--age-bg:${cat.bg};--age-color:${cat.color};">${tCat(getCategoryKey(place))}</span>${rating}</div>
-      </div>
+    <div class="event-photo" style="background:${cat.bg};">${photoHtml}</div>
+    <div class="event-body">
+      <div class="event-title">${place.name || t('noName')}</div>
+      <div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div>
+      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${cat.bg};--age-color:${cat.color};">${tCat(getCategoryKey(place))}</span>${rating}</div>
     </div>
   </div>`;
 }
-
 function renderEventCard(event) {
   const ageCat = categorizeEventByAge(event);
   const ageKey = getAgeCategoryKey(event);
   const title = event.title || 'Evento sin título';
   const venue = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
   const dateInfo = event.date ? event.date + (event.time ? ' · ' + event.time : '') : '';
-  
   const photoHtml = event.image
     ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${ageCat.icon}</span>'">`
     : `<span class="placeholder">${ageCat.icon}</span>`;
-    
   const srcTag = event.source === 'eventbrite'
     ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : '';
-    
-  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : '';
+  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; // Marcar visualmente eventos pasados
   
-  // Descripción truncada
-  const descText = event.description || 'No hay descripción disponible para este evento.';
-  const shortDesc = descText.length > 80 ? descText.substring(0, 80) + '...' : descText;
+  const cat = getPlaceCategory(event); // Reutilizamos la función para obtener la categoría visual (colores/iconos)
+  const catLabel = tCat(getCategoryKey(event));
 
-  // Renderizar iconos de categoría
-  const iconsRow = `
-    <div class="event-icons-row">
-      <div class="event-icon-chip" style="--chip-bg:${ageCat.bg};--chip-color:${ageCat.color};" title="${tAge(ageKey)}">
-        <span class="ms fill">${ageCat.icon}</span>
-      </div>
-    </div>
-  `;
-
+  const description = event.description ? event.description : 'Sin descripción disponible.';
+  
   return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};${pastClass}">
-    <div class="event-header">
-      <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
-      <div class="event-body">
-        <div class="event-title">${title}</div>
-        <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
-        <div class="event-desc">${shortDesc}</div>
-        ${iconsRow}
-        <div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${srcTag}${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div>
+    <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
+    <div class="event-body">
+      <div class="event-title">${title}</div>
+      <div class="event-description">${description}</div>
+      <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
+      <div class="event-footer">
+        <span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>
+        <span class="event-category-tag" style="--cat-bg:${cat.bg};--cat-color:${cat.color};"><span class="ms">${cat.icon}</span>${catLabel}</span>
+        ${srcTag}
+        ${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}
       </div>
     </div>
   </div>`;
 }
-
 function renderUnifiedList() {
   const container = document.getElementById('sidebarEvents');
   if (unifiedResults.length === 0) {
@@ -2195,20 +2161,42 @@ function closeSubmenu() {
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
-  container.innerHTML = `
-    <button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu('audience')" data-label="${t('audienceLabel')}">
-      <span class="ms fill" id="audienceIcon">${AGE_CATEGORIES[currentAudience].icon}</span>
-      <span class="badge" id="audienceBadge">0</span>
-    </button>
-    <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
-      <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
-      <span class="badge" id="categoryBadge">0</span>
-    </button>
-    <!-- BOTÓN ESCAPADITAS AQUÍ -->
-    <button class="cat-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" style="background: var(--accent); color: white; border-color: var(--accent);">
-      <span class="ms fill">luggage</span>
-    </button>
-  `;
+  // Usamos iconos con fondo y colores parecidos a las imágenes proporcionadas
+  // Para dar el efecto "pill" (píldora), usamos un contenedor con flex y estilos redondeados.
+  // NOTA: La estructura HTML exacta de las imágenes no es replicable con solo CSS en un botón cuadrado,
+  // pero intentamos un diseño similar con etiquetas y colores.
+  
+  const categories = [
+    { key: 'all', label: 'Todos los eventos', icon: 'calendar_month', color: '#EC4899', bg: '#FCE7F3', type: 'date' },
+    { key: 'family', label: 'Familia', icon: 'family_restroom', color: '#06B6D4', bg: '#CFFAFE', type: 'audience' },
+    { key: 'adults', label: 'Adultos', icon: 'wine_bar', color: '#EC4899', bg: '#FCE7F3', type: 'audience' },
+    { key: 'teens', label: 'Adolescentes', icon: 'sports_esports', color: '#8B5CF6', bg: '#EDE9FE', type: 'audience' },
+    { key: 'kids', label: 'Niños', icon: 'child_care', color: '#F59E0B', bg: '#FEF3C7', type: 'audience' },
+    { key: 'bebes', label: 'Bebés', icon: 'stroller', color: '#10B981', bg: '#D1FAE5', type: 'audience' },
+    { key: 'escapaditas', label: 'Escapada de 1 día', icon: 'luggage', color: '#10B981', bg: '#D1FAE5', type: 'escapaditas' }
+  ];
+
+  container.innerHTML = categories.map(cat => {
+    const isActive = (cat.type === 'audience' && currentAudience === cat.key) || 
+                     (cat.type === 'date' && currentDateFilter === 'all') || 
+                     (cat.type === 'escapaditas' && isEscapaditasOpen());
+    
+    let action = '';
+    if (cat.type === 'audience') action = `setAudience('${cat.key}')`;
+    else if (cat.type === 'date') action = `setDateFilter('all')`;
+    else if (cat.type === 'escapaditas') action = `toggleEscapaditas()`;
+
+    // Botón con icono y texto
+    // Para replicar el efecto de la imagen, necesitamos un contenedor circular y un texto al lado.
+    // Usamos flex para alinear verticalmente en el botón. El botón ya tiene la forma circular, 
+    // pero el texto se añade al lado con un pequeño padding.
+    return `
+      <button class="cat-btn" onclick="${action}" style="width: auto; padding: 0 16px; border-radius: var(--r-full); background: ${cat.bg}; color: ${cat.color}; border: 2px solid ${cat.color}; display: flex; align-items: center; gap: 8px; height: 56px; justify-content: flex-start;">
+        <span class="ms fill" style="font-size: 26px; color: ${cat.color};">${cat.icon}</span>
+        <span style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px; color: ${cat.color}; white-space: nowrap;">${cat.label}</span>
+      </button>
+    `;
+  }).join('');
 }
 
 /* ============================================
