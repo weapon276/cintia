@@ -12334,3 +12334,674 @@
   "start_datetime": "2026-10-18T09:30:00"
 }]
 
+[
+  {
+    "start_date": "2026-10-29",
+    "name": "Taller Interactivo de Ciencia y Creatividad para Niños",
+    "tickets_by": "Eventbrite",
+    "image_id": "1200112233",
+    "series_id": "210011223344",
+    "language": "es-mx",
+    "eventbrite_event_id": "202610290001",
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "80.00 MXN",
+        "major_value": "80.00",
+        "currency": "MXN",
+        "value": 8000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "80.00 MXN",
+        "major_value": "80.00",
+        "currency": "MXN",
+        "value": 8000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "widget",
+    "id": "202610290001",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg?w=1024",
+        "small": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg?w=320",
+        "medium": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg?w=640"
+      },
+      "id": "1200112233",
+      "edge_color": "#2a75d3",
+      "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "end_time": "17:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Museo Trompo Mágico",
+      "id": "300100200",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.4152",
+        "localized_multi_line_address_display": [
+          "Av. Central Guillermo González Camarena 750",
+          "Zapopan, JAL 45136"
+        ],
+        "postal_code": "45136",
+        "region": "JAL",
+        "latitude": "20.7225",
+        "localized_address_display": "Av. Central Guillermo González Camarena 750, Zapopan, JAL 45136",
+        "address_1": "Av. Central Guillermo González Camarena 750",
+        "country": "MX",
+        "localized_area_display": "Zapopan, JAL",
+        "address_2": "",
+        "city": "Zapopan"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "trompo2026",
+    "published": "2026-10-01T10:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "10101010",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Museo Trompo Mágico",
+      "website_url": "https://trompomagico.jalisco.gob.mx",
+      "image_id": "1200112233",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Espacio interactivo enfocado en el aprendizaje, creatividad e innovación para niñas, niños y sus familias.",
+      "facebook": null,
+      "id": "10101010",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.eventbrite.com.mx/o/trompo-magico",
+      "num_followers": 520,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Family & Education",
+        "tag": "EventbriteCategory/115",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "display_name": "Kids",
+        "tag": "EventbriteSubCategory/15001",
+        "prefix": "EventbriteSubCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "niños",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/ninos"
+      },
+      {
+        "_type": "tag",
+        "display_name": "museo",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/museo"
+      }
+    ],
+    "primary_venue_id": "300100200",
+    "summary": "Experimentos dinámicos, robótica básica y talleres de pintura diseñados para niños de 5 a 12 años.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-10-01T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-01T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-10-29T23:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-29T17:00:00"
+      }
+    },
+    "tickets_url": "https://www.eventbrite.com/checkout-external?eid=202610290001",
+    "start_time": "10:00",
+    "is_cancelled": null,
+    "end_date": "2026-10-29",
+    "url": "https://www.eventbrite.com.mx/e/taller-interactivo-de-ciencia-y-creatividad-tickets-202610290001",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.7225",
+    "longitude": "-103.4152",
+    "venue_address": "Av. Central Guillermo González Camarena 750, Zapopan, JAL 45136",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200112233%2Foriginal.jpg",
+    "start_datetime": "2026-10-29T10:00:00"
+  },
+  {
+    "start_date": "2026-10-31",
+    "name": "Noche de Galerías y Arte Contemporáneo para Jóvenes",
+    "tickets_by": "Eventbrite",
+    "image_id": "1200445566",
+    "series_id": "210044556677",
+    "language": "es-mx",
+    "eventbrite_event_id": "202610310002",
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "0.00 MXN",
+        "major_value": "0.00",
+        "currency": "MXN",
+        "value": 0
+      },
+      "has_bogo_tickets": false,
+      "is_free": true,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "0.00 MXN",
+        "major_value": "0.00",
+        "currency": "MXN",
+        "value": 0
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "widget",
+    "id": "202610310002",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg?w=1024",
+        "small": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg?w=320",
+        "medium": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg?w=640"
+      },
+      "id": "1200445566",
+      "edge_color": "#1a1a1a",
+      "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "end_time": "22:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Museo de las Artes de la Universidad de Guadalajara (MUSA)",
+      "id": "300200300",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.3592",
+        "localized_multi_line_address_display": [
+          "Av. Juárez 975, Zona Centro",
+          "Guadalajara, JAL 44100"
+        ],
+        "postal_code": "44100",
+        "region": "JAL",
+        "latitude": "20.6748",
+        "localized_address_display": "Av. Juárez 975, Zona Centro, Guadalajara, JAL 44100",
+        "address_1": "Av. Juárez 975",
+        "country": "MX",
+        "localized_area_display": "Guadalajara, JAL",
+        "address_2": "Zona Centro",
+        "city": "Guadalajara"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "musa2026",
+    "published": "2026-10-05T12:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "20202020",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "MUSA Guadalajara",
+      "website_url": "https://www.musaudg.mx",
+      "image_id": "1200445566",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Espacio cultural universitario dedicado a la difusión del arte nacional e internacional.",
+      "facebook": null,
+      "id": "20202020",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.eventbrite.com.mx/o/musa-guadalajara",
+      "num_followers": 890,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Arts & Culture",
+        "tag": "EventbriteCategory/105",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "display_name": "Teens & Youth",
+        "tag": "EventbriteSubCategory/5002",
+        "prefix": "EventbriteSubCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "adolescentes",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/adolescentes"
+      },
+      {
+        "_type": "tag",
+        "display_name": "arte",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/arte"
+      }
+    ],
+    "primary_venue_id": "300200300",
+    "summary": "Recorrido nocturno especial con guías expertos, música en vivo y talleres creativos de artes plásticas orientados a jóvenes y adolescentes.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-10-05T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-05T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-10-31T22:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-31T16:00:00"
+      }
+    },
+    "tickets_url": "https://www.eventbrite.com/checkout-external?eid=202610310002",
+    "start_time": "18:00",
+    "is_cancelled": null,
+    "end_date": "2026-10-31",
+    "url": "https://www.eventbrite.com.mx/e/noche-de-galerias-y-arte-contemporaneo-tickets-202610310002",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.6748",
+    "longitude": "-103.3592",
+    "venue_address": "Av. Juárez 975, Zona Centro, Guadalajara, JAL 44100",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200445566%2Foriginal.jpg",
+    "start_datetime": "2026-10-31T18:00:00"
+  },
+  {
+    "start_date": "2026-11-01",
+    "name": "Festival de Día de Muertos: Recorrido y Talleres Familiares",
+    "tickets_by": "Eventbrite",
+    "image_id": "1200778899",
+    "series_id": "210077889900",
+    "language": "es-mx",
+    "eventbrite_event_id": "202611010003",
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "70.00 MXN",
+        "major_value": "70.00",
+        "currency": "MXN",
+        "value": 7000
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "70.00 MXN",
+        "major_value": "70.00",
+        "currency": "MXN",
+        "value": 7000
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "widget",
+    "id": "202611010003",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg?w=1024",
+        "small": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg?w=320",
+        "medium": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg?w=640"
+      },
+      "id": "1200778899",
+      "edge_color": "#d3412a",
+      "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "end_time": "20:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Museo Cabañas (Hospicio Cabañas)",
+      "id": "300300400",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.3378",
+        "localized_multi_line_address_display": [
+          "C. Cabañas 8, Las Fresas",
+          "Guadalajara, JAL 44360"
+        ],
+        "postal_code": "44360",
+        "region": "JAL",
+        "latitude": "20.6769",
+        "localized_address_display": "C. Cabañas 8, Las Fresas, Guadalajara, JAL 44360",
+        "address_1": "C. Cabañas 8",
+        "country": "MX",
+        "localized_area_display": "Guadalajara, JAL",
+        "address_2": "Las Fresas",
+        "city": "Guadalajara"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "cabanas2026",
+    "published": "2026-10-10T09:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "30303030",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Instituto Cultural Cabañas",
+      "website_url": "https://museocabanas.jalisco.gob.mx",
+      "image_id": "1200778899",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Patrimonio de la Humanidad, recinto cultural con exposiciones de arte histórico y contemporáneo.",
+      "facebook": null,
+      "id": "30303030",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.eventbrite.com.mx/o/museo-cabanas",
+      "num_followers": 1420,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Culture & Heritage",
+        "tag": "EventbriteCategory/109",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "display_name": "Family",
+        "tag": "EventbriteSubCategory/9001",
+        "prefix": "EventbriteSubCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "familia",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/familia"
+      },
+      {
+        "_type": "tag",
+        "display_name": "diademuertos",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/diademuertos"
+      }
+    ],
+    "primary_venue_id": "300300400",
+    "summary": "Ofrendas monumentales, talleres de elaboración de calaveritas, pintura facial para niños y recorridos guiados nocturnos por los murales de Orozco.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-10-10T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-10T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-11-01T20:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-11-01T14:00:00"
+      }
+    },
+    "tickets_url": "https://www.eventbrite.com/checkout-external?eid=202611010003",
+    "start_time": "11:00",
+    "is_cancelled": null,
+    "end_date": "2026-11-01",
+    "url": "https://www.eventbrite.com.mx/e/festival-de-dia-de-muertos-recintos-y-talleres-tickets-202611010003",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.6769",
+    "longitude": "-103.3378",
+    "venue_address": "C. Cabañas 8, Las Fresas, Guadalajara, JAL 44360",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200778899%2Foriginal.jpg",
+    "start_datetime": "2026-11-01T11:00:00"
+  },
+  {
+    "start_date": "2026-11-07",
+    "name": "Aventura Paleontológica: Expo Dinosaurios y Fósiles de Jalisco",
+    "tickets_by": "Eventbrite",
+    "image_id": "1200991122",
+    "series_id": "210099112233",
+    "language": "es-mx",
+    "eventbrite_event_id": "202611070004",
+    "_type": "destination_event",
+    "saves": {
+      "saved_by_you": false
+    },
+    "timezone": "America/Mexico_City",
+    "ticket_availability": {
+      "minimum_ticket_price": {
+        "display": "35.00 MXN",
+        "major_value": "35.00",
+        "currency": "MXN",
+        "value": 3500
+      },
+      "has_bogo_tickets": false,
+      "is_free": false,
+      "has_available_tickets": true,
+      "maximum_ticket_price": {
+        "display": "35.00 MXN",
+        "major_value": "35.00",
+        "currency": "MXN",
+        "value": 3500
+      },
+      "is_sold_out": false
+    },
+    "is_online_event": false,
+    "checkout_flow": "widget",
+    "id": "202611070004",
+    "public_collections": {
+      "creator_collections": {
+        "collections": [],
+        "object_count": 0
+      }
+    },
+    "image": {
+      "focal_point": {
+        "y": 0.5,
+        "x": 0.5
+      },
+      "aspect_ratio": "1.77",
+      "image_sizes": {
+        "large": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg?w=1024",
+        "small": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg?w=320",
+        "medium": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg?w=640"
+      },
+      "id": "1200991122",
+      "edge_color": "#7a5c28",
+      "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg",
+      "original": {
+        "height": 1080,
+        "url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg",
+        "width": 1920
+      },
+      "edge_color_set": true,
+      "crop_mask": null
+    },
+    "status": "live",
+    "end_time": "16:00",
+    "primary_venue": {
+      "_type": "destination_venue",
+      "name": "Museo de Paleontología de Guadalajara",
+      "id": "300400500",
+      "venue_profile_url": "",
+      "venue_profile_id": null,
+      "address": {
+        "longitude": "-103.3512",
+        "localized_multi_line_address_display": [
+          "Av. Dr. Roberto Michel 520, San Carlos",
+          "Guadalajara, JAL 44460"
+        ],
+        "postal_code": "44460",
+        "region": "JAL",
+        "latitude": "20.6621",
+        "localized_address_display": "Av. Dr. Roberto Michel 520, San Carlos, Guadalajara, JAL 44460",
+        "address_1": "Av. Dr. Roberto Michel 520",
+        "country": "MX",
+        "localized_area_display": "Guadalajara, JAL",
+        "address_2": "San Carlos",
+        "city": "Guadalajara"
+      }
+    },
+    "hide_end_date": false,
+    "eid": "paleo2026",
+    "published": "2026-10-15T11:00:00Z",
+    "hide_start_date": false,
+    "primary_organizer_id": "40404040",
+    "primary_organizer": {
+      "_type": "destination_profile",
+      "name": "Museo de Paleontología de Guadalajara",
+      "website_url": "https://guadalajara.gob.mx/museopaleontologia",
+      "image_id": "1200991122",
+      "num_saves": null,
+      "followed_by_you": false,
+      "profile_type": "organizer",
+      "summary": "Museo dedicado a la exhibición y conservación de la megafauna pleistocénica y especies prehistóricas de la región.",
+      "facebook": null,
+      "id": "40404040",
+      "num_following": null,
+      "twitter": null,
+      "num_collections": null,
+      "url": "https://www.eventbrite.com.mx/o/museo-paleontologia",
+      "num_followers": 610,
+      "num_upcoming_events": null
+    },
+    "tags": [
+      {
+        "display_name": "Science & Nature",
+        "tag": "EventbriteCategory/102",
+        "prefix": "EventbriteCategory"
+      },
+      {
+        "display_name": "Kids & Family",
+        "tag": "EventbriteSubCategory/2001",
+        "prefix": "EventbriteSubCategory"
+      },
+      {
+        "_type": "tag",
+        "display_name": "paleontologia",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/paleontologia"
+      },
+      {
+        "_type": "tag",
+        "display_name": "dinosaurios",
+        "prefix": "OrganizerTag",
+        "tag": "OrganizerTag/dinosaurios"
+      }
+    ],
+    "primary_venue_id": "300400500",
+    "summary": "Taller interactivo de excavación de fósiles para niños y recorrido temático sobre la megafauna prehistórica en Jalisco.",
+    "event_sales_status": {
+      "message_type": null,
+      "default_message": null,
+      "start_sales_date": {
+        "utc": "2026-10-15T06:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-10-15T00:00:00"
+      },
+      "message_code": null,
+      "sales_status": "on_sale",
+      "message": null,
+      "currency": "MXN",
+      "end_sales_date": {
+        "utc": "2026-11-07T16:00:00Z",
+        "timezone": "America/Mexico_City",
+        "local": "2026-11-07T10:00:00"
+      }
+    },
+    "tickets_url": "https://www.eventbrite.com/checkout-external?eid=202611070004",
+    "start_time": "10:00",
+    "is_cancelled": null,
+    "end_date": "2026-11-07",
+    "url": "https://www.eventbrite.com.mx/e/aventura-paleontologica-expo-dinosaurios-tickets-202611070004",
+    "privacy_setting": "unlocked",
+    "is_protected_event": false,
+    "latitude": "20.6621",
+    "longitude": "-103.3512",
+    "venue_address": "Av. Dr. Roberto Michel 520, San Carlos, Guadalajara, JAL 44460",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1200991122%2Foriginal.jpg",
+    "start_datetime": "2026-11-07T10:00:00"
+  }
+]
+
