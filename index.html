@@ -157,58 +157,36 @@
   .icon-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; }
   
-  /* CONTENEDOR DE CATEGORÍAS (DERECHA) - ESTILO PÍLDORA */
+  /* CONTENEDOR DE CATEGORÍAS (DERECHA) */
   .main-categories {
     position: absolute; right: 16px; top: 50%;
     transform: translateY(-50%); z-index: var(--z-chips);
     display: flex; flex-direction: column; gap: 12px;
     pointer-events: auto;
   }
-  
-  .cat-pill {
-    display: flex; align-items: center; gap: 8px;
-    background: transparent; border: none;
-    cursor: pointer; padding: 0;
-    transition: all 0.3s var(--ease-spring);
-    opacity: 0.6; /* Estado translúcido por defecto */
-  }
-  .cat-pill:hover { opacity: 1; transform: scale(1.02); }
-  .cat-pill.active { opacity: 1; }
-  
-  .cat-pill-icon {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: var(--cat-color, var(--primary));
+  .cat-btn {
+    width: 56px; height: 56px; border-radius: var(--r-lg);
+    background: var(--surface); border: 1px solid var(--outline);
     display: grid; place-items: center;
-    color: #FFFFFF; font-size: 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    border: 3px solid rgba(255,255,255,0.3);
-    transition: all 0.3s;
-    flex-shrink: 0;
+    box-shadow: var(--shadow-3); cursor: pointer;
+    color: var(--text); position: relative;
+    transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s;
   }
-  .cat-pill.active .cat-pill-icon {
-    border-color: #FFFFFF;
-    box-shadow: 0 0 0 4px var(--cat-color, var(--primary)), 0 4px 12px rgba(0,0,0,0.3);
+  .cat-btn .ms { font-size: 26px; }
+  .cat-btn:hover { transform: scale(1.05); }
+  .cat-btn:active { transform: scale(0.92); }
+  .cat-btn .badge {
+    position: absolute; top: -4px; right: -4px;
+    min-width: 22px; height: 22px; padding: 0 6px;
+    border-radius: var(--r-full);
+    background: var(--primary); color: #FFFFFF;
+    font-size: 11px; font-weight: 800;
+    display: grid; place-items: center;
+    border: 2px solid var(--surface);
+    opacity: 0; transition: opacity .2s, transform .2s;
   }
+  .cat-btn .badge.show { opacity: 1; }
   
-  .cat-pill-label {
-    background: #18181B; /* Negro como en la foto */
-    color: #FFFFFF;
-    padding: 6px 14px;
-    border-radius: 0 20px 20px 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px; font-weight: 700;
-    white-space: nowrap;
-    box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
-    margin-left: -10px; /* Se superpone un poco al círculo */
-    z-index: -1;
-    padding-left: 20px;
-    transition: all 0.3s;
-  }
-  .cat-pill.active .cat-pill-label {
-    background: #000000;
-    font-weight: 800;
-  }
-
   .submenu {
     position: absolute; right: 84px; top: 50%;
     transform: translateY(-50%);
@@ -557,7 +535,7 @@
     cursor: pointer;
     transition: all .22s var(--ease-standard);
     position: relative; overflow: hidden;
-    min-height: 120px; /* Más alto para la descripción */
+    min-height: 100px;
     animation: fadeInUp .3s var(--ease-emphasized) backwards;
   }
   .event-card::before {
@@ -572,7 +550,7 @@
   .event-card:active { transform: scale(0.985) translateY(0); }
   
   .event-photo {
-    width: 120px; height: 120px; flex-shrink: 0;
+    width: 100px; height: 100px; flex-shrink: 0;
     background: var(--card-bg, var(--primary-container));
     display: grid; place-items: center; overflow: hidden;
     position: relative;
@@ -589,52 +567,37 @@
     font-variation-settings: 'FILL' 1, 'wght' 500;
   }
   
-  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 12px 14px; }
+  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; justify-content: center; padding: 14px 16px; }
   .event-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px; font-weight: 700;
+    font-size: 15px; font-weight: 700;
     letter-spacing: -0.015em; line-height: 1.3;
     color: var(--text);
     display: -webkit-box;
     -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden; word-break: break-word;
   }
-  .event-desc {
-    font-size: 11px; color: var(--text-2); line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-bottom: 4px;
-  }
   .event-venue {
-    font-size: 12px; color: var(--text-3); font-weight: 500;
+    font-size: 13px; color: var(--text-2); font-weight: 500;
     display: flex; align-items: center; gap: 4px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
-  .event-venue .ms { font-size: 12px; color: var(--text-3); flex-shrink: 0; }
-  .event-footer { display: flex; align-items: center; gap: 6px; margin-top: 2px; flex-wrap: wrap; }
-  
-  /* NUEVOS ICONOS PEQUEÑOS EN TARJETAS */
-  .event-icons-row {
-    display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;
-  }
-  .icon-tag {
-    width: 20px; height: 20px; border-radius: 50%;
-    display: grid; place-items: center;
-    color: #FFFFFF; font-size: 12px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
-  .icon-tag .ms { font-size: 12px; }
-
+  .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
+  .event-footer { display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap; }
   .event-age-tag {
     display: inline-flex; align-items: center; gap: 4px;
-    font-size: 9px; font-weight: 800;
-    padding: 2px 6px; border-radius: var(--r-full);
+    font-size: 10px; font-weight: 800;
+    padding: 3px 8px; border-radius: var(--r-full);
     background: var(--age-bg, #E0F5F1);
     color: var(--age-color, #2A9D8F);
     text-transform: uppercase; letter-spacing: 0.05em;
   }
-  .event-age-tag .ms { font-size: 10px; }
+  .event-age-tag .ms { font-size: 12px; }
+  .event-rating {
+    font-size: 12px; color: var(--text-3); font-weight: 600;
+    margin-left: auto; display: flex; align-items: center; gap: 2px;
+  }
+  .event-rating .ms { font-size: 14px; color: var(--secondary); }
   
   .empty-state {
     text-align: center; padding: 60px 20px;
@@ -735,8 +698,7 @@
       transform: none;
       flex-direction: column;
     }
-    .cat-pill-icon { width: 44px; height: 44px; font-size: 22px; }
-    .cat-pill-label { font-size: 12px; padding: 4px 10px 4px 16px; }
+    .cat-btn { width: 52px; height: 52px; }
     .submenu {
       right: 76px; top: auto;
       bottom: calc(160px + var(--safe-bottom));
@@ -752,7 +714,7 @@
     .sidebar { width: 92%; max-width: 400px; }
     .sidebar-right { width: 92%; max-width: 400px; }
     .install-banner { width: calc(100% - 32px); }
-    .event-photo { width: 100px; height: 100px; }
+    .event-photo { width: 88px; height: 88px; }
     .splash-greeting { font-size: 26px; }
     .splash-greeting-emoji { font-size: 40px; }
     .splash-logo { width: 80px; height: 80px; }
@@ -1903,54 +1865,30 @@ function showInfoWindowGoogle(marker, place) {
 }
 function showInfoWindowEvent(marker, event) {
   const ageCat = categorizeEventByAge(event);
-  const ageKey = getAgeCategoryKey(event);
-  
-  // Iconos de accesibilidad (simulados basados en descripción)
-  const text = ((event.title || '') + ' ' + (event.description || '')).toLowerCase();
-  const isWheelchair = /silla de ruedas|accesible|discapacidad/i.test(text);
-  const isPetFriendly = /mascota|pet friendly|perro/i.test(text);
-  const isSmokeFree = /libre de humo|no fumar|fumar/i.test(text);
-
-  const accessibilityIcons = [];
-  if (isWheelchair) accessibilityIcons.push(`<span class="icon-tag" style="background:#8B5CF6" title="Silla de ruedas"><span class="ms">accessible</span></span>`);
-  if (isPetFriendly) accessibilityIcons.push(`<span class="icon-tag" style="background:#10B981" title="Pet Friendly"><span class="ms">pets</span></span>`);
-  if (isSmokeFree) accessibilityIcons.push(`<span class="icon-tag" style="background:#F59E0B" title="Libre de humo"><span class="ms">smoke_free</span></span>`);
-
   const urlBtn = event.url
-    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:8px;border:none;border-radius:8px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:11px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
-    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:11px;cursor:pointer;">${t('viewMore')}</button>`;
-  
+    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;text-align:center;text-decoration:none;">${t('viewMore')}</a>`
+    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:11px;border:none;border-radius:10px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;">${t('viewMore')}</button>`;
   const dateStr = event.date || '';
   const timeStr = event.time ? ' · ' + event.time : '';
   const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
   const sourceBadge = event.source === 'eventbrite'
-    ? `<span style="display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
+    ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Eventbrite</span>`
     : event.source === 'ticketmaster'
-      ? `<span style="display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">TM</span>`
+      ? `<span style="display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:6px;text-transform:uppercase;letter-spacing:.05em;">Ticketmaster</span>`
       : '';
-
   infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
-    ${event.image ? `<img src="${event.image}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
-    <div style="padding:12px;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-        <div style="width:32px;height:32px;border-radius:10px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
+    ${event.image ? `<img src="${event.image}" style="width:100%;height:140px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
+    <div style="padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="width:40px;height:40px;border-radius:12px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:22px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
         <div style="flex:1;min-width:0;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:13px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}${sourceBadge}</div>
-          <div style="font-size:10px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(ageKey)}</div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}${sourceBadge}</div>
+          <div style="font-size:11px;font-weight:700;color:${ageCat.color};margin-top:2px;">${tAge(getAgeCategoryKey(event))}</div>
         </div>
       </div>
-      
-      <div style="font-size:11px;color:#52525B;line-height:1.4;margin-bottom:8px;font-weight:500; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
-        ${event.description || 'Descubre más sobre este evento.'}
-      </div>
-
-      <div style="display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap;">
-        ${accessibilityIcons.join('')}
-      </div>
-
-      <div style="font-size:11px;color:#52525B;line-height:1.4;margin-bottom:8px;font-weight:500;">
-        <div style="display:flex;align-items:center;gap:4px;"><span style="font-family:'Material Symbols Rounded';font-size:12px;color:#A1A1AA;">location_on</span>${venueStr}</div>
-        ${dateStr ? `<div style="display:flex;align-items:center;gap:4px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:12px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
+      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:12px;font-weight:500;">
+        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${venueStr}</div>
+        ${dateStr ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
       </div>
       ${urlBtn}
     </div>
@@ -1977,57 +1915,28 @@ function renderGoogleCard(place) {
     </div>
   </div>`;
 }
-
 function renderEventCard(event) {
   const ageCat = categorizeEventByAge(event);
   const ageKey = getAgeCategoryKey(event);
   const title = event.title || 'Evento sin título';
   const venue = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
   const dateInfo = event.date ? event.date + (event.time ? ' · ' + event.time : '') : '';
-  const desc = event.description || 'Descubre más sobre este evento.';
-  
   const photoHtml = event.image
     ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${ageCat.icon}</span>'">`
     : `<span class="placeholder">${ageCat.icon}</span>`;
-  
   const srcTag = event.source === 'eventbrite'
-    ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:8px;font-weight:800;padding:2px 5px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
+    ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : '';
-
-  // Iconos de accesibilidad
-  const text = ((event.title || '') + ' ' + (event.description || '')).toLowerCase();
-  const isWheelchair = /silla de ruedas|accesible|discapacidad/i.test(text);
-  const isPetFriendly = /mascota|pet friendly|perro/i.test(text);
-  const isSmokeFree = /libre de humo|no fumar|fumar/i.test(text);
-
-  const accessibilityIcons = [];
-  if (isWheelchair) accessibilityIcons.push(`<span class="icon-tag" style="background:#8B5CF6" title="Silla de ruedas"><span class="ms">accessible</span></span>`);
-  if (isPetFriendly) accessibilityIcons.push(`<span class="icon-tag" style="background:#10B981" title="Pet Friendly"><span class="ms">pets</span></span>`);
-  if (isSmokeFree) accessibilityIcons.push(`<span class="icon-tag" style="background:#F59E0B" title="Libre de humo"><span class="ms">smoke_free</span></span>`);
-
-  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; 
-  
+  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; // Marcar visualmente eventos pasados
   return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};${pastClass}">
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
-      <div class="event-desc">${desc}</div>
       <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
-      
-      <!-- ICONOS DE AUDIENCIA Y ACCESIBILIDAD -->
-      <div class="event-icons-row">
-        <span class="icon-tag" style="background:${ageCat.color}" title="${tAge(ageKey)}"><span class="ms">${ageCat.icon}</span></span>
-        ${accessibilityIcons.join('')}
-      </div>
-
-      <div class="event-footer">
-        ${srcTag}
-        ${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}
-      </div>
+      <div class="event-footer"><span class="event-age-tag" style="--age-bg:${ageCat.bg};--age-color:${ageCat.color};"><span class="ms">${ageCat.icon}</span>${tAge(ageKey)}</span>${srcTag}${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}</div>
     </div>
   </div>`;
 }
-
 function renderUnifiedList() {
   const container = document.getElementById('sidebarEvents');
   if (unifiedResults.length === 0) {
@@ -2212,32 +2121,22 @@ function closeSubmenu() {
 }
 
 /* ============================================
-   BOTONES DE CATEGORÍA Y ESCAPADITAS (ESTILO PÍLDORA)
+   BOTONES DE CATEGORÍA Y ESCAPADITAS
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
-  
-  // Ya NO renderizamos el botón de Audiencia aquí, solo el de Categoría y Escapaditas
   container.innerHTML = `
-    <button class="cat-pill ${currentCategory === 'all' ? 'active' : ''}" onclick="event.stopPropagation(); openSubmenu('category')" data-cat="all" style="--cat-color: #4F46E5;">
-      <div class="cat-pill-icon"><span class="ms fill">explore</span></div>
-      <div class="cat-pill-label">Todas</div>
+    <button class="cat-btn" data-type="audience" onclick="event.stopPropagation(); openSubmenu('audience')" data-label="${t('audienceLabel')}">
+      <span class="ms fill" id="audienceIcon">${AGE_CATEGORIES[currentAudience].icon}</span>
+      <span class="badge" id="audienceBadge">0</span>
     </button>
-    <button class="cat-pill ${currentCategory === 'museum' ? 'active' : ''}" onclick="event.stopPropagation(); setCategory('museum')" data-cat="museum" style="--cat-color: #4F46E5;">
-      <div class="cat-pill-icon"><span class="ms fill">museum</span></div>
-      <div class="cat-pill-label">Museos</div>
+    <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
+      <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
+      <span class="badge" id="categoryBadge">0</span>
     </button>
-    <button class="cat-pill ${currentCategory === 'park' ? 'active' : ''}" onclick="event.stopPropagation(); setCategory('park')" data-cat="park" style="--cat-color: #10B981;">
-      <div class="cat-pill-icon"><span class="ms fill">park</span></div>
-      <div class="cat-pill-label">Parques</div>
-    </button>
-    <button class="cat-pill ${currentCategory === 'restaurant' ? 'active' : ''}" onclick="event.stopPropagation(); setCategory('restaurant')" data-cat="restaurant" style="--cat-color: #EA580C;">
-      <div class="cat-pill-icon"><span class="ms fill">restaurant</span></div>
-      <div class="cat-pill-label">Restaurantes</div>
-    </button>
-    <button class="cat-pill" onclick="toggleEscapaditas()" style="--cat-color: #EC4899;">
-      <div class="cat-pill-icon"><span class="ms fill">luggage</span></div>
-      <div class="cat-pill-label">Escapaditas</div>
+    <!-- BOTÓN ESCAPADITAS AQUÍ -->
+    <button class="cat-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" style="background: var(--accent); color: white; border-color: var(--accent);">
+      <span class="ms fill">luggage</span>
     </button>
   `;
 }
@@ -2269,16 +2168,8 @@ function setCategory(cat) {
   currentSearch = '';
   const searchInput = document.getElementById('searchInput');
   if (searchInput) searchInput.value = '';
-  
-  // Actualizar UI de píldoras
-  document.querySelectorAll('.cat-pill').forEach(pill => {
-    if (pill.dataset.cat === cat) {
-      pill.classList.add('active');
-    } else {
-      pill.classList.remove('active');
-    }
-  });
-  
+  const icon = document.getElementById('categoryIcon');
+  if (icon) icon.textContent = CATEGORIES[cat].icon;
   lastSearchTime = 0;
   if (infoWindow) infoWindow.close();
   searchEverything();
