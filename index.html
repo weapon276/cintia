@@ -157,6 +157,7 @@
   .icon-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; }
   
+  /* CONTENEDOR DE CATEGORÍAS (DERECHA) */
   .main-categories {
     position: absolute; right: 16px; top: 50%;
     transform: translateY(-50%); z-index: var(--z-chips);
@@ -640,7 +641,7 @@
   
   @media (min-width: 1200px) {
     .sidebar { transform: translateX(0); }
-    .sidebar-right { transform: translateX(0); }
+    .sidebar-right { transform: translateX(0); } /* En desktop, Escapaditas también se abre por defecto si se desea, pero lo controlamos con JS */
     body:not(.sidebar-closed) .header { left: 416px; }
     body.sidebar-closed .header { left: 16px; }
     body.sidebar-closed .sidebar { transform: translateX(-100%); }
@@ -649,6 +650,7 @@
     body.escapaditas-closed .sidebar-right { transform: translateX(100%); }
     
     .header { left: 416px; transition: left .4s var(--ease-emphasized); }
+    /* Ajuste para cuando ambas están abiertas */
     body:not(.sidebar-closed):not(.escapaditas-closed) .header {
       left: 416px;
       right: 416px;
@@ -706,7 +708,7 @@
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
-<!-- NUEVO SIDEBAR DERECHO (ESCAPADITAS) -->
+<!-- SIDEBAR DERECHO (ESCAPADITAS) -->
 <aside class="sidebar-right" id="sidebarRight" aria-label="Panel de Escapaditas">
   <div class="sidebar-top">
     <div class="brand">
@@ -744,13 +746,10 @@
     <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar tema" id="themeBtn"><span class="ms" id="themeIcon">dark_mode</span></button>
     <button class="icon-btn" onclick="manualRefresh()" aria-label="Actualizar resultados" id="refreshBtn" title="Actualizar resultados"><span class="ms">refresh</span></button>
     <button class="icon-btn" onclick="toggleOptionsMenu(event)" aria-label="Filtrar por fecha" id="optionsBtn"><span class="ms">tune</span></button>
-    <!-- BOTÓN ESCAPADITAS -->
-    <button class="icon-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" id="escapaditasBtn" style="background: var(--accent); color: white; border-color: var(--accent);">
-      <span class="ms fill">luggage</span>
-    </button>
   </div>
 </header>
 
+<!-- CONTENEDOR DE CATEGORÍAS Y ESCAPADITAS A LA DERECHA -->
 <div class="main-categories" id="mainCategories"></div>
 
 <div class="submenu" id="submenu">
@@ -1134,8 +1133,8 @@ let deferredPrompt = null;
 let isPWAInstalled = false;
 let isManualRefreshing = false;
 let currentSubmenuType = null;
-let escapaditasEvents = []; 
-let escapaditasLocation = null; 
+let escapaditasEvents = []; // Almacena eventos de escapaditas
+let escapaditasLocation = null; // Ubicación actual para escapaditas
 
 let mapIdleTimer = null;
 const MAP_IDLE_DELAY = 400;
@@ -1143,6 +1142,8 @@ const MAP_IDLE_DELAY = 400;
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
 const TICKETMASTER_RADIUS_KM = 25;
+// Radio aproximado para 3 horas de camino (asumiendo 80-100 km/h en promedio -> ~240-300 km)
+// Para la API de Google Places, usaremos 250,000 metros (250 km)
 const ESCAPADITAS_RADIUS_METERS = 250000;
 
 const MAP_STYLES = {
@@ -1214,6 +1215,7 @@ function getAgeCategoryKey(event) {
   return Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat) || 'all';
 }
 
+// NUEVA FUNCIÓN: Verifica si un evento ya pasó (basado en fecha)
 function isEventPast(event) {
   if (!event.date) return false; 
   const eventDate = new Date(event.date + 'T23:59:59'); 
@@ -1277,75 +1279,51 @@ function checkIfPWAInstalled() {
 }
 
 /* ============================================
-   CARGA DE EVENTOS DESDE JSON LOCAL (CORREGIDO)
+   CARGA DE EVENTOS DESDE JSON LOCAL
    ============================================ */
 async function loadLocalEventbriteEvents() {
-  if (localEventsLoaded && localEventbriteEvents.length > 0) {
-    // Si ya están cargados y no estamos forzando recarga, devolvemos los existentes
-    return localEventbriteEvents;
-  }
-  
+  if (localEventsLoaded) return localEventbriteEvents;
   try {
-    // cache: 'no-store' asegura que siempre traiga la versión más reciente del archivo
     const response = await fetch(LOCAL_EVENTS_CONFIG.filePath, { cache: 'no-store' });
-    
     if (!response.ok) {
       console.warn(`⚠️ No se pudo cargar ${LOCAL_EVENTS_CONFIG.filePath}: HTTP ${response.status}`);
+      localEventsLoaded = true;
       return [];
     }
-    
     const raw = await response.json();
-    
     if (!Array.isArray(raw)) {
       console.warn('⚠️ El JSON local no es un array:', typeof raw);
+      localEventsLoaded = true;
       return [];
     }
 
-    // Normalizar los datos de Eventbrite al formato interno de la app
     const normalized = raw.map((item, idx) => {
-      // Extraer coordenadas (soporta múltiples estructuras de Eventbrite)
+      // Extraer coordenadas con múltiples fallbacks
       const latRaw = item.latitude ?? item.lat ?? item.primary_venue?.address?.latitude;
       const lngRaw = item.longitude ?? item.lng ?? item.primary_venue?.address?.longitude;
       const lat = parseFloat(latRaw);
       const lng = parseFloat(lngRaw);
       
-      // Si no hay coordenadas válidas, descartamos el evento (no se puede poner en el mapa)
-      if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) {
-        console.warn(`Evento sin coordenadas válidas: ${item.name || item.id}`);
-        return null;
-      }
+      // Validar coordenadas
+      if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) return null;
 
-      // Extraer campos con fallbacks
+      // Extraer datos con fallbacks
       const title = item.name || item.title || item.event_name || 'Evento Eventbrite';
-      // La fecha puede venir como start_date (YYYY-MM-DD) o start_datetime (ISO)
-      const dateStr = item.start_date || item.startDate || (item.start_datetime ? item.start_datetime.slice(0, 10) : '') || '';
-      const timeStr = item.start_time || item.startTime || (item.start_datetime ? item.start_datetime.slice(11, 16) : '') || '';
-      
+      const dateStr = item.start_date || item.startDate || item.start_datetime?.slice(0, 10) || '';
+      const timeStr = item.start_time || item.startTime || '';
       const venueName = item.primary_venue?.name || item.venue_name || item.venueName || '';
       const cityName = item.primary_venue?.address?.city || item.venue_city || item.city || '';
       const img = item.image_url || item.image?.url || item.imageUrl || '';
-      const url = item.url || item.event_url || item.tickets_url || '';
+      const url = item.url || item.event_url || '';
       const description = item.summary || item.description || '';
-      
-      // ID único
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
       return {
-        id,
-        type: 'event',
-        source: LOCAL_EVENTS_CONFIG.source,
-        title,
-        date: typeof dateStr === 'string' ? dateStr.slice(0, 10) : '',
-        time: timeStr,
-        venue: venueName,
-        city: cityName,
-        lat,
-        lng,
-        url,
-        description,
-        image: img
+        id, type: 'event', source: LOCAL_EVENTS_CONFIG.source,
+        title, date: typeof dateStr === 'string' ? dateStr.slice(0, 10) : '', time: timeStr,
+        venue: venueName, city: cityName, lat, lng, url, description, image: img
       };
-    }).filter(Boolean); // Elimina los nulos (eventos sin coordenadas)
+    }).filter(Boolean);
 
     localEventbriteEvents = normalized;
     localEventsLoaded = true;
@@ -1353,6 +1331,7 @@ async function loadLocalEventbriteEvents() {
     return localEventbriteEvents;
   } catch (err) {
     console.warn('⚠️ Error cargando JSON local:', err?.message || err);
+    localEventsLoaded = true;
     return [];
   }
 }
@@ -1399,8 +1378,6 @@ window.initMap = function() {
   updateAllTranslations();
   renderMainCategories();
   updateSidebarState();
-  
-  // Llamada inicial para cargar todo
   searchEverything();
   
   setTimeout(hideSplash, 2500);
@@ -1437,12 +1414,6 @@ async function searchEverything() {
   clearMarkers();
   if (infoWindow) infoWindow.close();
   allPlaces = []; allEvents = []; unifiedResults = [];
-
-  // Forzar recarga del JSON si es una actualización manual
-  if (isManualRefreshing) {
-    localEventsLoaded = false;
-    localEventbriteEvents = [];
-  }
 
   const [placesRes, tmRes, localRes] = await Promise.allSettled([
     searchPlacesPromise(),
@@ -1518,13 +1489,16 @@ function applyFilters() {
     eventsFiltered = eventsFiltered.filter(e => getAgeCategoryKey(e) === currentAudience);
   }
 
-  // 3. Eliminar eventos pasados
+  // 3. REGLA DE ORO: Eliminar eventos pasados de la lista principal y del mapa
+  //    Esto asegura que la app siempre muestre información vigente.
+  //    Si el filtro es 'custom' y el usuario elige una fecha pasada, podríamos permitirlo,
+  //    pero por defecto, los eventos vencidos se ocultan.
   const eventsForList = eventsFiltered.filter(e => !isEventPast(e) || (currentDateFilter === 'custom' && currentCustomDate));
   
-  // 4. Unificar resultados
+  // 4. Unificar resultados (eventos vigentes + lugares)
   unifiedResults = [...eventsForList, ...allPlaces];
   
-  // 5. Renderizar en el mapa
+  // 5. Renderizar en el mapa (SOLO eventos vigentes para no saturar)
   const eventsForMap = eventsForList.filter(e => !isEventPast(e));
   renderMarkersForAll(eventsForMap);
   
@@ -1690,6 +1664,7 @@ function createMarkerSVG(color) {
 }
 
 function renderMarkersForAll(eventsForMap = []) {
+  // Limpiar marcadores anteriores y renderizar los nuevos
   clearMarkers();
   
   eventsForMap.forEach(event => {
@@ -1703,6 +1678,7 @@ function renderMarkersForAll(eventsForMap = []) {
     addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
 
+  // También renderizar los eventos de escapaditas si están cargados
   escapaditasEvents.forEach(event => {
     const ageCat = categorizeEventByAge(event);
     addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: event.title, payload: event, payloadType: 'event', id: event.id });
@@ -1809,7 +1785,7 @@ function renderEventCard(event) {
   const srcTag = event.source === 'eventbrite'
     ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : '';
-  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : '';
+  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; // Marcar visualmente eventos pasados
   return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};${pastClass}">
     <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
     <div class="event-body">
@@ -2003,7 +1979,7 @@ function closeSubmenu() {
 }
 
 /* ============================================
-   BOTONES DE CATEGORÍA
+   BOTONES DE CATEGORÍA Y ESCAPADITAS
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
@@ -2015,6 +1991,10 @@ function renderMainCategories() {
     <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
       <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
       <span class="badge" id="categoryBadge">0</span>
+    </button>
+    <!-- BOTÓN ESCAPADITAS AQUÍ -->
+    <button class="cat-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" style="background: var(--accent); color: white; border-color: var(--accent);">
+      <span class="ms fill">luggage</span>
     </button>
   `;
 }
@@ -2078,11 +2058,8 @@ function manualRefresh() {
   if (btn) btn.classList.add('active');
   lastSearchTime = 0;
   if (infoWindow) infoWindow.close();
-  
-  // Forzar recarga del JSON
   localEventsLoaded = false;
   localEventbriteEvents = [];
-  
   searchEverything().then(() => {
     isManualRefreshing = false;
     if (btn) btn.classList.remove('active');
@@ -2113,6 +2090,7 @@ function toggleSidebar() {
 function openSidebar() { document.getElementById('sidebar').classList.add('open'); updateSidebarState(); updateOverlay(); }
 function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); updateSidebarState(); updateOverlay(); }
 
+// FUNCIONES ESCAPADITAS
 function toggleEscapaditas() {
   if (isDesktop()) {
     document.body.classList.toggle('escapaditas-closed');
@@ -2126,6 +2104,7 @@ function openEscapaditas() {
   document.getElementById('sidebarRight').classList.add('open');
   document.body.classList.remove('escapaditas-closed');
   updateOverlay();
+  // Auto-actualizar ubicación al abrir
   updateEscapaditasLocation();
 }
 function closeEscapaditas() {
@@ -2142,7 +2121,7 @@ function updateOverlay() {
 function handleOverlayClick() { closeSidebar(); closeEscapaditas(); closeSubmenu(); }
 
 /* ============================================
-   LÓGICA DE ESCAPADITAS
+   LÓGICA DE ESCAPADITAS (GEOLOCALIZACIÓN + BÚSQUEDA)
    ============================================ */
 function updateEscapaditasLocation() {
   const input = document.getElementById('escapaditasLocationInput');
@@ -2162,15 +2141,18 @@ function updateEscapaditasLocation() {
       input.value = `Lat: ${loc.lat.toFixed(4)}, Lng: ${loc.lng.toFixed(4)}`;
       showToast('location_on', 'Ubicación actualizada');
       
+      // Mover el mapa a la ubicación actual (opcional, pero útil para contexto)
       map.panTo(loc);
       map.setZoom(10);
       
+      // Buscar eventos en un radio de 3 horas
       searchEscapaditas(loc);
     },
     (err) => {
       console.error('Error obteniendo ubicación:', err);
       showToast('error', 'No se pudo obtener la ubicación. Usando GDL por defecto.');
       input.value = 'Usando Guadalajara por defecto';
+      // Fallback a GDL
       escapaditasLocation = GDL_CENTER;
       searchEscapaditas(GDL_CENTER);
     },
@@ -2183,6 +2165,7 @@ async function searchEscapaditas(location) {
   container.innerHTML = `<div class="empty-state"><span class="ms">travel_explore</span><h3>Buscando escapaditas...</h3><p>Explorando eventos en un radio de 3 horas.</p></div>`;
 
   try {
+    // Buscar eventos usando Ticketmaster y Google Places (simulando eventos)
     const [tmRes, placesRes] = await Promise.allSettled([
       searchTicketmasterEscapaditas(location),
       searchPlacesEscapaditas(location)
@@ -2192,6 +2175,7 @@ async function searchEscapaditas(location) {
     if (tmRes.status === 'fulfilled') events = events.concat(tmRes.value || []);
     if (placesRes.status === 'fulfilled') events = events.concat(placesRes.value || []);
 
+    // Filtrar eventos pasados y duplicados
     events = deduplicateEvents(events).filter(e => !isEventPast(e));
 
     escapaditasEvents = events;
@@ -2201,10 +2185,12 @@ async function searchEscapaditas(location) {
       return;
     }
 
+    // Renderizar lista
     container.innerHTML = `<div class="section-label">${events.length} escapaditas encontradas</div>` + 
       events.map(item => renderEventCard(item)).join('');
 
-    renderMarkersForAll(events.filter(e => !isEventPast(e)));
+    // Renderizar marcadores en el mapa (ya se hace en renderMarkersForAll, pero forzamos actualización)
+    renderMarkersForAll(events.filter(e => !isEventPast(e))); // Solo eventos vigentes en el mapa
 
     showToast('check_circle', `${events.length} escapaditas encontradas`);
 
@@ -2214,9 +2200,11 @@ async function searchEscapaditas(location) {
   }
 }
 
+// Ticketmaster para Escapaditas (radio grande)
 function searchTicketmasterEscapaditas(location) {
   return new Promise(async (resolve) => {
     try {
+      // Radio de 250 km (aprox 3 horas)
       const radiusKm = 250; 
       const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEYS.ticketmaster}&latlong=${location.lat},${location.lng}&radius=${radiusKm}&unit=km&size=50&sort=date,asc&locale=${currentLang === 'es' ? 'es' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'en-us'}`;
       const controller = new AbortController();
@@ -2235,10 +2223,12 @@ function searchTicketmasterEscapaditas(location) {
   });
 }
 
+// Google Places para Escapaditas (radio grande)
 function searchPlacesEscapaditas(location) {
   return new Promise((resolve) => {
     if (!placesService || !placesApiAvailable) return resolve([]);
     
+    // Buscar lugares turísticos y culturales en un radio grande
     const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'park', 'zoo', 'aquarium', 'stadium'];
     const promises = typesToFetch.map(type => {
       return new Promise((res) => {
@@ -2252,12 +2242,13 @@ function searchPlacesEscapaditas(location) {
           placesService.nearbySearch(request, (results, status) => {
             clearTimeout(timeout);
             if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+              // Convertir lugares a formato evento "simulado" para la lista
               const placesAsEvents = results.map(p => ({
                 id: 'place_esc_' + p.place_id,
-                type: 'place',
+                type: 'place', // Mantenemos el tipo place para renderizar con renderGoogleCard
                 source: 'google',
                 title: p.name,
-                date: '',
+                date: '', // Los lugares no tienen fecha
                 time: '',
                 venue: p.vicinity || '',
                 city: '',
@@ -2266,6 +2257,7 @@ function searchPlacesEscapaditas(location) {
                 url: '',
                 description: '',
                 image: p.photos && p.photos.length > 0 ? p.photos[0].getUrl({ maxWidth: 200 }) : '',
+                // Metadatos extra para renderGoogleCard
                 _isPlace: true,
                 rating: p.rating,
                 user_ratings_total: p.user_ratings_total,
@@ -2286,6 +2278,7 @@ function searchPlacesEscapaditas(location) {
 
     Promise.all(promises).then(allResults => {
       const flat = allResults.flat();
+      // Deduplicar por place_id
       const seen = new Set();
       const unique = flat.filter(p => {
         if (!p.place_id || seen.has(p.place_id)) return false;
