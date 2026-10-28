@@ -306,29 +306,117 @@
   }
   .submenu-empty .ms { font-size: 36px; color: var(--outline-strong); }
 
-  /* ESTILOS PARA EL FILTRO DE FECHAS */
+  /* NUEVO PANEL FLOTANTE DE FECHAS (CENTRADO) */
+  .date-filter-panel {
+    position: absolute;
+    top: calc(80px + var(--safe-top));
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    z-index: var(--z-submenu);
+    background: var(--surface);
+    border: 1px solid var(--outline);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4);
+    padding: 16px;
+    width: 320px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s var(--ease-spring);
+    pointer-events: none;
+  }
+  .date-filter-panel.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+  .date-filter-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .date-filter-title .ms {
+    color: var(--primary);
+    font-size: 22px;
+  }
+  .date-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--r-sm);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    transition: background .2s;
+    margin-bottom: 4px;
+  }
+  .date-option:hover {
+    background: var(--surface-2);
+  }
+  .date-option.active {
+    background: var(--primary-container);
+    color: var(--primary-dark);
+  }
+  .date-option .ms {
+    font-size: 22px;
+    color: var(--text-3);
+  }
+  .date-option.active .ms {
+    color: var(--primary);
+  }
   .date-input-wrapper {
-    display: flex; flex-direction: column; gap: 8px; padding: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--outline);
   }
   .date-input-wrapper label {
-    font-size: 12px; font-weight: 700; color: var(--text-2);
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-2);
+    margin-bottom: 8px;
   }
   .date-input-wrapper input[type="date"] {
-    width: 100%; height: 44px; padding: 0 12px;
-    border-radius: var(--r-sm); border: 1px solid var(--outline);
-    background: var(--surface-2); color: var(--text);
-    font-family: inherit; font-size: 14px;
+    width: 100%;
+    height: 44px;
+    padding: 0 12px;
+    border-radius: var(--r-sm);
+    border: 1px solid var(--outline);
+    background: var(--surface-2);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
   }
   .date-input-wrapper input[type="date"]:focus {
-    outline: none; border-color: var(--primary);
+    outline: none;
+    border-color: var(--primary);
   }
   .date-clear-btn {
-    margin-top: 8px; width: 100%; padding: 10px;
-    border: none; border-radius: var(--r-sm);
-    background: var(--surface-3); color: var(--text);
-    font-weight: 600; cursor: pointer;
+    margin-top: 12px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: var(--r-sm);
+    background: var(--surface-3);
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
   }
-  .date-clear-btn:hover { background: var(--outline-strong); }
+  .date-clear-btn:hover {
+    background: var(--outline-strong);
+  }
 
   .sidebar {
     position: absolute; top: 0; left: 0;
@@ -631,6 +719,7 @@
     .splash-greeting-emoji { font-size: 40px; }
     .splash-logo { width: 80px; height: 80px; }
     .splash-logo .ms { font-size: 44px; }
+    .date-filter-panel { width: 90%; max-width: 340px; }
   }
   
   @media (min-width: 768px) and (max-width: 1199px) {
@@ -750,9 +839,57 @@
   <div class="header-actions">
     <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar tema" id="themeBtn"><span class="ms" id="themeIcon">dark_mode</span></button>
     <button class="icon-btn" onclick="manualRefresh()" aria-label="Actualizar resultados" id="refreshBtn" title="Actualizar resultados"><span class="ms">refresh</span></button>
-    <button class="icon-btn" onclick="toggleOptionsMenu(event)" aria-label="Filtrar por fecha" id="optionsBtn"><span class="ms">tune</span></button>
+    <button class="icon-btn" onclick="toggleDateFilterPanel(event)" aria-label="Filtrar por fecha" id="optionsBtn"><span class="ms">tune</span></button>
   </div>
 </header>
+
+<!-- PANEL FLOTANTE DE FECHAS -->
+<div class="date-filter-panel" id="dateFilterPanel">
+  <div class="date-filter-title">
+    <span class="ms fill">calendar_month</span>
+    <span>Filtrar por fecha</span>
+  </div>
+  
+  <button class="date-option" data-date="all" onclick="setDateFilter('all')">
+    <span class="ms">event_available</span>
+    <span>Cualquier fecha</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+  </button>
+  <button class="date-option" data-date="today" onclick="setDateFilter('today')">
+    <span class="ms">today</span>
+    <span>Hoy</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+  </button>
+  <button class="date-option" data-date="tomorrow" onclick="setDateFilter('tomorrow')">
+    <span class="ms">event</span>
+    <span>Mañana</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+  </button>
+  <button class="date-option" data-date="this_weekend" onclick="setDateFilter('this_weekend')">
+    <span class="ms">weekend</span>
+    <span>Este fin de semana</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+  </button>
+  <button class="date-option" data-date="next_7_days" onclick="setDateFilter('next_7_days')">
+    <span class="ms">date_range</span>
+    <span>Próximos 7 días</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+  </button>
+  <button class="date-option" data-date="this_month" onclick="setDateFilter('this_month')">
+    <span class="ms">calendar_month</span>
+    <span>Este mes</span>
+    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+  </button>
+  
+  <div class="date-input-wrapper">
+    <label>Fecha específica</label>
+    <input type="date" id="customDateInput" value="" onchange="onCustomDateChange(this.value)">
+  </div>
+  
+  <button class="date-clear-btn" onclick="clearDateFilter()">
+    Limpiar filtro
+  </button>
+</div>
 
 <!-- CONTENEDOR DE CATEGORÍAS Y ESCAPADITAS A LA DERECHA -->
 <div class="main-categories" id="mainCategories"></div>
@@ -2051,9 +2188,14 @@ function setDateFilter(key) {
     searchEscapaditas(escapaditasLocation);
   }
   
+  // Actualizar indicadores visuales
+  updateDateFilterUI();
+  
   showToast('calendar_month', tDate(key));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
+  closeDateFilterPanel();
 }
+
 function onCustomDateChange(val) {
   currentCustomDate = val;
   currentDateFilter = 'custom';
@@ -2064,24 +2206,71 @@ function onCustomDateChange(val) {
     searchEscapaditas(escapaditasLocation);
   }
   
+  updateDateFilterUI();
   showToast('calendar_month', `${tDate('custom')}: ${val}`);
+  closeDateFilterPanel();
 }
 
-function manualRefresh() {
-  if (isManualRefreshing) return;
-  isManualRefreshing = true;
-  showToast('refresh', t('refreshing'));
-  const btn = document.getElementById('refreshBtn');
-  if (btn) btn.classList.add('active');
-  lastSearchTime = 0;
-  if (infoWindow) infoWindow.close();
-  localEventsLoaded = false;
-  localEventbriteEvents = [];
-  searchEverything().then(() => {
-    isManualRefreshing = false;
-    if (btn) btn.classList.remove('active');
-    showToast('check_circle', t('updated'));
+function clearDateFilter() {
+  currentDateFilter = 'all';
+  currentCustomDate = '';
+  applyFilters();
+  
+  if (isEscapaditasOpen() && escapaditasLocation) {
+    searchEscapaditas(escapaditasLocation);
+  }
+  
+  updateDateFilterUI();
+  showToast('calendar_month', 'Filtro de fecha eliminado');
+  closeDateFilterPanel();
+}
+
+/* ============================================
+   NUEVO PANEL FLOTANTE DE FECHAS
+   ============================================ */
+function toggleDateFilterPanel(e) {
+  if (e) e.stopPropagation();
+  const panel = document.getElementById('dateFilterPanel');
+  const isOpen = panel.classList.contains('open');
+  
+  if (isOpen) {
+    closeDateFilterPanel();
+  } else {
+    openDateFilterPanel();
+  }
+}
+
+function openDateFilterPanel() {
+  const panel = document.getElementById('dateFilterPanel');
+  panel.classList.add('open');
+  updateDateFilterUI();
+}
+
+function closeDateFilterPanel() {
+  const panel = document.getElementById('dateFilterPanel');
+  panel.classList.remove('open');
+}
+
+function updateDateFilterUI() {
+  // Actualizar clases activas en las opciones
+  document.querySelectorAll('.date-option').forEach(btn => {
+    const key = btn.dataset.date;
+    if (key === currentDateFilter) {
+      btn.classList.add('active');
+      const check = btn.querySelector('.check');
+      if (check) check.style.opacity = '1';
+    } else {
+      btn.classList.remove('active');
+      const check = btn.querySelector('.check');
+      if (check) check.style.opacity = '0';
+    }
   });
+  
+  // Actualizar input de fecha personalizada
+  const input = document.getElementById('customDateInput');
+  if (input) {
+    input.value = currentCustomDate;
+  }
 }
 
 /* ============================================
@@ -2135,7 +2324,7 @@ function updateOverlay() {
   const escapaditasOpen = isEscapaditasOpen() && !isDesktop();
   document.getElementById('overlay').classList.toggle('show', sidebarOpen || escapaditasOpen);
 }
-function handleOverlayClick() { closeSidebar(); closeEscapaditas(); closeSubmenu(); }
+function handleOverlayClick() { closeSidebar(); closeEscapaditas(); closeSubmenu(); closeDateFilterPanel(); }
 
 /* ============================================
    LÓGICA DE ESCAPADITAS (GEOLOCALIZACIÓN + BÚSQUEDA)
@@ -2373,14 +2562,6 @@ function searchPlacesEscapaditas(location) {
 }
 
 /* ============================================
-   MENÚ DE OPCIONES (FILTRO DE FECHA)
-   ============================================ */
-function toggleOptionsMenu(e) {
-  if (e) e.stopPropagation();
-  openSubmenu('date');
-}
-
-/* ============================================
    PREFERENCIAS
    ============================================ */
 function loadPreferences() {
@@ -2563,6 +2744,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateSidebarState();
   checkIfPWAInstalled();
   updateSplashGreeting();
+  updateDateFilterUI();
 });
 window.addEventListener('resize', () => { updateSidebarState(); updateOverlay(); });
 </script>
