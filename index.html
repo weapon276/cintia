@@ -715,10 +715,17 @@
       <div class="brand-logo" style="background: linear-gradient(135deg, var(--accent), var(--secondary));"><span class="ms fill">luggage</span></div>
       <div class="brand-text">
         <h1>Escapaditas</h1>
-        <p>Eventos a la redonda</p>
+        <p>Eventos cerca de ti</p>
       </div>
       <button class="close-btn" onclick="closeEscapaditas()" aria-label="Cerrar panel"><span class="ms">close</span></button>
     </div>
+    
+    <!-- Indicador de Filtro de Fecha Activo -->
+    <div id="escapaditasDateFilterBadge" style="display: none; margin-bottom: 12px; padding: 8px 12px; background: var(--primary-container); border-radius: var(--r-sm); font-size: 12px; font-weight: 700; color: var(--primary); align-items: center; gap: 6px;">
+      <span class="ms fill" style="font-size: 16px;">calendar_month</span>
+      <span id="escapaditasDateLabel">Filtrando por: Hoy</span>
+    </div>
+
     <div class="search-field">
       <span class="ms">my_location</span>
       <input type="text" id="escapaditasLocationInput" placeholder="Usando tu ubicación actual..." readonly>
@@ -2042,12 +2049,34 @@ function setDateFilter(key) {
   applyFilters();
   showToast('calendar_month', tDate(key));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
+  
+  // Actualizar el badge de Escapaditas si está abierto
+  updateEscapaditasDateBadge();
 }
 function onCustomDateChange(val) {
   currentCustomDate = val;
   currentDateFilter = 'custom';
   applyFilters();
   showToast('calendar_month', `${tDate('custom')}: ${val}`);
+  
+  // Actualizar el badge de Escapaditas si está abierto
+  updateEscapaditasDateBadge();
+}
+
+function updateEscapaditasDateBadge() {
+  const badge = document.getElementById('escapaditasDateFilterBadge');
+  const label = document.getElementById('escapaditasDateLabel');
+  if (badge && label) {
+    if (currentDateFilter === 'all') {
+      badge.style.display = 'none';
+    } else {
+      badge.style.display = 'flex';
+      const dateText = currentDateFilter === 'custom' && currentCustomDate 
+        ? `${tDate('custom')}: ${currentCustomDate}` 
+        : tDate(currentDateFilter);
+      label.textContent = `${t('dateFilterLabel')}: ${dateText}`;
+    }
+  }
 }
 
 function manualRefresh() {
@@ -2104,6 +2133,7 @@ function openEscapaditas() {
   document.getElementById('sidebarRight').classList.add('open');
   document.body.classList.remove('escapaditas-closed');
   updateOverlay();
+  updateEscapaditasDateBadge();
   // Auto-actualizar ubicación al abrir
   updateEscapaditasLocation();
 }
