@@ -817,7 +817,7 @@
     "primary_venue": {
       "name": "Casa Rosa Luis Barragán"
     }
-  },
+  
   {
     "name": "Festival del Pan de Muerto 2026 - Sede Club de Leones",
     "start_date": "2026-10-31",
@@ -830,7 +830,7 @@
     "primary_venue": {
       "name": "Club de Leones de Guadalajara"
     }
-  },
+  
   {
     "name": "Cuisillos - Fiestas de Octubre 2026",
     "start_date": "2026-10-30",
@@ -843,7 +843,7 @@
     "primary_venue": {
       "name": "Foro Principal - Auditorio Benito Juárez"
     }
-  },
+
   {
     "name": "Mariachi Internacional CHG - Fiestas de Octubre 2026",
     "start_date": "2026-10-31",
@@ -856,7 +856,7 @@
     "primary_venue": {
       "name": "Foro Principal - Auditorio Benito Juárez"
     }
-  },
+  
   {
     "name": "El Tri - Fiestas de Octubre 2026",
     "start_date": "2026-11-01",
@@ -882,7 +882,7 @@
     "primary_venue": {
       "name": "Foro Principal - Auditorio Benito Juárez"
     }
-  },
+
   {
     "name": "Calaverandia 2026 - Parque Temático de Día de Muertos",
     "start_date": "2026-10-30",
@@ -895,7 +895,7 @@
     "primary_venue": {
       "name": "Parque Ávila Camacho"
     }
-  },
+  
   {
     "name": "Tina y Tomás - Obra Infantil y Familiar",
     "start_date": "2026-11-01",
@@ -908,7 +908,7 @@
     "primary_venue": {
       "name": "Teatro Alarife Martín Casillas"
     }
-  },
+  
   {
     "name": "Festival de Día de Muertos: Ofrendas y Talleres Infantiles",
     "start_date": "2026-11-01",
@@ -934,7 +934,7 @@
     "primary_venue": {
       "name": "Teatro José Pablo Moncayo - PALCCO"
     }
-  },
+  
   {
     "name": "Exposición Interactiva 'Mi querido Pinocho'",
     "start_date": "2026-11-26",
@@ -947,6 +947,6 @@
     "primary_venue": {
       "name": "Museo de Arte de Zapopan (MAZ)"
     }
-  }
+
 
 ]
