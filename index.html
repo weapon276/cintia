@@ -48,19 +48,12 @@
     --ease-emphasized: cubic-bezier(0.2, 0, 0, 1); --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --z-splash: 5000; --z-map: 1; --z-chips: 900; --z-header: 1000; --z-submenu: 1500;
-    --z-overlay: 1900; --z-sidebar: 2000; --z-banner: 2400; --z-toast: 3000;
-    /* Festive theme variables (override dynamically) */
+    --z-overlay: 1900; --z-sidebar: 2000; --z-banner: 2400; --z-toast: 3000; --z-modal: 4000;
     --festive-splash-from: #4F46E5;
     --festive-splash-mid: #7C3AED;
     --festive-splash-to: #EC4899;
     --festive-primary: #4F46E5;
     --festive-accent: #EC4899;
-    --festive-map-water: #c9e4de;
-    --festive-map-park: #e5f5e0;
-    --festive-map-highway: #dadada;
-    --festive-map-road: #ffffff;
-    --festive-map-geometry: #f5f5f5;
-    --festive-map-text: #616161;
   }
   html[data-theme="dark"] {
     --primary: #818CF8; --primary-dark: #6366F1; --primary-light: #A5B4FC;
@@ -80,21 +73,16 @@
     --festive-splash-mid: #312E81;
     --festive-splash-to: #500724;
   }
-  html, body { height: 100%; overflow: hidden; }
-  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; height: 100vh; height: 100dvh; position: fixed; width: 100%; overscroll-behavior: none; transition: background .3s var(--ease-standard), color .3s var(--ease-standard); }
-  .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-  .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
-  
-  /* FESTIVE OVERRIDES */
   html.festive-active {
     --primary: var(--festive-primary);
     --primary-dark: var(--festive-primary);
     --primary-light: var(--festive-primary);
     --accent: var(--festive-accent);
   }
-  html.festive-active .splash {
-    background: linear-gradient(135deg, var(--festive-splash-from) 0%, var(--festive-splash-mid) 50%, var(--festive-splash-to) 100%);
-  }
+  html, body { height: 100%; overflow: hidden; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; height: 100vh; height: 100dvh; position: fixed; width: 100%; overscroll-behavior: none; transition: background .3s var(--ease-standard), color .3s var(--ease-standard); }
+  .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
   /* SPLASH */
   .splash {
@@ -106,9 +94,6 @@
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   html[data-theme="dark"] .splash { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%); }
-  html[data-theme="dark"].festive-active .splash {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #2a0a0a 100%);
-  }
   .splash-logo {
     width: 96px; height: 96px; border-radius: 28px;
     background: rgba(255, 255, 255, 0.18);
@@ -197,7 +182,7 @@
   .icon-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; }
   
-  /* CONTENEDOR DE CATEGORÍAS (DERECHA) */
+  /* MAIN CATEGORIES */
   .main-categories {
     position: absolute; right: 16px; top: 50%;
     transform: translateY(-50%); z-index: var(--z-chips);
@@ -216,18 +201,8 @@
   .cat-btn:hover { transform: scale(1.05); }
   .cat-btn:active { transform: scale(0.92); }
   .cat-btn.dimmed { opacity: 0.3; }
-  .cat-btn .badge {
-    position: absolute; top: -4px; right: -4px;
-    min-width: 22px; height: 22px; padding: 0 6px;
-    border-radius: var(--r-full);
-    background: var(--primary); color: #FFFFFF;
-    font-size: 11px; font-weight: 800;
-    display: grid; place-items: center;
-    border: 2px solid var(--surface);
-    opacity: 0; transition: opacity .2s, transform .2s;
-  }
-  .cat-btn .badge.show { opacity: 1; }
   
+  /* SUBMENU */
   .submenu {
     position: absolute; right: 84px; top: 50%;
     transform: translateY(-50%);
@@ -257,7 +232,7 @@
     font-size: 15px; font-weight: 800; letter-spacing: -0.02em;
     color: var(--text); display: flex; align-items: center; gap: 8px;
   }
-  .submenu-title .ms { font-size: 22px; color: var(--submenu-color, var(--primary)); }
+  .submenu-title .ms { font-size: 22px; color: var(--primary); }
   .submenu-close {
     width: 32px; height: 32px; border-radius: var(--r-full);
     border: none; background: transparent; color: var(--text-2);
@@ -277,7 +252,6 @@
   }
   .submenu-search:focus-within {
     background: var(--surface); border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
   }
   .submenu-search .ms { font-size: 20px; color: var(--text-3); }
   .submenu-search input {
@@ -291,11 +265,7 @@
     display: flex; flex-direction: column; gap: 4px;
     max-height: 500px; overflow-y: auto;
   }
-  
-  .submenu-group {
-    margin-top: 8px;
-    margin-bottom: 4px;
-  }
+  .submenu-group { margin-top: 8px; margin-bottom: 4px; }
   .submenu-group:first-child { margin-top: 0; }
   .submenu-group-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -307,7 +277,6 @@
     display: flex; align-items: center; gap: 6px;
   }
   .submenu-group-label .ms { font-size: 14px; }
-  
   .submenu-option {
     display: flex; align-items: center; gap: 12px;
     padding: 12px 14px; border: none; background: transparent;
@@ -315,10 +284,7 @@
     font-family: inherit; font-size: 14px; font-weight: 600;
     color: var(--text); transition: background .15s, transform .15s, opacity .2s;
     text-align: left; width: 100%;
-    opacity: 0; transform: translateX(10px);
-    animation: submenuItemIn .3s var(--ease-spring) forwards;
   }
-  @keyframes submenuItemIn { to { opacity: 1; transform: translateX(0); } }
   .submenu-option:hover { background: var(--surface-2); }
   .submenu-option:active { transform: scale(0.98); }
   .submenu-option.dimmed { opacity: 0.4; }
@@ -340,7 +306,6 @@
     opacity: 0; transition: opacity .2s;
   }
   .submenu-option.active .check { opacity: 1; }
-  
   .submenu-empty {
     text-align: center; padding: 24px 12px;
     font-size: 13px; color: var(--text-3);
@@ -348,7 +313,7 @@
   }
   .submenu-empty .ms { font-size: 36px; color: var(--outline-strong); }
 
-  /* NUEVO PANEL FLOTANTE DE FECHAS (CENTRADO) */
+  /* DATE FILTER PANEL */
   .date-filter-panel {
     position: absolute;
     top: calc(80px + var(--safe-top));
@@ -382,84 +347,50 @@
     align-items: center;
     gap: 8px;
   }
-  .date-filter-title .ms {
-    color: var(--primary);
-    font-size: 22px;
-  }
+  .date-filter-title .ms { color: var(--primary); font-size: 22px; }
   .date-option {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: var(--r-sm);
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    transition: background .2s;
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px; border-radius: var(--r-sm);
+    border: none; background: transparent;
+    cursor: pointer; width: 100%;
+    text-align: left; font-family: inherit;
+    font-size: 14px; font-weight: 600;
+    color: var(--text); transition: background .2s;
     margin-bottom: 4px;
   }
-  .date-option:hover {
-    background: var(--surface-2);
-  }
-  .date-option.active {
-    background: var(--primary-container);
-    color: var(--primary-dark);
-  }
-  .date-option .ms {
-    font-size: 22px;
-    color: var(--text-3);
-  }
-  .date-option.active .ms {
-    color: var(--primary);
-  }
+  .date-option:hover { background: var(--surface-2); }
+  .date-option.active { background: var(--primary-container); color: var(--primary-dark); }
+  .date-option .ms { font-size: 22px; color: var(--text-3); }
+  .date-option.active .ms { color: var(--primary); }
   .date-input-wrapper {
-    margin-top: 12px;
-    padding-top: 12px;
+    margin-top: 12px; padding-top: 12px;
     border-top: 1px solid var(--outline);
   }
   .date-input-wrapper label {
-    display: block;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-2);
-    margin-bottom: 8px;
+    display: block; font-size: 12px; font-weight: 700;
+    color: var(--text-2); margin-bottom: 8px;
   }
   .date-input-wrapper input[type="date"] {
-    width: 100%;
-    height: 44px;
-    padding: 0 12px;
+    width: 100%; height: 44px; padding: 0 12px;
     border-radius: var(--r-sm);
     border: 1px solid var(--outline);
     background: var(--surface-2);
     color: var(--text);
-    font-family: inherit;
-    font-size: 14px;
+    font-family: inherit; font-size: 14px;
   }
   .date-input-wrapper input[type="date"]:focus {
-    outline: none;
-    border-color: var(--primary);
+    outline: none; border-color: var(--primary);
   }
   .date-clear-btn {
-    margin-top: 12px;
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: var(--r-sm);
+    margin-top: 12px; width: 100%; padding: 12px;
+    border: none; border-radius: var(--r-sm);
     background: var(--surface-3);
     color: var(--text);
-    font-weight: 600;
-    cursor: pointer;
+    font-weight: 600; cursor: pointer;
   }
-  .date-clear-btn:hover {
-    background: var(--outline-strong);
-  }
+  .date-clear-btn:hover { background: var(--outline-strong); }
 
+  /* SIDEBARS */
   .sidebar {
     position: absolute; top: 0; left: 0;
     width: 400px; height: 100%;
@@ -473,8 +404,6 @@
     border-right: 1px solid var(--outline);
   }
   .sidebar.open { transform: translateX(0); }
-
-  /* NUEVO PANEL ESCAPADITAS (DERECHA) */
   .sidebar-right {
     position: absolute; top: 0; right: 0;
     width: 400px; height: 100%;
@@ -531,7 +460,7 @@
     border: 2px solid transparent;
     transition: all .2s; margin-bottom: 12px;
   }
-  .search-field:focus-within { background: var(--surface); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12); }
+  .search-field:focus-within { background: var(--surface); border-color: var(--primary); }
   .search-field .ms { color: var(--text-3); flex-shrink: 0; }
   .search-field input { flex: 1; background: transparent; border: none; outline: none; font-family: inherit; font-size: 15px; font-weight: 500; color: var(--text); min-width: 0; }
   .search-field input::placeholder { color: var(--text-3); font-weight: 400; }
@@ -548,7 +477,6 @@
     transition: transform .2s;
   }
   .gps-button:active { transform: scale(0.97); }
-  .gps-button.tracking { background: linear-gradient(135deg, var(--tertiary) 0%, #0891B2 100%); }
   
   .events-scroll {
     flex: 1; overflow-y: auto;
@@ -568,6 +496,7 @@
     padding: 4px 4px 0;
   }
   
+  /* EVENT CARDS */
   .event-card {
     background: var(--surface);
     border: 1px solid var(--outline);
@@ -578,7 +507,6 @@
     transition: all .22s var(--ease-standard);
     position: relative; overflow: hidden;
     min-height: 120px;
-    animation: fadeInUp .3s var(--ease-emphasized) backwards;
   }
   .event-card::before {
     content: ''; position: absolute;
@@ -591,7 +519,7 @@
   .event-card:hover::before { opacity: 1; }
   .event-card:active { transform: scale(0.985) translateY(0); }
   
-    .event-photo {
+  .event-photo {
     width: 100px; height: auto; flex-shrink: 0;
     background: var(--card-bg, var(--primary-container));
     display: grid; place-items: center; overflow: hidden;
@@ -609,7 +537,7 @@
     font-variation-settings: 'FILL' 1, 'wght' 500;
   }
   
-  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; justify-content: center; padding: 12px 14px; }
+  .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; justify-content: center; padding: 12px 14px; }
   .event-title {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 15px; font-weight: 700;
@@ -626,7 +554,6 @@
     display: -webkit-box;
     -webkit-line-clamp: 2; -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-bottom: 2px;
   }
   .event-venue {
     font-size: 12px; color: var(--text-2); font-weight: 500;
@@ -634,103 +561,115 @@
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
-  .event-footer { display: flex; align-items: center; gap: 6px; margin-top: 2px; flex-wrap: wrap; }
-  .event-age-tag {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 10px; font-weight: 800;
-    padding: 3px 8px; border-radius: var(--r-full);
-    background: var(--age-bg, #E0F5F1);
-    color: var(--age-color, #2A9D8F);
-    text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .event-age-tag .ms { font-size: 12px; }
-  .event-rating {
-    font-size: 12px; color: var(--text-3); font-weight: 600;
-    margin-left: auto; display: flex; align-items: center; gap: 2px;
-  }
-  .event-rating .ms { font-size: 14px; color: var(--secondary); }
+  .event-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   
-  /* ICONOS DE ACCESIBILIDAD Y SERVICIOS (PEQUEÑOS) */
-  .event-badges {
+  /* ICON ROW - DEBAJO DEL TÍTULO, TODOS LOS ICONOS VISIBLES */
+  .icon-row {
     display: flex;
-    gap: 4px;
     flex-wrap: wrap;
+    gap: 4px;
     margin-top: 2px;
   }
-  .badge-icon {
+  .icon-chip {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 24px;
     height: 24px;
     border-radius: 50%;
+    transition: opacity .2s, background .2s;
+  }
+  .icon-chip .ms {
+    font-size: 14px;
+  }
+  .icon-chip.active {
+    background: var(--chip-color, #4F46E5);
+    color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .icon-chip.active .ms {
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+  }
+  .icon-chip.inactive {
     background: var(--surface-2);
-    color: var(--text-2);
-    font-size: 14px;
+    color: var(--text-3);
+    opacity: 0.35;
   }
-  .badge-icon .ms {
-    font-size: 14px;
+  .icon-chip.inactive {
+    background: var(--surface-2);
+    color: var(--text-3);
+    opacity: 0.35;
   }
-  .badge-icon.wheelchair { color: #4F46E5; background: #EEF2FF; }
-  .badge-icon.pet { color: #10B981; background: #D1FAE5; }
-  .badge-icon.smoke-free { color: #F59E0B; background: #FEF3C7; }
-
-  /* NUEVOS ICONOS DE CATEGORÍA (ESTILO IMAGEN) */
+  .icon-chip.inactive .ms {
+    font-variation-settings: 'FILL' 0, 'wght' 400;
+  }
+  
+  .icon-divider {
+    width: 1px;
+    height: 18px;
+    background: var(--outline);
+    margin: 0 2px;
+    align-self: center;
+  }
+  
+  /* CATEGORY PILL */
   .category-pill-container {
     display: flex;
     align-items: center;
     gap: 4px;
-    margin-top: 4px;
+    margin-top: 2px;
   }
   .category-pill-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: var(--cat-color, var(--primary));
     color: #FFFFFF;
-    font-size: 16px;
+    font-size: 14px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
-  .category-pill-icon .ms {
-    font-size: 16px;
-  }
+  .category-pill-icon .ms { font-size: 14px; }
   .category-pill-label {
     background: #1A1A1A;
     color: #FFFFFF;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
-    padding: 4px 10px;
+    padding: 3px 8px;
     border-radius: 999px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     white-space: nowrap;
   }
-
-  /* ICONOS DE AUDIENCIA (PEQUEÑOS EN TARJETA) */
-  .audience-icons {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-    margin-top: 2px;
-  }
-  .audience-icon {
+  
+  /* EVENT SOURCE TAG */
+  .event-source-tag {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--aud-bg, #EEF2FF);
-    color: var(--aud-color, #4F46E5);
-    font-size: 12px;
+    gap: 3px;
+    font-size: 9px;
+    font-weight: 800;
+    padding: 2px 6px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
   }
-  .audience-icon .ms {
-    font-size: 12px;
+  .event-source-tag.eb { background: #FCE7F3; color: #DB2777; }
+  .event-source-tag.tm { background: #EEF2FF; color: #4F46E5; }
+  
+  .event-date-info {
+    font-size: 11px;
+    color: var(--text-3);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: auto;
   }
-
+  .event-date-info .ms { font-size: 12px; }
+  
   .empty-state {
     text-align: center; padding: 60px 20px;
     display: flex; flex-direction: column; align-items: center; gap: 12px;
@@ -816,14 +755,283 @@
     color: var(--text-3);
     display: grid; place-items: center;
     cursor: pointer; flex-shrink: 0;
-    transition: background .2s, color .2s;
   }
   .install-banner-close:hover { background: var(--surface-2); color: var(--text); }
   .install-banner-close .ms { font-size: 18px; }
+
+  /* ============================================
+     MODAL DE DETALLE DEL EVENTO
+     ============================================ */
+  .event-detail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s var(--ease-standard), visibility .3s;
+    pointer-events: none;
+  }
+  .event-detail-modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .event-detail-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(24, 24, 27, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .event-detail-card {
+    position: relative;
+    background: var(--surface);
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-4);
+    width: 100%;
+    max-width: 520px;
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: transform .35s var(--ease-spring);
+    border: 1px solid var(--outline);
+  }
+  .event-detail-modal.open .event-detail-card {
+    transform: translateY(0) scale(1);
+  }
+  .event-detail-hero {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background: var(--primary-container);
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .event-detail-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .event-detail-hero .hero-placeholder {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--primary-container), var(--accent-container));
+  }
+  .event-detail-hero .hero-placeholder .ms {
+    font-size: 72px;
+    color: var(--primary);
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+    opacity: 0.6;
+  }
+  .event-detail-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--r-full);
+    border: none;
+    background: rgba(0, 0, 0, 0.55);
+    color: #FFFFFF;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background .2s, transform .2s;
+    z-index: 2;
+  }
+  .event-detail-close:hover { background: rgba(0, 0, 0, 0.75); }
+  .event-detail-close:active { transform: scale(0.92); }
+  .event-detail-close .ms { font-size: 22px; }
   
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .event-detail-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 20px 100px 20px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .event-detail-body::-webkit-scrollbar { width: 6px; }
+  .event-detail-body::-webkit-scrollbar-thumb { background: var(--outline-strong); border-radius: 3px; }
   
-  /* FESTIVE CONFETTI / DECORATIONS */
+  .event-detail-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .event-detail-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--outline);
+  }
+  .event-detail-meta-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .event-detail-meta-row .ms {
+    font-size: 18px;
+    color: var(--text-3);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .event-detail-meta-row strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+  
+  .event-detail-section-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    margin-top: 16px;
+  }
+  .event-detail-section-title:first-child { margin-top: 0; }
+  
+  .event-detail-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-2);
+    white-space: pre-line;
+    word-break: break-word;
+  }
+  
+  .event-detail-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .event-detail-icons .icon-chip {
+    width: 32px;
+    height: 32px;
+  }
+  .event-detail-icons .icon-chip .ms {
+    font-size: 18px;
+  }
+  
+  .event-detail-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px 20px;
+    background: var(--surface);
+    border-top: 1px solid var(--outline);
+    display: flex;
+    gap: 10px;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+  }
+  .event-detail-cta {
+    flex: 1;
+    height: 52px;
+    border: none;
+    border-radius: var(--r-md);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+    transition: transform .2s, filter .2s;
+  }
+  .event-detail-cta:hover { filter: brightness(1.08); }
+  .event-detail-cta:active { transform: scale(0.97); }
+  .event-detail-cta.disabled {
+    background: var(--surface-3);
+    color: var(--text-3);
+    box-shadow: none;
+    cursor: default;
+  }
+  
+  /* PROXIMAMENTE OVERLAY */
+  .coming-soon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+    gap: 16px;
+    height: 100%;
+  }
+  .coming-soon-icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-container), var(--primary-container));
+    display: grid;
+    place-items: center;
+    animation: comingSoonPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes comingSoonPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(236, 72, 153, 0); }
+  }
+  .coming-soon-icon .ms {
+    font-size: 48px;
+    color: var(--accent);
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+  }
+  .coming-soon-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .coming-soon-subtitle {
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.6;
+    max-width: 300px;
+  }
+  .coming-soon-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--accent-container);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 8px;
+  }
+  .coming-soon-badge .ms { font-size: 16px; }
+  
   .festive-confetti {
     position: fixed; inset: 0; pointer-events: none; z-index: calc(var(--z-splash) - 1);
     overflow: hidden;
@@ -839,8 +1047,6 @@
     0% { transform: translateY(-100vh) rotate(0deg); }
     100% { transform: translateY(100vh) rotate(720deg); }
   }
-  
-  /* FESTIVE BANNER */
   .festive-banner {
     position: absolute;
     top: calc(84px + var(--safe-top));
@@ -866,10 +1072,7 @@
     visibility: visible;
     transform: translateX(-50%) translateY(0);
   }
-  .festive-banner .ms {
-    font-size: 20px;
-    color: var(--festive-primary);
-  }
+  .festive-banner .ms { font-size: 20px; color: var(--festive-primary); }
   .festive-banner-text {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
@@ -880,21 +1083,13 @@
     text-overflow: ellipsis;
   }
   
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  
   @media (max-width: 1199px) {
-    .main-categories {
-      right: 12px; top: auto;
-      bottom: calc(160px + var(--safe-bottom));
-      transform: none;
-      flex-direction: column;
-    }
+    .main-categories { right: 12px; top: auto; bottom: calc(160px + var(--safe-bottom)); transform: none; flex-direction: column; }
     .cat-btn { width: 52px; height: 52px; }
-    .submenu {
-      right: 76px; top: auto;
-      bottom: calc(160px + var(--safe-bottom));
-      transform: translateY(0) translateX(20px) scale(0.95);
-      transform-origin: right bottom;
-      max-width: calc(100vw - 100px);
-    }
+    .submenu { right: 76px; top: auto; bottom: calc(160px + var(--safe-bottom)); transform: translateY(0) translateX(20px) scale(0.95); transform-origin: right bottom; max-width: calc(100vw - 100px); }
     .submenu.open { transform: translateY(0) translateX(0) scale(1); }
     .header { left: 12px; right: 12px; gap: 8px; }
     .search-pill { height: 52px; padding: 0 16px; }
@@ -910,6 +1105,9 @@
     .splash-logo .ms { font-size: 44px; }
     .date-filter-panel { width: 90%; max-width: 340px; }
     .festive-banner { top: calc(76px + var(--safe-top)); font-size: 11px; }
+    .event-detail-card { max-height: calc(100vh - 16px); max-height: calc(100dvh - 16px); }
+    .event-detail-hero { height: 180px; }
+    .event-detail-title { font-size: 19px; }
   }
   
   @media (min-width: 768px) and (max-width: 1199px) {
@@ -924,15 +1122,10 @@
     body:not(.sidebar-closed) .header { left: 416px; }
     body.sidebar-closed .header { left: 16px; }
     body.sidebar-closed .sidebar { transform: translateX(-100%); }
-    
     body:not(.escapaditas-closed) .sidebar-right { transform: translateX(0); }
     body.escapaditas-closed .sidebar-right { transform: translateX(100%); }
-    
     .header { left: 416px; transition: left .4s var(--ease-emphasized); }
-    body:not(.sidebar-closed):not(.escapaditas-closed) .header {
-      left: 416px;
-      right: 416px;
-    }
+    body:not(.sidebar-closed):not(.escapaditas-closed) .header { left: 416px; right: 416px; }
   }
   
   @media (prefers-reduced-motion: reduce) {
@@ -941,6 +1134,11 @@
 </style>
 </head>
 <body class="escapaditas-closed">
+
+<!-- CONFIGURACIÓN DE ESCAPADITAS (cambiar a true para activar) -->
+<script>
+  const ESCAPADITAS_ENABLED = false; // ← Cambia a true para activar Escapaditas
+</script>
 
 <div class="splash" id="splash">
   <div class="splash-logo">
@@ -992,7 +1190,7 @@
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
-<!-- SIDEBAR DERECHO (ESCAPADITAS) -->
+<!-- SIDEBAR DERECHO (ESCAPADITAS / PROXIMAMENTE) -->
 <aside class="sidebar-right" id="sidebarRight" aria-label="Panel de Escapaditas">
   <div class="sidebar-top">
     <div class="brand">
@@ -1003,25 +1201,9 @@
       </div>
       <button class="close-btn" onclick="closeEscapaditas()" aria-label="Cerrar panel"><span class="ms">close</span></button>
     </div>
-    <div class="search-field">
-      <span class="ms">my_location</span>
-      <input type="text" id="escapaditasLocationInput" placeholder="Usando tu ubicación actual..." readonly>
-    </div>
-    <button class="gps-button" onclick="updateEscapaditasLocation()" id="gpsButtonEscapaditas" style="background: linear-gradient(135deg, var(--accent) 0%, #BE185D 100%);">
-      <span class="ms fill">explore</span>
-      <span>Actualizar ubicación</span>
-    </button>
-    <div id="escapaditasDateFilterIndicator" style="display:none; margin-top: 12px; padding: 8px 12px; background: var(--accent-container); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 6px;">
-      <span class="ms fill" style="font-size: 16px;">calendar_month</span>
-      <span id="escapaditasDateLabel">Filtrando por fecha</span>
-    </div>
   </div>
-  <div class="events-scroll" id="sidebarEscapaditasEvents">
-    <div class="empty-state">
-      <span class="ms">travel_explore</span>
-      <h3>Buscando escapaditas...</h3>
-      <p>Toca "Actualizar ubicación" para encontrar eventos cerca de ti.</p>
-    </div>
+  <div class="events-scroll" id="sidebarEscapaditasEvents" style="padding: 0;">
+    <!-- Contenido dinámico según ESCAPADITAS_ENABLED -->
   </div>
 </aside>
 
@@ -1049,49 +1231,32 @@
     <span class="ms fill">calendar_month</span>
     <span>Filtrar por fecha</span>
   </div>
-  
   <button class="date-option" data-date="all" onclick="setDateFilter('all')">
-    <span class="ms">event_available</span>
-    <span>Cualquier fecha</span>
-    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+    <span class="ms">event_available</span><span>Cualquier fecha</span><span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
   <button class="date-option" data-date="today" onclick="setDateFilter('today')">
-    <span class="ms">today</span>
-    <span>Hoy</span>
-    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+    <span class="ms">today</span><span>Hoy</span><span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
   <button class="date-option" data-date="tomorrow" onclick="setDateFilter('tomorrow')">
-    <span class="ms">event</span>
-    <span>Mañana</span>
-    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+    <span class="ms">event</span><span>Mañana</span><span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
   <button class="date-option" data-date="this_weekend" onclick="setDateFilter('this_weekend')">
-    <span class="ms">weekend</span>
-    <span>Este fin de semana</span>
-    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+    <span class="ms">weekend</span><span>Este fin de semana</span><span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
   <button class="date-option" data-date="next_7_days" onclick="setDateFilter('next_7_days')">
-    <span class="ms">date_range</span>
-    <span>Próximos 7 días</span>
-    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+    <span class="ms">date_range</span><span>Próximos 7 días</span><span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
   <button class="date-option" data-date="this_month" onclick="setDateFilter('this_month')">
-    <span class="ms">calendar_month</span>
-    <span>Este mes</span>
-    <span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
+    <span class="ms">calendar_month</span><span>Este mes</span><span class="ms check" style="margin-left: auto; opacity: 0;">check</span>
   </button>
-  
   <div class="date-input-wrapper">
     <label>Fecha específica</label>
     <input type="date" id="customDateInput" value="" onchange="onCustomDateChange(this.value)">
   </div>
-  
-  <button class="date-clear-btn" onclick="clearDateFilter()">
-    Limpiar filtro
-  </button>
+  <button class="date-clear-btn" onclick="clearDateFilter()">Limpiar filtro</button>
 </div>
 
-<!-- CONTENEDOR DE CATEGORÍAS Y ESCAPADITAS A LA DERECHA -->
+<!-- CONTENEDOR DE CATEGORÍAS -->
 <div class="main-categories" id="mainCategories"></div>
 
 <div class="submenu" id="submenu">
@@ -1113,9 +1278,18 @@
     <span id="installBannerSubtitle">Accede rápido desde tu pantalla de inicio</span>
   </div>
   <button class="install-banner-btn" onclick="installPWA()" id="installBannerBtn">Instalar</button>
-  <button class="install-banner-close" onclick="dismissInstallBanner()" aria-label="Cerrar">
-    <span class="ms">close</span>
-  </button>
+  <button class="install-banner-close" onclick="dismissInstallBanner()" aria-label="Cerrar"><span class="ms">close</span></button>
+</div>
+
+<!-- MODAL DE DETALLE DEL EVENTO -->
+<div class="event-detail-modal" id="eventDetailModal" role="dialog" aria-modal="true" aria-labelledby="eventDetailTitle">
+  <div class="event-detail-overlay" onclick="closeEventDetail()"></div>
+  <div class="event-detail-card" id="eventDetailCard">
+    <div class="event-detail-hero" id="eventDetailHero"></div>
+    <button class="event-detail-close" onclick="closeEventDetail()" aria-label="Cerrar"><span class="ms">close</span></button>
+    <div class="event-detail-body" id="eventDetailBody"></div>
+    <div class="event-detail-footer" id="eventDetailFooter"></div>
+  </div>
 </div>
 
 <div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
@@ -1130,436 +1304,131 @@ const API_KEYS = {
 };
 
 /* ============================================
-   CONFIGURACIÓN DE EVENTOS LOCALES (JSON)
+   CONFIGURACIÓN
    ============================================ */
-const LOCAL_EVENTS_CONFIG = {
-  filePath: 'dataset_eventbrite.json',
-  source: 'eventbrite'
-};
+const LOCAL_EVENTS_CONFIG = { filePath: 'dataset_eventbrite.json', source: 'eventbrite' };
 
 let localEventbriteEvents = [];
 let localEventsLoaded = false;
 
 /* ============================================
-   SISTEMA DE TEMAS FESTIVOS
+   TEMAS FESTIVOS
    ============================================ */
 const FESTIVE_THEMES = {
   default: {
-    id: 'default',
-    name: 'GDL Cultural',
-    icon: 'location_city',
-    emoji: '☀️',
-    greeting: {
-      es: 'Buenos días',
-      en: 'Good morning'
-    },
-    subtitle: {
-      es: 'Descubre museos y eventos en Guadalajara',
-      en: 'Discover museums and events in Guadalajara'
-    },
-    colors: {
-      splashFrom: '#4F46E5',
-      splashMid: '#7C3AED',
-      splashTo: '#EC4899',
-      primary: '#4F46E5',
-      accent: '#EC4899',
-      map: {
-        water: '#c9e4de',
-        park: '#e5f5e0',
-        highway: '#dadada',
-        road: '#ffffff',
-        geometry: '#f5f5f5',
-        text: '#616161'
-      }
-    },
-    confetti: false,
-    banner: null
+    id: 'default', name: 'GDL Cultural', icon: 'location_city', emoji: '☀️',
+    greeting: { es: 'Buenos días', en: 'Good morning' },
+    subtitle: { es: 'Descubre museos y eventos en Guadalajara', en: 'Discover museums and events in Guadalajara' },
+    colors: { splashFrom: '#4F46E5', splashMid: '#7C3AED', splashTo: '#EC4899', primary: '#4F46E5', accent: '#EC4899',
+      map: { water: '#c9e4de', park: '#e5f5e0', highway: '#dadada', road: '#ffffff', geometry: '#f5f5f5', text: '#616161' } },
+    confetti: false, banner: null
   },
   reyes: {
-    id: 'reyes',
-    name: 'Día de Reyes',
-    icon: 'cake',
-    emoji: '👑',
-    greeting: {
-      es: '¡Feliz Día de Reyes!',
-      en: 'Happy Three Kings Day!'
-    },
-    subtitle: {
-      es: 'Celebra la magia de los Reyes Magos en Guadalajara',
-      en: 'Celebrate the magic of the Three Kings in Guadalajara'
-    },
-    colors: {
-      splashFrom: '#1E3A8A',
-      splashMid: '#F59E0B',
-      splashTo: '#DC2626',
-      primary: '#B45309',
-      accent: '#DC2626',
-      map: {
-        water: '#bfdbfe',
-        park: '#fef3c7',
-        highway: '#fcd34d',
-        road: '#fffbeb',
-        geometry: '#fef9e7',
-        text: '#92400e'
-      }
-    },
+    id: 'reyes', name: 'Día de Reyes', icon: 'cake', emoji: '👑',
+    greeting: { es: '¡Feliz Día de Reyes!', en: 'Happy Three Kings Day!' },
+    subtitle: { es: 'Celebra la magia de los Reyes Magos en Guadalajara', en: 'Celebrate the magic of the Three Kings' },
+    colors: { splashFrom: '#1E3A8A', splashMid: '#F59E0B', splashTo: '#DC2626', primary: '#B45309', accent: '#DC2626',
+      map: { water: '#bfdbfe', park: '#fef3c7', highway: '#fcd34d', road: '#fffbeb', geometry: '#fef9e7', text: '#92400e' } },
     confetti: ['#F59E0B', '#DC2626', '#1E3A8A', '#FBBF24'],
-    banner: {
-      es: '👑 Día de Reyes · 6 de enero',
-      en: '👑 Three Kings Day · January 6'
-    }
+    banner: { es: '👑 Día de Reyes · 6 de enero', en: '👑 Three Kings Day · January 6' }
   },
   san_valentin: {
-    id: 'san_valentin',
-    name: 'San Valentín',
-    icon: 'favorite',
-    emoji: '💕',
-    greeting: {
-      es: '¡Feliz San Valentín!',
-      en: 'Happy Valentine\'s Day!'
-    },
-    subtitle: {
-      es: 'Los mejores planes románticos en Guadalajara',
-      en: 'The best romantic plans in Guadalajara'
-    },
-    colors: {
-      splashFrom: '#BE123C',
-      splashMid: '#EC4899',
-      splashTo: '#F472B6',
-      primary: '#DB2777',
-      accent: '#F43F5E',
-      map: {
-        water: '#fbcfe8',
-        park: '#fce7f3',
-        highway: '#f9a8d4',
-        road: '#fdf2f8',
-        geometry: '#fff1f2',
-        text: '#9f1239'
-      }
-    },
+    id: 'san_valentin', name: 'San Valentín', icon: 'favorite', emoji: '💕',
+    greeting: { es: '¡Feliz San Valentín!', en: "Happy Valentine's Day!" },
+    subtitle: { es: 'Los mejores planes románticos en Guadalajara', en: 'The best romantic plans in Guadalajara' },
+    colors: { splashFrom: '#BE123C', splashMid: '#EC4899', splashTo: '#F472B6', primary: '#DB2777', accent: '#F43F5E',
+      map: { water: '#fbcfe8', park: '#fce7f3', highway: '#f9a8d4', road: '#fdf2f8', geometry: '#fff1f2', text: '#9f1239' } },
     confetti: ['#EC4899', '#F43F5E', '#FB7185', '#FDA4AF', '#FECDD3'],
-    banner: {
-      es: '💕 San Valentín · 14 de febrero',
-      en: '💕 Valentine\'s Day · February 14'
-    }
+    banner: { es: '💕 San Valentín · 14 de febrero', en: "💕 Valentine's Day · February 14" }
   },
   carnaval: {
-    id: 'carnaval',
-    name: 'Carnaval',
-    icon: 'celebration',
-    emoji: '🎭',
-    greeting: {
-      es: '¡Feliz Carnaval!',
-      en: 'Happy Carnival!'
-    },
-    subtitle: {
-      es: 'Vive la fiesta y el color del Carnaval tapatío',
-      en: 'Live the party and color of Guadalajara Carnival'
-    },
-    colors: {
-      splashFrom: '#7C3AED',
-      splashMid: '#F59E0B',
-      splashTo: '#EC4899',
-      primary: '#7C3AED',
-      accent: '#F59E0B',
-      map: {
-        water: '#c4b5fd',
-        park: '#fef3c7',
-        highway: '#fcd34d',
-        road: '#faf5ff',
-        geometry: '#f3e8ff',
-        text: '#6b21a8'
-      }
-    },
+    id: 'carnaval', name: 'Carnaval', icon: 'celebration', emoji: '🎭',
+    greeting: { es: '¡Feliz Carnaval!', en: 'Happy Carnival!' },
+    subtitle: { es: 'Vive la fiesta y el color del Carnaval tapatío', en: 'Live the party and color of Carnival' },
+    colors: { splashFrom: '#7C3AED', splashMid: '#F59E0B', splashTo: '#EC4899', primary: '#7C3AED', accent: '#F59E0B',
+      map: { water: '#c4b5fd', park: '#fef3c7', highway: '#fcd34d', road: '#faf5ff', geometry: '#f3e8ff', text: '#6b21a8' } },
     confetti: ['#7C3AED', '#F59E0B', '#EC4899', '#06B6D4', '#10B981'],
-    banner: {
-      es: '🎭 Carnaval · Fecha variable (feb-mar)',
-      en: '🎭 Carnival · Variable date (Feb-Mar)'
-    }
+    banner: { es: '🎭 Carnaval · Fecha variable', en: '🎭 Carnival · Variable date' }
   },
   dia_nino: {
-    id: 'dia_nino',
-    name: 'Día del Niño',
-    icon: 'child_care',
-    emoji: '🎈',
-    greeting: {
-      es: '¡Feliz Día del Niño!',
-      en: 'Happy Children\'s Day!'
-    },
-    subtitle: {
-      es: 'Planes divertidos para los más pequeños',
-      en: 'Fun plans for the little ones'
-    },
-    colors: {
-      splashFrom: '#06B6D4',
-      splashMid: '#F59E0B',
-      splashTo: '#EC4899',
-      primary: '#0891B2',
-      accent: '#F59E0B',
-      map: {
-        water: '#a5f3fc',
-        park: '#d1fae5',
-        highway: '#fde68a',
-        road: '#f0fdfa',
-        geometry: '#ecfeff',
-        text: '#155e75'
-      }
-    },
+    id: 'dia_nino', name: 'Día del Niño', icon: 'child_care', emoji: '🎈',
+    greeting: { es: '¡Feliz Día del Niño!', en: "Happy Children's Day!" },
+    subtitle: { es: 'Planes divertidos para los más pequeños', en: 'Fun plans for the little ones' },
+    colors: { splashFrom: '#06B6D4', splashMid: '#F59E0B', splashTo: '#EC4899', primary: '#0891B2', accent: '#F59E0B',
+      map: { water: '#a5f3fc', park: '#d1fae5', highway: '#fde68a', road: '#f0fdfa', geometry: '#ecfeff', text: '#155e75' } },
     confetti: ['#06B6D4', '#F59E0B', '#EC4899', '#10B981', '#8B5CF6', '#F43F5E'],
-    banner: {
-      es: '🎈 Día del Niño · 30 de abril',
-      en: '🎈 Children\'s Day · April 30'
-    }
+    banner: { es: '🎈 Día del Niño · 30 de abril', en: "🎈 Children's Day · April 30" }
   },
   dia_madre: {
-    id: 'dia_madre',
-    name: 'Día de las Madres',
-    icon: 'local_florist',
-    emoji: '🌹',
-    greeting: {
-      es: '¡Feliz Día de las Madres!',
-      en: 'Happy Mother\'s Day!'
-    },
-    subtitle: {
-      es: 'Celebra a mamá con los mejores planes',
-      en: 'Celebrate mom with the best plans'
-    },
-    colors: {
-      splashFrom: '#BE185D',
-      splashMid: '#F472B6',
-      splashTo: '#FBCFE8',
-      primary: '#BE185D',
-      accent: '#EC4899',
-      map: {
-        water: '#fbcfe8',
-        park: '#fce7f3',
-        highway: '#f9a8d4',
-        road: '#fdf2f8',
-        geometry: '#fff1f2',
-        text: '#831843'
-      }
-    },
+    id: 'dia_madre', name: 'Día de las Madres', icon: 'local_florist', emoji: '🌹',
+    greeting: { es: '¡Feliz Día de las Madres!', en: "Happy Mother's Day!" },
+    subtitle: { es: 'Celebra a mamá con los mejores planes', en: 'Celebrate mom with the best plans' },
+    colors: { splashFrom: '#BE185D', splashMid: '#F472B6', splashTo: '#FBCFE8', primary: '#BE185D', accent: '#EC4899',
+      map: { water: '#fbcfe8', park: '#fce7f3', highway: '#f9a8d4', road: '#fdf2f8', geometry: '#fff1f2', text: '#831843' } },
     confetti: ['#EC4899', '#F472B6', '#FBCFE8', '#BE185D', '#FDA4AF'],
-       banner: {
-      es: '🌹 Día de las Madres · 10 de mayo',
-      en: '🌹 Mother\'s Day · May 10'
-    }
+    banner: { es: '🌹 Día de las Madres · 10 de mayo', en: "🌹 Mother's Day · May 10" }
   },
   dia_padre: {
-    id: 'dia_padre',
-    name: 'Día del Padre',
-    icon: 'sports_bar',
-    emoji: '👔',
-    greeting: {
-      es: '¡Feliz Día del Padre!',
-      en: 'Happy Father\'s Day!'
-    },
-    subtitle: {
-      es: 'Celebra a papá con los mejores planes',
-      en: 'Celebrate dad with the best plans'
-    },
-    colors: {
-      splashFrom: '#1E40AF',
-      splashMid: '#3B82F6',
-      splashTo: '#60A5FA',
-      primary: '#1E40AF',
-      accent: '#3B82F6',
-      map: {
-        water: '#bfdbfe',
-        park: '#dbeafe',
-        highway: '#93c5fd',
-        road: '#eff6ff',
-        geometry: '#eff6ff',
-        text: '#1e3a8a'
-      }
-    },
+    id: 'dia_padre', name: 'Día del Padre', icon: 'sports_bar', emoji: '👔',
+    greeting: { es: '¡Feliz Día del Padre!', en: "Happy Father's Day!" },
+    subtitle: { es: 'Celebra a papá con los mejores planes', en: 'Celebrate dad with the best plans' },
+    colors: { splashFrom: '#1E40AF', splashMid: '#3B82F6', splashTo: '#60A5FA', primary: '#1E40AF', accent: '#3B82F6',
+      map: { water: '#bfdbfe', park: '#dbeafe', highway: '#93c5fd', road: '#eff6ff', geometry: '#eff6ff', text: '#1e3a8a' } },
     confetti: ['#1E40AF', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
-    banner: {
-      es: '👔 Día del Padre · 3er domingo de junio',
-      en: '👔 Father\'s Day · 3rd Sunday of June'
-    }
+    banner: { es: '👔 Día del Padre · 3er domingo de junio', en: "👔 Father's Day · 3rd Sunday of June" }
   },
   independencia: {
-    id: 'independencia',
-    name: 'Independencia de México',
-    icon: 'flag',
-    emoji: '🇲🇽',
-    greeting: {
-      es: '¡Viva México!',
-      en: 'Viva Mexico!'
-    },
-    subtitle: {
-      es: 'Celebra la Independencia de México en Guadalajara',
-      en: 'Celebrate Mexico\'s Independence in Guadalajara'
-    },
-    colors: {
-      splashFrom: '#006847',
-      splashMid: '#CE1126',
-      splashTo: '#FFFFFF',
-      primary: '#006847',
-      accent: '#CE1126',
-      map: {
-        water: '#a7f3d0',
-        park: '#d1fae5',
-        highway: '#fca5a5',
-        road: '#f0fdf4',
-        geometry: '#ecfdf5',
-        text: '#065f46'
-      }
-    },
+    id: 'independencia', name: 'Independencia de México', icon: 'flag', emoji: '🇲🇽',
+    greeting: { es: '¡Viva México!', en: 'Viva Mexico!' },
+    subtitle: { es: 'Celebra la Independencia de México en Guadalajara', en: "Celebrate Mexico's Independence" },
+    colors: { splashFrom: '#006847', splashMid: '#CE1126', splashTo: '#FFFFFF', primary: '#006847', accent: '#CE1126',
+      map: { water: '#a7f3d0', park: '#d1fae5', highway: '#fca5a5', road: '#f0fdf4', geometry: '#ecfdf5', text: '#065f46' } },
     confetti: ['#006847', '#CE1126', '#FFFFFF', '#10B981', '#EF4444'],
-    banner: {
-      es: '🇲🇽 Independencia de México · 15-16 de septiembre',
-      en: '🇲🇽 Mexico\'s Independence · Sep 15-16'
-    }
+    banner: { es: '🇲🇽 Independencia de México · 15-16 de septiembre', en: "🇲🇽 Mexico's Independence · Sep 15-16" }
   },
   halloween: {
-    id: 'halloween',
-    name: 'Halloween',
-    icon: 'skull',
-    emoji: '🎃',
-    greeting: {
-      es: '¡Feliz Halloween!',
-      en: 'Happy Halloween!'
-    },
-    subtitle: {
-      es: 'Los planes más escalofriantes en Guadalajara',
-      en: 'The spookiest plans in Guadalajara'
-    },
-    colors: {
-      splashFrom: '#1A1A1A',
-      splashMid: '#EA580C',
-      splashTo: '#7C2D12',
-      primary: '#EA580C',
-      accent: '#A855F7',
-      map: {
-        water: '#1f2937',
-        park: '#292524',
-        highway: '#78350f',
-        road: '#1c1917',
-        geometry: '#1a1a1a',
-        text: '#d4d4d8'
-      }
-    },
+    id: 'halloween', name: 'Halloween', icon: 'skull', emoji: '🎃',
+    greeting: { es: '¡Feliz Halloween!', en: 'Happy Halloween!' },
+    subtitle: { es: 'Los planes más escalofriantes en Guadalajara', en: 'The spookiest plans in Guadalajara' },
+    colors: { splashFrom: '#1A1A1A', splashMid: '#EA580C', splashTo: '#7C2D12', primary: '#EA580C', accent: '#A855F7',
+      map: { water: '#1f2937', park: '#292524', highway: '#78350f', road: '#1c1917', geometry: '#1a1a1a', text: '#d4d4d8' } },
     confetti: ['#EA580C', '#A855F7', '#1A1A1A', '#10B981', '#F59E0B'],
-    banner: {
-      es: '🎃 Halloween · 31 de octubre',
-      en: '🎃 Halloween · October 31'
-    },
+    banner: { es: '🎃 Halloween · 31 de octubre', en: '🎃 Halloween · October 31' },
     darkMap: true
   },
   dia_muertos: {
-    id: 'dia_muertos',
-    name: 'Día de Muertos',
-    icon: 'local_florist',
-    emoji: '💀',
-    greeting: {
-      es: '¡Feliz Día de Muertos!',
-      en: 'Happy Day of the Dead!'
-    },
-    subtitle: {
-      es: 'Celebra la tradición más hermosa de México',
-      en: 'Celebrate Mexico\'s most beautiful tradition'
-    },
-    colors: {
-      splashFrom: '#1E1B4B',
-      splashMid: '#7C2D12',
-      splashTo: '#EA580C',
-      primary: '#C2410C',
-      accent: '#F97316',
-      map: {
-        water: '#312e81',
-        park: '#422006',
-        highway: '#9a3412',
-        road: '#1c1917',
-        geometry: '#1e1b4b',
-        text: '#fed7aa'
-      }
-    },
+    id: 'dia_muertos', name: 'Día de Muertos', icon: 'local_florist', emoji: '💀',
+    greeting: { es: '¡Feliz Día de Muertos!', en: 'Happy Day of the Dead!' },
+    subtitle: { es: 'Celebra la tradición más hermosa de México', en: "Celebrate Mexico's most beautiful tradition" },
+    colors: { splashFrom: '#1E1B4B', splashMid: '#7C2D12', splashTo: '#EA580C', primary: '#C2410C', accent: '#F97316',
+      map: { water: '#312e81', park: '#422006', highway: '#9a3412', road: '#1c1917', geometry: '#1e1b4b', text: '#fed7aa' } },
     confetti: ['#F97316', '#FBBF24', '#C2410C', '#EC4899', '#8B5CF6', '#FDE047'],
-    banner: {
-      es: '💀 Día de Muertos · 1-2 de noviembre',
-      en: '💀 Day of the Dead · Nov 1-2'
-    },
+    banner: { es: '💀 Día de Muertos · 1-2 de noviembre', en: '💀 Day of the Dead · Nov 1-2' },
     darkMap: true
   },
   navidad: {
-    id: 'navidad',
-    name: 'Navidad',
-    icon: 'celebration',
-    emoji: '🎄',
-    greeting: {
-      es: '¡Feliz Navidad!',
-      en: 'Merry Christmas!'
-    },
-    subtitle: {
-      es: 'Vive la magia navideña en Guadalajara',
-      en: 'Live the Christmas magic in Guadalajara'
-    },
-    colors: {
-      splashFrom: '#065F46',
-      splashMid: '#DC2626',
-      splashTo: '#F59E0B',
-      primary: '#047857',
-      accent: '#DC2626',
-      map: {
-        water: '#a7f3d0',
-        park: '#d1fae5',
-        highway: '#fca5a5',
-        road: '#fef2f2',
-        geometry: '#f0fdf4',
-        text: '#065f46'
-      }
-    },
+    id: 'navidad', name: 'Navidad', icon: 'celebration', emoji: '🎄',
+    greeting: { es: '¡Feliz Navidad!', en: 'Merry Christmas!' },
+    subtitle: { es: 'Vive la magia navideña en Guadalajara', en: 'Live the Christmas magic in Guadalajara' },
+    colors: { splashFrom: '#065F46', splashMid: '#DC2626', splashTo: '#F59E0B', primary: '#047857', accent: '#DC2626',
+      map: { water: '#a7f3d0', park: '#d1fae5', highway: '#fca5a5', road: '#fef2f2', geometry: '#f0fdf4', text: '#065f46' } },
     confetti: ['#DC2626', '#10B981', '#F59E0B', '#FFFFFF', '#065F46', '#FDE047'],
-    banner: {
-      es: '🎄 Navidad · 24-25 de diciembre',
-      en: '🎄 Christmas · Dec 24-25'
-    }
+    banner: { es: '🎄 Navidad · 24-25 de diciembre', en: '🎄 Christmas · Dec 24-25' }
   },
   ano_nuevo: {
-    id: 'ano_nuevo',
-    name: 'Año Nuevo',
-    icon: 'auto_awesome',
-    emoji: '🎆',
-    greeting: {
-      es: '¡Feliz Año Nuevo!',
-      en: 'Happy New Year!'
-    },
-    subtitle: {
-      es: 'Comienza el año con los mejores planes',
-      en: 'Start the year with the best plans'
-    },
-    colors: {
-      splashFrom: '#1E1B4B',
-      splashMid: '#7C3AED',
-      splashTo: '#F59E0B',
-      primary: '#7C3AED',
-      accent: '#F59E0B',
-      map: {
-        water: '#c4b5fd',
-        park: '#fef3c7',
-        highway: '#fcd34d',
-        road: '#faf5ff',
-        geometry: '#f3e8ff',
-        text: '#4c1d95'
-      }
-    },
+    id: 'ano_nuevo', name: 'Año Nuevo', icon: 'auto_awesome', emoji: '🎆',
+    greeting: { es: '¡Feliz Año Nuevo!', en: 'Happy New Year!' },
+    subtitle: { es: 'Comienza el año con los mejores planes', en: 'Start the year with the best plans' },
+    colors: { splashFrom: '#1E1B4B', splashMid: '#7C3AED', splashTo: '#F59E0B', primary: '#7C3AED', accent: '#F59E0B',
+      map: { water: '#c4b5fd', park: '#fef3c7', highway: '#fcd34d', road: '#faf5ff', geometry: '#f3e8ff', text: '#4c1d95' } },
     confetti: ['#F59E0B', '#7C3AED', '#EC4899', '#06B6D4', '#10B981', '#FDE047'],
-    banner: {
-      es: '🎆 Año Nuevo · 31 dic - 1 ene',
-      en: '🎆 New Year · Dec 31 - Jan 1'
-    }
+    banner: { es: '🎆 Año Nuevo · 31 dic - 1 ene', en: '🎆 New Year · Dec 31 - Jan 1' }
   }
 };
 
 let currentFestiveTheme = FESTIVE_THEMES.default;
 
-/* ============================================
-   DETECCIÓN DE FESTIVIDAD ACTUAL
-   ============================================ */
 function getNthWeekdayOfMonth(year, month, weekday, nth) {
-  // month: 0-11, weekday: 0=domingo...6=sábado, nth: 1-5
   const firstDay = new Date(year, month, 1);
   let dayOffset = (weekday - firstDay.getDay() + 7) % 7;
   const day = 1 + dayOffset + (nth - 1) * 7;
@@ -1569,84 +1438,32 @@ function getNthWeekdayOfMonth(year, month, weekday, nth) {
 function detectFestiveTheme() {
   const now = new Date();
   const year = now.getFullYear();
-  const month = now.getMonth(); // 0-11
+  const month = now.getMonth();
   const date = now.getDate();
   
-  // Definir rangos de festividades (con margen de días antes/después)
-  
-  // Día de Reyes: 1-7 enero
-  if (month === 0 && date >= 1 && date <= 7) {
-    return FESTIVE_THEMES.reyes;
-  }
-  
-  // San Valentín: 7-15 febrero
-  if (month === 1 && date >= 7 && date <= 15) {
-    return FESTIVE_THEMES.san_valentin;
-  }
-  
-  // Carnaval: fecha variable (febrero-marzo) - aproximación últimos días de feb
-  if (month === 1 && date >= 20) {
-    return FESTIVE_THEMES.carnaval;
-  }
-  if (month === 2 && date <= 5) {
-    return FESTIVE_THEMES.carnaval;
-  }
-  
-  // Día del Niño: 25 abril - 2 mayo
-  if ((month === 3 && date >= 25) || (month === 4 && date <= 2)) {
-    return FESTIVE_THEMES.dia_nino;
-  }
-  
-  // Día de las Madres: 5-12 mayo
-  if (month === 4 && date >= 5 && date <= 12) {
-    return FESTIVE_THEMES.dia_madre;
-  }
-  
-  // Día del Padre: 3er domingo de junio (rango 10-21 junio)
+  if (month === 0 && date >= 1 && date <= 7) return FESTIVE_THEMES.reyes;
+  if (month === 1 && date >= 7 && date <= 15) return FESTIVE_THEMES.san_valentin;
+  if (month === 1 && date >= 20) return FESTIVE_THEMES.carnaval;
+  if (month === 2 && date <= 5) return FESTIVE_THEMES.carnaval;
+  if ((month === 3 && date >= 25) || (month === 4 && date <= 2)) return FESTIVE_THEMES.dia_nino;
+  if (month === 4 && date >= 5 && date <= 12) return FESTIVE_THEMES.dia_madre;
   if (month === 5) {
     const thirdSunday = getNthWeekdayOfMonth(year, 5, 0, 3);
     const fatherDayDate = thirdSunday.getDate();
-    if (date >= fatherDayDate - 3 && date <= fatherDayDate + 2) {
-      return FESTIVE_THEMES.dia_padre;
-    }
+    if (date >= fatherDayDate - 3 && date <= fatherDayDate + 2) return FESTIVE_THEMES.dia_padre;
   }
-  
-  // Independencia de México: 10-17 septiembre
-  if (month === 8 && date >= 10 && date <= 17) {
-    return FESTIVE_THEMES.independencia;
-  }
-  
-  // Halloween: 25 octubre - 1 noviembre (antes de Día de Muertos)
-  if (month === 9 && date >= 25) {
-    return FESTIVE_THEMES.halloween;
-  }
-  if (month === 10 && date === 1) {
-    return FESTIVE_THEMES.halloween;
-  }
-  
-  // Día de Muertos: 1-5 noviembre
-  if (month === 10 && date >= 1 && date <= 5) {
-    return FESTIVE_THEMES.dia_muertos;
-  }
-  
-  // Navidad: 15-30 diciembre
-  if (month === 11 && date >= 15 && date <= 30) {
-    return FESTIVE_THEMES.navidad;
-  }
-  
-  // Año Nuevo: 31 diciembre - 5 enero
-  if ((month === 11 && date === 31) || (month === 0 && date <= 5)) {
-    return FESTIVE_THEMES.ano_nuevo;
-  }
-  
+  if (month === 8 && date >= 10 && date <= 17) return FESTIVE_THEMES.independencia;
+  if (month === 9 && date >= 25) return FESTIVE_THEMES.halloween;
+  if (month === 10 && date === 1) return FESTIVE_THEMES.halloween;
+  if (month === 10 && date >= 1 && date <= 5) return FESTIVE_THEMES.dia_muertos;
+  if (month === 11 && date >= 15 && date <= 30) return FESTIVE_THEMES.navidad;
+  if ((month === 11 && date === 31) || (month === 0 && date <= 5)) return FESTIVE_THEMES.ano_nuevo;
   return FESTIVE_THEMES.default;
 }
 
 function applyFestiveTheme(theme) {
   currentFestiveTheme = theme;
   const html = document.documentElement;
-  
-  // Aplicar variables CSS de colores festivos
   const colors = theme.colors;
   html.style.setProperty('--festive-splash-from', colors.splashFrom);
   html.style.setProperty('--festive-splash-mid', colors.splashMid);
@@ -1654,84 +1471,46 @@ function applyFestiveTheme(theme) {
   html.style.setProperty('--festive-primary', colors.primary);
   html.style.setProperty('--festive-accent', colors.accent);
   
-  // Aplicar clase de tema festivo activo
-  if (theme.id !== 'default') {
-    html.classList.add('festive-active');
-  } else {
-    html.classList.remove('festive-active');
-  }
+  if (theme.id !== 'default') html.classList.add('festive-active');
+  else html.classList.remove('festive-active');
   
-  // Actualizar splash
   const splashLogoIcon = document.getElementById('splashLogoIcon');
   if (splashLogoIcon) splashLogoIcon.textContent = theme.icon;
-  
   const splashEmoji = document.getElementById('splashEmoji');
   if (splashEmoji) splashEmoji.textContent = theme.emoji;
-  
   const splashGreeting = document.getElementById('splashGreeting');
-  if (splashGreeting) {
-    const lang = currentLang || 'es';
-    splashGreeting.textContent = theme.greeting[lang] || theme.greeting.es;
-  }
-  
+  if (splashGreeting) splashGreeting.textContent = theme.greeting[currentLang] || theme.greeting.es;
   const splashSubtitle = document.getElementById('splashSubtitle');
-  if (splashSubtitle) {
-    const lang = currentLang || 'es';
-    splashSubtitle.textContent = theme.subtitle[lang] || theme.subtitle.es;
-  }
+  if (splashSubtitle) splashSubtitle.textContent = theme.subtitle[currentLang] || theme.subtitle.es;
   
-  // Mostrar badge festivo en splash
   const festiveBadge = document.getElementById('splashFestiveBadge');
   const festiveIcon = document.getElementById('splashFestiveIcon');
   const festiveLabel = document.getElementById('splashFestiveLabel');
-  
   if (theme.id !== 'default' && festiveBadge) {
     festiveBadge.style.display = 'inline-flex';
     if (festiveIcon) festiveIcon.textContent = theme.icon;
-    if (festiveLabel) {
-      const lang = currentLang || 'es';
-      const bannerText = theme.banner?.[lang] || theme.banner?.es || theme.name;
-      festiveLabel.textContent = bannerText;
-    }
+    if (festiveLabel) festiveLabel.textContent = theme.banner?.[currentLang] || theme.banner?.es || theme.name;
   } else if (festiveBadge) {
     festiveBadge.style.display = 'none';
   }
   
-  // Actualizar brand logo
   const brandLogoIcon = document.getElementById('brandLogoIcon');
   if (brandLogoIcon) brandLogoIcon.textContent = theme.icon;
   
-  // Actualizar festivo banner
   updateFestiveBanner(theme);
-  
-  // Generar confetti si aplica
   generateConfetti(theme);
-  
-  // Actualizar mapa con nuevos colores
-  if (map) {
-    updateMapStyles(theme);
-  }
-  
-  console.log(`🎉 Tema festivo aplicado: ${theme.name} (${theme.id})`);
+  if (map) updateMapStyles(theme);
 }
 
 function updateFestiveBanner(theme) {
   const banner = document.getElementById('festiveBanner');
   const bannerIcon = document.getElementById('festiveBannerIcon');
   const bannerText = document.getElementById('festiveBannerText');
-  
   if (!banner) return;
-  
   if (theme.id !== 'default' && theme.banner) {
-    const lang = currentLang || 'es';
-    const text = theme.banner[lang] || theme.banner.es;
     if (bannerIcon) bannerIcon.textContent = theme.icon;
-    if (bannerText) bannerText.textContent = text;
-    
-    // Mostrar después de splash
-    setTimeout(() => {
-      banner.classList.add('show');
-    }, 3000);
+    if (bannerText) bannerText.textContent = theme.banner[currentLang] || theme.banner.es;
+    setTimeout(() => banner.classList.add('show'), 3000);
   } else {
     banner.classList.remove('show');
   }
@@ -1740,98 +1519,44 @@ function updateFestiveBanner(theme) {
 function generateConfetti(theme) {
   const container = document.getElementById('festiveConfetti');
   if (!container) return;
-  
   container.innerHTML = '';
-  
   if (!theme.confetti || theme.confetti.length === 0) return;
-  
   const colors = theme.confetti;
-  const pieceCount = 30;
-  
-  for (let i = 0; i < pieceCount; i++) {
+  for (let i = 0; i < 30; i++) {
     const piece = document.createElement('div');
     piece.className = 'festive-confetti-piece';
-    
-    // Color aleatorio de la paleta
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    piece.style.background = color;
-    
-    // Posición horizontal aleatoria
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
     piece.style.left = Math.random() * 100 + '%';
-    
-    // Tamaño variable
     const size = 6 + Math.random() * 10;
     piece.style.width = size + 'px';
     piece.style.height = size + 'px';
-    
-    // Forma variable (algunos redondos)
-    if (Math.random() > 0.6) {
-      piece.style.borderRadius = '50%';
-    }
-    
-    // Duración y delay aleatorios
+    if (Math.random() > 0.6) piece.style.borderRadius = '50%';
     const duration = 4 + Math.random() * 4;
     piece.style.animationDuration = duration + 's';
     piece.style.animationDelay = Math.random() * duration + 's';
-    
     container.appendChild(piece);
   }
 }
 
 function updateMapStyles(theme) {
   if (!map) return;
-  
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  const festiveColors = theme.colors.map;
-  
-  // Si es tema oscuro o el festivo requiere mapa oscuro, usar estilos oscuros modificados
-  if (isDark || theme.darkMap) {
-    const darkStyles = MAP_STYLES.dark.map(style => {
-      const newStyle = JSON.parse(JSON.stringify(style));
-      if (newStyle.featureType === 'water') {
-        newStyle.stylers = [{ color: festiveColors.water }];
-      } else if (newStyle.featureType === 'poi.park') {
-        newStyle.stylers = [{ color: festiveColors.park }];
-      } else if (newStyle.featureType === 'road.highway') {
-        if (newStyle.elementType === 'geometry') {
-          newStyle.stylers = [{ color: festiveColors.highway }];
-        }
-      } else if (newStyle.featureType === 'road') {
-        if (newStyle.elementType === 'geometry') {
-          newStyle.stylers = [{ color: festiveColors.road }];
-        }
-      } else if (newStyle.elementType === 'geometry' && !newStyle.featureType) {
-        newStyle.stylers = [{ color: festiveColors.geometry }];
-      }
-      return newStyle;
-    });
-    map.setOptions({ styles: darkStyles });
-  } else {
-    const lightStyles = MAP_STYLES.light.map(style => {
-      const newStyle = JSON.parse(JSON.stringify(style));
-      if (newStyle.featureType === 'water') {
-        newStyle.stylers = [{ color: festiveColors.water }];
-      } else if (newStyle.featureType === 'poi.park') {
-        newStyle.stylers = [{ color: festiveColors.park }];
-      } else if (newStyle.featureType === 'road.highway') {
-        if (newStyle.elementType === 'geometry') {
-          newStyle.stylers = [{ color: festiveColors.highway }];
-        }
-      } else if (newStyle.featureType === 'road') {
-        if (newStyle.elementType === 'geometry') {
-          newStyle.stylers = [{ color: festiveColors.road }];
-        }
-      } else if (newStyle.elementType === 'geometry' && !newStyle.featureType) {
-        newStyle.stylers = [{ color: festiveColors.geometry }];
-      }
-      return newStyle;
-    });
-    map.setOptions({ styles: lightStyles });
-  }
+  const fc = theme.colors.map;
+  const applyColors = (base) => base.map(style => {
+    const s = JSON.parse(JSON.stringify(style));
+    if (s.featureType === 'water') s.stylers = [{ color: fc.water }];
+    else if (s.featureType === 'poi.park') s.stylers = [{ color: fc.park }];
+    else if (s.featureType === 'road.highway' && s.elementType === 'geometry') s.stylers = [{ color: fc.highway }];
+    else if (s.featureType === 'road' && s.elementType === 'geometry') s.stylers = [{ color: fc.road }];
+    else if (s.elementType === 'geometry' && !s.featureType) s.stylers = [{ color: fc.geometry }];
+    return s;
+  });
+  if (isDark || theme.darkMap) map.setOptions({ styles: applyColors(MAP_STYLES.dark) });
+  else map.setOptions({ styles: applyColors(MAP_STYLES.light) });
 }
 
 /* ============================================
-   SALUDO PERSONALIZADO SEGÚN LA HORA
+   SALUDO
    ============================================ */
 function getGreeting() {
   const hour = new Date().getHours();
@@ -1862,55 +1587,39 @@ function getGreeting() {
       evening: { text: 'Guten Abend', emoji: '🌙', subtitle: 'Finden Sie Pläne für heute Abend' }
     }
   };
-  
   let period = 'morning';
   if (hour >= 12 && hour < 19) period = 'afternoon';
   else if (hour >= 19 || hour < 5) period = 'evening';
-  
-  const langGreetings = greetings[currentLang] || greetings.es;
-  return langGreetings[period];
+  return (greetings[currentLang] || greetings.es)[period];
 }
 
 function updateSplashGreeting() {
-  // Si hay tema festivo activo, usar su saludo
   if (currentFestiveTheme && currentFestiveTheme.id !== 'default') {
     const theme = currentFestiveTheme;
-    const lang = currentLang || 'es';
-    
     const emojiEl = document.getElementById('splashEmoji');
     const textEl = document.getElementById('splashGreeting');
     const subtitleEl = document.getElementById('splashSubtitle');
     const logoIcon = document.getElementById('splashLogoIcon');
-    
     if (emojiEl) emojiEl.textContent = theme.emoji;
-    if (textEl) textEl.textContent = theme.greeting[lang] || theme.greeting.es;
-    if (subtitleEl) subtitleEl.textContent = theme.subtitle[lang] || theme.subtitle.es;
+    if (textEl) textEl.textContent = theme.greeting[currentLang] || theme.greeting.es;
+    if (subtitleEl) subtitleEl.textContent = theme.subtitle[currentLang] || theme.subtitle.es;
     if (logoIcon) logoIcon.textContent = theme.icon;
-    
-    // Actualizar badge festivo
     const festiveBadge = document.getElementById('splashFestiveBadge');
     const festiveIcon = document.getElementById('splashFestiveIcon');
     const festiveLabel = document.getElementById('splashFestiveLabel');
-    
-    if (theme.id !== 'default' && festiveBadge) {
+    if (festiveBadge) {
       festiveBadge.style.display = 'inline-flex';
       if (festiveIcon) festiveIcon.textContent = theme.icon;
-      if (festiveLabel) {
-        festiveLabel.textContent = theme.banner?.[lang] || theme.banner?.es || theme.name;
-      }
+      if (festiveLabel) festiveLabel.textContent = theme.banner?.[currentLang] || theme.banner?.es || theme.name;
     }
   } else {
-    // Usar saludo horario normal
     const greeting = getGreeting();
     const emojiEl = document.getElementById('splashEmoji');
     const textEl = document.getElementById('splashGreeting');
     const subtitleEl = document.getElementById('splashSubtitle');
-    
     if (emojiEl) emojiEl.textContent = greeting.emoji;
     if (textEl) textEl.textContent = greeting.text;
     if (subtitleEl) subtitleEl.textContent = greeting.subtitle;
-    
-    // Ocultar badge festivo
     const festiveBadge = document.getElementById('splashFestiveBadge');
     if (festiveBadge) festiveBadge.style.display = 'none';
   }
@@ -1920,13 +1629,18 @@ function updateSplashGreeting() {
    CATEGORÍAS DE AUDIENCIA
    ============================================ */
 const AGE_CATEGORIES = {
-  all:      { label: 'Todo público', icon: 'groups',          color: '#4F46E5', bg: '#EEF2FF' },
-  family:   { label: 'Familia',      icon: 'home',            color: '#000000', bg: '#F4F4F5' },
-  adults_m: { label: 'Hombres',      icon: 'man',             color: '#2563EB', bg: '#DBEAFE' },
-  adults_w: { label: 'Mujeres',      icon: 'woman',           color: '#EC4899', bg: '#FCE7F3' },
-  teens:    { label: 'Adolescentes', icon: 'sports_esports',  color: '#8B5CF6', bg: '#EDE9FE' },
-  kids:     { label: 'Niños',        icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' },
-  bebes:    { label: 'Bebés',        icon: 'stroller',        color: '#06B6D4', bg: '#CFFAFE' }
+  family:   { key: 'family',   label: 'Familia',      icon: 'home',            color: '#000000', bg: '#F4F4F5' },
+  adults_m: { key: 'adults_m', label: 'Hombres',      icon: 'man',             color: '#2563EB', bg: '#DBEAFE' },
+  adults_w: { key: 'adults_w', label: 'Mujeres',      icon: 'woman',           color: '#EC4899', bg: '#FCE7F3' },
+  teens:    { key: 'teens',    label: 'Adolescentes', icon: 'sports_esports',  color: '#8B5CF6', bg: '#EDE9FE' },
+  kids:     { key: 'kids',     label: 'Niños',        icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' },
+  bebes:    { key: 'bebes',    label: 'Bebés',        icon: 'stroller',        color: '#06B6D4', bg: '#CFFAFE' }
+};
+
+const ACCESSIBILITY_CATEGORIES = {
+  wheelchair: { key: 'wheelchair', label: 'Silla de ruedas', icon: 'accessible',  color: '#4F46E5', bg: '#EEF2FF' },
+  pet:        { key: 'pet',        label: 'Pet Friendly',    icon: 'pets',        color: '#10B981', bg: '#D1FAE5' },
+  smokeFree:  { key: 'smokeFree',  label: 'Libre de humo',   icon: 'smoke_free',  color: '#F59E0B', bg: '#FEF3C7' }
 };
 
 /* ============================================
@@ -1934,41 +1648,38 @@ const AGE_CATEGORIES = {
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
-  museum:             { icon: 'museum',         color: '#4F46E5', bg: '#EEF2FF', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'exposicion', 'arte'] },
-  art_gallery:        { icon: 'palette',        color: '#F59E0B', bg: '#FEF3C7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'galeria', 'arte', 'gallery', 'exposición'] },
-  church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'church', 'templo', 'parroquia'] },
-  library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'library', 'libro', 'lectura'] },
-  tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'atraccion', 'turístico', 'turistico', 'monumento', 'atracciones'] },
-  park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'park', 'jardín', 'jardin', 'plaza', 'área verde', 'area verde'] },
-  zoo:                { icon: 'pets',           color: '#EC4899', bg: '#FCE7F3', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'zoológico', 'zoologico', 'animales'] },
-  aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'aquarium', 'peces', 'mar'] },
-  campground:         { icon: 'camping',        color: '#059669', bg: '#D1FAE5', type: 'campground', group: 'aire libre', keywords: ['campamento', 'camping', 'acampada'] },
-  movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'cinema', 'movie', 'película', 'pelicula', 'theater'] },
-  stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'stadium', 'deporte', 'fútbol', 'futbol', 'partido'] },
-  amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones', 'amusement', 'atracciones'] },
-  bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bowling', 'bolos'] },
-  casino:             { icon: 'casino',         color: '#B91C1C', bg: '#FEE2E2', type: 'casino', group: 'entretenimiento', keywords: ['casino', 'juegos', 'apuestas'] },
-  night_club:         { icon: 'nightlife',      color: '#DB2777', bg: '#FCE7F3', type: 'night_club', group: 'entretenimiento', keywords: ['antro', 'discoteca', 'night club', 'fiesta'] },
-  restaurant:         { icon: 'restaurant',     color: '#EA580C', bg: '#FFEDD5', type: 'restaurant', group: 'gastronomía', keywords: ['restaurante', 'restaurant', 'comida', 'comer', 'cocina'] },
-  cafe:               { icon: 'local_cafe',     color: '#A16207', bg: '#FEF3C7', type: 'cafe', group: 'gastronomía', keywords: ['café', 'cafe', 'coffee', 'cafetería', 'cafeteria'] },
-  bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina', 'cerveza', 'tequila', 'mezcal', 'antros'] },
-  bakery:             { icon: 'bakery_dining',  color: '#CA8A04', bg: '#FEF9C3', type: 'bakery', group: 'gastronomía', keywords: ['panadería', 'panaderia', 'bakery', 'pan', 'pastel'] },
-  meal_takeaway:      { icon: 'takeout_dining', color: '#EA580C', bg: '#FFEDD5', type: 'meal_takeaway', group: 'gastronomía', keywords: ['para llevar', 'takeaway', 'comida rápida', 'comida rapida'] },
-  shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall', 'tienda', 'shopping', 'plaza comercial'] },
-  clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'clothing', 'tienda de ropa', 'moda'] },
-  bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libreria', 'bookstore', 'libros'] },
-  department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental', 'department', 'tienda departamental'] },
-  supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado', 'supermarket', 'súper', 'super'] },
-  gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'gym', 'fitness', 'ejercicio'] },
-  spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'relajación', 'relajacion', 'masaje'] },
-  lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal', 'hostel', 'alojamiento', 'hospedaje'] },
-  hospital:           { icon: 'local_hospital', color: '#DC2626', bg: '#FEE2E2', type: 'hospital', group: 'servicios', keywords: ['hospital', 'clínica', 'clinica', 'salud'] },
-  pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia', 'pharmacy', 'medicina'] }
+  museum:             { icon: 'museum',         color: '#4F46E5', bg: '#EEF2FF', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'arte'] },
+  art_gallery:        { icon: 'palette',        color: '#F59E0B', bg: '#FEF3C7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'arte', 'gallery'] },
+  church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'templo'] },
+  library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'libro'] },
+  tourist_attraction: { icon: 'attractions',    color: '#06B6D4', bg: '#CFFAFE', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'turístico', 'monumento'] },
+  park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'jardín', 'plaza'] },
+  zoo:                { icon: 'pets',           color: '#EC4899', bg: '#FCE7F3', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'animales'] },
+  aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'peces'] },
+  campground:         { icon: 'camping',        color: '#059669', bg: '#D1FAE5', type: 'campground', group: 'aire libre', keywords: ['campamento', 'camping'] },
+  movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'película'] },
+  stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'deporte'] },
+  amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones'] },
+  bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bolos'] },
+  casino:             { icon: 'casino',         color: '#B91C1C', bg: '#FEE2E2', type: 'casino', group: 'entretenimiento', keywords: ['casino', 'apuestas'] },
+  night_club:         { icon: 'nightlife',      color: '#DB2777', bg: '#FCE7F3', type: 'night_club', group: 'entretenimiento', keywords: ['antro', 'discoteca'] },
+  restaurant:         { icon: 'restaurant',     color: '#EA580C', bg: '#FFEDD5', type: 'restaurant', group: 'gastronomía', keywords: ['restaurante', 'comida'] },
+  cafe:               { icon: 'local_cafe',     color: '#A16207', bg: '#FEF3C7', type: 'cafe', group: 'gastronomía', keywords: ['café', 'coffee'] },
+  bar:                { icon: 'sports_bar',     color: '#B91C1C', bg: '#FEE2E2', type: 'bar', group: 'gastronomía', keywords: ['bar', 'cantina'] },
+  bakery:             { icon: 'bakery_dining',  color: '#CA8A04', bg: '#FEF9C3', type: 'bakery', group: 'gastronomía', keywords: ['panadería', 'pastel'] },
+  meal_takeaway:      { icon: 'takeout_dining', color: '#EA580C', bg: '#FFEDD5', type: 'meal_takeaway', group: 'gastronomía', keywords: ['para llevar', 'takeaway'] },
+  shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall'] },
+  clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'moda'] },
+  bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libros'] },
+  department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental'] },
+  supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado'] },
+  gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'fitness'] },
+  spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'masaje'] },
+  lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal'] },
+  hospital:           { icon: 'local_hospital', color: '#DC2626', bg: '#FEE2E2', type: 'hospital', group: 'servicios', keywords: ['hospital', 'salud'] },
+  pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia'] }
 };
 
-/* ============================================
-   GRUPOS DE CATEGORÍAS
-   ============================================ */
 const CATEGORY_GROUPS = {
   'general':        { label: 'General', icon: 'explore' },
   'cultura':        { label: 'Cultura', icon: 'palette' },
@@ -1978,219 +1689,158 @@ const CATEGORY_GROUPS = {
   'compras':        { label: 'Compras', icon: 'shopping_bag' },
   'servicios':      { label: 'Servicios', icon: 'build' }
 };
+</script>
 
+<script>
 /* ============================================
    TRADUCCIONES
    ============================================ */
 const TRANSLATIONS = {
   es: {
     searchPlaceholder: 'Buscar museos, eventos...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museos y eventos en Guadalajara',
-        searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar cerca de mí', gpsTracking: 'Ubicación en vivo',
+    searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar cerca de mí', gpsTracking: 'Ubicación en vivo',
     locationSearching: 'Buscando tu ubicación...', locationFound: 'Ubicación encontrada', locationError: 'No se pudo obtener tu ubicación',
     locationTracking: 'Rastreando ubicación', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
-    noResults: 'Sin resultados',
-    noResultsHint: 'Intenta con otra categoría o mueve el mapa',
+    noResults: 'Sin resultados', noResultsHint: 'Intenta con otra categoría o mueve el mapa',
     viewMore: 'Ver más', addressNA: 'Dirección no disponible', noName: 'Sin nombre',
-    age_all: 'Todo público', age_family: 'Familia', age_adults_m: 'Hombres', age_adults_w: 'Mujeres', age_teens: 'Adolescentes', age_kids: 'Niños', age_bebes: 'Bebés',
-    categoriesLabel: 'Categorías', audienceLabel: 'Audiencia',
-    submenuSearchPlaceholder: 'Buscar categoría...',
-    pwaInstalled: 'App instalada correctamente',
-    pwaInstallFallback: 'Usa el menú de Chrome → "Instalar aplicación"',
-    refreshing: 'Actualizando resultados...',
-    updated: 'Resultados actualizados',
-    dateFilterLabel: 'Filtrar por fecha',
-    dateOptions: {
-      all: 'Cualquier fecha',
-      today: 'Hoy',
-      tomorrow: 'Mañana',
-      this_weekend: 'Este fin de semana',
-      next_7_days: 'Próximos 7 días',
-      this_month: 'Este mes',
-      custom: 'Fecha específica'
-    },
-    dateSelected: 'Fecha seleccionada',
-    clearDateFilter: 'Limpiar filtro de fecha',
-    escapaditas: 'Escapaditas',
-    escapaditasHint: 'Eventos a 3 horas a la redonda de tu ubicación actual.',
-    updateLocation: 'Actualizar ubicación',
+    categoriesLabel: 'Categorías', submenuSearchPlaceholder: 'Buscar categoría...',
+    pwaInstalled: 'App instalada correctamente', pwaInstallFallback: 'Usa el menú de Chrome → "Instalar aplicación"',
+    refreshing: 'Actualizando resultados...', updated: 'Resultados actualizados',
+    dateOptions: { all: 'Cualquier fecha', today: 'Hoy', tomorrow: 'Mañana', this_weekend: 'Este fin de semana', next_7_days: 'Próximos 7 días', this_month: 'Este mes', custom: 'Fecha específica' },
     categories: {
-      all: 'Todas',
-      museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Bibliotecas', tourist_attraction: 'Atracciones',
+      all: 'Todas', museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Bibliotecas', tourist_attraction: 'Atracciones',
       park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', campground: 'Campamentos',
       movie_theater: 'Cines', stadium: 'Estadios', amusement_park: 'Parques de diversiones', bowling_alley: 'Boliches', casino: 'Casinos', night_club: 'Antros',
       restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares', bakery: 'Panaderías', meal_takeaway: 'Comida para llevar',
       shopping_mall: 'Centros comerciales', clothing_store: 'Tiendas de ropa', bookstore: 'Librerías', department_store: 'Tiendas departamentales', supermarket: 'Supermercados',
       gym: 'Gimnasios', spa: 'Spas', lodging: 'Hoteles', hospital: 'Hospitales', pharmacy: 'Farmacias'
-    }
+    },
+    eventDetail: {
+      description: 'Descripción', audience: 'Audiencia', accessibility: 'Accesibilidad',
+      buyTickets: 'Comprar boletos', moreInfo: 'Más información', noUrl: 'Sin enlace disponible',
+      close: 'Cerrar', noDescription: 'Sin descripción disponible.'
+    },
+    comingSoon: 'Próximamente', comingSoonSubtitle: 'Estamos preparando algo increíble. Muy pronto podrás descubrir escapaditas a 3 horas a la redonda.',
+    comingSoonBadge: 'En desarrollo'
   },
   en: {
     searchPlaceholder: 'Search museums, events...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museums and events in Guadalajara',
     searchInputPlaceholder: 'Search event, place...', gpsButton: 'Search near me', gpsTracking: 'Live location',
     locationSearching: 'Searching your location...', locationFound: 'Location found', locationError: 'Could not get your location',
     locationTracking: 'Tracking location', locationTrackingStop: 'Tracking stopped', geoNotAvailable: 'Geolocation not available',
-    noResults: 'No results',
-    noResultsHint: 'Try another category or move the map',
+    noResults: 'No results', noResultsHint: 'Try another category or move the map',
     viewMore: 'View more', addressNA: 'Address not available', noName: 'Unnamed',
-    age_all: 'All ages', age_family: 'Family', age_adults_m: 'Men', age_adults_w: 'Women', age_teens: 'Teens', age_kids: 'Kids', age_bebes: 'Babies',
-    categoriesLabel: 'Categories', audienceLabel: 'Audience',
-    submenuSearchPlaceholder: 'Search category...',
-    pwaInstalled: 'App installed successfully',
-    pwaInstallFallback: 'Use Chrome menu → "Install app"',
-    refreshing: 'Refreshing results...',
-    updated: 'Results updated',
-    dateFilterLabel: 'Filter by date',
-    dateOptions: {
-      all: 'Any date',
-      today: 'Today',
-      tomorrow: 'Tomorrow',
-      this_weekend: 'This weekend',
-      next_7_days: 'Next 7 days',
-      this_month: 'This month',
-      custom: 'Specific date'
-    },
-    dateSelected: 'Date selected',
-    clearDateFilter: 'Clear date filter',
-    escapaditas: 'Escapaditas',
-    escapaditasHint: 'Events within 3 hours driving distance from your current location.',
-    updateLocation: 'Update location',
+    categoriesLabel: 'Categories', submenuSearchPlaceholder: 'Search category...',
+    pwaInstalled: 'App installed successfully', pwaInstallFallback: 'Use Chrome menu → "Install app"',
+    refreshing: 'Refreshing results...', updated: 'Results updated',
+    dateOptions: { all: 'Any date', today: 'Today', tomorrow: 'Tomorrow', this_weekend: 'This weekend', next_7_days: 'Next 7 days', this_month: 'This month', custom: 'Specific date' },
     categories: {
-      all: 'All',
-      museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', tourist_attraction: 'Attractions',
+      all: 'All', museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', tourist_attraction: 'Attractions',
       park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', campground: 'Campgrounds',
       movie_theater: 'Cinemas', stadium: 'Stadiums', amusement_park: 'Amusement Parks', bowling_alley: 'Bowling Alleys', casino: 'Casinos', night_club: 'Night Clubs',
       restaurant: 'Restaurants', cafe: 'Cafes', bar: 'Bars', bakery: 'Bakeries', meal_takeaway: 'Takeaway',
       shopping_mall: 'Shopping Malls', clothing_store: 'Clothing Stores', bookstore: 'Bookstores', department_store: 'Department Stores', supermarket: 'Supermarkets',
       gym: 'Gyms', spa: 'Spas', lodging: 'Hotels', hospital: 'Hospitals', pharmacy: 'Pharmacies'
-    }
+    },
+    eventDetail: {
+      description: 'Description', audience: 'Audience', accessibility: 'Accessibility',
+      buyTickets: 'Buy tickets', moreInfo: 'More info', noUrl: 'No link available',
+      close: 'Close', noDescription: 'No description available.'
+    },
+    comingSoon: 'Coming Soon', comingSoonSubtitle: 'We are preparing something amazing. Soon you will discover getaways within 3 hours.',
+    comingSoonBadge: 'In development'
   },
   fr: {
     searchPlaceholder: 'Rechercher musées, événements...', brandTitle: 'GDL Cultural', brandSubtitle: 'Musées et événements à Guadalajara',
     searchInputPlaceholder: 'Rechercher événement, lieu...', gpsButton: 'Rechercher près de moi', gpsTracking: 'Localisation en direct',
     locationSearching: 'Recherche de votre position...', locationFound: 'Position trouvée', locationError: 'Impossible d\'obtenir votre position',
     locationTracking: 'Suivi de la position', locationTrackingStop: 'Suivi arrêté', geoNotAvailable: 'Géolocalisation non disponible',
-    noResults: 'Aucun résultat',
-    noResultsHint: 'Essayez une autre catégorie ou déplacez la carte',
+    noResults: 'Aucun résultat', noResultsHint: 'Essayez une autre catégorie ou déplacez la carte',
     viewMore: 'Voir plus', addressNA: 'Adresse non disponible', noName: 'Sans nom',
-    age_all: 'Tout public', age_family: 'Famille', age_adults_m: 'Hommes', age_adults_w: 'Femmes', age_teens: 'Ados', age_kids: 'Enfants', age_bebes: 'Bébés',
-    categoriesLabel: 'Catégories', audienceLabel: 'Public',
-    submenuSearchPlaceholder: 'Rechercher catégorie...',
-    pwaInstalled: 'Application installée avec succès',
-    pwaInstallFallback: 'Utilisez le menu Chrome → "Installer l\'application"',
-    refreshing: 'Actualisation des résultats...',
-    updated: 'Résultats actualisés',
-    dateFilterLabel: 'Filtrer par date',
-    dateOptions: {
-      all: 'Toute date',
-      today: 'Aujourd\'hui',
-      tomorrow: 'Demain',
-      this_weekend: 'Ce week-end',
-      next_7_days: '7 prochains jours',
-      this_month: 'Ce mois-ci',
-      custom: 'Date spécifique'
-    },
-    dateSelected: 'Date sélectionnée',
-    clearDateFilter: 'Effacer le filtre de date',
-    escapaditas: 'Escapaditas',
-    escapaditasHint: 'Événements à moins de 3 heures de route de votre position actuelle.',
-    updateLocation: 'Mettre à jour la position',
+    categoriesLabel: 'Catégories', submenuSearchPlaceholder: 'Rechercher catégorie...',
+    pwaInstalled: 'Application installée avec succès', pwaInstallFallback: 'Utilisez le menu Chrome → "Installer l\'application"',
+    refreshing: 'Actualisation des résultats...', updated: 'Résultats actualisés',
+    dateOptions: { all: 'Toute date', today: 'Aujourd\'hui', tomorrow: 'Demain', this_weekend: 'Ce week-end', next_7_days: '7 prochains jours', this_month: 'Ce mois-ci', custom: 'Date spécifique' },
     categories: {
-      all: 'Toutes',
-      museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', tourist_attraction: 'Attractions',
+      all: 'Toutes', museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', tourist_attraction: 'Attractions',
       park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums', campground: 'Campings',
       movie_theater: 'Cinémas', stadium: 'Stades', amusement_park: 'Parcs d\'attractions', bowling_alley: 'Bowlings', casino: 'Casinos', night_club: 'Boîtes de nuit',
       restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars', bakery: 'Boulangeries', meal_takeaway: 'À emporter',
       shopping_mall: 'Centres commerciaux', clothing_store: 'Magasins de vêtements', bookstore: 'Librairies', department_store: 'Grands magasins', supermarket: 'Supermarchés',
       gym: 'Salles de sport', spa: 'Spas', lodging: 'Hôtels', hospital: 'Hôpitaux', pharmacy: 'Pharmacies'
-    }
+    },
+    eventDetail: {
+      description: 'Description', audience: 'Public', accessibility: 'Accessibilité',
+      buyTickets: 'Acheter des billets', moreInfo: 'Plus d\'infos', noUrl: 'Aucun lien disponible',
+      close: 'Fermer', noDescription: 'Aucune description disponible.'
+    },
+    comingSoon: 'Bientôt disponible', comingSoonSubtitle: 'Nous préparons quelque chose d\'incroyable. Bientôt vous pourrez découvrir des escapades à 3 heures.',
+    comingSoonBadge: 'En développement'
   },
   pt: {
     searchPlaceholder: 'Buscar museus, eventos...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museus e eventos em Guadalajara',
     searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar perto de mim', gpsTracking: 'Localização ao vivo',
     locationSearching: 'Buscando sua localização...', locationFound: 'Localização encontrada', locationError: 'Não foi possível obter sua localização',
     locationTracking: 'Rastreando localização', locationTrackingStop: 'Rastreamento parado', geoNotAvailable: 'Geolocalização indisponível',
-    noResults: 'Sem resultados',
-    noResultsHint: 'Tente outra categoria ou mova o mapa',
+    noResults: 'Sem resultados', noResultsHint: 'Tente outra categoria ou mova o mapa',
     viewMore: 'Ver mais', addressNA: 'Endereço indisponível', noName: 'Sem nome',
-    age_all: 'Todos', age_family: 'Família', age_adults_m: 'Homens', age_adults_w: 'Mulheres', age_teens: 'Adolescentes', age_kids: 'Crianças', age_bebes: 'Bebês',
-    categoriesLabel: 'Categorias', audienceLabel: 'Público',
-    submenuSearchPlaceholder: 'Buscar categoria...',
-    pwaInstalled: 'Aplicativo instalado com sucesso',
-    pwaInstallFallback: 'Use o menu do Chrome → "Instalar aplicativo"',
-    refreshing: 'Atualizando resultados...',
-    updated: 'Resultados atualizados',
-    dateFilterLabel: 'Filtrar por data',
-    dateOptions: {
-      all: 'Qualquer data',
-      today: 'Hoje',
-      tomorrow: 'Amanhã',
-      this_weekend: 'Este fim de semana',
-      next_7_days: 'Próximos 7 dias',
-      this_month: 'Este mês',
-      custom: 'Data específica'
-    },
-    dateSelected: 'Data selecionada',
-    clearDateFilter: 'Limpar filtro de data',
-    escapaditas: 'Escapaditas',
-    escapaditasHint: 'Eventos a menos de 3 horas de carro da sua localização atual.',
-    updateLocation: 'Atualizar localização',
+    categoriesLabel: 'Categorias', submenuSearchPlaceholder: 'Buscar categoria...',
+    pwaInstalled: 'Aplicativo instalado com sucesso', pwaInstallFallback: 'Use o menu do Chrome → "Instalar aplicativo"',
+    refreshing: 'Atualizando resultados...', updated: 'Resultados atualizados',
+    dateOptions: { all: 'Qualquer data', today: 'Hoje', tomorrow: 'Amanhã', this_weekend: 'Este fim de semana', next_7_days: 'Próximos 7 dias', this_month: 'Este mês', custom: 'Data específica' },
     categories: {
-      all: 'Todas',
-      museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', tourist_attraction: 'Atrações',
+      all: 'Todas', museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', tourist_attraction: 'Atrações',
       park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários', campground: 'Campings',
       movie_theater: 'Cinemas', stadium: 'Estádios', amusement_park: 'Parques de diversões', bowling_alley: 'Boliches', casino: 'Cassinos', night_club: 'Baladas',
       restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares', bakery: 'Padarias', meal_takeaway: 'Comida para viagem',
       shopping_mall: 'Centros comerciais', clothing_store: 'Lojas de roupas', bookstore: 'Livrarias', department_store: 'Lojas de departamento', supermarket: 'Supermercados',
       gym: 'Academias', spa: 'Spas', lodging: 'Hotéis', hospital: 'Hospitais', pharmacy: 'Farmácias'
-    }
+    },
+    eventDetail: {
+      description: 'Descrição', audience: 'Público', accessibility: 'Acessibilidade',
+      buyTickets: 'Comprar ingressos', moreInfo: 'Mais informações', noUrl: 'Sem link disponível',
+      close: 'Fechar', noDescription: 'Sem descrição disponível.'
+    },
+    comingSoon: 'Em breve', comingSoonSubtitle: 'Estamos preparando algo incrível. Em breve você poderá descobrir escapadas a 3 horas.',
+    comingSoonBadge: 'Em desenvolvimento'
   },
   de: {
     searchPlaceholder: 'Museen, Veranstaltungen suchen...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museen und Veranstaltungen in Guadalajara',
     searchInputPlaceholder: 'Veranstaltung, Ort suchen...', gpsButton: 'In meiner Nähe suchen', gpsTracking: 'Live-Standort',
     locationSearching: 'Standort wird gesucht...', locationFound: 'Standort gefunden', locationError: 'Standort konnte nicht abgerufen werden',
     locationTracking: 'Standort wird verfolgt', locationTrackingStop: 'Verfolgung gestoppt', geoNotAvailable: 'Geolokalisierung nicht verfügbar',
-    noResults: 'Keine Ergebnisse',
-    noResultsHint: 'Versuchen Sie eine andere Kategorie oder verschieben Sie die Karte',
+    noResults: 'Keine Ergebnisse', noResultsHint: 'Versuchen Sie eine andere Kategorie oder verschieben Sie die Karte',
     viewMore: 'Mehr anzeigen', addressNA: 'Adresse nicht verfügbar', noName: 'Unbenannt',
-    age_all: 'Alle', age_family: 'Familie', age_adults_m: 'Männer', age_adults_w: 'Frauen', age_teens: 'Jugendliche', age_kids: 'Kinder', age_bebes: 'Babys',
-    categoriesLabel: 'Kategorien', audienceLabel: 'Publikum',
-    submenuSearchPlaceholder: 'Kategorie suchen...',
-    pwaInstalled: 'App erfolgreich installiert',
-    pwaInstallFallback: 'Verwenden Sie das Chrome-Menü → "App installieren"',
-    refreshing: 'Ergebnisse werden aktualisiert...',
-    updated: 'Ergebnisse aktualisiert',
-    dateFilterLabel: 'Nach Datum filtern',
-    dateOptions: {
-      all: 'Jedes Datum',
-      today: 'Heute',
-      tomorrow: 'Morgen',
-      this_weekend: 'Dieses Wochenende',
-      next_7_days: 'Nächste 7 Tage',
-      this_month: 'Diesen Monat',
-      custom: 'Bestimmtes Datum'
-    },
-    dateSelected: 'Datum ausgewählt',
-    clearDateFilter: 'Datumsfilter löschen',
-    escapaditas: 'Escapaditas',
-    escapaditasHint: 'Veranstaltungen im Umkreis von 3 Fahrstunden von Ihrem aktuellen Standort.',
-    updateLocation: 'Standort aktualisieren',
+    categoriesLabel: 'Kategorien', submenuSearchPlaceholder: 'Kategorie suchen...',
+    pwaInstalled: 'App erfolgreich installiert', pwaInstallFallback: 'Verwenden Sie das Chrome-Menü → "App installieren"',
+    refreshing: 'Ergebnisse werden aktualisiert...', updated: 'Ergebnisse aktualisiert',
+    dateOptions: { all: 'Jedes Datum', today: 'Heute', tomorrow: 'Morgen', this_weekend: 'Dieses Wochenende', next_7_days: 'Nächste 7 Tage', this_month: 'Diesen Monat', custom: 'Bestimmtes Datum' },
     categories: {
-      all: 'Alle',
-      museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', tourist_attraction: 'Attraktionen',
+      all: 'Alle', museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', tourist_attraction: 'Attraktionen',
       park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien', campground: 'Campingplätze',
       movie_theater: 'Kinos', stadium: 'Stadien', amusement_park: 'Freizeitparks', bowling_alley: 'Bowlingbahnen', casino: 'Casinos', night_club: 'Nachtclubs',
       restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars', bakery: 'Bäckereien', meal_takeaway: 'Zum Mitnehmen',
       shopping_mall: 'Einkaufszentren', clothing_store: 'Bekleidungsgeschäfte', bookstore: 'Buchhandlungen', department_store: 'Kaufhäuser', supermarket: 'Supermärkte',
       gym: 'Fitnessstudios', spa: 'Spas', lodging: 'Hotels', hospital: 'Krankenhäuser', pharmacy: 'Apotheken'
-    }
+    },
+    eventDetail: {
+      description: 'Beschreibung', audience: 'Publikum', accessibility: 'Barrierefreiheit',
+      buyTickets: 'Tickets kaufen', moreInfo: 'Mehr Infos', noUrl: 'Kein Link verfügbar',
+      close: 'Schließen', noDescription: 'Keine Beschreibung verfügbar.'
+    },
+    comingSoon: 'Demnächst', comingSoonSubtitle: 'Wir bereiten etwas Erstaunliches vor. Bald können Sie Ausflüge innerhalb von 3 Stunden entdecken.',
+    comingSoonBadge: 'In Entwicklung'
   }
 };
 
+/* ============================================
+   ESTADO GLOBAL
+   ============================================ */
 let map, markers = [], infoWindow, placesService;
 let userMarker = null, watchId = null, isTracking = false;
 let currentCategory = 'museum';
-let currentAudience = 'all';
-let currentDateFilter = 'all'; 
-let currentCustomDate = ''; 
+let currentDateFilter = 'all';
+let currentCustomDate = '';
 let currentSearch = '';
 let currentLang = 'es';
 let currentTheme = 'light';
@@ -2203,8 +1853,8 @@ let isManualRefreshing = false;
 let currentSubmenuType = null;
 let escapaditasEvents = [];
 let escapaditasLocation = null;
-
 let mapIdleTimer = null;
+let currentOpenEvent = null;
 const MAP_IDLE_DELAY = 400;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
@@ -2255,60 +1905,51 @@ const MAP_STYLES = {
   ]
 };
 
-function t(key) { const v = TRANSLATIONS[currentLang][key]; return typeof v === 'function' ? v : (v || key); }
+function t(key) { const v = TRANSLATIONS[currentLang][key]; return v || key; }
 function tCat(key) { return TRANSLATIONS[currentLang].categories[key] || key; }
-function tAge(key) { return TRANSLATIONS[currentLang][`age_${key}`] || AGE_CATEGORIES[key]?.label || key; }
 function tDate(key) { return TRANSLATIONS[currentLang].dateOptions[key] || key; }
+function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key; }
 
-function categorizeEventByAge(event) {
+/* ============================================
+   CATEGORIZACIÓN DE EVENTOS (AUDIENCIA)
+   ============================================ */
+function detectEventAudiences(event) {
   const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
-  const patterns = {
-    bebes:  /\b(bebé|bebe|baby|babies|maternal|estimulación temprana|lactante|0 años|1 año|2 años|hasta 3 años|stroller)\b/i,
-    kids:   /\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|pintura|danza infantil|teatro infantil)\b/i,
-    teens:  /\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer)\b/i,
-    adults_w: /\b(mujer|mujeres|women|femenino|dama)\b/i,
-    adults_m: /\b(hombre|hombres|men|masculino|caballero)\b/i,
-    adults: /\b(adultos|adults|bar|cerveza|tequila|mezcal|vino|noche|night|party|fiesta|discoteca|club|cata|degustación|18\+|21\+|solo adultos|networking|conferencia)\b/i,
-    family: /\b(familiar|familia|family|niños|kids|infantil|todos|all ages|para toda la familia|recreativo|parque|zoo|circo|festival|taller|obra|teatro)\b/i
+  const audiences = {
+    family: false, adults_m: false, adults_w: false,
+    teens: false, kids: false, bebes: false
   };
-  if (patterns.bebes.test(text)) return AGE_CATEGORIES.bebes;
-  if (patterns.kids.test(text)) return AGE_CATEGORIES.kids;
-  if (patterns.teens.test(text)) return AGE_CATEGORIES.teens;
-  if (patterns.adults_w.test(text)) return AGE_CATEGORIES.adults_w;
-  if (patterns.adults_m.test(text)) return AGE_CATEGORIES.adults_m;
-  if (patterns.adults.test(text)) return AGE_CATEGORIES.adults_m;
-  if (patterns.family.test(text)) return AGE_CATEGORIES.family;
-  return AGE_CATEGORIES.all;
-}
-function getAgeCategoryKey(event) {
-  const cat = categorizeEventByAge(event);
-  return Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat) || 'all';
+  
+  if (/\b(bebé|bebe|baby|babies|maternal|estimulación temprana|lactante|0 años|1 año|2 años|hasta 3 años|stroller|carriola)\b/i.test(text)) audiences.bebes = true;
+  if (/\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|danza infantil|teatro infantil)\b/i.test(text)) audiences.kids = true;
+  if (/\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer)\b/i.test(text)) audiences.teens = true;
+  if (/\b(mujer|mujeres|women|femenino|dama)\b/i.test(text)) audiences.adults_w = true;
+  if (/\b(hombre|hombres|men|masculino|caballero)\b/i.test(text)) audiences.adults_m = true;
+  if (/\b(familiar|familia|family|todos|all ages|para toda la familia|recreativo|parque|zoo|circo|festival|taller|obra|teatro)\b/i.test(text)) audiences.family = true;
+  
+  // Si no se detectó nada, marcar todos como activos (todo público)
+  if (!Object.values(audiences).some(v => v)) {
+    audiences.family = true;
+    audiences.adults_m = true;
+    audiences.adults_w = true;
+    audiences.teens = true;
+    audiences.kids = true;
+    audiences.bebes = true;
+  }
+  
+  return audiences;
 }
 
-function isEventPast(event) {
-  if (!event.date) return false; 
-  const eventDate = new Date(event.date + 'T23:59:59'); 
-  const now = new Date();
-  return eventDate < now;
-}
-
-function detectBrowserLanguage() {
-  const supportedLangs = ['es', 'en', 'fr', 'pt', 'de'];
-  if (navigator.languages && navigator.languages.length > 0) {
-    for (const lang of navigator.languages) {
-      const code = lang.toLowerCase().slice(0, 2);
-      if (supportedLangs.includes(code)) return code;
-    }
-  }
-  if (navigator.language) {
-    const code = navigator.language.toLowerCase().slice(0, 2);
-    if (supportedLangs.includes(code)) return code;
-  }
-  return 'es';
+function detectEventAccessibility(event) {
+  return {
+    wheelchair: !!event.wheelchairAccessible,
+    pet: !!event.petFriendly,
+    smokeFree: !!event.smokeFree
+  };
 }
 
 /* ============================================
-   SISTEMA DE TOASTS EN COLA
+   TOASTS
    ============================================ */
 const toastQueue = [];
 let toastActive = 0;
@@ -2330,11 +1971,7 @@ function processToastQueue() {
   container.appendChild(toast);
   setTimeout(() => {
     toast.classList.add('leaving');
-    setTimeout(() => {
-      toast.remove();
-      toastActive--;
-      processToastQueue();
-    }, 300);
+    setTimeout(() => { toast.remove(); toastActive--; processToastQueue(); }, 300);
   }, 2200);
 }
 
@@ -2348,30 +1985,19 @@ function checkIfPWAInstalled() {
 }
 
 /* ============================================
-   CARGA DE EVENTOS DESDE JSON LOCAL
+   CARGA DE EVENTOS LOCALES
    ============================================ */
 async function loadLocalEventbriteEvents() {
   if (localEventsLoaded) return localEventbriteEvents;
   try {
     const response = await fetch(LOCAL_EVENTS_CONFIG.filePath, { cache: 'no-store' });
-    if (!response.ok) {
-      console.warn(`⚠️ No se pudo cargar ${LOCAL_EVENTS_CONFIG.filePath}: HTTP ${response.status}`);
-      localEventsLoaded = true;
-      return [];
-    }
+    if (!response.ok) { localEventsLoaded = true; return []; }
     const raw = await response.json();
-    if (!Array.isArray(raw)) {
-      console.warn('⚠️ El JSON local no es un array:', typeof raw);
-      localEventsLoaded = true;
-      return [];
-    }
+    if (!Array.isArray(raw)) { localEventsLoaded = true; return []; }
 
     const normalized = raw.map((item, idx) => {
-      const latRaw = item.latitude ?? item.lat ?? item.primary_venue?.address?.latitude;
-      const lngRaw = item.longitude ?? item.lng ?? item.primary_venue?.address?.longitude;
-      const lat = parseFloat(latRaw);
-      const lng = parseFloat(lngRaw);
-      
+      const lat = parseFloat(item.latitude ?? item.lat ?? item.primary_venue?.address?.latitude);
+      const lng = parseFloat(item.longitude ?? item.lng ?? item.primary_venue?.address?.longitude);
       if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) return null;
 
       const title = item.name || item.title || item.event_name || 'Evento Eventbrite';
@@ -2384,28 +2010,13 @@ async function loadLocalEventbriteEvents() {
       const description = item.summary || item.description || '';
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
-      let wheelchairAccessible = false;
-      let petFriendly = false;
-      let smokeFree = false;
+      let wheelchairAccessible = false, petFriendly = false, smokeFree = false;
+      const lt = title.toLowerCase(), lv = venueName.toLowerCase();
 
-      const lowerTitle = title.toLowerCase();
-      const lowerVenue = venueName.toLowerCase();
-
-      if (lowerVenue.includes('cabañas')) wheelchairAccessible = true;
-      if (lowerVenue.includes('teatro diana')) { wheelchairAccessible = true; petFriendly = false; }
-      if (lowerVenue.includes('trompo mágico')) wheelchairAccessible = true;
-      if (lowerVenue.includes('paleontología')) wheelchairAccessible = true;
-      if (lowerVenue.includes('parque alcalde')) wheelchairAccessible = true;
-      if (lowerVenue.includes('parque de las niñas')) { wheelchairAccessible = true; petFriendly = true; }
-
-      if (lowerTitle.includes('tequila') || lowerTitle.includes('cantaritos')) {
-        petFriendly = true;
-        smokeFree = true;
-      }
-
-      if (lowerVenue.includes('foro') || lowerVenue.includes('teatro') || lowerVenue.includes('museo') || lowerVenue.includes('auditorio')) {
-        smokeFree = true;
-      }
+      if (lv.includes('cabañas') || lv.includes('teatro diana') || lv.includes('trompo mágico') || lv.includes('paleontología') || lv.includes('parque alcalde')) wheelchairAccessible = true;
+      if (lv.includes('parque de las niñas')) { wheelchairAccessible = true; petFriendly = true; }
+      if (lt.includes('tequila') || lt.includes('cantaritos')) { petFriendly = true; smokeFree = true; }
+      if (lv.includes('foro') || lv.includes('teatro') || lv.includes('museo') || lv.includes('auditorio')) smokeFree = true;
 
       return {
         id, type: 'event', source: LOCAL_EVENTS_CONFIG.source,
@@ -2417,10 +2028,8 @@ async function loadLocalEventbriteEvents() {
 
     localEventbriteEvents = normalized;
     localEventsLoaded = true;
-    console.log(`✅ Eventos Eventbrite cargados desde JSON local: ${normalized.length}`);
     return localEventbriteEvents;
   } catch (err) {
-    console.warn('⚠️ Error cargando JSON local:', err?.message || err);
     localEventsLoaded = true;
     return [];
   }
@@ -2433,7 +2042,6 @@ window.initMap = function() {
   loadPreferences();
   checkIfPWAInstalled();
   
-  // DETECTAR Y APLICAR TEMA FESTIVO ANTES DE CREAR EL MAPA
   const festiveTheme = detectFestiveTheme();
   applyFestiveTheme(festiveTheme);
   
@@ -2445,14 +2053,11 @@ window.initMap = function() {
     disableDefaultUI: true
   });
   
-  // Aplicar estilos del mapa festivo después de crear
-  if (festiveTheme.id !== 'default') {
-    updateMapStyles(festiveTheme);
-  }
+  if (festiveTheme.id !== 'default') updateMapStyles(festiveTheme);
   
   infoWindow = new google.maps.InfoWindow();
   try { placesService = new google.maps.places.PlacesService(map); }
-  catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
+  catch (e) { placesApiAvailable = false; }
 
   map.addListener('click', () => {
     closeSubmenu();
@@ -2460,7 +2065,6 @@ window.initMap = function() {
     if (!isDesktop() && isSidebarOpen()) closeSidebar();
     if (!isDesktop() && isEscapaditasOpen()) closeEscapaditas();
   });
-
   map.addListener('dragend', () => {
     if (infoWindow) infoWindow.close();
     closeSubmenu();
@@ -2468,7 +2072,6 @@ window.initMap = function() {
     if (!isDesktop() && isEscapaditasOpen()) closeEscapaditas();
     scheduleMapIdleUpdate();
   });
-
   map.addListener('zoom_changed', () => {
     if (infoWindow) infoWindow.close();
     closeSubmenu();
@@ -2478,6 +2081,7 @@ window.initMap = function() {
   updateAllTranslations();
   renderMainCategories();
   updateSidebarState();
+  renderEscapaditasPanel();
   searchEverything();
   
   setTimeout(hideSplash, 2500);
@@ -2486,14 +2090,8 @@ window.initMap = function() {
 function scheduleMapIdleUpdate() {
   if (mapIdleTimer) clearTimeout(mapIdleTimer);
   mapIdleTimer = setTimeout(() => {
-    console.log('🔍 Mapa inactivo, actualizando marcadores...');
     if (infoWindow) infoWindow.close();
-    updateMarkersOnMap();
   }, MAP_IDLE_DELAY);
-}
-
-function updateMarkersOnMap() {
-  if (allPlaces.length === 0 && allEvents.length === 0 && escapaditasEvents.length === 0) return;
 }
 
 function hideSplash() {
@@ -2502,7 +2100,6 @@ function hideSplash() {
     splash.classList.add('hidden');
     setTimeout(() => {
       if (splash.parentNode) splash.parentNode.removeChild(splash);
-      // Mostrar banner festivo si aplica
       if (currentFestiveTheme && currentFestiveTheme.id !== 'default') {
         const banner = document.getElementById('festiveBanner');
         if (banner) banner.classList.add('show');
@@ -2532,7 +2129,6 @@ async function searchEverything() {
 
   allEvents = deduplicateEvents(allEvents);
   applyFilters();
-  updateBadges();
 }
 
 function applyFilters() {
@@ -2551,36 +2147,30 @@ function applyFilters() {
 
       if (currentDateFilter === 'today') return eventDate.getTime() === today.getTime();
       if (currentDateFilter === 'tomorrow') {
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-               return eventDate.getTime() === tomorrow.getTime();
+        const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
+        return eventDate.getTime() === tomorrow.getTime();
       }
       if (currentDateFilter === 'this_weekend') {
-        const dayOfWeek = today.getDay();
-        const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
-        const thisSaturday = new Date(today);
-        thisSaturday.setDate(today.getDate() + daysUntilSaturday);
-        const thisSunday = new Date(thisSaturday);
-        thisSunday.setDate(thisSaturday.getDate() + 1);
-        
-        if (dayOfWeek === 0) return eventDate.getTime() === today.getTime();
-        if (dayOfWeek === 6) return eventDate.getTime() === today.getTime() || eventDate.getTime() === thisSunday.getTime();
-        return eventDate.getTime() === thisSaturday.getTime() || eventDate.getTime() === thisSunday.getTime();
+        const dow = today.getDay();
+        const daysUntilSat = (6 - dow + 7) % 7;
+        const sat = new Date(today); sat.setDate(today.getDate() + daysUntilSat);
+        const sun = new Date(sat); sun.setDate(sat.getDate() + 1);
+        if (dow === 0) return eventDate.getTime() === today.getTime();
+        if (dow === 6) return eventDate.getTime() === today.getTime() || eventDate.getTime() === sun.getTime();
+        return eventDate.getTime() === sat.getTime() || eventDate.getTime() === sun.getTime();
       }
       if (currentDateFilter === 'next_7_days') {
-        const next7Days = new Date(today);
-        next7Days.setDate(today.getDate() + 7);
-        return eventDate >= today && eventDate <= next7Days;
+        const next7 = new Date(today); next7.setDate(today.getDate() + 7);
+        return eventDate >= today && eventDate <= next7;
       }
       if (currentDateFilter === 'this_month') {
         return eventDate.getMonth() === today.getMonth() && eventDate.getFullYear() === today.getFullYear();
       }
       if (currentDateFilter === 'custom' && currentCustomDate) {
-        const customParts = currentCustomDate.split('-');
-        if (customParts.length === 3) {
-          const customDateObj = new Date(customParts[0], customParts[1] - 1, customParts[2]);
-          customDateObj.setHours(0, 0, 0, 0);
-          return eventDate.getTime() === customDateObj.getTime();
+        const cp = currentCustomDate.split('-');
+        if (cp.length === 3) {
+          const cd = new Date(cp[0], cp[1] - 1, cp[2]); cd.setHours(0, 0, 0, 0);
+          return eventDate.getTime() === cd.getTime();
         }
         return false;
       }
@@ -2595,7 +2185,11 @@ function applyFilters() {
   renderUnifiedList();
 }
 
-function updateBadges() {}
+function isEventPast(event) {
+  if (!event.date) return false;
+  const eventDate = new Date(event.date + 'T23:59:59');
+  return eventDate < new Date();
+}
 
 /* ============================================
    BÚSQUEDA DE LUGARES
@@ -2603,37 +2197,27 @@ function updateBadges() {}
 function searchPlacesPromise() {
   return new Promise(async (resolve) => {
     if (!placesService || !placesApiAvailable) return resolve([]);
-    
     const category = CATEGORIES[currentCategory];
     
     if (currentCategory === 'all') {
-      const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater', 'shopping_mall', 'restaurant', 'cafe', 'bar'];
-      const promises = typesToFetch.map(type => {
-        return new Promise((res) => {
-          const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type: type };
-          if (currentSearch) request.keyword = currentSearch;
-          const timeout = setTimeout(() => res([]), 8000);
-          try {
-            placesService.nearbySearch(request, (results, status) => {
-              clearTimeout(timeout);
-              if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-                const marked = results.map(r => ({ ...r, _searchType: type }));
-                res(marked);
-              } else {
-                res([]);
-              }
-            });
-          } catch (err) { clearTimeout(timeout); res([]); }
-        });
-      });
+      const types = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater', 'shopping_mall', 'restaurant', 'cafe', 'bar'];
+      const promises = types.map(type => new Promise((res) => {
+        const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type };
+        if (currentSearch) request.keyword = currentSearch;
+        const timeout = setTimeout(() => res([]), 8000);
+        try {
+          placesService.nearbySearch(request, (results, status) => {
+            clearTimeout(timeout);
+            if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+              res(results.map(r => ({ ...r, _searchType: type })));
+            } else res([]);
+          });
+        } catch (err) { clearTimeout(timeout); res([]); }
+      }));
       const allResults = await Promise.all(promises);
       const flat = allResults.flat();
       const seen = new Set();
-      const unique = flat.filter(p => {
-        if (!p.place_id || seen.has(p.place_id)) return false;
-        seen.add(p.place_id);
-        return true;
-      });
+      const unique = flat.filter(p => { if (!p.place_id || seen.has(p.place_id)) return false; seen.add(p.place_id); return true; });
       return resolve(unique.slice(0, 80));
     }
     
@@ -2645,10 +2229,8 @@ function searchPlacesPromise() {
       placesService.nearbySearch(request, (results, status) => {
         clearTimeout(timeout);
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-          const marked = results.map(r => ({ ...r, _searchType: category.type }));
-          resolve(marked);
-        }
-        else if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') { placesApiAvailable = false; resolve([]); }
+          resolve(results.map(r => ({ ...r, _searchType: category.type })));
+        } else if (status === 'REQUEST_DENIED' || status === 'OVER_QUERY_LIMIT') { placesApiAvailable = false; resolve([]); }
         else resolve([]);
       });
     } catch (err) { clearTimeout(timeout); resolve([]); }
@@ -2666,15 +2248,20 @@ function searchTicketmasterPromise() {
       clearTimeout(timeout);
       const data = await response.json();
       const events = (data._embedded?.events || []).map(e => {
-        const venue = e._embedded?.venues?.[0] || {}, location = venue.location || {};
-        const lat = parseFloat(location.latitude), lng = parseFloat(location.longitude);
+        const venue = e._embedded?.venues?.[0] || {}, loc = venue.location || {};
+        const lat = parseFloat(loc.latitude), lng = parseFloat(loc.longitude);
         if (!lat || !lng) return null;
-        return { id: 'tm_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento', date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '', venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url, description: e.info || e.pleaseNote || '', image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
+        return { id: 'tm_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento',
+          date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '',
+          venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url,
+          description: e.info || e.pleaseNote || '',
+          image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
       }).filter(Boolean);
       resolve(events);
     } catch (err) { resolve([]); }
   });
 }
+
 function deduplicateEvents(events) {
   const seen = new Set();
   return events.filter(e => {
@@ -2685,7 +2272,7 @@ function deduplicateEvents(events) {
 }
 
 /* ============================================
-   CATEGORIZACIÓN DE LUGARES DE GOOGLE
+   CATEGORIZACIÓN DE LUGARES
    ============================================ */
 function getPlaceCategory(place) {
   if (place._searchType) {
@@ -2695,9 +2282,7 @@ function getPlaceCategory(place) {
   }
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) {
-    if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) {
-      return CATEGORIES[key];
-    }
+    if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) return CATEGORIES[key];
   }
   return CATEGORIES.tourist_attraction;
 }
@@ -2710,9 +2295,7 @@ function getCategoryKey(place) {
   }
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) {
-    if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) {
-      return key;
-    }
+    if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) return key;
   }
   return 'tourist_attraction';
 }
@@ -2726,49 +2309,43 @@ function clearMarkers() {
 }
 
 function createMarkerSVG(color) {
-  const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-      <defs>
-        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.2"/>
-        </filter>
-      </defs>
-      <circle cx="16" cy="16" r="12" fill="${color}" stroke="white" stroke-width="3" filter="url(#shadow)"/>
-    </svg>
-  `;
-  return {
-    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg),
-    scaledSize: new google.maps.Size(32, 32),
-    anchor: new google.maps.Point(16, 16)
-  };
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.2"/></filter></defs><circle cx="16" cy="16" r="12" fill="${color}" stroke="white" stroke-width="3" filter="url(#shadow)"/></svg>`;
+  return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg),
+    scaledSize: new google.maps.Size(32, 32), anchor: new google.maps.Point(16, 16) };
 }
 
 function renderMarkersForAll(eventsForMap = []) {
   clearMarkers();
-  
   eventsForMap.forEach(event => {
-    const ageCat = categorizeEventByAge(event);
-    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: event.title, payload: event, payloadType: 'event', id: event.id });
+    const audiences = detectEventAudiences(event);
+    let color = '#4F46E5';
+    if (audiences.kids) color = AGE_CATEGORIES.kids.color;
+    else if (audiences.bebes) color = AGE_CATEGORIES.bebes.color;
+    else if (audiences.teens) color = AGE_CATEGORIES.teens.color;
+    else if (audiences.family) color = AGE_CATEGORIES.family.color;
+    else if (audiences.adults_w) color = AGE_CATEGORIES.adults_w.color;
+    else if (audiences.adults_m) color = AGE_CATEGORIES.adults_m.color;
+    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(color), title: event.title,
+      payload: event, payloadType: 'event', id: event.id });
   });
   allPlaces.forEach(place => {
     if (!place.geometry?.location) return;
     const cat = getPlaceCategory(place);
-    addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
+    addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(),
+      icon: createMarkerSVG(cat.color), title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
-
   escapaditasEvents.forEach(event => {
-    const ageCat = categorizeEventByAge(event);
-    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: event.title, payload: event, payloadType: 'event', id: event.id });
+    addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG('#EC4899'),
+      title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
 }
 
-function addMarkerToMap({ lat, lng, icon, iconColor, title, payload, payloadType, id }) {
+function addMarkerToMap({ lat, lng, icon, title, payload, payloadType, id }) {
   const marker = new google.maps.Marker({ position: { lat, lng }, map, icon, title, animation: google.maps.Animation.DROP });
-  
   marker._payload = payload; marker._payloadType = payloadType;
   marker.addListener('click', () => {
     closeSubmenu();
-    if (payloadType === 'event') showInfoWindowEvent(marker, payload);
+    if (payloadType === 'event') openEventDetail(payload);
     else showInfoWindowGoogle(marker, payload);
   });
   marker.placeId = id;
@@ -2776,106 +2353,52 @@ function addMarkerToMap({ lat, lng, icon, iconColor, title, payload, payloadType
 }
 
 /* ============================================
-   INFO WINDOWS
+   INFO WINDOW GOOGLE PLACES
    ============================================ */
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
   const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
   const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 400 }) : '';
   
-  const catIconHtml = `
-    <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px;">
-      <div style="width:32px; height:32px; border-radius:50%; background:${cat.color}; color:white; display:grid; place-items:center;">
-        <span style="font-family:'Material Symbols Rounded'; font-size:18px;">${cat.icon}</span>
-      </div>
-      <div style="background:#1A1A1A; color:white; padding:4px 10px; border-radius:99px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">
-        ${tCat(getCategoryKey(place))}
-      </div>
-    </div>
-  `;
-
   infoWindow.setContent(`<div style="padding:0;max-width:280px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
     ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
     <div style="padding:12px;">
       <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;margin-bottom:6px;">${place.name || t('noName')}</div>
-      ${catIconHtml}
-      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:10px;font-weight:500;">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+        <div style="width:28px;height:28px;border-radius:50%;background:${cat.color};color:white;display:grid;place-items:center;">
+          <span style="font-family:'Material Symbols Rounded';font-size:16px;">${cat.icon}</span>
+        </div>
+        <div style="background:#1A1A1A;color:white;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">${tCat(getCategoryKey(place))}</div>
+      </div>
+      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${place.vicinity || t('addressNA')}</div>
         ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F59E0B;">star</span>${ratingText}</div>` : ''}
       </div>
-      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#4F46E5;color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;cursor:pointer;">${t('viewMore')}</button>
+      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#4F46E5;color:white;font-weight:700;font-size:12px;cursor:pointer;">${t('viewMore')}</button>
     </div>
   </div>`);
   infoWindow.open(map, marker);
 }
 
-function showInfoWindowEvent(marker, event) {
-  const ageCat = categorizeEventByAge(event);
-  const ageKey = getAgeCategoryKey(event);
-  
-  const audienceIconsHtml = Object.values(AGE_CATEGORIES).filter(a => a.label !== 'Todo público').map(cat => {
-    const text = (event.title + ' ' + event.description).toLowerCase();
-    const matches = {
-      family: /familia|familiar|niños|infantil/.test(text),
-      adults_m: /hombre|masculino|caballero/.test(text),
-      adults_w: /mujer|femenino|dama/.test(text),
-      teens: /adolescente|joven|teen/.test(text),
-      kids: /niño|infantil|kids/.test(text),
-      bebes: /bebé|bebe|baby/.test(text)
-    };
-    if (matches[Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat)]) {
-      return `<span class="audience-icon" style="--aud-color:${cat.color}; --aud-bg:${cat.bg};" title="${cat.label}"><span class="ms fill">${cat.icon}</span></span>`;
-    }
-    return '';
+/* ============================================
+   CONSTRUCCIÓN DE ICONOS (TODOS VISIBLES, ACTIVOS/INACTIVOS)
+   ============================================ */
+function buildIconRow(audiences, accessibility) {
+  const audienceIcons = Object.entries(AGE_CATEGORIES).map(([key, cat]) => {
+    const isActive = audiences[key];
+    return `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="--chip-color:${cat.color};" title="${cat.label}${isActive ? '' : ' (no disponible)'}">
+      <span class="ms">${cat.icon}</span>
+    </span>`;
   }).join('');
-
-  let accessibilityIconsHtml = '';
-  if (event.wheelchairAccessible) {
-    accessibilityIconsHtml += `<span class="badge-icon wheelchair" title="Accesible para sillas de ruedas"><span class="ms fill">accessible</span></span>`;
-  }
-  if (event.petFriendly) {
-    accessibilityIconsHtml += `<span class="badge-icon pet" title="Pet Friendly"><span class="ms fill">pets</span></span>`;
-  }
-  if (event.smokeFree) {
-    accessibilityIconsHtml += `<span class="badge-icon smoke-free" title="Libre de humo"><span class="ms fill">smoke_free</span></span>`;
-  }
-
-  const urlBtn = event.url
-    ? `<a href="${event.url}" target="_blank" rel="noopener" style="display:block;width:100%;padding:8px;border:none;border-radius:8px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;cursor:pointer;text-align:center;text-decoration:none;margin-top:8px;">${t('viewMore')}</a>`
-    : `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:${ageCat.color};color:white;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;cursor:pointer;margin-top:8px;">${t('viewMore')}</button>`;
   
-  const dateStr = event.date || '';
-  const timeStr = event.time ? ' · ' + event.time : '';
-  const venueStr = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
-  const sourceBadge = event.source === 'eventbrite'
-    ? `<span style="display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;margin-left:4px;text-transform:uppercase;">EB</span>`
-    : event.source === 'ticketmaster'
-      ? `<span style="display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#EEF2FF;color:#4F46E5;margin-left:4px;text-transform:uppercase;">TM</span>`
-      : '';
-
-  infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
-    ${event.image ? `<img src="${event.image}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
-    <div style="padding:12px;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-        <div style="width:32px;height:32px;border-radius:8px;background:${ageCat.bg};color:${ageCat.color};display:grid;place-items:center;flex-shrink:0;"><span style="font-family:'Material Symbols Rounded';font-size:18px;font-variation-settings:'FILL' 1;">${ageCat.icon}</span></div>
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14px;line-height:1.2;color:#18181B;">${event.title || 'Evento'}${sourceBadge}</div>
-        </div>
-      </div>
-      
-      <div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px;">
-        ${audienceIconsHtml}
-        ${accessibilityIconsHtml}
-      </div>
-
-      <div style="font-size:11px;color:#52525B;line-height:1.4;margin-bottom:8px;font-weight:500;">
-        <div style="display:flex;align-items:center;gap:4px;"><span style="font-family:'Material Symbols Rounded';font-size:12px;color:#A1A1AA;">location_on</span>${venueStr}</div>
-        ${dateStr ? `<div style="display:flex;align-items:center;gap:4px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:12px;color:#A1A1AA;">calendar_today</span>${dateStr}${timeStr}</div>` : ''}
-      </div>
-      ${urlBtn}
-    </div>
-  </div>`);
-  infoWindow.open(map, marker);
+  const accessIcons = Object.entries(ACCESSIBILITY_CATEGORIES).map(([key, cat]) => {
+    const isActive = accessibility[key];
+    return `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="--chip-color:${cat.color};" title="${cat.label}${isActive ? '' : ' (no disponible)'}">
+      <span class="ms">${cat.icon}</span>
+    </span>`;
+  }).join('');
+  
+  return `<div class="icon-row">${audienceIcons}<span class="icon-divider"></span>${accessIcons}</div>`;
 }
 
 /* ============================================
@@ -2883,7 +2406,7 @@ function showInfoWindowEvent(marker, event) {
    ============================================ */
 function renderGoogleCard(place) {
   const cat = getPlaceCategory(place);
-  const rating = place.rating ? `<span class="event-rating"><span class="ms fill">star</span>${place.rating}</span>` : '';
+  const rating = place.rating ? `<span class="event-date-info"><span class="ms fill">star</span>${place.rating}</span>` : '';
   const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 200 }) : '';
   const photoHtml = photoUrl
     ? `<img src="${photoUrl}" alt="${place.name || ''}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${cat.icon}</span>'">`
@@ -2902,55 +2425,38 @@ function renderGoogleCard(place) {
       <div class="event-title">${place.name || t('noName')}</div>
       <div class="event-venue"><span class="ms">location_on</span>${place.vicinity || t('addressNA')}</div>
       ${catPill}
-      ${rating ? `<div class="event-footer">${rating}</div>` : ''}
+      <div class="event-footer">${rating}</div>
     </div>
   </div>`;
 }
 
 function renderEventCard(event) {
-  const ageCat = categorizeEventByAge(event);
-  const ageKey = getAgeCategoryKey(event);
+  const audiences = detectEventAudiences(event);
+  const accessibility = detectEventAccessibility(event);
   const title = event.title || 'Evento sin título';
   const venue = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
   const dateInfo = event.date ? event.date + (event.time ? ' · ' + event.time : '') : '';
   const photoHtml = event.image
-    ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${ageCat.icon}</span>'">`
-    : `<span class="placeholder">${ageCat.icon}</span>`;
+    ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>event</span>'">`
+    : `<span class="placeholder">event</span>`;
+  const description = event.description || tDetail('noDescription');
   
-  const description = event.description || 'Sin descripción disponible.';
-
-  const audienceIconsHtml = Object.values(AGE_CATEGORIES).filter(a => a.label !== 'Todo público').map(cat => {
-    const text = (event.title + ' ' + event.description).toLowerCase();
-    const matches = {
-      family: /familia|familiar|niños|infantil/.test(text),
-      adults_m: /hombre|masculino|caballero/.test(text),
-      adults_w: /mujer|femenino|dama/.test(text),
-      teens: /adolescente|joven|teen/.test(text),
-      kids: /niño|infantil|kids/.test(text),
-      bebes: /bebé|bebe|baby/.test(text)
-    };
-    if (matches[Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat)]) {
-      return `<span class="audience-icon" style="--aud-color:${cat.color}; --aud-bg:${cat.bg};" title="${cat.label}"><span class="ms fill">${cat.icon}</span></span>`;
-    }
-    return '';
-  }).join('');
-
-  let accessibilityIconsHtml = '';
-  if (event.wheelchairAccessible) {
-    accessibilityIconsHtml += `<span class="badge-icon wheelchair" title="Accesible para sillas de ruedas"><span class="ms fill">accessible</span></span>`;
-  }
-  if (event.petFriendly) {
-    accessibilityIconsHtml += `<span class="badge-icon pet" title="Pet Friendly"><span class="ms fill">pets</span></span>`;
-  }
-  if (event.smokeFree) {
-    accessibilityIconsHtml += `<span class="badge-icon smoke-free" title="Libre de humo"><span class="ms fill">smoke_free</span></span>`;
-  }
-
+  // Determinar color de la tarjeta según audiencia principal
+  let cardColor = '#4F46E5', cardBg = '#EEF2FF';
+  if (audiences.kids) { cardColor = AGE_CATEGORIES.kids.color; cardBg = AGE_CATEGORIES.kids.bg; }
+  else if (audiences.bebes) { cardColor = AGE_CATEGORIES.bebes.color; cardBg = AGE_CATEGORIES.bebes.bg; }
+  else if (audiences.teens) { cardColor = AGE_CATEGORIES.teens.color; cardBg = AGE_CATEGORIES.teens.bg; }
+  else if (audiences.family) { cardColor = AGE_CATEGORIES.family.color; cardBg = AGE_CATEGORIES.family.bg; }
+  else if (audiences.adults_w) { cardColor = AGE_CATEGORIES.adults_w.color; cardBg = AGE_CATEGORIES.adults_w.bg; }
+  else if (audiences.adults_m) { cardColor = AGE_CATEGORIES.adults_m.color; cardBg = AGE_CATEGORIES.adults_m.bg; }
+  
   const srcTag = event.source === 'eventbrite'
-    ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
-    : '';
+    ? `<span class="event-source-tag eb">EB</span>`
+    : event.source === 'ticketmaster' ? `<span class="event-source-tag tm">TM</span>` : '';
+  
   const pastClass = isEventPast(event) ? 'opacity: 0.6;' : '';
   
+  // Icono de categoría del evento
   const catIcon = CATEGORIES[currentCategory]?.icon || 'event';
   const catColor = CATEGORIES[currentCategory]?.color || '#4F46E5';
   const catPill = `
@@ -2959,19 +2465,20 @@ function renderEventCard(event) {
       <div class="category-pill-label">${tCat(currentCategory)}</div>
     </div>
   `;
+  
+  const iconRow = buildIconRow(audiences, accessibility);
 
-  return `<div class="event-card" onclick="focusPlace('${event.id}')" style="--card-color:${ageCat.color};--card-bg:${ageCat.bg};${pastClass}">
-    <div class="event-photo" style="background:${ageCat.bg};">${photoHtml}</div>
+  return `<div class="event-card" onclick="openEventDetailById('${event.id}')" style="--card-color:${cardColor};--card-bg:${cardBg};${pastClass}">
+    <div class="event-photo" style="background:${cardBg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${title}</div>
       <div class="event-description">${description}</div>
+      ${iconRow}
       <div class="event-venue"><span class="ms">location_on</span>${venue}</div>
-      ${catPill}
       <div class="event-footer">
-        <div class="audience-icons">${audienceIconsHtml}</div>
-        <div class="event-badges">${accessibilityIconsHtml}</div>
+        ${catPill}
         ${srcTag}
-        ${dateInfo ? `<span class="event-rating"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}
+        ${dateInfo ? `<span class="event-date-info"><span class="ms">calendar_today</span>${dateInfo}</span>` : ''}
       </div>
     </div>
   </div>`;
@@ -2988,6 +2495,104 @@ function renderUnifiedList() {
   const dateLabel = currentDateFilter === 'all' ? '' : ` · ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
   const label = `${unifiedResults.length} resultados · ${categoryLabel}${dateLabel}`;
   container.innerHTML = `<div class="section-label">${label}</div>` + unifiedResults.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
+}
+
+/* ============================================
+   MODAL DE DETALLE DEL EVENTO
+   ============================================ */
+function openEventDetailById(eventId) {
+  const event = allEvents.find(e => e.id === eventId) || escapaditasEvents.find(e => e.id === eventId);
+  if (event) openEventDetail(event);
+}
+
+function openEventDetail(event) {
+  currentOpenEvent = event;
+  const modal = document.getElementById('eventDetailModal');
+  const hero = document.getElementById('eventDetailHero');
+  const body = document.getElementById('eventDetailBody');
+  const footer = document.getElementById('eventDetailFooter');
+  
+  // Hero
+  if (event.image) {
+    hero.innerHTML = `<img src="${event.image}" alt="${event.title}" onerror="this.style.display='none'">`;
+  } else {
+    hero.innerHTML = `<div class="hero-placeholder"><span class="ms">event</span></div>`;
+  }
+  
+  // Detectar audiencias y accesibilidad
+  const audiences = detectEventAudiences(event);
+  const accessibility = detectEventAccessibility(event);
+  
+  // Título
+  let html = `<div class="event-detail-title" id="eventDetailTitle">${event.title || 'Evento'}</div>`;
+  
+  // Meta (venue, fecha)
+  html += `<div class="event-detail-meta">`;
+  if (event.venue) {
+    html += `<div class="event-detail-meta-row">
+      <span class="ms">location_on</span>
+      <div><strong>${event.venue}</strong>${event.city ? '<br><span style="color:var(--text-3);font-size:12px;">' + event.city + '</span>' : ''}</div>
+    </div>`;
+  }
+  if (event.date) {
+    const dateStr = event.date + (event.time ? ' · ' + event.time : '');
+    html += `<div class="event-detail-meta-row">
+      <span class="ms">calendar_today</span>
+      <div><strong>${dateStr}</strong></div>
+    </div>`;
+  }
+  html += `</div>`;
+  
+  // Audiencia
+  html += `<div class="event-detail-section-title">${tDetail('audience')}</div>`;
+  html += `<div class="event-detail-icons">`;
+  Object.entries(AGE_CATEGORIES).forEach(([key, cat]) => {
+    const isActive = audiences[key];
+    html += `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="--chip-color:${cat.color};" title="${cat.label}">
+      <span class="ms">${cat.icon}</span>
+    </span>`;
+  });
+  html += `</div>`;
+  
+  // Accesibilidad
+  html += `<div class="event-detail-section-title">${tDetail('accessibility')}</div>`;
+  html += `<div class="event-detail-icons">`;
+  Object.entries(ACCESSIBILITY_CATEGORIES).forEach(([key, cat]) => {
+    const isActive = accessibility[key];
+    html += `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="--chip-color:${cat.color};" title="${cat.label}">
+      <span class="ms">${cat.icon}</span>
+    </span>`;
+  });
+  html += `</div>`;
+  
+  // Descripción
+  html += `<div class="event-detail-section-title">${tDetail('description')}</div>`;
+  html += `<div class="event-detail-description">${event.description || tDetail('noDescription')}</div>`;
+  
+  body.innerHTML = html;
+  
+  // Footer CTA
+  if (event.url) {
+    footer.innerHTML = `<a href="${event.url}" target="_blank" rel="noopener" class="event-detail-cta">
+      <span class="ms fill">confirmation_number</span>
+      <span>${tDetail('buyTickets')}</span>
+    </a>`;
+  } else {
+    footer.innerHTML = `<button class="event-detail-cta disabled" disabled>
+      <span class="ms">link_off</span>
+      <span>${tDetail('noUrl')}</span>
+    </button>`;
+  }
+  
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEventDetail() {
+  const modal = document.getElementById('eventDetailModal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+  currentOpenEvent = null;
 }
 
 /* ============================================
@@ -3014,7 +2619,6 @@ function renderSubmenuOptions(type, searchTerm) {
   const optionsContainer = document.getElementById('submenuOptions');
   const titleEl = document.getElementById('submenuTitle');
   const iconEl = document.getElementById('submenuIcon');
-  
   const q = (searchTerm || '').toLowerCase().trim();
   
   if (type === 'category') {
@@ -3026,8 +2630,7 @@ function renderSubmenuOptions(type, searchTerm) {
       filteredKeys = filteredKeys.filter(key => {
         const cat = CATEGORIES[key];
         const translatedLabel = tCat(key).toLowerCase();
-        const keywords = cat.keywords || [];
-        return translatedLabel.includes(q) || keywords.some(kw => kw.toLowerCase().includes(q));
+        return translatedLabel.includes(q) || (cat.keywords || []).some(kw => kw.toLowerCase().includes(q));
       });
     }
     
@@ -3044,46 +2647,32 @@ function renderSubmenuOptions(type, searchTerm) {
     });
     
     let html = '';
-    let animIdx = 0;
-    
     const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'gastronomía', 'compras', 'servicios'];
     const sortedGroups = Object.keys(grouped).sort((a, b) => {
-      const ia = groupOrder.indexOf(a);
-      const ib = groupOrder.indexOf(b);
+      const ia = groupOrder.indexOf(a), ib = groupOrder.indexOf(b);
       return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
     });
     
     sortedGroups.forEach(groupKey => {
       const groupInfo = CATEGORY_GROUPS[groupKey] || { label: groupKey, icon: 'category' };
-      html += `<div class="submenu-group">
-        <div class="submenu-group-label"><span class="ms">${groupInfo.icon}</span>${groupInfo.label}</div>`;
-      
+      html += `<div class="submenu-group"><div class="submenu-group-label"><span class="ms">${groupInfo.icon}</span>${groupInfo.label}</div>`;
       grouped[groupKey].forEach(key => {
         const cat = CATEGORIES[key];
         const isActive = key === currentCategory;
         const isDimmed = currentCategory !== 'all' && currentCategory !== key;
-        html += `
-          <button class="submenu-option ${isActive ? 'active' : ''} ${isDimmed ? 'dimmed' : ''}" data-key="${key}" style="--option-color:${cat.color};--option-bg:${cat.bg};animation-delay:${animIdx * 20}ms;">
-            <span class="ms">${cat.icon}</span><span>${tCat(key)}</span><span class="ms check">check</span>
-          </button>
-        `;
-        animIdx++;
+        html += `<button class="submenu-option ${isActive ? 'active' : ''} ${isDimmed ? 'dimmed' : ''}" data-key="${key}" style="--option-color:${cat.color};--option-bg:${cat.bg};">
+          <span class="ms">${cat.icon}</span><span>${tCat(key)}</span><span class="ms check">check</span>
+        </button>`;
       });
-      
       html += `</div>`;
     });
     
     optionsContainer.innerHTML = html;
-    
-    optionsContainer.querySelectorAll('.submenu-option').forEach((btn) => {
+    optionsContainer.querySelectorAll('.submenu-option').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const key = btn.dataset.key;
-        if (key === currentCategory) {
-            setCategory('all');
-        } else {
-            setCategory(key);
-        }
+        setCategory(key === currentCategory ? 'all' : key);
         closeSubmenu();
       });
     });
@@ -3097,9 +2686,7 @@ function closeSubmenu() {
 
 function filterSubmenuOptions() {
   const searchTerm = document.getElementById('submenuSearchInput').value;
-  if (currentSubmenuType) {
-    renderSubmenuOptions(currentSubmenuType, searchTerm);
-  }
+  if (currentSubmenuType) renderSubmenuOptions(currentSubmenuType, searchTerm);
 }
 
 /* ============================================
@@ -3107,11 +2694,9 @@ function filterSubmenuOptions() {
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
-  const festivePrimary = currentFestiveTheme.colors.primary;
   container.innerHTML = `
     <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
       <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
-      <span class="badge" id="categoryBadge">0</span>
     </button>
     <button class="cat-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" style="background: var(--accent); color: white; border-color: var(--accent);">
       <span class="ms fill">luggage</span>
@@ -3129,7 +2714,6 @@ function focusPlace(id) {
     map.setZoom(16);
     setTimeout(() => google.maps.event.trigger(marker, 'click'), 500);
     if (!isDesktop()) closeSidebar();
-    if (!isDesktop()) closeEscapaditas();
   }
 }
 
@@ -3149,17 +2733,10 @@ function setCategory(cat) {
 
 function setDateFilter(key) {
   currentDateFilter = key;
-  if (key !== 'custom') {
-    currentCustomDate = ''; 
-  }
+  if (key !== 'custom') currentCustomDate = '';
   applyFilters();
-  
-  if (isEscapaditasOpen() && escapaditasLocation) {
-    searchEscapaditas(escapaditasLocation);
-  }
-  
+  if (isEscapaditasOpen() && escapaditasLocation && ESCAPADITAS_ENABLED) searchEscapaditas(escapaditasLocation);
   updateDateFilterUI();
-  
   showToast('calendar_month', tDate(key));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
   closeDateFilterPanel();
@@ -3169,11 +2746,7 @@ function onCustomDateChange(val) {
   currentCustomDate = val;
   currentDateFilter = 'custom';
   applyFilters();
-  
-  if (isEscapaditasOpen() && escapaditasLocation) {
-    searchEscapaditas(escapaditasLocation);
-  }
-  
+  if (isEscapaditasOpen() && escapaditasLocation && ESCAPADITAS_ENABLED) searchEscapaditas(escapaditasLocation);
   updateDateFilterUI();
   showToast('calendar_month', `${tDate('custom')}: ${val}`);
   closeDateFilterPanel();
@@ -3183,44 +2756,26 @@ function clearDateFilter() {
   currentDateFilter = 'all';
   currentCustomDate = '';
   applyFilters();
-  
-  if (isEscapaditasOpen() && escapaditasLocation) {
-    searchEscapaditas(escapaditasLocation);
-  }
-  
+  if (isEscapaditasOpen() && escapaditasLocation && ESCAPADITAS_ENABLED) searchEscapaditas(escapaditasLocation);
   updateDateFilterUI();
-  showToast('calendar_month', 'Filtro de fecha eliminado');
+  showToast('calendar_month', 'Filtro eliminado');
   closeDateFilterPanel();
 }
 
 /* ============================================
-   PANEL FLOTANTE DE FECHAS
+   PANEL DE FECHAS
    ============================================ */
 function toggleDateFilterPanel(e) {
   if (e) e.stopPropagation();
   const panel = document.getElementById('dateFilterPanel');
-  const isOpen = panel.classList.contains('open');
-  
-  if (isOpen) {
-    closeDateFilterPanel();
-  } else {
-    openDateFilterPanel();
-  }
+  if (panel.classList.contains('open')) closeDateFilterPanel();
+  else openDateFilterPanel();
 }
-
-function openDateFilterPanel() {
-  const panel = document.getElementById('dateFilterPanel');
-  panel.classList.add('open');
-  updateDateFilterUI();
-}
-
-function closeDateFilterPanel() {
-  const panel = document.getElementById('dateFilterPanel');
-  panel.classList.remove('open');
-}
+function openDateFilterPanel() { document.getElementById('dateFilterPanel').classList.add('open'); updateDateFilterUI(); }
+function closeDateFilterPanel() { document.getElementById('dateFilterPanel').classList.remove('open'); }
 
 function updateDateFilterUI() {
-   document.querySelectorAll('.date-option').forEach(btn => {
+  document.querySelectorAll('.date-option').forEach(btn => {
     const key = btn.dataset.date;
     if (key === currentDateFilter) {
       btn.classList.add('active');
@@ -3232,11 +2787,8 @@ function updateDateFilterUI() {
       if (check) check.style.opacity = '0';
     }
   });
-  
   const input = document.getElementById('customDateInput');
-  if (input) {
-    input.value = currentCustomDate;
-  }
+  if (input) input.value = currentCustomDate;
 }
 
 /* ============================================
@@ -3275,7 +2827,7 @@ function openEscapaditas() {
   document.getElementById('sidebarRight').classList.add('open');
   document.body.classList.remove('escapaditas-closed');
   updateOverlay();
-  updateEscapaditasLocation();
+  if (ESCAPADITAS_ENABLED) updateEscapaditasLocation();
 }
 function closeEscapaditas() {
   document.getElementById('sidebarRight').classList.remove('open');
@@ -3291,10 +2843,63 @@ function updateOverlay() {
 function handleOverlayClick() { closeSidebar(); closeEscapaditas(); closeSubmenu(); closeDateFilterPanel(); }
 
 /* ============================================
-   LÓGICA DE ESCAPADITAS
+   RENDER DEL PANEL ESCAPADITAS (PROXIMAMENTE / ACTIVO)
+   ============================================ */
+function renderEscapaditasPanel() {
+  const container = document.getElementById('sidebarEscapaditasEvents');
+  if (!container) return;
+  
+  if (!ESCAPADITAS_ENABLED) {
+    // MODO PRÓXIMAMENTE
+    container.innerHTML = `
+      <div class="coming-soon-container">
+        <div class="coming-soon-icon">
+          <span class="ms">luggage</span>
+        </div>
+        <div class="coming-soon-title">${t('comingSoon')}</div>
+        <div class="coming-soon-subtitle">${t('comingSoonSubtitle')}</div>
+        <div class="coming-soon-badge">
+          <span class="ms fill">auto_awesome</span>
+          <span>${t('comingSoonBadge')}</span>
+        </div>
+      </div>
+    `;
+    return;
+  }
+  
+  // MODO ACTIVO (cuando ESCAPADITAS_ENABLED === true)
+  container.innerHTML = `
+    <div class="sidebar-top" style="border-top:none;">
+      <div class="search-field">
+        <span class="ms">my_location</span>
+        <input type="text" id="escapaditasLocationInput" placeholder="Usando tu ubicación actual..." readonly>
+      </div>
+      <button class="gps-button" onclick="updateEscapaditasLocation()" id="gpsButtonEscapaditas" style="background: linear-gradient(135deg, var(--accent) 0%, #BE185D 100%);">
+        <span class="ms fill">explore</span>
+        <span>Actualizar ubicación</span>
+      </button>
+      <div id="escapaditasDateFilterIndicator" style="display:none; margin-top: 12px; padding: 8px 12px; background: var(--accent-container); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 6px;">
+        <span class="ms fill" style="font-size: 16px;">calendar_month</span>
+        <span id="escapaditasDateLabel">Filtrando por fecha</span>
+      </div>
+    </div>
+    <div class="events-scroll" id="escapaditasEventsScroll" style="padding: 16px 16px 100px 16px;">
+      <div class="empty-state">
+        <span class="ms">travel_explore</span>
+        <h3>Buscando escapaditas...</h3>
+        <p>Toca "Actualizar ubicación" para encontrar eventos cerca de ti.</p>
+      </div>
+    </div>
+  `;
+}
+
+/* ============================================
+   LÓGICA DE ESCAPADITAS (SOLO SI ESTÁ ACTIVO)
    ============================================ */
 function updateEscapaditasLocation() {
+  if (!ESCAPADITAS_ENABLED) return;
   const input = document.getElementById('escapaditasLocationInput');
+  if (!input) return;
   input.value = 'Obteniendo ubicación...';
   input.placeholder = 'Obteniendo ubicación...';
 
@@ -3310,10 +2915,8 @@ function updateEscapaditasLocation() {
       escapaditasLocation = loc;
       input.value = `Lat: ${loc.lat.toFixed(4)}, Lng: ${loc.lng.toFixed(4)}`;
       showToast('location_on', 'Ubicación actualizada');
-      
       map.panTo(loc);
       map.setZoom(10);
-      
       searchEscapaditas(loc);
     },
     (err) => {
@@ -3328,18 +2931,21 @@ function updateEscapaditasLocation() {
 }
 
 async function searchEscapaditas(location) {
-  const container = document.getElementById('sidebarEscapaditasEvents');
+  if (!ESCAPADITAS_ENABLED) return;
+  const container = document.getElementById('escapaditasEventsScroll');
+  if (!container) return;
+  
   const subtitleEl = document.getElementById('escapaditasSubtitle');
   const dateIndicator = document.getElementById('escapaditasDateFilterIndicator');
   const dateLabel = document.getElementById('escapaditasDateLabel');
   
-  if (currentDateFilter !== 'all') {
+  if (currentDateFilter !== 'all' && subtitleEl) {
     subtitleEl.textContent = `Eventos · ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
-    dateIndicator.style.display = 'flex';
-    dateLabel.textContent = `Filtrando por: ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
-  } else {
+    if (dateIndicator) dateIndicator.style.display = 'flex';
+    if (dateLabel) dateLabel.textContent = `Filtrando por: ${tDate(currentDateFilter)}`;
+  } else if (subtitleEl) {
     subtitleEl.textContent = 'Eventos a 3 horas a la redonda';
-    dateIndicator.style.display = 'none';
+    if (dateIndicator) dateIndicator.style.display = 'none';
   }
 
   container.innerHTML = `<div class="empty-state"><span class="ms">travel_explore</span><h3>Buscando escapaditas...</h3><p>Explorando eventos en un radio de 3 horas.</p></div>`;
@@ -3359,7 +2965,6 @@ async function searchEscapaditas(location) {
     if (currentDateFilter !== 'all') {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      
       events = events.filter(e => {
         if (!e.date) return false;
         const parts = e.date.split('-');
@@ -3369,36 +2974,30 @@ async function searchEscapaditas(location) {
 
         if (currentDateFilter === 'today') return eventDate.getTime() === today.getTime();
         if (currentDateFilter === 'tomorrow') {
-          const tomorrow = new Date(today);
-          tomorrow.setDate(tomorrow.getDate() + 1);
+          const tomorrow = new Date(today); tomorrow.setDate(tomorrow.getDate() + 1);
           return eventDate.getTime() === tomorrow.getTime();
         }
         if (currentDateFilter === 'this_weekend') {
-          const dayOfWeek = today.getDay();
-          const daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
-          const thisSaturday = new Date(today);
-          thisSaturday.setDate(today.getDate() + daysUntilSaturday);
-          const thisSunday = new Date(thisSaturday);
-          thisSunday.setDate(thisSaturday.getDate() + 1);
-          
-          if (dayOfWeek === 0) return eventDate.getTime() === today.getTime();
-          if (dayOfWeek === 6) return eventDate.getTime() === today.getTime() || eventDate.getTime() === thisSunday.getTime();
-          return eventDate.getTime() === thisSaturday.getTime() || eventDate.getTime() === thisSunday.getTime();
+          const dow = today.getDay();
+          const daysUntilSat = (6 - dow + 7) % 7;
+          const sat = new Date(today); sat.setDate(today.getDate() + daysUntilSat);
+          const sun = new Date(sat); sun.setDate(sat.getDate() + 1);
+          if (dow === 0) return eventDate.getTime() === today.getTime();
+          if (dow === 6) return eventDate.getTime() === today.getTime() || eventDate.getTime() === sun.getTime();
+          return eventDate.getTime() === sat.getTime() || eventDate.getTime() === sun.getTime();
         }
         if (currentDateFilter === 'next_7_days') {
-          const next7Days = new Date(today);
-          next7Days.setDate(today.getDate() + 7);
-          return eventDate >= today && eventDate <= next7Days;
+          const next7 = new Date(today); next7.setDate(today.getDate() + 7);
+          return eventDate >= today && eventDate <= next7;
         }
         if (currentDateFilter === 'this_month') {
           return eventDate.getMonth() === today.getMonth() && eventDate.getFullYear() === today.getFullYear();
         }
         if (currentDateFilter === 'custom' && currentCustomDate) {
-          const customParts = currentCustomDate.split('-');
-          if (customParts.length === 3) {
-            const customDateObj = new Date(customParts[0], customParts[1] - 1, customParts[2]);
-            customDateObj.setHours(0, 0, 0, 0);
-            return eventDate.getTime() === customDateObj.getTime();
+          const cp = currentCustomDate.split('-');
+          if (cp.length === 3) {
+            const cd = new Date(cp[0], cp[1] - 1, cp[2]); cd.setHours(0, 0, 0, 0);
+            return eventDate.getTime() === cd.getTime();
           }
           return false;
         }
@@ -3417,8 +3016,7 @@ async function searchEscapaditas(location) {
       events.map(item => renderEventCard(item)).join('');
 
     renderMarkersForAll(events.filter(e => !isEventPast(e)));
-
-    showToast('check_circle', `${events.length} escapaditas encontradas${currentDateFilter !== 'all' ? ' para ' + tDate(currentDateFilter) : ''}`);
+    showToast('check_circle', `${events.length} escapaditas encontradas`);
 
   } catch (err) {
     console.error('Error buscando escapaditas:', err);
@@ -3429,7 +3027,7 @@ async function searchEscapaditas(location) {
 function searchTicketmasterEscapaditas(location) {
   return new Promise(async (resolve) => {
     try {
-      const radiusKm = 250; 
+      const radiusKm = 250;
       const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEYS.ticketmaster}&latlong=${location.lat},${location.lng}&radius=${radiusKm}&unit=km&size=50&sort=date,asc&locale=${currentLang === 'es' ? 'es' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'en-us'}`;
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 10000);
@@ -3440,7 +3038,11 @@ function searchTicketmasterEscapaditas(location) {
         const venue = e._embedded?.venues?.[0] || {}, loc = venue.location || {};
         const lat = parseFloat(loc.latitude), lng = parseFloat(loc.longitude);
         if (!lat || !lng) return null;
-        return { id: 'tm_esc_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento', date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '', venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url, description: e.info || e.pleaseNote || '', image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
+        return { id: 'tm_esc_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento',
+          date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '',
+          venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url,
+          description: e.info || e.pleaseNote || '',
+          image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
       }).filter(Boolean);
       resolve(events);
     } catch (err) { resolve([]); }
@@ -3450,80 +3052,61 @@ function searchTicketmasterEscapaditas(location) {
 function searchPlacesEscapaditas(location) {
   return new Promise((resolve) => {
     if (!placesService || !placesApiAvailable) return resolve([]);
-    
     const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'park', 'zoo', 'aquarium', 'stadium'];
     const promises = typesToFetch.map(type => {
       return new Promise((res) => {
-        const request = { 
-          location: new google.maps.LatLng(location.lat, location.lng), 
-          radius: ESCAPADITAS_RADIUS_METERS, 
-          type: type 
-        };
+        const request = { location: new google.maps.LatLng(location.lat, location.lng), radius: ESCAPADITAS_RADIUS_METERS, type };
         const timeout = setTimeout(() => res([]), 10000);
         try {
           placesService.nearbySearch(request, (results, status) => {
             clearTimeout(timeout);
             if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-              const placesAsEvents = results.map(p => ({
-                id: 'place_esc_' + p.place_id,
-                type: 'place',
-                source: 'google',
-                title: p.name,
-                date: '',
-                time: '',
-                venue: p.vicinity || '',
-                city: '',
-                lat: p.geometry.location.lat(),
-                lng: p.geometry.location.lng(),
-                url: '',
-                description: '',
-                image: p.photos && p.photos.length > 0 ? p.photos[0].getUrl({ maxWidth: 200 }) : '',
-                _isPlace: true,
-                rating: p.rating,
-                user_ratings_total: p.user_ratings_total,
-                place_id: p.place_id,
-                photos: p.photos,
-                vicinity: p.vicinity,
-                types: p.types,
-                _searchType: type
-              }));
-              res(placesAsEvents);
-            } else {
-              res([]);
-            }
+              res(results.map(p => ({
+                id: 'place_esc_' + p.place_id, type: 'place', source: 'google',
+                title: p.name, date: '', time: '', venue: p.vicinity || '', city: '',
+                lat: p.geometry.location.lat(), lng: p.geometry.location.lng(), url: '',
+                description: '', image: p.photos && p.photos.length > 0 ? p.photos[0].getUrl({ maxWidth: 200 }) : '',
+                _isPlace: true, rating: p.rating, user_ratings_total: p.user_ratings_total,
+                place_id: p.place_id, photos: p.photos, vicinity: p.vicinity, types: p.types, _searchType: type
+              })));
+            } else res([]);
           });
         } catch (err) { clearTimeout(timeout); res([]); }
       });
     });
-
     Promise.all(promises).then(allResults => {
       const flat = allResults.flat();
       const seen = new Set();
-      const unique = flat.filter(p => {
-        if (!p.place_id || seen.has(p.place_id)) return false;
-        seen.add(p.place_id);
-        return true;
-      });
-      resolve(unique);
+      resolve(flat.filter(p => { if (!p.place_id || seen.has(p.place_id)) return false; seen.add(p.place_id); return true; }));
     });
   });
 }
 
 /* ============================================
-   PREFERENCIAS
+   PREFERENCIAS Y TEMA
    ============================================ */
+function detectBrowserLanguage() {
+  const supported = ['es', 'en', 'fr', 'pt', 'de'];
+  if (navigator.languages && navigator.languages.length > 0) {
+    for (const lang of navigator.languages) {
+      const code = lang.toLowerCase().slice(0, 2);
+      if (supported.includes(code)) return code;
+    }
+  }
+  if (navigator.language) {
+    const code = navigator.language.toLowerCase().slice(0, 2);
+    if (supported.includes(code)) return code;
+  }
+  return 'es';
+}
+
 function loadPreferences() {
   currentLang = detectBrowserLanguage();
   currentTheme = localStorage.getItem('gdl-theme') || 'light';
   applyTheme(currentTheme);
 }
-function savePreferences() {
-  localStorage.setItem('gdl-theme', currentTheme);
-}
+function savePreferences() { localStorage.setItem('gdl-theme', currentTheme); }
 
-/* ============================================
-   TEMA
-   ============================================ */
 function applyTheme(theme) {
   let effective = theme;
   if (theme === 'auto') effective = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -3532,27 +3115,16 @@ function applyTheme(theme) {
   if (icon) icon.textContent = effective === 'dark' ? 'light_mode' : 'dark_mode';
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.content = effective === 'dark' ? '#09090B' : (currentFestiveTheme?.colors?.primary || '#4F46E5');
-  
-  // Aplicar estilos del mapa considerando tema festivo
   if (map) {
-    if (currentFestiveTheme && currentFestiveTheme.id !== 'default') {
-      updateMapStyles(currentFestiveTheme);
-    } else {
-      map.setOptions({ styles: effective === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light });
-    }
+    if (currentFestiveTheme && currentFestiveTheme.id !== 'default') updateMapStyles(currentFestiveTheme);
+    else map.setOptions({ styles: effective === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light });
   }
 }
-function setTheme(theme) {
-  currentTheme = theme; applyTheme(theme); savePreferences();
-  showToast('palette', theme === 'dark' ? 'Oscuro' : 'Claro');
-}
-function toggleTheme() {
-  const effective = document.documentElement.getAttribute('data-theme');
-  setTheme(effective === 'dark' ? 'light' : 'dark');
-}
+function setTheme(theme) { currentTheme = theme; applyTheme(theme); savePreferences(); showToast('palette', theme === 'dark' ? 'Oscuro' : 'Claro'); }
+function toggleTheme() { setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
 
 /* ============================================
-   ACTUALIZACIÓN DE TRADUCCIONES
+   TRADUCCIONES GLOBALES
    ============================================ */
 function updateAllTranslations() {
   document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'es-MX';
@@ -3569,13 +3141,11 @@ function updateAllTranslations() {
   if (searchInput) searchInput.placeholder = t('searchInputPlaceholder');
   const submenuSearchInput = document.getElementById('submenuSearchInput');
   if (submenuSearchInput) submenuSearchInput.placeholder = t('submenuSearchPlaceholder');
-  
   const langBadge = document.getElementById('langBadgeLabel');
   if (langBadge) {
     const flagMap = { es: '🇲🇽 ES', en: '🇺🇸 EN', fr: '🇫🇷 FR', pt: '🇧🇷 PT', de: '🇩🇪 DE' };
     langBadge.textContent = `AUTO · ${flagMap[currentLang] || currentLang.toUpperCase()}`;
   }
-  
   updateSplashGreeting();
   updateFestiveBanner(currentFestiveTheme);
 }
@@ -3607,7 +3177,10 @@ function stopTracking() {
 function updateUserMarker(loc) {
   if (userMarker) userMarker.setPosition(loc);
   else {
-    userMarker = new google.maps.Marker({ position: loc, map, icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="${currentFestiveTheme.colors.primary}" stroke="white" stroke-width="3"/></svg>`), scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) }, title: 'Tu ubicación', zIndex: 9999 });
+    userMarker = new google.maps.Marker({ position: loc, map,
+      icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="${currentFestiveTheme.colors.primary}" stroke="white" stroke-width="3"/></svg>`),
+      scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) },
+      title: 'Tu ubicación', zIndex: 9999 });
   }
 }
 
@@ -3635,13 +3208,9 @@ function manualRefresh() {
   if (isManualRefreshing) return;
   isManualRefreshing = true;
   const btn = document.getElementById('refreshBtn');
-  if (btn) {
-    const icon = btn.querySelector('.ms');
-    if (icon) icon.style.animation = 'spin 1s linear infinite';
-  }
+  if (btn) { const icon = btn.querySelector('.ms'); if (icon) icon.style.animation = 'spin 1s linear infinite'; }
   showToast('refresh', t('refreshing'));
   
-  // Re-detectar tema festivo por si cambió de día
   const newFestiveTheme = detectFestiveTheme();
   if (newFestiveTheme.id !== currentFestiveTheme.id) {
     applyFestiveTheme(newFestiveTheme);
@@ -3651,10 +3220,7 @@ function manualRefresh() {
   setTimeout(() => {
     searchEverything().then(() => {
       isManualRefreshing = false;
-      if (btn) {
-        const icon = btn.querySelector('.ms');
-        if (icon) icon.style.animation = '';
-      }
+      if (btn) { const icon = btn.querySelector('.ms'); if (icon) icon.style.animation = ''; }
       showToast('check_circle', t('updated'));
     });
   }, 600);
@@ -3663,10 +3229,8 @@ function manualRefresh() {
 /* ============================================
    PWA
    ============================================ */
-if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-  isPWAInstalled = true;
-}
-let bannerTimer = null;
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) isPWAInstalled = true;
+
 function showInstallBanner() {
   if (isPWAInstalled) return;
   if (!shouldShowInstallBanner()) return;
@@ -3678,8 +3242,7 @@ function hideInstallBanner() { document.getElementById('installBanner').classLis
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  console.log('✅ beforeinstallprompt capturado');
-  if (!isPWAInstalled) bannerTimer = setTimeout(showInstallBanner, 2500);
+  if (!isPWAInstalled) setTimeout(showInstallBanner, 2500);
 });
 
 async function installPWA() {
@@ -3689,32 +3252,20 @@ async function installPWA() {
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === 'accepted') showToast('check_circle', t('pwaInstalled'));
-      else showToast('info', currentLang === 'en' ? 'You can install later from the menu' : 'Puedes instalar después desde el menú');
+      else showToast('info', currentLang === 'en' ? 'You can install later' : 'Puedes instalar después');
       deferredPrompt = null;
       hideInstallBanner();
-    } catch (err) {
-      console.error('Error al instalar PWA:', err);
-      showToast('error', t('pwaInstallFallback'));
-    }
-  } else {
-    showToast('info', t('pwaInstallFallback'));
-  }
+    } catch (err) { showToast('error', t('pwaInstallFallback')); }
+  } else showToast('info', t('pwaInstallFallback'));
 }
-function dismissInstallBanner() {
-  hideInstallBanner();
-  localStorage.setItem('gdl-install-dismissed', Date.now().toString());
-}
+function dismissInstallBanner() { hideInstallBanner(); localStorage.setItem('gdl-install-dismissed', Date.now().toString()); }
 function shouldShowInstallBanner() {
   const dismissed = localStorage.getItem('gdl-install-dismissed');
   if (!dismissed) return true;
-  const daysSinceDismissed = (Date.now() - parseInt(dismissed)) / (1000 * 60 * 60 * 24);
-  return daysSinceDismissed > 7;
+  return (Date.now() - parseInt(dismissed)) / (1000 * 60 * 60 * 24) > 7;
 }
 window.addEventListener('appinstalled', () => {
-  console.log('✅ PWA instalada');
-  isPWAInstalled = true;
-  deferredPrompt = null;
-  hideInstallBanner();
+  isPWAInstalled = true; deferredPrompt = null; hideInstallBanner();
   showToast('check_circle', t('pwaInstalled'));
 });
 
@@ -3734,32 +3285,28 @@ document.addEventListener('DOMContentLoaded', () => {
   checkIfPWAInstalled();
   updateSplashGreeting();
   updateDateFilterUI();
+  renderEscapaditasPanel();
 });
+
 window.addEventListener('resize', () => { updateSidebarState(); updateOverlay(); });
 
-/* ============================================
-   VERIFICACIÓN PERIÓDICA DE CAMBIO DE TEMA FESTIVO
-   ============================================ */
+// Escape key para cerrar modales
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeEventDetail();
+    closeSubmenu();
+    closeDateFilterPanel();
+  }
+});
+
+// Verificación periódica de tema festivo
 setInterval(() => {
   const newFestiveTheme = detectFestiveTheme();
   if (newFestiveTheme.id !== currentFestiveTheme.id) {
-    console.log('🎉 Cambio de temporada detectado');
     applyFestiveTheme(newFestiveTheme);
     if (map) updateMapStyles(newFestiveTheme);
   }
-}, 60 * 60 * 1000); // Cada hora
-
-/* ============================================
-   ESTILOS ADICIONALES PARA ANIMACIÓN
-   ============================================ */
-const styleTag = document.createElement('style');
-styleTag.textContent = `
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .festive-banner {
-    pointer-events: none;
-  }
-`;
-document.head.appendChild(styleTag);
+}, 60 * 60 * 1000);
 </script>
 
 <script>
