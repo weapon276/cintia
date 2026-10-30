@@ -815,8 +815,7 @@
     "image_url": "https://www.feriamx.com/images/pan_de_muerto_casa_rosa.jpg",
     "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
     "primary_venue": {
-      "name": "Casa Rosa Luis Barragán"
-    
+      "name": "Casa Rosa Luis Barragán"  
   },
   {
     "name": "Festival del Pan de Muerto 2026 - Sede Club de Leones",
@@ -829,7 +828,6 @@
     "url": "https://www.informador.mx/jalisco/festival-del-pan-de-muerto-2026-en-guadalajara-fechas-sedes-y-horarios-20260928-0097.html",
     "primary_venue": {
       "name": "Club de Leones de Guadalajara"
-    }
   },
   {
     "name": "Cuisillos - Fiestas de Octubre 2026",
@@ -842,7 +840,6 @@
     "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
     "primary_venue": {
       "name": "Foro Principal - Auditorio Benito Juárez"
-    
   },
   {
     "name": "Mariachi Internacional CHG - Fiestas de Octubre 2026",
@@ -854,8 +851,7 @@
     "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/mariachi_chg.jpg",
     "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
     "primary_venue": {
-      "name": "Foro Principal - Auditorio Benito Juárez"
-    
+      "name": "Foro Principal - Auditorio Benito Juárez"    
   },
   {
     "name": "El Tri - Fiestas de Octubre 2026",
@@ -867,8 +863,7 @@
     "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri.jpg",
     "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
     "primary_venue": {
-      "name": "Foro Principal - Auditorio Benito Juárez"
-    
+      "name": "Foro Principal - Auditorio Benito Juárez"    
   },
   {
     "name": "Carlos Rivera - Gran Cierre Fiestas de Octubre 2026",
@@ -880,8 +875,7 @@
     "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera.jpg",
     "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
     "primary_venue": {
-      "name": "Foro Principal - Auditorio Benito Juárez"
-    
+      "name": "Foro Principal - Auditorio Benito Juárez"    
   },
   {
     "name": "Calaverandia 2026 - Parque Temático de Día de Muertos",
@@ -893,8 +887,7 @@
     "image_url": "https://calaverandia.com.mx/images/calaverandia_banner.jpg",
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
-      "name": "Parque Ávila Camacho"
-    
+      "name": "Parque Ávila Camacho"    
   },
   {
     "name": "Tina y Tomás - Obra Infantil y Familiar",
@@ -906,8 +899,7 @@
     "image_url": "https://www.pieshinchadosteatro.com/images/tina_y_tomas.jpg",
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
-      "name": "Teatro Alarife Martín Casillas"
-    
+      "name": "Teatro Alarife Martín Casillas"    
   },
   {
     "name": "Festival de Día de Muertos: Ofrendas y Talleres Infantiles",
@@ -919,8 +911,7 @@
     "image_url": "https://museocabanas.jalisco.gob.mx/images/dia_de_muertos_cabanas.jpg",
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
-      "name": "Museo Cabañas (Hospicio Cabañas)"
-    
+      "name": "Museo Cabañas (Hospicio Cabañas)"    
   },
   {
     "name": "Harry Potter y el Prisionero de Azkaban - Concierto Sinfónico en Vivo",
@@ -932,8 +923,7 @@
     "image_url": "https://palcco.com/images/harry_potter_sinfonico.jpg",
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
-      "name": "Teatro José Pablo Moncayo - PALCCO"
-    
+      "name": "Teatro José Pablo Moncayo - PALCCO"   
   },
   {
     "name": "Exposición Interactiva 'Mi querido Pinocho'",
@@ -945,8 +935,6 @@
     "image_url": "https://maz.zapopan.gob.mx/images/pinocho_expo.jpg",
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
-      "name": "Museo de Arte de Zapopan (MAZ)"
-    
+      "name": "Museo de Arte de Zapopan (MAZ)"  
   }
-
 ]
