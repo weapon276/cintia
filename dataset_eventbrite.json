@@ -805,4 +805,148 @@
     "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1195066552%2F2376304974283%2F1%2Foriginal.20261005-120003?auto=format%2Ccompress&q=75&sharp=10&s=62df9976455b79a795d9d99b1ab1ee1c",
     "url": "https://www.eventbrite.com.mx/e/musical-dreams-2-la-magia-de-disney-se-hace-realidad-tickets-2002942931225"
   }
+  {
+    "name": "Festival del Pan de Muerto 2026 - Sede Casa Rosa Luis Barragán",
+    "start_date": "2026-10-29",
+    "start_time": "16:00",
+    "latitude": "20.658210",
+    "longitude": "-103.389240",
+    "summary": "Cuarta edición del Festival del Pan de Muerto organizado por la Feria de Productores. Muestra de panadería artesanal, masa madre, opciones veganas, rellenos tradicionales y talleres de maridaje de chocolate.",
+    "image_url": "https://www.feriamx.com/images/pan_de_muerto_casa_rosa.jpg",
+    "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "primary_venue": {
+      "name": "Casa Rosa Luis Barragán"
+    }
+  },
+  {
+    "name": "Festival del Pan de Muerto 2026 - Sede Club de Leones",
+    "start_date": "2026-10-31",
+    "start_time": "13:00",
+    "latitude": "20.651530",
+    "longitude": "-103.398510",
+    "summary": "Exposición gastronómica familiar con entrada libre. Pabellón de panaderos locales, bebidas tradicionales de cacao, repostería artesanal y actividades culturales para toda la familia.",
+    "image_url": "https://www.feriamx.com/images/pan_de_muerto_club_leones.jpg",
+    "url": "https://www.informador.mx/jalisco/festival-del-pan-de-muerto-2026-en-guadalajara-fechas-sedes-y-horarios-20260928-0097.html",
+    "primary_venue": {
+      "name": "Club de Leones de Guadalajara"
+    }
+  },
+  {
+    "name": "Cuisillos - Fiestas de Octubre 2026",
+    "start_date": "2026-10-30",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Concierto de la Banda Cuisillos en el Foro Principal del Auditorio Benito Juárez como parte de la cartelera oficial de las Fiestas de Octubre 2026.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/cuisillos.jpg",
+    "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez"
+    }
+  },
+  {
+    "name": "Mariachi Internacional CHG - Fiestas de Octubre 2026",
+    "start_date": "2026-10-31",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Presentación especial de música vernácula mexicana con el Mariachi Internacional CHG en las Fiestas de Octubre.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/mariachi_chg.jpg",
+    "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez"
+    }
+  },
+  {
+    "name": "El Tri - Fiestas de Octubre 2026",
+    "start_date": "2026-11-01",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Noche de rock mexicano en vivo con Alex Lora y El Tri en el Foro Principal.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri.jpg",
+    "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez"
+    }
+  },
+  {
+    "name": "Carlos Rivera - Gran Cierre Fiestas de Octubre 2026",
+    "start_date": "2026-11-02",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Concierto estelar de clausura oficial de las Fiestas de Octubre 2026 a cargo de Carlos Rivera.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera.jpg",
+    "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez"
+    }
+  },
+  {
+    "name": "Calaverandia 2026 - Parque Temático de Día de Muertos",
+    "start_date": "2026-10-30",
+    "start_time": "19:00",
+    "latitude": "20.713500",
+    "longitude": "-103.376800",
+    "summary": "El parque temático del Día de Muertos con tecnología interactiva, instalaciones artísticas, iluminación monumental, espectáculos multimedia, gastronomía y atracciones familiares.",
+    "image_url": "https://calaverandia.com.mx/images/calaverandia_banner.jpg",
+    "url": "https://tiempo-mandarina.org/eventos/",
+    "primary_venue": {
+      "name": "Parque Ávila Camacho"
+    }
+  },
+  {
+    "name": "Tina y Tomás - Obra Infantil y Familiar",
+    "start_date": "2026-11-01",
+    "start_time": "13:00",
+    "latitude": "20.692200",
+    "longitude": "-103.351800",
+    "summary": "Función de teatro para niñas, niños y familias presentada por la compañía Pies Hinchados Teatro en el marco del circuito de artes escénicas de Jalisco.",
+    "image_url": "https://www.pieshinchadosteatro.com/images/tina_y_tomas.jpg",
+    "url": "https://tiempo-mandarina.org/eventos/",
+    "primary_venue": {
+      "name": "Teatro Alarife Martín Casillas"
+    }
+  },
+  {
+    "name": "Festival de Día de Muertos: Ofrendas y Talleres Infantiles",
+    "start_date": "2026-11-01",
+    "start_time": "11:00",
+    "latitude": "20.676915",
+    "longitude": "-103.337840",
+    "summary": "Recorrido por ofrendas monumentales, pintura facial infantil, talleres de modelado de calaveritas y actividades artísticas familiares dentro del histórico museo.",
+    "image_url": "https://museocabanas.jalisco.gob.mx/images/dia_de_muertos_cabanas.jpg",
+    "url": "https://tiempo-mandarina.org/eventos/",
+    "primary_venue": {
+      "name": "Museo Cabañas (Hospicio Cabañas)"
+    }
+  },
+  {
+    "name": "Harry Potter y el Prisionero de Azkaban - Concierto Sinfónico en Vivo",
+    "start_date": "2026-11-07",
+    "start_time": "19:30",
+    "latitude": "20.728500",
+    "longitude": "-103.418200",
+    "summary": "Proyección inmersiva de la película completa con orquesta filarmónica interpretando la banda sonora en vivo. Evento ideal para jóvenes, adolescentes y familias.",
+    "image_url": "https://palcco.com/images/harry_potter_sinfonico.jpg",
+    "url": "https://tiempo-mandarina.org/eventos/",
+    "primary_venue": {
+      "name": "Teatro José Pablo Moncayo - PALCCO"
+    }
+  },
+  {
+    "name": "Exposición Interactiva 'Mi querido Pinocho'",
+    "start_date": "2026-11-26",
+    "start_time": "10:00",
+    "latitude": "20.721400",
+    "longitude": "-103.392100",
+    "summary": "Muestra de arte y diseño gráfico concebida por el ADI Design Museum de Milán con 62 obras inéditas y talleres interactivos para niños y adolescentes.",
+    "image_url": "https://maz.zapopan.gob.mx/images/pinocho_expo.jpg",
+    "url": "https://tiempo-mandarina.org/eventos/",
+    "primary_venue": {
+      "name": "Museo de Arte de Zapopan (MAZ)"
+    }
+  }
+
 ]
