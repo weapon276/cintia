@@ -49,6 +49,18 @@
     --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     --z-splash: 5000; --z-map: 1; --z-chips: 900; --z-header: 1000; --z-submenu: 1500;
     --z-overlay: 1900; --z-sidebar: 2000; --z-banner: 2400; --z-toast: 3000;
+    /* Festive theme variables (override dynamically) */
+    --festive-splash-from: #4F46E5;
+    --festive-splash-mid: #7C3AED;
+    --festive-splash-to: #EC4899;
+    --festive-primary: #4F46E5;
+    --festive-accent: #EC4899;
+    --festive-map-water: #c9e4de;
+    --festive-map-park: #e5f5e0;
+    --festive-map-highway: #dadada;
+    --festive-map-road: #ffffff;
+    --festive-map-geometry: #f5f5f5;
+    --festive-map-text: #616161;
   }
   html[data-theme="dark"] {
     --primary: #818CF8; --primary-dark: #6366F1; --primary-light: #A5B4FC;
@@ -64,22 +76,39 @@
     --shadow-2: 0 2px 6px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.35);
     --shadow-3: 0 8px 24px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
     --shadow-4: 0 20px 48px rgba(0,0,0,0.6);
+    --festive-splash-from: #1E1B4B;
+    --festive-splash-mid: #312E81;
+    --festive-splash-to: #500724;
   }
   html, body { height: 100%; overflow: hidden; }
   body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; height: 100vh; height: 100dvh; position: fixed; width: 100%; overscroll-behavior: none; transition: background .3s var(--ease-standard), color .3s var(--ease-standard); }
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
+  /* FESTIVE OVERRIDES */
+  html.festive-active {
+    --primary: var(--festive-primary);
+    --primary-dark: var(--festive-primary);
+    --primary-light: var(--festive-primary);
+    --accent: var(--festive-accent);
+  }
+  html.festive-active .splash {
+    background: linear-gradient(135deg, var(--festive-splash-from) 0%, var(--festive-splash-mid) 50%, var(--festive-splash-to) 100%);
+  }
+  
   /* SPLASH */
   .splash {
     position: fixed; inset: 0; z-index: var(--z-splash);
-    background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #EC4899 100%);
+    background: linear-gradient(135deg, var(--festive-splash-from, #4F46E5) 0%, var(--festive-splash-mid, #7C3AED) 50%, var(--festive-splash-to, #EC4899) 100%);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 24px; padding: 32px;
     transition: opacity .6s var(--ease-emphasized), visibility .6s;
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   html[data-theme="dark"] .splash { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%); }
+  html[data-theme="dark"].festive-active .splash {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #2a0a0a 100%);
+  }
   .splash-logo {
     width: 96px; height: 96px; border-radius: 28px;
     background: rgba(255, 255, 255, 0.18);
@@ -120,6 +149,17 @@
     color: rgba(255, 255, 255, 0.6); letter-spacing: 0.1em; text-transform: uppercase;
     animation: splashFadeIn .8s var(--ease-emphasized) .8s both;
   }
+  .splash-festive-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: #FFFFFF; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-top: 8px;
+    animation: splashFadeIn .8s var(--ease-emphasized) .5s both;
+  }
+  .splash-festive-badge .ms { font-size: 16px; }
   
   #map { position: absolute; inset: 0; z-index: var(--z-map); background: var(--surface-2); }
   html[data-theme="dark"] #map { filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
@@ -551,7 +591,7 @@
   .event-card:hover::before { opacity: 1; }
   .event-card:active { transform: scale(0.985) translateY(0); }
   
-  .event-photo {
+    .event-photo {
     width: 100px; height: auto; flex-shrink: 0;
     background: var(--card-bg, var(--primary-container));
     display: grid; place-items: center; overflow: hidden;
@@ -783,6 +823,63 @@
   
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   
+  /* FESTIVE CONFETTI / DECORATIONS */
+  .festive-confetti {
+    position: fixed; inset: 0; pointer-events: none; z-index: calc(var(--z-splash) - 1);
+    overflow: hidden;
+  }
+  .festive-confetti-piece {
+    position: absolute;
+    width: 10px; height: 10px;
+    opacity: 0.85;
+    animation: festiveFall linear infinite;
+    border-radius: 2px;
+  }
+  @keyframes festiveFall {
+    0% { transform: translateY(-100vh) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(720deg); }
+  }
+  
+  /* FESTIVE BANNER */
+  .festive-banner {
+    position: absolute;
+    top: calc(84px + var(--safe-top));
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    z-index: var(--z-header);
+    background: var(--surface);
+    border: 2px solid var(--festive-primary);
+    border-radius: var(--r-full);
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-3);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .4s var(--ease-spring);
+    pointer-events: none;
+    max-width: calc(100% - 32px);
+  }
+  .festive-banner.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+  .festive-banner .ms {
+    font-size: 20px;
+    color: var(--festive-primary);
+  }
+  .festive-banner-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
   @media (max-width: 1199px) {
     .main-categories {
       right: 12px; top: auto;
@@ -812,6 +909,7 @@
     .splash-logo { width: 80px; height: 80px; }
     .splash-logo .ms { font-size: 44px; }
     .date-filter-panel { width: 90%; max-width: 340px; }
+    .festive-banner { top: calc(76px + var(--safe-top)); font-size: 11px; }
   }
   
   @media (min-width: 768px) and (max-width: 1199px) {
@@ -822,7 +920,7 @@
   
   @media (min-width: 1200px) {
     .sidebar { transform: translateX(0); }
-    .sidebar-right { transform: translateX(0); } /* En desktop, Escapaditas también se abre por defecto si se desea, pero lo controlamos con JS */
+    .sidebar-right { transform: translateX(0); }
     body:not(.sidebar-closed) .header { left: 416px; }
     body.sidebar-closed .header { left: 16px; }
     body.sidebar-closed .sidebar { transform: translateX(-100%); }
@@ -831,7 +929,6 @@
     body.escapaditas-closed .sidebar-right { transform: translateX(100%); }
     
     .header { left: 416px; transition: left .4s var(--ease-emphasized); }
-    /* Ajuste para cuando ambas están abiertas */
     body:not(.sidebar-closed):not(.escapaditas-closed) .header {
       left: 416px;
       right: 416px;
@@ -847,18 +944,24 @@
 
 <div class="splash" id="splash">
   <div class="splash-logo">
-    <span class="ms fill">location_city</span>
+    <span class="ms fill" id="splashLogoIcon">location_city</span>
   </div>
   <div class="splash-greeting">
     <span class="splash-greeting-emoji" id="splashEmoji">☀️</span>
     <span id="splashGreeting">Buenos días</span>
   </div>
   <div class="splash-subtitle" id="splashSubtitle">Descubre museos y eventos en Guadalajara</div>
+  <div class="splash-festive-badge" id="splashFestiveBadge" style="display: none;">
+    <span class="ms fill" id="splashFestiveIcon">celebration</span>
+    <span id="splashFestiveLabel">Temporada festiva</span>
+  </div>
   <div class="splash-loader">
     <div class="splash-loader-bar"></div>
   </div>
   <div class="splash-brand">GDL CULTURAL</div>
 </div>
+
+<div class="festive-confetti" id="festiveConfetti"></div>
 
 <div class="overlay" id="overlay" onclick="handleOverlayClick()"></div>
 
@@ -866,7 +969,7 @@
 <aside class="sidebar" id="sidebar" aria-label="Panel de resultados">
   <div class="sidebar-top">
     <div class="brand">
-      <div class="brand-logo"><span class="ms fill">location_city</span></div>
+      <div class="brand-logo"><span class="ms fill" id="brandLogoIcon">location_city</span></div>
       <div class="brand-text">
         <h1 id="brandTitle">GDL Cultural</h1>
         <p id="brandSubtitle">Museos y eventos en Guadalajara</p>
@@ -908,7 +1011,6 @@
       <span class="ms fill">explore</span>
       <span>Actualizar ubicación</span>
     </button>
-    <!-- INDICADOR DE FILTRO DE FECHA EN ESCAPADITAS -->
     <div id="escapaditasDateFilterIndicator" style="display:none; margin-top: 12px; padding: 8px 12px; background: var(--accent-container); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 6px;">
       <span class="ms fill" style="font-size: 16px;">calendar_month</span>
       <span id="escapaditasDateLabel">Filtrando por fecha</span>
@@ -934,6 +1036,12 @@
     <button class="icon-btn" onclick="toggleDateFilterPanel(event)" aria-label="Filtrar por fecha" id="optionsBtn"><span class="ms">tune</span></button>
   </div>
 </header>
+
+<!-- FESTIVE BANNER -->
+<div class="festive-banner" id="festiveBanner">
+  <span class="ms fill" id="festiveBannerIcon">celebration</span>
+  <span class="festive-banner-text" id="festiveBannerText">Temporada festiva</span>
+</div>
 
 <!-- PANEL FLOTANTE DE FECHAS -->
 <div class="date-filter-panel" id="dateFilterPanel">
@@ -983,7 +1091,7 @@
   </button>
 </div>
 
-<!-- CONTENEDOR DE CATEGORÍAS Y ESCAPADITAS A LA DERECHA (SOLO DOS BOTONES) -->
+<!-- CONTENEDOR DE CATEGORÍAS Y ESCAPADITAS A LA DERECHA -->
 <div class="main-categories" id="mainCategories"></div>
 
 <div class="submenu" id="submenu">
@@ -1033,6 +1141,696 @@ let localEventbriteEvents = [];
 let localEventsLoaded = false;
 
 /* ============================================
+   SISTEMA DE TEMAS FESTIVOS
+   ============================================ */
+const FESTIVE_THEMES = {
+  default: {
+    id: 'default',
+    name: 'GDL Cultural',
+    icon: 'location_city',
+    emoji: '☀️',
+    greeting: {
+      es: 'Buenos días',
+      en: 'Good morning'
+    },
+    subtitle: {
+      es: 'Descubre museos y eventos en Guadalajara',
+      en: 'Discover museums and events in Guadalajara'
+    },
+    colors: {
+      splashFrom: '#4F46E5',
+      splashMid: '#7C3AED',
+      splashTo: '#EC4899',
+      primary: '#4F46E5',
+      accent: '#EC4899',
+      map: {
+        water: '#c9e4de',
+        park: '#e5f5e0',
+        highway: '#dadada',
+        road: '#ffffff',
+        geometry: '#f5f5f5',
+        text: '#616161'
+      }
+    },
+    confetti: false,
+    banner: null
+  },
+  reyes: {
+    id: 'reyes',
+    name: 'Día de Reyes',
+    icon: 'cake',
+    emoji: '👑',
+    greeting: {
+      es: '¡Feliz Día de Reyes!',
+      en: 'Happy Three Kings Day!'
+    },
+    subtitle: {
+      es: 'Celebra la magia de los Reyes Magos en Guadalajara',
+      en: 'Celebrate the magic of the Three Kings in Guadalajara'
+    },
+    colors: {
+      splashFrom: '#1E3A8A',
+      splashMid: '#F59E0B',
+      splashTo: '#DC2626',
+      primary: '#B45309',
+      accent: '#DC2626',
+      map: {
+        water: '#bfdbfe',
+        park: '#fef3c7',
+        highway: '#fcd34d',
+        road: '#fffbeb',
+        geometry: '#fef9e7',
+        text: '#92400e'
+      }
+    },
+    confetti: ['#F59E0B', '#DC2626', '#1E3A8A', '#FBBF24'],
+    banner: {
+      es: '👑 Día de Reyes · 6 de enero',
+      en: '👑 Three Kings Day · January 6'
+    }
+  },
+  san_valentin: {
+    id: 'san_valentin',
+    name: 'San Valentín',
+    icon: 'favorite',
+    emoji: '💕',
+    greeting: {
+      es: '¡Feliz San Valentín!',
+      en: 'Happy Valentine\'s Day!'
+    },
+    subtitle: {
+      es: 'Los mejores planes románticos en Guadalajara',
+      en: 'The best romantic plans in Guadalajara'
+    },
+    colors: {
+      splashFrom: '#BE123C',
+      splashMid: '#EC4899',
+      splashTo: '#F472B6',
+      primary: '#DB2777',
+      accent: '#F43F5E',
+      map: {
+        water: '#fbcfe8',
+        park: '#fce7f3',
+        highway: '#f9a8d4',
+        road: '#fdf2f8',
+        geometry: '#fff1f2',
+        text: '#9f1239'
+      }
+    },
+    confetti: ['#EC4899', '#F43F5E', '#FB7185', '#FDA4AF', '#FECDD3'],
+    banner: {
+      es: '💕 San Valentín · 14 de febrero',
+      en: '💕 Valentine\'s Day · February 14'
+    }
+  },
+  carnaval: {
+    id: 'carnaval',
+    name: 'Carnaval',
+    icon: 'celebration',
+    emoji: '🎭',
+    greeting: {
+      es: '¡Feliz Carnaval!',
+      en: 'Happy Carnival!'
+    },
+    subtitle: {
+      es: 'Vive la fiesta y el color del Carnaval tapatío',
+      en: 'Live the party and color of Guadalajara Carnival'
+    },
+    colors: {
+      splashFrom: '#7C3AED',
+      splashMid: '#F59E0B',
+      splashTo: '#EC4899',
+      primary: '#7C3AED',
+      accent: '#F59E0B',
+      map: {
+        water: '#c4b5fd',
+        park: '#fef3c7',
+        highway: '#fcd34d',
+        road: '#faf5ff',
+        geometry: '#f3e8ff',
+        text: '#6b21a8'
+      }
+    },
+    confetti: ['#7C3AED', '#F59E0B', '#EC4899', '#06B6D4', '#10B981'],
+    banner: {
+      es: '🎭 Carnaval · Fecha variable (feb-mar)',
+      en: '🎭 Carnival · Variable date (Feb-Mar)'
+    }
+  },
+  dia_nino: {
+    id: 'dia_nino',
+    name: 'Día del Niño',
+    icon: 'child_care',
+    emoji: '🎈',
+    greeting: {
+      es: '¡Feliz Día del Niño!',
+      en: 'Happy Children\'s Day!'
+    },
+    subtitle: {
+      es: 'Planes divertidos para los más pequeños',
+      en: 'Fun plans for the little ones'
+    },
+    colors: {
+      splashFrom: '#06B6D4',
+      splashMid: '#F59E0B',
+      splashTo: '#EC4899',
+      primary: '#0891B2',
+      accent: '#F59E0B',
+      map: {
+        water: '#a5f3fc',
+        park: '#d1fae5',
+        highway: '#fde68a',
+        road: '#f0fdfa',
+        geometry: '#ecfeff',
+        text: '#155e75'
+      }
+    },
+    confetti: ['#06B6D4', '#F59E0B', '#EC4899', '#10B981', '#8B5CF6', '#F43F5E'],
+    banner: {
+      es: '🎈 Día del Niño · 30 de abril',
+      en: '🎈 Children\'s Day · April 30'
+    }
+  },
+  dia_madre: {
+    id: 'dia_madre',
+    name: 'Día de las Madres',
+    icon: 'local_florist',
+    emoji: '🌹',
+    greeting: {
+      es: '¡Feliz Día de las Madres!',
+      en: 'Happy Mother\'s Day!'
+    },
+    subtitle: {
+      es: 'Celebra a mamá con los mejores planes',
+      en: 'Celebrate mom with the best plans'
+    },
+    colors: {
+      splashFrom: '#BE185D',
+      splashMid: '#F472B6',
+      splashTo: '#FBCFE8',
+      primary: '#BE185D',
+      accent: '#EC4899',
+      map: {
+        water: '#fbcfe8',
+        park: '#fce7f3',
+        highway: '#f9a8d4',
+        road: '#fdf2f8',
+        geometry: '#fff1f2',
+        text: '#831843'
+      }
+    },
+    confetti: ['#EC4899', '#F472B6', '#FBCFE8', '#BE185D', '#FDA4AF'],
+       banner: {
+      es: '🌹 Día de las Madres · 10 de mayo',
+      en: '🌹 Mother\'s Day · May 10'
+    }
+  },
+  dia_padre: {
+    id: 'dia_padre',
+    name: 'Día del Padre',
+    icon: 'sports_bar',
+    emoji: '👔',
+    greeting: {
+      es: '¡Feliz Día del Padre!',
+      en: 'Happy Father\'s Day!'
+    },
+    subtitle: {
+      es: 'Celebra a papá con los mejores planes',
+      en: 'Celebrate dad with the best plans'
+    },
+    colors: {
+      splashFrom: '#1E40AF',
+      splashMid: '#3B82F6',
+      splashTo: '#60A5FA',
+      primary: '#1E40AF',
+      accent: '#3B82F6',
+      map: {
+        water: '#bfdbfe',
+        park: '#dbeafe',
+        highway: '#93c5fd',
+        road: '#eff6ff',
+        geometry: '#eff6ff',
+        text: '#1e3a8a'
+      }
+    },
+    confetti: ['#1E40AF', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE'],
+    banner: {
+      es: '👔 Día del Padre · 3er domingo de junio',
+      en: '👔 Father\'s Day · 3rd Sunday of June'
+    }
+  },
+  independencia: {
+    id: 'independencia',
+    name: 'Independencia de México',
+    icon: 'flag',
+    emoji: '🇲🇽',
+    greeting: {
+      es: '¡Viva México!',
+      en: 'Viva Mexico!'
+    },
+    subtitle: {
+      es: 'Celebra la Independencia de México en Guadalajara',
+      en: 'Celebrate Mexico\'s Independence in Guadalajara'
+    },
+    colors: {
+      splashFrom: '#006847',
+      splashMid: '#CE1126',
+      splashTo: '#FFFFFF',
+      primary: '#006847',
+      accent: '#CE1126',
+      map: {
+        water: '#a7f3d0',
+        park: '#d1fae5',
+        highway: '#fca5a5',
+        road: '#f0fdf4',
+        geometry: '#ecfdf5',
+        text: '#065f46'
+      }
+    },
+    confetti: ['#006847', '#CE1126', '#FFFFFF', '#10B981', '#EF4444'],
+    banner: {
+      es: '🇲🇽 Independencia de México · 15-16 de septiembre',
+      en: '🇲🇽 Mexico\'s Independence · Sep 15-16'
+    }
+  },
+  halloween: {
+    id: 'halloween',
+    name: 'Halloween',
+    icon: 'skull',
+    emoji: '🎃',
+    greeting: {
+      es: '¡Feliz Halloween!',
+      en: 'Happy Halloween!'
+    },
+    subtitle: {
+      es: 'Los planes más escalofriantes en Guadalajara',
+      en: 'The spookiest plans in Guadalajara'
+    },
+    colors: {
+      splashFrom: '#1A1A1A',
+      splashMid: '#EA580C',
+      splashTo: '#7C2D12',
+      primary: '#EA580C',
+      accent: '#A855F7',
+      map: {
+        water: '#1f2937',
+        park: '#292524',
+        highway: '#78350f',
+        road: '#1c1917',
+        geometry: '#1a1a1a',
+        text: '#d4d4d8'
+      }
+    },
+    confetti: ['#EA580C', '#A855F7', '#1A1A1A', '#10B981', '#F59E0B'],
+    banner: {
+      es: '🎃 Halloween · 31 de octubre',
+      en: '🎃 Halloween · October 31'
+    },
+    darkMap: true
+  },
+  dia_muertos: {
+    id: 'dia_muertos',
+    name: 'Día de Muertos',
+    icon: 'local_florist',
+    emoji: '💀',
+    greeting: {
+      es: '¡Feliz Día de Muertos!',
+      en: 'Happy Day of the Dead!'
+    },
+    subtitle: {
+      es: 'Celebra la tradición más hermosa de México',
+      en: 'Celebrate Mexico\'s most beautiful tradition'
+    },
+    colors: {
+      splashFrom: '#1E1B4B',
+      splashMid: '#7C2D12',
+      splashTo: '#EA580C',
+      primary: '#C2410C',
+      accent: '#F97316',
+      map: {
+        water: '#312e81',
+        park: '#422006',
+        highway: '#9a3412',
+        road: '#1c1917',
+        geometry: '#1e1b4b',
+        text: '#fed7aa'
+      }
+    },
+    confetti: ['#F97316', '#FBBF24', '#C2410C', '#EC4899', '#8B5CF6', '#FDE047'],
+    banner: {
+      es: '💀 Día de Muertos · 1-2 de noviembre',
+      en: '💀 Day of the Dead · Nov 1-2'
+    },
+    darkMap: true
+  },
+  navidad: {
+    id: 'navidad',
+    name: 'Navidad',
+    icon: 'celebration',
+    emoji: '🎄',
+    greeting: {
+      es: '¡Feliz Navidad!',
+      en: 'Merry Christmas!'
+    },
+    subtitle: {
+      es: 'Vive la magia navideña en Guadalajara',
+      en: 'Live the Christmas magic in Guadalajara'
+    },
+    colors: {
+      splashFrom: '#065F46',
+      splashMid: '#DC2626',
+      splashTo: '#F59E0B',
+      primary: '#047857',
+      accent: '#DC2626',
+      map: {
+        water: '#a7f3d0',
+        park: '#d1fae5',
+        highway: '#fca5a5',
+        road: '#fef2f2',
+        geometry: '#f0fdf4',
+        text: '#065f46'
+      }
+    },
+    confetti: ['#DC2626', '#10B981', '#F59E0B', '#FFFFFF', '#065F46', '#FDE047'],
+    banner: {
+      es: '🎄 Navidad · 24-25 de diciembre',
+      en: '🎄 Christmas · Dec 24-25'
+    }
+  },
+  ano_nuevo: {
+    id: 'ano_nuevo',
+    name: 'Año Nuevo',
+    icon: 'auto_awesome',
+    emoji: '🎆',
+    greeting: {
+      es: '¡Feliz Año Nuevo!',
+      en: 'Happy New Year!'
+    },
+    subtitle: {
+      es: 'Comienza el año con los mejores planes',
+      en: 'Start the year with the best plans'
+    },
+    colors: {
+      splashFrom: '#1E1B4B',
+      splashMid: '#7C3AED',
+      splashTo: '#F59E0B',
+      primary: '#7C3AED',
+      accent: '#F59E0B',
+      map: {
+        water: '#c4b5fd',
+        park: '#fef3c7',
+        highway: '#fcd34d',
+        road: '#faf5ff',
+        geometry: '#f3e8ff',
+        text: '#4c1d95'
+      }
+    },
+    confetti: ['#F59E0B', '#7C3AED', '#EC4899', '#06B6D4', '#10B981', '#FDE047'],
+    banner: {
+      es: '🎆 Año Nuevo · 31 dic - 1 ene',
+      en: '🎆 New Year · Dec 31 - Jan 1'
+    }
+  }
+};
+
+let currentFestiveTheme = FESTIVE_THEMES.default;
+
+/* ============================================
+   DETECCIÓN DE FESTIVIDAD ACTUAL
+   ============================================ */
+function getNthWeekdayOfMonth(year, month, weekday, nth) {
+  // month: 0-11, weekday: 0=domingo...6=sábado, nth: 1-5
+  const firstDay = new Date(year, month, 1);
+  let dayOffset = (weekday - firstDay.getDay() + 7) % 7;
+  const day = 1 + dayOffset + (nth - 1) * 7;
+  return new Date(year, month, day);
+}
+
+function detectFestiveTheme() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth(); // 0-11
+  const date = now.getDate();
+  
+  // Definir rangos de festividades (con margen de días antes/después)
+  
+  // Día de Reyes: 1-7 enero
+  if (month === 0 && date >= 1 && date <= 7) {
+    return FESTIVE_THEMES.reyes;
+  }
+  
+  // San Valentín: 7-15 febrero
+  if (month === 1 && date >= 7 && date <= 15) {
+    return FESTIVE_THEMES.san_valentin;
+  }
+  
+  // Carnaval: fecha variable (febrero-marzo) - aproximación últimos días de feb
+  if (month === 1 && date >= 20) {
+    return FESTIVE_THEMES.carnaval;
+  }
+  if (month === 2 && date <= 5) {
+    return FESTIVE_THEMES.carnaval;
+  }
+  
+  // Día del Niño: 25 abril - 2 mayo
+  if ((month === 3 && date >= 25) || (month === 4 && date <= 2)) {
+    return FESTIVE_THEMES.dia_nino;
+  }
+  
+  // Día de las Madres: 5-12 mayo
+  if (month === 4 && date >= 5 && date <= 12) {
+    return FESTIVE_THEMES.dia_madre;
+  }
+  
+  // Día del Padre: 3er domingo de junio (rango 10-21 junio)
+  if (month === 5) {
+    const thirdSunday = getNthWeekdayOfMonth(year, 5, 0, 3);
+    const fatherDayDate = thirdSunday.getDate();
+    if (date >= fatherDayDate - 3 && date <= fatherDayDate + 2) {
+      return FESTIVE_THEMES.dia_padre;
+    }
+  }
+  
+  // Independencia de México: 10-17 septiembre
+  if (month === 8 && date >= 10 && date <= 17) {
+    return FESTIVE_THEMES.independencia;
+  }
+  
+  // Halloween: 25 octubre - 1 noviembre (antes de Día de Muertos)
+  if (month === 9 && date >= 25) {
+    return FESTIVE_THEMES.halloween;
+  }
+  if (month === 10 && date === 1) {
+    return FESTIVE_THEMES.halloween;
+  }
+  
+  // Día de Muertos: 1-5 noviembre
+  if (month === 10 && date >= 1 && date <= 5) {
+    return FESTIVE_THEMES.dia_muertos;
+  }
+  
+  // Navidad: 15-30 diciembre
+  if (month === 11 && date >= 15 && date <= 30) {
+    return FESTIVE_THEMES.navidad;
+  }
+  
+  // Año Nuevo: 31 diciembre - 5 enero
+  if ((month === 11 && date === 31) || (month === 0 && date <= 5)) {
+    return FESTIVE_THEMES.ano_nuevo;
+  }
+  
+  return FESTIVE_THEMES.default;
+}
+
+function applyFestiveTheme(theme) {
+  currentFestiveTheme = theme;
+  const html = document.documentElement;
+  
+  // Aplicar variables CSS de colores festivos
+  const colors = theme.colors;
+  html.style.setProperty('--festive-splash-from', colors.splashFrom);
+  html.style.setProperty('--festive-splash-mid', colors.splashMid);
+  html.style.setProperty('--festive-splash-to', colors.splashTo);
+  html.style.setProperty('--festive-primary', colors.primary);
+  html.style.setProperty('--festive-accent', colors.accent);
+  
+  // Aplicar clase de tema festivo activo
+  if (theme.id !== 'default') {
+    html.classList.add('festive-active');
+  } else {
+    html.classList.remove('festive-active');
+  }
+  
+  // Actualizar splash
+  const splashLogoIcon = document.getElementById('splashLogoIcon');
+  if (splashLogoIcon) splashLogoIcon.textContent = theme.icon;
+  
+  const splashEmoji = document.getElementById('splashEmoji');
+  if (splashEmoji) splashEmoji.textContent = theme.emoji;
+  
+  const splashGreeting = document.getElementById('splashGreeting');
+  if (splashGreeting) {
+    const lang = currentLang || 'es';
+    splashGreeting.textContent = theme.greeting[lang] || theme.greeting.es;
+  }
+  
+  const splashSubtitle = document.getElementById('splashSubtitle');
+  if (splashSubtitle) {
+    const lang = currentLang || 'es';
+    splashSubtitle.textContent = theme.subtitle[lang] || theme.subtitle.es;
+  }
+  
+  // Mostrar badge festivo en splash
+  const festiveBadge = document.getElementById('splashFestiveBadge');
+  const festiveIcon = document.getElementById('splashFestiveIcon');
+  const festiveLabel = document.getElementById('splashFestiveLabel');
+  
+  if (theme.id !== 'default' && festiveBadge) {
+    festiveBadge.style.display = 'inline-flex';
+    if (festiveIcon) festiveIcon.textContent = theme.icon;
+    if (festiveLabel) {
+      const lang = currentLang || 'es';
+      const bannerText = theme.banner?.[lang] || theme.banner?.es || theme.name;
+      festiveLabel.textContent = bannerText;
+    }
+  } else if (festiveBadge) {
+    festiveBadge.style.display = 'none';
+  }
+  
+  // Actualizar brand logo
+  const brandLogoIcon = document.getElementById('brandLogoIcon');
+  if (brandLogoIcon) brandLogoIcon.textContent = theme.icon;
+  
+  // Actualizar festivo banner
+  updateFestiveBanner(theme);
+  
+  // Generar confetti si aplica
+  generateConfetti(theme);
+  
+  // Actualizar mapa con nuevos colores
+  if (map) {
+    updateMapStyles(theme);
+  }
+  
+  console.log(`🎉 Tema festivo aplicado: ${theme.name} (${theme.id})`);
+}
+
+function updateFestiveBanner(theme) {
+  const banner = document.getElementById('festiveBanner');
+  const bannerIcon = document.getElementById('festiveBannerIcon');
+  const bannerText = document.getElementById('festiveBannerText');
+  
+  if (!banner) return;
+  
+  if (theme.id !== 'default' && theme.banner) {
+    const lang = currentLang || 'es';
+    const text = theme.banner[lang] || theme.banner.es;
+    if (bannerIcon) bannerIcon.textContent = theme.icon;
+    if (bannerText) bannerText.textContent = text;
+    
+    // Mostrar después de splash
+    setTimeout(() => {
+      banner.classList.add('show');
+    }, 3000);
+  } else {
+    banner.classList.remove('show');
+  }
+}
+
+function generateConfetti(theme) {
+  const container = document.getElementById('festiveConfetti');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  if (!theme.confetti || theme.confetti.length === 0) return;
+  
+  const colors = theme.confetti;
+  const pieceCount = 30;
+  
+  for (let i = 0; i < pieceCount; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'festive-confetti-piece';
+    
+    // Color aleatorio de la paleta
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.background = color;
+    
+    // Posición horizontal aleatoria
+    piece.style.left = Math.random() * 100 + '%';
+    
+    // Tamaño variable
+    const size = 6 + Math.random() * 10;
+    piece.style.width = size + 'px';
+    piece.style.height = size + 'px';
+    
+    // Forma variable (algunos redondos)
+    if (Math.random() > 0.6) {
+      piece.style.borderRadius = '50%';
+    }
+    
+    // Duración y delay aleatorios
+    const duration = 4 + Math.random() * 4;
+    piece.style.animationDuration = duration + 's';
+    piece.style.animationDelay = Math.random() * duration + 's';
+    
+    container.appendChild(piece);
+  }
+}
+
+function updateMapStyles(theme) {
+  if (!map) return;
+  
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const festiveColors = theme.colors.map;
+  
+  // Si es tema oscuro o el festivo requiere mapa oscuro, usar estilos oscuros modificados
+  if (isDark || theme.darkMap) {
+    const darkStyles = MAP_STYLES.dark.map(style => {
+      const newStyle = JSON.parse(JSON.stringify(style));
+      if (newStyle.featureType === 'water') {
+        newStyle.stylers = [{ color: festiveColors.water }];
+      } else if (newStyle.featureType === 'poi.park') {
+        newStyle.stylers = [{ color: festiveColors.park }];
+      } else if (newStyle.featureType === 'road.highway') {
+        if (newStyle.elementType === 'geometry') {
+          newStyle.stylers = [{ color: festiveColors.highway }];
+        }
+      } else if (newStyle.featureType === 'road') {
+        if (newStyle.elementType === 'geometry') {
+          newStyle.stylers = [{ color: festiveColors.road }];
+        }
+      } else if (newStyle.elementType === 'geometry' && !newStyle.featureType) {
+        newStyle.stylers = [{ color: festiveColors.geometry }];
+      }
+      return newStyle;
+    });
+    map.setOptions({ styles: darkStyles });
+  } else {
+    const lightStyles = MAP_STYLES.light.map(style => {
+      const newStyle = JSON.parse(JSON.stringify(style));
+      if (newStyle.featureType === 'water') {
+        newStyle.stylers = [{ color: festiveColors.water }];
+      } else if (newStyle.featureType === 'poi.park') {
+        newStyle.stylers = [{ color: festiveColors.park }];
+      } else if (newStyle.featureType === 'road.highway') {
+        if (newStyle.elementType === 'geometry') {
+          newStyle.stylers = [{ color: festiveColors.highway }];
+        }
+      } else if (newStyle.featureType === 'road') {
+        if (newStyle.elementType === 'geometry') {
+          newStyle.stylers = [{ color: festiveColors.road }];
+        }
+      } else if (newStyle.elementType === 'geometry' && !newStyle.featureType) {
+        newStyle.stylers = [{ color: festiveColors.geometry }];
+      }
+      return newStyle;
+    });
+    map.setOptions({ styles: lightStyles });
+  }
+}
+
+/* ============================================
    SALUDO PERSONALIZADO SEGÚN LA HORA
    ============================================ */
 function getGreeting() {
@@ -1074,30 +1872,65 @@ function getGreeting() {
 }
 
 function updateSplashGreeting() {
-  const greeting = getGreeting();
-  const emojiEl = document.getElementById('splashEmoji');
-  const textEl = document.getElementById('splashGreeting');
-  const subtitleEl = document.getElementById('splashSubtitle');
-  if (emojiEl) emojiEl.textContent = greeting.emoji;
-  if (textEl) textEl.textContent = greeting.text;
-  if (subtitleEl) subtitleEl.textContent = greeting.subtitle;
+  // Si hay tema festivo activo, usar su saludo
+  if (currentFestiveTheme && currentFestiveTheme.id !== 'default') {
+    const theme = currentFestiveTheme;
+    const lang = currentLang || 'es';
+    
+    const emojiEl = document.getElementById('splashEmoji');
+    const textEl = document.getElementById('splashGreeting');
+    const subtitleEl = document.getElementById('splashSubtitle');
+    const logoIcon = document.getElementById('splashLogoIcon');
+    
+    if (emojiEl) emojiEl.textContent = theme.emoji;
+    if (textEl) textEl.textContent = theme.greeting[lang] || theme.greeting.es;
+    if (subtitleEl) subtitleEl.textContent = theme.subtitle[lang] || theme.subtitle.es;
+    if (logoIcon) logoIcon.textContent = theme.icon;
+    
+    // Actualizar badge festivo
+    const festiveBadge = document.getElementById('splashFestiveBadge');
+    const festiveIcon = document.getElementById('splashFestiveIcon');
+    const festiveLabel = document.getElementById('splashFestiveLabel');
+    
+    if (theme.id !== 'default' && festiveBadge) {
+      festiveBadge.style.display = 'inline-flex';
+      if (festiveIcon) festiveIcon.textContent = theme.icon;
+      if (festiveLabel) {
+        festiveLabel.textContent = theme.banner?.[lang] || theme.banner?.es || theme.name;
+      }
+    }
+  } else {
+    // Usar saludo horario normal
+    const greeting = getGreeting();
+    const emojiEl = document.getElementById('splashEmoji');
+    const textEl = document.getElementById('splashGreeting');
+    const subtitleEl = document.getElementById('splashSubtitle');
+    
+    if (emojiEl) emojiEl.textContent = greeting.emoji;
+    if (textEl) textEl.textContent = greeting.text;
+    if (subtitleEl) subtitleEl.textContent = greeting.subtitle;
+    
+    // Ocultar badge festivo
+    const festiveBadge = document.getElementById('splashFestiveBadge');
+    if (festiveBadge) festiveBadge.style.display = 'none';
+  }
 }
 
 /* ============================================
-   CATEGORÍAS DE AUDIENCIA (ICONOS Y COLORES DE LA IMAGEN)
+   CATEGORÍAS DE AUDIENCIA
    ============================================ */
 const AGE_CATEGORIES = {
   all:      { label: 'Todo público', icon: 'groups',          color: '#4F46E5', bg: '#EEF2FF' },
-  family:   { label: 'Familia',      icon: 'home',            color: '#000000', bg: '#F4F4F5' }, // Negro de la imagen
-  adults_m: { label: 'Hombres',      icon: 'man',             color: '#2563EB', bg: '#DBEAFE' }, // Azul de la imagen
-  adults_w: { label: 'Mujeres',      icon: 'woman',           color: '#EC4899', bg: '#FCE7F3' }, // Rosa de la imagen
-  teens:    { label: 'Adolescentes', icon: 'sports_esports',  color: '#8B5CF6', bg: '#EDE9FE' }, // Morado de la imagen
-  kids:     { label: 'Niños',        icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' }, // Naranja de la imagen
-  bebes:    { label: 'Bebés',        icon: 'stroller',        color: '#06B6D4', bg: '#CFFAFE' }  // Cyan de la imagen
+  family:   { label: 'Familia',      icon: 'home',            color: '#000000', bg: '#F4F4F5' },
+  adults_m: { label: 'Hombres',      icon: 'man',             color: '#2563EB', bg: '#DBEAFE' },
+  adults_w: { label: 'Mujeres',      icon: 'woman',           color: '#EC4899', bg: '#FCE7F3' },
+  teens:    { label: 'Adolescentes', icon: 'sports_esports',  color: '#8B5CF6', bg: '#EDE9FE' },
+  kids:     { label: 'Niños',        icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' },
+  bebes:    { label: 'Bebés',        icon: 'stroller',        color: '#06B6D4', bg: '#CFFAFE' }
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES (ESTILO IMAGEN)
+   CATEGORÍAS DE LUGARES
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
@@ -1152,7 +1985,7 @@ const CATEGORY_GROUPS = {
 const TRANSLATIONS = {
   es: {
     searchPlaceholder: 'Buscar museos, eventos...', brandTitle: 'GDL Cultural', brandSubtitle: 'Museos y eventos en Guadalajara',
-    searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar cerca de mí', gpsTracking: 'Ubicación en vivo',
+        searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar cerca de mí', gpsTracking: 'Ubicación en vivo',
     locationSearching: 'Buscando tu ubicación...', locationFound: 'Ubicación encontrada', locationError: 'No se pudo obtener tu ubicación',
     locationTracking: 'Rastreando ubicación', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
     noResults: 'Sin resultados',
@@ -1355,7 +2188,7 @@ const TRANSLATIONS = {
 let map, markers = [], infoWindow, placesService;
 let userMarker = null, watchId = null, isTracking = false;
 let currentCategory = 'museum';
-let currentAudience = 'all'; // Ya no se usa para filtrar, pero se mantiene por compatibilidad
+let currentAudience = 'all';
 let currentDateFilter = 'all'; 
 let currentCustomDate = ''; 
 let currentSearch = '';
@@ -1368,8 +2201,8 @@ let deferredPrompt = null;
 let isPWAInstalled = false;
 let isManualRefreshing = false;
 let currentSubmenuType = null;
-let escapaditasEvents = []; // Almacena eventos de escapaditas
-let escapaditasLocation = null; // Ubicación actual para escapaditas
+let escapaditasEvents = [];
+let escapaditasLocation = null;
 
 let mapIdleTimer = null;
 const MAP_IDLE_DELAY = 400;
@@ -1377,8 +2210,6 @@ const MAP_IDLE_DELAY = 400;
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
 const DEFAULT_RADIUS = 20000;
 const TICKETMASTER_RADIUS_KM = 25;
-// Radio aproximado para 3 horas de camino (asumiendo 80-100 km/h en promedio -> ~240-300 km)
-// Para la API de Google Places, usaremos 250,000 metros (250 km)
 const ESCAPADITAS_RADIUS_METERS = 250000;
 
 const MAP_STYLES = {
@@ -1445,7 +2276,7 @@ function categorizeEventByAge(event) {
   if (patterns.teens.test(text)) return AGE_CATEGORIES.teens;
   if (patterns.adults_w.test(text)) return AGE_CATEGORIES.adults_w;
   if (patterns.adults_m.test(text)) return AGE_CATEGORIES.adults_m;
-  if (patterns.adults.test(text)) return AGE_CATEGORIES.adults_m; // Fallback
+  if (patterns.adults.test(text)) return AGE_CATEGORIES.adults_m;
   if (patterns.family.test(text)) return AGE_CATEGORIES.family;
   return AGE_CATEGORIES.all;
 }
@@ -1454,7 +2285,6 @@ function getAgeCategoryKey(event) {
   return Object.keys(AGE_CATEGORIES).find(k => AGE_CATEGORIES[k] === cat) || 'all';
 }
 
-// NUEVA FUNCIÓN: Verifica si un evento ya pasó (basado en fecha)
 function isEventPast(event) {
   if (!event.date) return false; 
   const eventDate = new Date(event.date + 'T23:59:59'); 
@@ -1537,16 +2367,13 @@ async function loadLocalEventbriteEvents() {
     }
 
     const normalized = raw.map((item, idx) => {
-      // Extraer coordenadas con múltiples fallbacks
       const latRaw = item.latitude ?? item.lat ?? item.primary_venue?.address?.latitude;
       const lngRaw = item.longitude ?? item.lng ?? item.primary_venue?.address?.longitude;
       const lat = parseFloat(latRaw);
       const lng = parseFloat(lngRaw);
       
-      // Validar coordenadas
       if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) return null;
 
-      // Extraer datos con fallbacks
       const title = item.name || item.title || item.event_name || 'Evento Eventbrite';
       const dateStr = item.start_date || item.startDate || item.start_datetime?.slice(0, 10) || '';
       const timeStr = item.start_time || item.startTime || '';
@@ -1557,8 +2384,6 @@ async function loadLocalEventbriteEvents() {
       const description = item.summary || item.description || '';
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
-      // --- LÓGICA DE ACCESIBILIDAD Y SERVICIOS (BASADA EN INVESTIGACIÓN) ---
-      // Valores por defecto
       let wheelchairAccessible = false;
       let petFriendly = false;
       let smokeFree = false;
@@ -1566,35 +2391,18 @@ async function loadLocalEventbriteEvents() {
       const lowerTitle = title.toLowerCase();
       const lowerVenue = venueName.toLowerCase();
 
-      // 1. Museos y espacios culturales conocidos
-      if (lowerVenue.includes('cabañas')) {
-        wheelchairAccessible = true; // Tiene programa de inclusión [citation:3]
-      }
-      if (lowerVenue.includes('teatro diana')) {
-        wheelchairAccessible = true; // Tiene elevador y lugares designados [citation:10]
-        petFriendly = false; // No se permiten mascotas [citation:4][citation:10]
-      }
-      if (lowerVenue.includes('trompo mágico')) {
-        wheelchairAccessible = true; // Acceso para discapacidad [citation:5]
-      }
-      if (lowerVenue.includes('paleontología')) {
-        wheelchairAccessible = true; // Tiene rampa para sillas de ruedas [citation:19]
-      }
-      if (lowerVenue.includes('parque alcalde')) {
-        wheelchairAccessible = true; // Tiene rampas [citation:17]
-      }
-      if (lowerVenue.includes('parque de las niñas')) {
-        wheelchairAccessible = true; // Accesibilidad universal [citation:22][citation:26]
-        petFriendly = true; // Se admiten perros [citation:26]
-      }
+      if (lowerVenue.includes('cabañas')) wheelchairAccessible = true;
+      if (lowerVenue.includes('teatro diana')) { wheelchairAccessible = true; petFriendly = false; }
+      if (lowerVenue.includes('trompo mágico')) wheelchairAccessible = true;
+      if (lowerVenue.includes('paleontología')) wheelchairAccessible = true;
+      if (lowerVenue.includes('parque alcalde')) wheelchairAccessible = true;
+      if (lowerVenue.includes('parque de las niñas')) { wheelchairAccessible = true; petFriendly = true; }
 
-      // 2. Tours de Tequila (al aire libre, se asume Pet Friendly)
       if (lowerTitle.includes('tequila') || lowerTitle.includes('cantaritos')) {
-        petFriendly = true; // Asunción por ser tour al aire libre
-        smokeFree = true; // Asunción por ser tour
+        petFriendly = true;
+        smokeFree = true;
       }
 
-      // 3. Eventos en lugares cerrados (se asume libre de humo)
       if (lowerVenue.includes('foro') || lowerVenue.includes('teatro') || lowerVenue.includes('museo') || lowerVenue.includes('auditorio')) {
         smokeFree = true;
       }
@@ -1625,6 +2433,10 @@ window.initMap = function() {
   loadPreferences();
   checkIfPWAInstalled();
   
+  // DETECTAR Y APLICAR TEMA FESTIVO ANTES DE CREAR EL MAPA
+  const festiveTheme = detectFestiveTheme();
+  applyFestiveTheme(festiveTheme);
+  
   map = new google.maps.Map(document.getElementById('map'), {
     center: GDL_CENTER, zoom: 12,
     styles: currentTheme === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light,
@@ -1632,6 +2444,12 @@ window.initMap = function() {
     zoomControl: false, clickableIcons: false, gestureHandling: 'greedy',
     disableDefaultUI: true
   });
+  
+  // Aplicar estilos del mapa festivo después de crear
+  if (festiveTheme.id !== 'default') {
+    updateMapStyles(festiveTheme);
+  }
+  
   infoWindow = new google.maps.InfoWindow();
   try { placesService = new google.maps.places.PlacesService(map); }
   catch (e) { console.warn('PlacesService no disponible:', e); placesApiAvailable = false; }
@@ -1684,6 +2502,11 @@ function hideSplash() {
     splash.classList.add('hidden');
     setTimeout(() => {
       if (splash.parentNode) splash.parentNode.removeChild(splash);
+      // Mostrar banner festivo si aplica
+      if (currentFestiveTheme && currentFestiveTheme.id !== 'default') {
+        const banner = document.getElementById('festiveBanner');
+        if (banner) banner.classList.add('show');
+      }
     }, 700);
   }
 }
@@ -1715,7 +2538,6 @@ async function searchEverything() {
 function applyFilters() {
   let eventsFiltered = allEvents;
   
-  // 1. Filtrar por fecha (si aplica)
   if (currentDateFilter !== 'all') {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -1731,7 +2553,7 @@ function applyFilters() {
       if (currentDateFilter === 'tomorrow') {
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
-        return eventDate.getTime() === tomorrow.getTime();
+               return eventDate.getTime() === tomorrow.getTime();
       }
       if (currentDateFilter === 'this_weekend') {
         const dayOfWeek = today.getDay();
@@ -1766,34 +2588,17 @@ function applyFilters() {
     });
   }
 
-  // 2. Filtrar por audiencia (ELIMINADO, SE MUESTRA EN TARJETA)
-  // if (currentAudience !== 'all') {
-  //   eventsFiltered = eventsFiltered.filter(e => getAgeCategoryKey(e) === currentAudience);
-  // }
-
-  // 3. REGLA DE ORO: Eliminar eventos pasados de la lista principal y del mapa
-  //    Esto asegura que la app siempre muestre información vigente.
-  //    Si el filtro es 'custom' y el usuario elige una fecha pasada, podríamos permitirlo,
-  //    pero por defecto, los eventos vencidos se ocultan.
   const eventsForList = eventsFiltered.filter(e => !isEventPast(e) || (currentDateFilter === 'custom' && currentCustomDate));
-  
-  // 4. Unificar resultados (eventos vigentes + lugares)
   unifiedResults = [...eventsForList, ...allPlaces];
-  
-  // 5. Renderizar en el mapa (SOLO eventos vigentes para no saturar)
   const eventsForMap = eventsForList.filter(e => !isEventPast(e));
   renderMarkersForAll(eventsForMap);
-  
-  // 6. Renderizar en la lista
   renderUnifiedList();
 }
 
-function updateBadges() {
-  // Ya no se usan badges de audiencia
-}
+function updateBadges() {}
 
 /* ============================================
-   BÚSQUEDA DE LUGARES (Principal)
+   BÚSQUEDA DE LUGARES
    ============================================ */
 function searchPlacesPromise() {
   return new Promise(async (resolve) => {
@@ -1939,7 +2744,6 @@ function createMarkerSVG(color) {
 }
 
 function renderMarkersForAll(eventsForMap = []) {
-  // Limpiar marcadores anteriores y renderizar los nuevos
   clearMarkers();
   
   eventsForMap.forEach(event => {
@@ -1952,7 +2756,6 @@ function renderMarkersForAll(eventsForMap = []) {
     addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(), icon: createMarkerSVG(cat.color), iconColor: cat.color, title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
 
-  // También renderizar los eventos de escapaditas si están cargados
   escapaditasEvents.forEach(event => {
     const ageCat = categorizeEventByAge(event);
     addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(ageCat.color), iconColor: ageCat.color, title: event.title, payload: event, payloadType: 'event', id: event.id });
@@ -1973,14 +2776,13 @@ function addMarkerToMap({ lat, lng, icon, iconColor, title, payload, payloadType
 }
 
 /* ============================================
-   INFO WINDOWS (CON ICONOS Y DESCRIPCIÓN)
+   INFO WINDOWS
    ============================================ */
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
   const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
   const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 400 }) : '';
   
-  // Icono de categoría estilo píldora
   const catIconHtml = `
     <div style="display:flex; align-items:center; gap:6px; margin-bottom:10px;">
       <div style="width:32px; height:32px; border-radius:50%; background:${cat.color}; color:white; display:grid; place-items:center;">
@@ -2011,9 +2813,7 @@ function showInfoWindowEvent(marker, event) {
   const ageCat = categorizeEventByAge(event);
   const ageKey = getAgeCategoryKey(event);
   
-  // Iconos de audiencia (pequeños)
   const audienceIconsHtml = Object.values(AGE_CATEGORIES).filter(a => a.label !== 'Todo público').map(cat => {
-    // Lógica simple para mostrar iconos de audiencia según el texto del evento
     const text = (event.title + ' ' + event.description).toLowerCase();
     const matches = {
       family: /familia|familiar|niños|infantil/.test(text),
@@ -2029,7 +2829,6 @@ function showInfoWindowEvent(marker, event) {
     return '';
   }).join('');
 
-  // Iconos de accesibilidad y servicios
   let accessibilityIconsHtml = '';
   if (event.wheelchairAccessible) {
     accessibilityIconsHtml += `<span class="badge-icon wheelchair" title="Accesible para sillas de ruedas"><span class="ms fill">accessible</span></span>`;
@@ -2080,7 +2879,7 @@ function showInfoWindowEvent(marker, event) {
 }
 
 /* ============================================
-   TARJETAS (CON ICONOS Y DESCRIPCIÓN)
+   TARJETAS
    ============================================ */
 function renderGoogleCard(place) {
   const cat = getPlaceCategory(place);
@@ -2118,10 +2917,8 @@ function renderEventCard(event) {
     ? `<img src="${event.image}" alt="${title}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${ageCat.icon}</span>'">`
     : `<span class="placeholder">${ageCat.icon}</span>`;
   
-  // Descripción breve (resumen)
   const description = event.description || 'Sin descripción disponible.';
 
-  // Iconos de audiencia
   const audienceIconsHtml = Object.values(AGE_CATEGORIES).filter(a => a.label !== 'Todo público').map(cat => {
     const text = (event.title + ' ' + event.description).toLowerCase();
     const matches = {
@@ -2138,7 +2935,6 @@ function renderEventCard(event) {
     return '';
   }).join('');
 
-  // Iconos de accesibilidad y servicios
   let accessibilityIconsHtml = '';
   if (event.wheelchairAccessible) {
     accessibilityIconsHtml += `<span class="badge-icon wheelchair" title="Accesible para sillas de ruedas"><span class="ms fill">accessible</span></span>`;
@@ -2153,11 +2949,8 @@ function renderEventCard(event) {
   const srcTag = event.source === 'eventbrite'
     ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:999px;background:#FCE7F3;color:#DB2777;text-transform:uppercase;letter-spacing:.05em;">EB</span>`
     : '';
-  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : ''; // Marcar visualmente eventos pasados
+  const pastClass = isEventPast(event) ? 'opacity: 0.6;' : '';
   
-  // Icono de categoría (asumiendo que el evento tiene una categoría, por defecto usamos 'tourist_attraction')
-  // Esto es una simplificación, ya que los eventos de Eventbrite no tienen el type de Google Places.
-  // Usamos el icono de la categoría actual o uno genérico.
   const catIcon = CATEGORIES[currentCategory]?.icon || 'event';
   const catColor = CATEGORIES[currentCategory]?.color || '#4F46E5';
   const catPill = `
@@ -2198,7 +2991,7 @@ function renderUnifiedList() {
 }
 
 /* ============================================
-   SUBMENÚ (CON OPACIDAD AL SELECCIONAR)
+   SUBMENÚ
    ============================================ */
 function openSubmenu(type) {
   currentSubmenuType = type;
@@ -2287,7 +3080,6 @@ function renderSubmenuOptions(type, searchTerm) {
         e.stopPropagation();
         const key = btn.dataset.key;
         if (key === currentCategory) {
-            // Si se hace clic en la misma categoría, deseleccionar (volver a 'all')
             setCategory('all');
         } else {
             setCategory(key);
@@ -2303,17 +3095,24 @@ function closeSubmenu() {
   currentSubmenuType = null;
 }
 
+function filterSubmenuOptions() {
+  const searchTerm = document.getElementById('submenuSearchInput').value;
+  if (currentSubmenuType) {
+    renderSubmenuOptions(currentSubmenuType, searchTerm);
+  }
+}
+
 /* ============================================
-   BOTONES DE CATEGORÍA Y ESCAPADITAS (SOLO DOS)
+   BOTONES DE CATEGORÍA Y ESCAPADITAS
    ============================================ */
 function renderMainCategories() {
   const container = document.getElementById('mainCategories');
+  const festivePrimary = currentFestiveTheme.colors.primary;
   container.innerHTML = `
     <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
       <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
       <span class="badge" id="categoryBadge">0</span>
     </button>
-    <!-- BOTÓN ESCAPADITAS AQUÍ -->
     <button class="cat-btn" onclick="toggleEscapaditas()" aria-label="Escapaditas" style="background: var(--accent); color: white; border-color: var(--accent);">
       <span class="ms fill">luggage</span>
     </button>
@@ -2355,12 +3154,10 @@ function setDateFilter(key) {
   }
   applyFilters();
   
-  // ACTUALIZAR ESCAPADITAS SI ESTÁ ABIERTO
   if (isEscapaditasOpen() && escapaditasLocation) {
     searchEscapaditas(escapaditasLocation);
   }
   
-  // Actualizar indicadores visuales
   updateDateFilterUI();
   
   showToast('calendar_month', tDate(key));
@@ -2373,7 +3170,6 @@ function onCustomDateChange(val) {
   currentDateFilter = 'custom';
   applyFilters();
   
-  // ACTUALIZAR ESCAPADITAS SI ESTÁ ABIERTO
   if (isEscapaditasOpen() && escapaditasLocation) {
     searchEscapaditas(escapaditasLocation);
   }
@@ -2398,7 +3194,7 @@ function clearDateFilter() {
 }
 
 /* ============================================
-   NUEVO PANEL FLOTANTE DE FECHAS
+   PANEL FLOTANTE DE FECHAS
    ============================================ */
 function toggleDateFilterPanel(e) {
   if (e) e.stopPropagation();
@@ -2424,8 +3220,7 @@ function closeDateFilterPanel() {
 }
 
 function updateDateFilterUI() {
-  // Actualizar clases activas en las opciones
-  document.querySelectorAll('.date-option').forEach(btn => {
+   document.querySelectorAll('.date-option').forEach(btn => {
     const key = btn.dataset.date;
     if (key === currentDateFilter) {
       btn.classList.add('active');
@@ -2438,7 +3233,6 @@ function updateDateFilterUI() {
     }
   });
   
-  // Actualizar input de fecha personalizada
   const input = document.getElementById('customDateInput');
   if (input) {
     input.value = currentCustomDate;
@@ -2468,7 +3262,6 @@ function toggleSidebar() {
 function openSidebar() { document.getElementById('sidebar').classList.add('open'); updateSidebarState(); updateOverlay(); }
 function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); updateSidebarState(); updateOverlay(); }
 
-// FUNCIONES ESCAPADITAS
 function toggleEscapaditas() {
   if (isDesktop()) {
     document.body.classList.toggle('escapaditas-closed');
@@ -2482,7 +3275,6 @@ function openEscapaditas() {
   document.getElementById('sidebarRight').classList.add('open');
   document.body.classList.remove('escapaditas-closed');
   updateOverlay();
-  // Auto-actualizar ubicación al abrir
   updateEscapaditasLocation();
 }
 function closeEscapaditas() {
@@ -2499,7 +3291,7 @@ function updateOverlay() {
 function handleOverlayClick() { closeSidebar(); closeEscapaditas(); closeSubmenu(); closeDateFilterPanel(); }
 
 /* ============================================
-   LÓGICA DE ESCAPADITAS (GEOLOCALIZACIÓN + BÚSQUEDA)
+   LÓGICA DE ESCAPADITAS
    ============================================ */
 function updateEscapaditasLocation() {
   const input = document.getElementById('escapaditasLocationInput');
@@ -2519,18 +3311,15 @@ function updateEscapaditasLocation() {
       input.value = `Lat: ${loc.lat.toFixed(4)}, Lng: ${loc.lng.toFixed(4)}`;
       showToast('location_on', 'Ubicación actualizada');
       
-      // Mover el mapa a la ubicación actual (opcional, pero útil para contexto)
       map.panTo(loc);
       map.setZoom(10);
       
-      // Buscar eventos en un radio de 3 horas
       searchEscapaditas(loc);
     },
     (err) => {
       console.error('Error obteniendo ubicación:', err);
       showToast('error', 'No se pudo obtener la ubicación. Usando GDL por defecto.');
       input.value = 'Usando Guadalajara por defecto';
-      // Fallback a GDL
       escapaditasLocation = GDL_CENTER;
       searchEscapaditas(GDL_CENTER);
     },
@@ -2544,7 +3333,6 @@ async function searchEscapaditas(location) {
   const dateIndicator = document.getElementById('escapaditasDateFilterIndicator');
   const dateLabel = document.getElementById('escapaditasDateLabel');
   
-  // Actualizar el subtítulo y el indicador de fecha
   if (currentDateFilter !== 'all') {
     subtitleEl.textContent = `Eventos · ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
     dateIndicator.style.display = 'flex';
@@ -2557,7 +3345,6 @@ async function searchEscapaditas(location) {
   container.innerHTML = `<div class="empty-state"><span class="ms">travel_explore</span><h3>Buscando escapaditas...</h3><p>Explorando eventos en un radio de 3 horas.</p></div>`;
 
   try {
-    // Buscar eventos usando Ticketmaster y Google Places (simulando eventos)
     const [tmRes, placesRes] = await Promise.allSettled([
       searchTicketmasterEscapaditas(location),
       searchPlacesEscapaditas(location)
@@ -2567,10 +3354,8 @@ async function searchEscapaditas(location) {
     if (tmRes.status === 'fulfilled') events = events.concat(tmRes.value || []);
     if (placesRes.status === 'fulfilled') events = events.concat(placesRes.value || []);
 
-    // Filtrar eventos pasados y duplicados
     events = deduplicateEvents(events).filter(e => !isEventPast(e));
 
-    // **FILTRAR POR FECHA SELECCIONADA EN ESCAPADITAS**
     if (currentDateFilter !== 'all') {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -2628,12 +3413,10 @@ async function searchEscapaditas(location) {
       return;
     }
 
-    // Renderizar lista
     container.innerHTML = `<div class="section-label">${events.length} escapaditas encontradas${currentDateFilter !== 'all' ? ' · ' + tDate(currentDateFilter) : ''}</div>` + 
       events.map(item => renderEventCard(item)).join('');
 
-    // Renderizar marcadores en el mapa (ya se hace en renderMarkersForAll, pero forzamos actualización)
-    renderMarkersForAll(events.filter(e => !isEventPast(e))); // Solo eventos vigentes en el mapa
+    renderMarkersForAll(events.filter(e => !isEventPast(e)));
 
     showToast('check_circle', `${events.length} escapaditas encontradas${currentDateFilter !== 'all' ? ' para ' + tDate(currentDateFilter) : ''}`);
 
@@ -2643,11 +3426,9 @@ async function searchEscapaditas(location) {
   }
 }
 
-// Ticketmaster para Escapaditas (radio grande)
 function searchTicketmasterEscapaditas(location) {
   return new Promise(async (resolve) => {
     try {
-      // Radio de 250 km (aprox 3 horas)
       const radiusKm = 250; 
       const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEYS.ticketmaster}&latlong=${location.lat},${location.lng}&radius=${radiusKm}&unit=km&size=50&sort=date,asc&locale=${currentLang === 'es' ? 'es' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'en-us'}`;
       const controller = new AbortController();
@@ -2666,12 +3447,10 @@ function searchTicketmasterEscapaditas(location) {
   });
 }
 
-// Google Places para Escapaditas (radio grande)
 function searchPlacesEscapaditas(location) {
   return new Promise((resolve) => {
     if (!placesService || !placesApiAvailable) return resolve([]);
     
-    // Buscar lugares turísticos y culturales en un radio grande
     const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'park', 'zoo', 'aquarium', 'stadium'];
     const promises = typesToFetch.map(type => {
       return new Promise((res) => {
@@ -2685,13 +3464,12 @@ function searchPlacesEscapaditas(location) {
           placesService.nearbySearch(request, (results, status) => {
             clearTimeout(timeout);
             if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-              // Convertir lugares a formato evento "simulado" para la lista
               const placesAsEvents = results.map(p => ({
                 id: 'place_esc_' + p.place_id,
-                type: 'place', // Mantenemos el tipo place para renderizar con renderGoogleCard
+                type: 'place',
                 source: 'google',
                 title: p.name,
-                date: '', // Los lugares no tienen fecha
+                date: '',
                 time: '',
                 venue: p.vicinity || '',
                 city: '',
@@ -2700,7 +3478,6 @@ function searchPlacesEscapaditas(location) {
                 url: '',
                 description: '',
                 image: p.photos && p.photos.length > 0 ? p.photos[0].getUrl({ maxWidth: 200 }) : '',
-                // Metadatos extra para renderGoogleCard
                 _isPlace: true,
                 rating: p.rating,
                 user_ratings_total: p.user_ratings_total,
@@ -2721,7 +3498,6 @@ function searchPlacesEscapaditas(location) {
 
     Promise.all(promises).then(allResults => {
       const flat = allResults.flat();
-      // Deduplicar por place_id
       const seen = new Set();
       const unique = flat.filter(p => {
         if (!p.place_id || seen.has(p.place_id)) return false;
@@ -2755,8 +3531,16 @@ function applyTheme(theme) {
   const icon = document.getElementById('themeIcon');
   if (icon) icon.textContent = effective === 'dark' ? 'light_mode' : 'dark_mode';
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.content = effective === 'dark' ? '#09090B' : '#4F46E5';
-  if (map) map.setOptions({ styles: effective === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light });
+  if (meta) meta.content = effective === 'dark' ? '#09090B' : (currentFestiveTheme?.colors?.primary || '#4F46E5');
+  
+  // Aplicar estilos del mapa considerando tema festivo
+  if (map) {
+    if (currentFestiveTheme && currentFestiveTheme.id !== 'default') {
+      updateMapStyles(currentFestiveTheme);
+    } else {
+      map.setOptions({ styles: effective === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light });
+    }
+  }
 }
 function setTheme(theme) {
   currentTheme = theme; applyTheme(theme); savePreferences();
@@ -2793,6 +3577,7 @@ function updateAllTranslations() {
   }
   
   updateSplashGreeting();
+  updateFestiveBanner(currentFestiveTheme);
 }
 
 /* ============================================
@@ -2822,7 +3607,7 @@ function stopTracking() {
 function updateUserMarker(loc) {
   if (userMarker) userMarker.setPosition(loc);
   else {
-    userMarker = new google.maps.Marker({ position: loc, map, icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="#4F46E5" stroke="white" stroke-width="3"/></svg>`), scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) }, title: 'Tu ubicación', zIndex: 9999 });
+    userMarker = new google.maps.Marker({ position: loc, map, icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="${currentFestiveTheme.colors.primary}" stroke="white" stroke-width="3"/></svg>`), scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) }, title: 'Tu ubicación', zIndex: 9999 });
   }
 }
 
@@ -2841,6 +3626,38 @@ function onSearchInput() {
   const container = document.getElementById('sidebarEvents');
   if (filtered.length === 0) { container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3></div>`; return; }
   container.innerHTML = `<div class="section-label">${filtered.length} resultados</div>` + filtered.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
+}
+
+/* ============================================
+   REFRESH MANUAL
+   ============================================ */
+function manualRefresh() {
+  if (isManualRefreshing) return;
+  isManualRefreshing = true;
+  const btn = document.getElementById('refreshBtn');
+  if (btn) {
+    const icon = btn.querySelector('.ms');
+    if (icon) icon.style.animation = 'spin 1s linear infinite';
+  }
+  showToast('refresh', t('refreshing'));
+  
+  // Re-detectar tema festivo por si cambió de día
+  const newFestiveTheme = detectFestiveTheme();
+  if (newFestiveTheme.id !== currentFestiveTheme.id) {
+    applyFestiveTheme(newFestiveTheme);
+    showToast('celebration', `Tema actualizado: ${newFestiveTheme.name}`);
+  }
+  
+  setTimeout(() => {
+    searchEverything().then(() => {
+      isManualRefreshing = false;
+      if (btn) {
+        const icon = btn.querySelector('.ms');
+        if (icon) icon.style.animation = '';
+      }
+      showToast('check_circle', t('updated'));
+    });
+  }, 600);
 }
 
 /* ============================================
@@ -2919,6 +3736,30 @@ document.addEventListener('DOMContentLoaded', () => {
   updateDateFilterUI();
 });
 window.addEventListener('resize', () => { updateSidebarState(); updateOverlay(); });
+
+/* ============================================
+   VERIFICACIÓN PERIÓDICA DE CAMBIO DE TEMA FESTIVO
+   ============================================ */
+setInterval(() => {
+  const newFestiveTheme = detectFestiveTheme();
+  if (newFestiveTheme.id !== currentFestiveTheme.id) {
+    console.log('🎉 Cambio de temporada detectado');
+    applyFestiveTheme(newFestiveTheme);
+    if (map) updateMapStyles(newFestiveTheme);
+  }
+}, 60 * 60 * 1000); // Cada hora
+
+/* ============================================
+   ESTILOS ADICIONALES PARA ANIMACIÓN
+   ============================================ */
+const styleTag = document.createElement('style');
+styleTag.textContent = `
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .festive-banner {
+    pointer-events: none;
+  }
+`;
+document.head.appendChild(styleTag);
 </script>
 
 <script>
