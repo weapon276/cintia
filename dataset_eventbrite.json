@@ -1,11 +1,145 @@
-[{
-  "name": "Título del evento",
-  "start_date": "2026-10-30",
-  "start_time": "19:00",
-  "latitude": "20.6705151",
-  "longitude": "-103.3686564",
-  "summary": "Descripción del evento",
-  "image_url": "https://...",
-  "url": "https://eventbrite.com/...",
-  "primary_venue": { "name": "Nombre del lugar" }
-}]
+[
+  {
+    "name": "Festival del Pan de Muerto 2026 - Sede Casa Rosa Luis Barragán",
+    "start_date": "2026-10-29",
+    "start_time": "16:00",
+    "latitude": "20.658210",
+    "longitude": "-103.389240",
+    "summary": "Muestra de panadería artesanal de temporada con opciones tradicionales, veganas, rellenas y de masa madre, acompañadas de talleres y catas de chocolate.",
+    "image_url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+    "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "primary_venue": {
+      "name": "Casa Rosa Luis Barragán (Av. de las Rosas #543, Chapalita Sur, Zapopan, JAL)"
+    }
+  },
+  {
+    "name": "Festival del Pan de Muerto 2026 - Sede Club de Leones de Guadalajara",
+    "start_date": "2026-10-31",
+    "start_time": "13:00",
+    "latitude": "20.651530",
+    "longitude": "-103.398510",
+    "summary": "Gran expo gastronómica familiar con entrada libre. Variedad de propuestas panaderas locales, chocolatería artesanal y actividades culturales para todas las edades.",
+    "image_url": "https://www.feriamx.com/images/pan_de_muerto.jpg",
+    "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
+    "primary_venue": {
+      "name": "Club de Leones de Guadalajara (Av. de los Leones #75, Tepeyac Casino, Zapopan, JAL)"
+    }
+  },
+  {
+    "name": "Manuel Turizo - Foro Principal Fiestas de Octubre 2026",
+    "start_date": "2026-10-29",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Concierto estelar de Manuel Turizo en el Foro Principal. El ingreso general a gradas está incluido con el boleto de entrada a la feria.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/manuel_turizo.jpg",
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez (Av. Mariano Bárcena s/n, Zapopan, JAL)"
+    }
+  },
+  {
+    "name": "Banda Cuisillos - Foro Principal Fiestas de Octubre 2026",
+    "start_date": "2026-10-30",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Noche de baile y música de banda en vivo con la presentación de Banda Cuisillos en el Auditorio Benito Juárez.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/cuisillos.jpg",
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez (Av. Mariano Bárcena s/n, Zapopan, JAL)"
+    }
+  },
+  {
+    "name": "Mariachi Internacional CHG - Foro Principal Fiestas de Octubre 2026",
+    "start_date": "2026-10-31",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Gala de mariachi en vivo celebrando la música tradicional mexicana en el escenario principal del recinto ferial.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/mariachi.jpg",
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez (Av. Mariano Bárcena s/n, Zapopan, JAL)"
+    }
+  },
+  {
+    "name": "El Tri - Foro Principal Fiestas de Octubre 2026",
+    "start_date": "2026-11-01",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Alex Lora y El Tri presentan sus grandes éxitos de rock mexicano en el penúltimo día de las Fiestas de Octubre.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri.jpg",
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez (Av. Mariano Bárcena s/n, Zapopan, JAL)"
+    }
+  },
+  {
+    "name": "Carlos Rivera - Gran Cierre Fiestas de Octubre 2026",
+    "start_date": "2026-11-02",
+    "start_time": "20:00",
+    "latitude": "20.725805",
+    "longitude": "-103.352821",
+    "summary": "Concierto estelar de clausura oficial de las Fiestas de Octubre 2026 con la presentación en vivo de Carlos Rivera.",
+    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera.jpg",
+    "url": "https://fiestasdeoctubre.jalisco.gob.mx",
+    "primary_venue": {
+      "name": "Foro Principal - Auditorio Benito Juárez (Av. Mariano Bárcena s/n, Zapopan, JAL)"
+    }
+  },
+  {
+    "name": "Cirque Du Soleil: ECHO",
+    "start_date": "2026-10-31",
+    "start_time": "17:00",
+    "latitude": "20.710781",
+    "longitude": "-103.376840",
+    "summary": "Espectáculo internacional acrobático y visual apto para toda la familia y adolescentes sobre la relación entre humanos, naturaleza y animales.",
+    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2Fcirque_echo.jpg",
+    "url": "https://www.ticketmaster.com.mx/cirque-du-soleil-echo-guadalajara",
+    "primary_venue": {
+      "name": "Gran Carpa Soleil en Plaza Patria (Av. Patria s/n, Zapopan, JAL)"
+    }
+  },
+  {
+    "name": "Especial Día de Muertos 'Días de Vida' - Recorridos y Orquesta",
+    "start_date": "2026-11-01",
+    "start_time": "10:00",
+    "latitude": "20.685791",
+    "longitude": "-103.348873",
+    "summary": "Recorridos temáticos de arte funerario, altares tradicionales y concierto de la Orquesta de Tonalá a las 17:30 hrs.",
+    "image_url": "https://www.guadalajara.gob.mx/images/panteon_belen.jpg",
+    "url": "https://www.guadalajara.gob.mx/cultura/panteon-de-belen",
+    "primary_venue": {
+      "name": "Museo Panteón de Belén (C. Belén #684, El Retiro, Guadalajara, JAL)"
+    }
+  },
+  {
+    "name": "Noche de Galerías y Arte Contemporáneo para Jóvenes",
+    "start_date": "2026-10-31",
+    "start_time": "18:00",
+    "latitude": "20.674812",
+    "longitude": "-103.359210",
+    "summary": "Recorrido nocturno con guías, exhibiciones universitarias de arte visual y talleres artísticos para adolescentes y jóvenes.",
+    "image_url": "https://www.musaudg.mx/images/exposicion_musa.jpg",
+    "url": "https://www.musaudg.mx",
+    "primary_venue": {
+      "name": "Museo de las Artes de la Universidad de Guadalajara - MUSA (Av. Juárez #975, Guadalajara, JAL)"
+    }
+  },
+  {
+    "name": "Aventura Paleontológica y Fósiles de Jalisco",
+    "start_date": "2026-11-07",
+    "start_time": "10:00",
+    "latitude": "20.662104",
+    "longitude": "-103.351225",
+    "summary": "Taller interactivo para niños enfocado en la excavación de fósiles y recorrido guiado sobre la megafauna prehistórica de Jalisco.",
+    "image_url": "https://guadalajara.gob.mx/images/paleontologia.jpg",
+    "url": "https://guadalajara.gob.mx/museopaleontologia",
+    "primary_venue": {
+      "name": "Museo de Paleontología de Guadalajara (Av. Dr. Roberto Michel #520, Guadalajara, JAL)"
+    }
+  }
+]
