@@ -1,15 +1,11 @@
-[
-  {
-    "id": "1979282059922",
-    "name": "Tequila and Cantaritos el Güero - Full-Day Tour from Guadalajara",
-    "start_date": "2026-10-30",
-    "start_time": "09:30",
-    "latitude": "20.6705151",
-    "longitude": "-103.3686564",
-    "venue_name": "Avenida Chapultepec Sur",
-    "venue_city": "Guadalajara",
-    "summary": "Visit the Tequila town in Jalisco Mexico and Cantaritos los Güeros, Full day tour visiting a real tequila factory. Daily Departures.",
-    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1186848545%2F1772087512903%2F1%2Foriginal.20260614-015527?crop=focalpoint&fit=crop&w=640&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.473&fp-y=0.468&s=d5bed1aeb6731e98db1d7acd4ee153e4",
-    "url": "https://www.eventbrite.com.mx/e/tequila-and-cantaritos-el-guero-full-day-tour-from-guadalajara-registration-1979282059922"
-  },
- ]
+[{
+  "name": "Título del evento",
+  "start_date": "2026-10-30",
+  "start_time": "19:00",
+  "latitude": "20.6705151",
+  "longitude": "-103.3686564",
+  "summary": "Descripción del evento",
+  "image_url": "https://...",
+  "url": "https://eventbrite.com/...",
+  "primary_venue": { "name": "Nombre del lugar" }
+}]
