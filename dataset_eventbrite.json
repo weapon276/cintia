@@ -816,7 +816,7 @@
     "url": "https://www.feriamx.com/eventos/pan-de-muerto/",
     "primary_venue": {
       "name": "Casa Rosa Luis Barragán"
-    }
+    
   },
   {
     "name": "Festival del Pan de Muerto 2026 - Sede Club de Leones",
@@ -842,7 +842,7 @@
     "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
     "primary_venue": {
       "name": "Foro Principal - Auditorio Benito Juárez"
-    }
+    
   },
   {
     "name": "Mariachi Internacional CHG - Fiestas de Octubre 2026",
@@ -855,7 +855,7 @@
     "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
     "primary_venue": {
       "name": "Foro Principal - Auditorio Benito Juárez"
-    }
+    
   },
   {
     "name": "El Tri - Fiestas de Octubre 2026",
@@ -868,7 +868,7 @@
     "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
     "primary_venue": {
       "name": "Foro Principal - Auditorio Benito Juárez"
-    }
+    
   },
   {
     "name": "Carlos Rivera - Gran Cierre Fiestas de Octubre 2026",
@@ -881,7 +881,7 @@
     "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre",
     "primary_venue": {
       "name": "Foro Principal - Auditorio Benito Juárez"
-    }
+    
   },
   {
     "name": "Calaverandia 2026 - Parque Temático de Día de Muertos",
@@ -894,7 +894,7 @@
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
       "name": "Parque Ávila Camacho"
-    }
+    
   },
   {
     "name": "Tina y Tomás - Obra Infantil y Familiar",
@@ -907,7 +907,7 @@
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
       "name": "Teatro Alarife Martín Casillas"
-    }
+    
   },
   {
     "name": "Festival de Día de Muertos: Ofrendas y Talleres Infantiles",
@@ -920,7 +920,7 @@
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
       "name": "Museo Cabañas (Hospicio Cabañas)"
-    }
+    
   },
   {
     "name": "Harry Potter y el Prisionero de Azkaban - Concierto Sinfónico en Vivo",
@@ -933,7 +933,7 @@
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
       "name": "Teatro José Pablo Moncayo - PALCCO"
-    }
+    
   },
   {
     "name": "Exposición Interactiva 'Mi querido Pinocho'",
@@ -946,7 +946,7 @@
     "url": "https://tiempo-mandarina.org/eventos/",
     "primary_venue": {
       "name": "Museo de Arte de Zapopan (MAZ)"
-    }
+    
   }
 
 ]
