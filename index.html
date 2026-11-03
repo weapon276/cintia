@@ -84,7 +84,7 @@
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
-  /* SPLASH */
+  /* SPLASH CON LOGO ANIMADO */
   .splash {
     position: fixed; inset: 0; z-index: var(--z-splash);
     background: linear-gradient(135deg, var(--festive-splash-from, #4F46E5) 0%, var(--festive-splash-mid, #7C3AED) 50%, var(--festive-splash-to, #EC4899) 100%);
@@ -94,17 +94,34 @@
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   html[data-theme="dark"] .splash { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%); }
+  
   .splash-logo {
-    width: 96px; height: 96px; border-radius: 28px;
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    width: 200px; height: 200px; /* Tamaño grande para el SVG animado */
     display: grid; place-items: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: splashFloat 3s ease-in-out infinite;
   }
   @keyframes splashFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
-  .splash-logo .ms { font-size: 52px; color: #FFFFFF; font-variation-settings: 'FILL' 1, 'wght' 500; }
+  
+  /* Animación del SVG */
+  .splash-logo svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+  }
+  .splash-logo svg path {
+    fill: #FFFFFF;
+    stroke: #FFFFFF;
+    stroke-width: 0.5;
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: drawLogo 2s ease-out forwards;
+  }
+  @keyframes drawLogo {
+    0% { stroke-dashoffset: 600; fill: rgba(255, 255, 255, 0); }
+    70% { fill: rgba(255, 255, 255, 0); stroke: #FFFFFF; }
+    100% { stroke-dashoffset: 0; fill: #FFFFFF; }
+  }
+
   .splash-greeting {
     font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800;
     letter-spacing: -0.03em; color: #FFFFFF; text-align: center; line-height: 1.2;
@@ -581,7 +598,7 @@
   .icon-chip .ms { font-size: 14px; }
   .icon-chip.active {
     background: var(--chip-color, #4F46E5);
-        color: #FFFFFF;
+    color: #FFFFFF;
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
   .icon-chip.active .ms { font-variation-settings: 'FILL' 1, 'wght' 500; }
@@ -733,7 +750,7 @@
   .install-banner-close .ms { font-size: 18px; }
 
   /* ============================================
-     MODAL DE DETALLE DEL EVENTO - REDUCIDO A ~60%
+     MODAL DE DETALLE DEL EVENTO
      ============================================ */
   .event-detail-modal {
     position: fixed;
@@ -1075,8 +1092,7 @@
     .event-photo { width: 88px; }
     .splash-greeting { font-size: 26px; }
     .splash-greeting-emoji { font-size: 40px; }
-    .splash-logo { width: 80px; height: 80px; }
-    .splash-logo .ms { font-size: 44px; }
+    .splash-logo { width: 150px; height: 150px; }
     .date-filter-panel { width: 90%; max-width: 340px; }
     .festive-banner { top: calc(76px + var(--safe-top)); font-size: 11px; }
     .event-detail-card { max-width: 90%; max-height: 70vh; max-height: 70dvh; }
@@ -1114,9 +1130,18 @@
 </script>
 
 <div class="splash" id="splash">
-  <div class="splash-logo">
-    <span class="ms fill" id="splashLogoIcon">location_city</span>
+  <!-- LOGO ANIMADO SVG -->
+  <div class="splash-logo" id="splashLogo">
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <!-- Path del logo 2DAY (aproximación de tu imagen) -->
+      <!-- Se anima dibujándose por sí solo con CSS -->
+      <path d="M120,280 C120,200 180,180 220,220 C240,240 230,280 200,300 C180,320 150,330 120,320 Z" />
+      <path d="M250,200 L300,200 L300,320 L250,320 Z" />
+      <path d="M330,200 C380,200 400,240 380,280 C360,320 330,320 320,300" />
+      <path d="M340,220 L370,220" />
+    </svg>
   </div>
+  
   <div class="splash-greeting">
     <span class="splash-greeting-emoji" id="splashEmoji">☀️</span>
     <span id="splashGreeting">Buenos días</span>
@@ -1294,7 +1319,7 @@ const FESTIVE_THEMES = {
     colors: { splashFrom: '#1E3A8A', splashMid: '#F59E0B', splashTo: '#DC2626', primary: '#B45309', accent: '#DC2626',
       map: { water: '#bfdbfe', park: '#fef3c7', highway: '#fcd34d', road: '#fffbeb', geometry: '#fef9e7', text: '#92400e' } },
     confetti: ['#F59E0B', '#DC2626', '#1E3A8A', '#FBBF24'],
-        banner: { es: '👑 Día de Reyes · 6 de enero', en: '👑 Three Kings Day · January 6' }
+    banner: { es: '👑 Día de Reyes · 6 de enero', en: '👑 Three Kings Day · January 6' }
   },
   san_valentin: {
     id: 'san_valentin', name: 'San Valentín', icon: 'favorite', emoji: '💕',
@@ -1523,8 +1548,7 @@ function applyFestiveTheme(theme) {
   if (theme.id !== 'default') html.classList.add('festive-active');
   else html.classList.remove('festive-active');
   
-  const splashLogoIcon = document.getElementById('splashLogoIcon');
-  if (splashLogoIcon) splashLogoIcon.textContent = theme.icon;
+  // No actualizar el logo SVG, se mantiene estático
   const splashEmoji = document.getElementById('splashEmoji');
   if (splashEmoji) splashEmoji.textContent = theme.emoji;
   const splashGreeting = document.getElementById('splashGreeting');
@@ -1655,11 +1679,10 @@ function updateSplashGreeting() {
     const emojiEl = document.getElementById('splashEmoji');
     const textEl = document.getElementById('splashGreeting');
     const subtitleEl = document.getElementById('splashSubtitle');
-    const logoIcon = document.getElementById('splashLogoIcon');
     if (emojiEl) emojiEl.textContent = theme.emoji;
     if (textEl) textEl.textContent = theme.greeting[currentLang] || theme.greeting.es;
     if (subtitleEl) subtitleEl.textContent = theme.subtitle[currentLang] || theme.subtitle.es;
-    if (logoIcon) logoIcon.textContent = theme.icon;
+    
     const festiveBadge = document.getElementById('splashFestiveBadge');
     const festiveIcon = document.getElementById('splashFestiveIcon');
     const festiveLabel = document.getElementById('splashFestiveLabel');
@@ -1682,7 +1705,7 @@ function updateSplashGreeting() {
 }
 
 /* ============================================
-   CATEGORÍAS DE AUDIENCIA (Icono Teens cambiado a 'school')
+   CATEGORÍAS DE AUDIENCIA
    ============================================ */
 const AGE_CATEGORIES = {
   family:   { key: 'family',   label: 'Familia',      icon: 'home',            color: '#000000', bg: '#F4F4F5' },
@@ -2599,7 +2622,7 @@ function renderUnifiedList() {
 }
 
 /* ============================================
-   MODAL DE DETALLE DEL EVENTO (60% tamaño)
+   MODAL DE DETALLE DEL EVENTO
    ============================================ */
 function openEventDetailById(eventId) {
   const event = allEvents.find(e => e.id === eventId) || escapaditasEvents.find(e => e.id === eventId);
