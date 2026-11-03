@@ -1,6 +1,6 @@
 {
-  "name": "2DAY — Museos y Eventos",
-  "short_name": "2DAY",
+  "name": "2DTODAY — Museos y Eventos",
+  "short_name": "2DTODAY",
   "description": "Descubre museos, atracciones y eventos en Guadalajara",
   "start_url": "/",
   "display": "standalone",
