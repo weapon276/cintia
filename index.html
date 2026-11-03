@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="2DAY">
+<meta name="apple-mobile-web-app-title" content="2DTODAY">
 <link rel="manifest" href="/manifest.json">
 <title>2DTODAY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1148,6 +1148,7 @@
 <div class="splash" id="splash">
   <div class="splash-logo-container">
     <img src="logo.png" alt="2DTODAY Logo" class="splash-logo-img" onerror="this.style.display='none'">
+    <div class="splash-building-icon">
       <span class="ms fill">location_city</span>
     </div>
   </div>
@@ -1314,7 +1315,7 @@ let localEventsLoaded = false;
    ============================================ */
 const FESTIVE_THEMES = {
   default: {
-    id: 'default', name: '2DAY', icon: 'location_city', emojiIcon: 'wb_sunny',
+    id: 'default', name: '2DTODAY', icon: 'location_city', emojiIcon: 'wb_sunny',
     greeting: { es: 'Buenos días', en: 'Good morning' },
     subtitle: { es: 'Descubre museos y eventos en Guadalajara', en: 'Discover museums and events in Guadalajara' },
     colors: { splashFrom: '#4F46E5', splashMid: '#7C3AED', splashTo: '#EC4899', primary: '#4F46E5', accent: '#EC4899',
@@ -1734,7 +1735,7 @@ const CATEGORY_GROUPS = {
    ============================================ */
 const TRANSLATIONS = {
   es: {
-    searchPlaceholder: 'Buscar museos, eventos...', brandTitle: '2DAY', brandSubtitle: 'Museos y eventos en Guadalajara',
+    searchPlaceholder: 'Buscar museos, eventos...', brandTitle: '2DTODAY', brandSubtitle: 'Museos y eventos en Guadalajara',
     searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar cerca de mí', gpsTracking: 'Ubicación en vivo',
     locationSearching: 'Buscando tu ubicación...', locationFound: 'Ubicación encontrada', locationError: 'No se pudo obtener tu ubicación',
     locationTracking: 'Rastreando ubicación', locationTrackingStop: 'Rastreo detenido', geoNotAvailable: 'Geolocalización no disponible',
@@ -1761,7 +1762,7 @@ const TRANSLATIONS = {
     comingSoonBadge: 'En desarrollo'
   },
   en: {
-    searchPlaceholder: 'Search museums, events...', brandTitle: '2DAY', brandSubtitle: 'Museums and events in Guadalajara',
+    searchPlaceholder: 'Search museums, events...', brandTitle: '2DTODAY', brandSubtitle: 'Museums and events in Guadalajara',
     searchInputPlaceholder: 'Search event, place...', gpsButton: 'Search near me', gpsTracking: 'Live location',
     locationSearching: 'Searching your location...', locationFound: 'Location found', locationError: 'Could not get your location',
     locationTracking: 'Tracking location', locationTrackingStop: 'Tracking stopped', geoNotAvailable: 'Geolocation not available',
@@ -1788,7 +1789,7 @@ const TRANSLATIONS = {
     comingSoonBadge: 'In development'
   },
   fr: {
-    searchPlaceholder: 'Rechercher musées, événements...', brandTitle: '2DAY', brandSubtitle: 'Musées et événements à Guadalajara',
+    searchPlaceholder: 'Rechercher musées, événements...', brandTitle: '2DTODAY', brandSubtitle: 'Musées et événements à Guadalajara',
     searchInputPlaceholder: 'Rechercher événement, lieu...', gpsButton: 'Rechercher près de moi', gpsTracking: 'Localisation en direct',
     locationSearching: 'Recherche de votre position...', locationFound: 'Position trouvée', locationError: 'Impossible d\'obtenir votre position',
     locationTracking: 'Suivi de la position', locationTrackingStop: 'Suivi arrêté', geoNotAvailable: 'Géolocalisation non disponible',
@@ -1815,7 +1816,7 @@ const TRANSLATIONS = {
     comingSoonBadge: 'En développement'
   },
   pt: {
-    searchPlaceholder: 'Buscar museus, eventos...', brandTitle: '2DAY', brandSubtitle: 'Museus e eventos em Guadalajara',
+    searchPlaceholder: 'Buscar museus, eventos...', brandTitle: '2DTODAY', brandSubtitle: 'Museus e eventos em Guadalajara',
     searchInputPlaceholder: 'Buscar evento, lugar...', gpsButton: 'Buscar perto de mim', gpsTracking: 'Localização ao vivo',
     locationSearching: 'Buscando sua localização...', locationFound: 'Localização encontrada', locationError: 'Não foi possível obter sua localização',
     locationTracking: 'Rastreando localização', locationTrackingStop: 'Rastreamento parado', geoNotAvailable: 'Geolocalização indisponível',
@@ -1842,7 +1843,7 @@ const TRANSLATIONS = {
     comingSoonBadge: 'Em desenvolvimento'
   },
   de: {
-    searchPlaceholder: 'Museen, Veranstaltungen suchen...', brandTitle: '2DAY', brandSubtitle: 'Museen und Veranstaltungen in Guadalajara',
+    searchPlaceholder: 'Museen, Veranstaltungen suchen...', brandTitle: '2DTODAY', brandSubtitle: 'Museen und Veranstaltungen in Guadalajara',
     searchInputPlaceholder: 'Veranstaltung, Ort suchen...', gpsButton: 'In meiner Nähe suchen', gpsTracking: 'Live-Standort',
     locationSearching: 'Standort wird gesucht...', locationFound: 'Standort gefunden', locationError: 'Standort konnte nicht abgerufen werden',
     locationTracking: 'Standort wird verfolgt', locationTrackingStop: 'Verfolgung gestoppt', geoNotAvailable: 'Geolokalisierung nicht verfügbar',
@@ -3139,13 +3140,13 @@ function toggleTheme() { setTheme(document.documentElement.getAttribute('data-th
    ============================================ */
 function updateAllTranslations() {
   document.documentElement.lang = currentLang === 'en' ? 'en' : currentLang === 'fr' ? 'fr' : currentLang === 'pt' ? 'pt' : currentLang === 'de' ? 'de' : 'es-MX';
-  document.title = currentLang === 'en' ? '2DAY — Museums & Events' : '2DAY';
+  document.title = currentLang === 'en' ? '2DTODAY — Museums & Events' : '2DTODAY';
   const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
   set('brandTitle', t('brandTitle'));
   set('brandSubtitle', t('brandSubtitle'));
   set('gpsLabel', isTracking ? t('gpsTracking') : t('gpsButton'));
   set('searchPlaceholder', t('searchPlaceholder'));
-  set('installBannerTitle', currentLang === 'en' ? 'Install 2DAY' : 'Instala 2DAY');
+  set('installBannerTitle', currentLang === 'en' ? 'Install 2DTODAY' : 'Instala 2DTODAY');
   set('installBannerSubtitle', currentLang === 'en' ? 'Quick access from your home screen' : 'Accede rápido desde tu pantalla de inicio');
   set('installBannerBtn', currentLang === 'en' ? 'Install' : 'Instalar');
   const searchInput = document.getElementById('searchInput');
