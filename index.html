@@ -94,31 +94,17 @@
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   html[data-theme="dark"] .splash { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%); }
-  
   .splash-logo {
-    width: 200px; height: 200px;
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0.10);
+    width: 96px; height: 96px; border-radius: 28px;
+    background: rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
     display: grid; place-items: center;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     animation: splashFloat 3s ease-in-out infinite;
-    overflow: hidden;
-    padding: 12px;
   }
   @keyframes splashFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
-  
-  /* Video del logo */
-  .splash-logo video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 20px;
-  }
-  /* Icono de fallback si el video no carga */
-  .splash-logo .ms { font-size: 80px; color: #FFFFFF; font-variation-settings: 'FILL' 1, 'wght' 500; }
-
+  .splash-logo .ms { font-size: 52px; color: #FFFFFF; font-variation-settings: 'FILL' 1, 'wght' 500; }
   .splash-greeting {
     font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800;
     letter-spacing: -0.03em; color: #FFFFFF; text-align: center; line-height: 1.2;
@@ -595,7 +581,7 @@
   .icon-chip .ms { font-size: 14px; }
   .icon-chip.active {
     background: var(--chip-color, #4F46E5);
-    color: #FFFFFF;
+        color: #FFFFFF;
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
   .icon-chip.active .ms { font-variation-settings: 'FILL' 1, 'wght' 500; }
@@ -1089,7 +1075,8 @@
     .event-photo { width: 88px; }
     .splash-greeting { font-size: 26px; }
     .splash-greeting-emoji { font-size: 40px; }
-    .splash-logo { width: 160px; height: 160px; } /* Ajuste móvil para el video */
+    .splash-logo { width: 80px; height: 80px; }
+    .splash-logo .ms { font-size: 44px; }
     .date-filter-panel { width: 90%; max-width: 340px; }
     .festive-banner { top: calc(76px + var(--safe-top)); font-size: 11px; }
     .event-detail-card { max-width: 90%; max-height: 70vh; max-height: 70dvh; }
@@ -1126,14 +1113,9 @@
   const ESCAPADITAS_ENABLED = false; // ← Cambia a true para activar Escapaditas
 </script>
 
-<!-- SPLASH CON VIDEO DEL LOGO -->
 <div class="splash" id="splash">
   <div class="splash-logo">
-    <!-- Video animado. Si no existe, se muestra el icono de respaldo -->
-    <video autoplay loop muted playsinline>
-      <source src="logo-animado.mp4" type="video/mp4">
-      <span class="ms fill" id="splashLogoIcon">location_city</span>
-    </video>
+    <span class="ms fill" id="splashLogoIcon">location_city</span>
   </div>
   <div class="splash-greeting">
     <span class="splash-greeting-emoji" id="splashEmoji">☀️</span>
@@ -1505,7 +1487,7 @@ function detectFestiveTheme() {
   // NOVIEMBRE
   // ==========================================================
   // ⚠️ DÍA DE MUERTOS PRIMERO: 1 y 2 de noviembre (UNESCO)
-  if (month === 10 && date >= 1 && date <= 2) return FESTIVE_THEMES.dia_muertos;
+  if (month === 10 && date >= 1 && date <= 3) return FESTIVE_THEMES.dia_muertos;
   // Festival del Globo León (aprox 13-16 noviembre)
   if (month === 10 && date >= 13 && date <= 17) return FESTIVE_THEMES.festival_globo;
   // Revolución Mexicana (20 nov, se celebra 3er lunes de nov)
@@ -1541,8 +1523,8 @@ function applyFestiveTheme(theme) {
   if (theme.id !== 'default') html.classList.add('festive-active');
   else html.classList.remove('festive-active');
   
-  // NOTA: Ya no actualizamos splashLogoIcon porque ahora es un video.
-  // Solo actualizamos el ícono de respaldo si el video falla.
+  const splashLogoIcon = document.getElementById('splashLogoIcon');
+  if (splashLogoIcon) splashLogoIcon.textContent = theme.icon;
   const splashEmoji = document.getElementById('splashEmoji');
   if (splashEmoji) splashEmoji.textContent = theme.emoji;
   const splashGreeting = document.getElementById('splashGreeting');
@@ -1673,10 +1655,11 @@ function updateSplashGreeting() {
     const emojiEl = document.getElementById('splashEmoji');
     const textEl = document.getElementById('splashGreeting');
     const subtitleEl = document.getElementById('splashSubtitle');
+    const logoIcon = document.getElementById('splashLogoIcon');
     if (emojiEl) emojiEl.textContent = theme.emoji;
     if (textEl) textEl.textContent = theme.greeting[currentLang] || theme.greeting.es;
     if (subtitleEl) subtitleEl.textContent = theme.subtitle[currentLang] || theme.subtitle.es;
-    
+    if (logoIcon) logoIcon.textContent = theme.icon;
     const festiveBadge = document.getElementById('splashFestiveBadge');
     const festiveIcon = document.getElementById('splashFestiveIcon');
     const festiveLabel = document.getElementById('splashFestiveLabel');
@@ -2616,7 +2599,7 @@ function renderUnifiedList() {
 }
 
 /* ============================================
-   MODAL DE DETALLE DEL EVENTO
+   MODAL DE DETALLE DEL EVENTO (60% tamaño)
    ============================================ */
 function openEventDetailById(eventId) {
   const event = allEvents.find(e => e.id === eventId) || escapaditasEvents.find(e => e.id === eventId);
