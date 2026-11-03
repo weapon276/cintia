@@ -384,7 +384,7 @@
     "latitude": "20.6288969",
     "longitude": "-105.2273961",
     "venue_name": "hacienda lord twigg",
-        "venue_city": "Puerto Vallarta",
+    "venue_city": "Puerto Vallarta",
     "summary": "An embodiment journey for women, from root to crown.",
     "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1195885668%2F135876931835%2F1%2Foriginal.20261015-175244?auto=format%2Ccompress&q=75&sharp=10&s=7e2cf857f8a2b6cf7a97b7b9c79d5cfc",
     "url": "https://www.eventbrite.com/e/the-seven-gates-full-journey-tickets-2003637166702"
@@ -401,19 +401,6 @@
     "summary": "Affinity Quartet: el cuarteto de cuerda más galardonado de Australia, llega a Guadalajara. Un concierto imperdible, adquiere tus boletos.",
     "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1195663594%2F3017508396676%2F1%2Foriginal.20261013-042956?auto=format%2Ccompress&q=75&sharp=10&s=4b00db597e7782728c07f96c6f8a541c",
     "url": "https://www.eventbrite.com/e/entradas-affinity-quartet-en-concierto-2003330541578"
-  },
-  {
-    "id": "2000272575118",
-    "name": "Viaje a la huasteca potosina",
-    "start_date": "2026-11-06",
-    "start_time": "10:00",
-    "latitude": "20.6025191",
-    "longitude": "-103.3361581",
-    "venue_name": "San Pedro Tlaquepaque",
-    "venue_city": "San Pedro Tlaquepaque",
-    "summary": "Aventúrate con nosotros a descubrir los paisajes y sabores únicos de la huasteca potosina. ¡No te lo pierdas!",
-    "image_url": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193070720%2F2415631667523%2F1%2Foriginal.20260909-162138?auto=format%2Ccompress&q=75&sharp=10&s=e2a151608295724c5000564beedf8565",
-    "url": "https://www.eventbrite.com.mx/e/viaje-a-la-huasteca-potosina-tickets-2000272575118"
   },
   {
     "id": "2003938450851",
@@ -806,97 +793,6 @@
     "url": "https://www.eventbrite.com.mx/e/musical-dreams-2-la-magia-de-disney-se-hace-realidad-tickets-2002942931225"
   },
   {
-    "id": "feria_pan_muerto_casa_rosa_2026",
-    "name": "Festival del Pan de Muerto 2026 - Sede Casa Rosa Luis Barragán",
-    "start_date": "2026-10-29",
-    "start_time": "16:00",
-    "latitude": "20.658210",
-    "longitude": "-103.389240",
-    "venue_name": "Casa Rosa Luis Barragán",
-    "venue_city": "Guadalajara",
-    "summary": "Cuarta edición del Festival del Pan de Muerto organizado por la Feria de Productores. Muestra de panadería artesanal, masa madre, opciones veganas, rellenos tradicionales y talleres de maridaje de chocolate.",
-    "image_url": "https://storage.e.jimdo.com/cdn-cgi/image/quality=85,fit=scale-down,format=auto,trim=0;0;0;0,width=960,height=1280/image/553531838/d3e6d715-4bb5-48e3-89e8-e1198d4df258.jpg",
-    "url": "https://www.feriamx.com/eventos/pan-de-muerto/"
-  },
-  {
-    "id": "feria_pan_muerto_club_leones_2026",
-    "name": "Festival del Pan de Muerto 2026 - Sede Club de Leones",
-    "start_date": "2026-10-31",
-    "start_time": "13:00",
-    "latitude": "20.651530",
-    "longitude": "-103.398510",
-    "venue_name": "Club de Leones de Guadalajara",
-    "venue_city": "Guadalajara",
-    "summary": "Exposición gastronómica familiar con entrada libre. Pabellón de panaderos locales, bebidas tradicionales de cacao, repostería artesanal y actividades culturales para toda la familia.",
-    "image_url": "https://www.feriamx.com/images/pan_de_muerto_club_leones.jpg",
-    "url": "https://www.informador.mx/jalisco/festival-del-pan-de-muerto-2026-en-guadalajara-fechas-sedes-y-horarios-20260928-0097.html"
-  },
-  {
-    "id": "cuisillos_fiestas_octubre_2026",
-    "name": "Cuisillos - Fiestas de Octubre 2026",
-    "start_date": "2026-10-30",
-    "start_time": "20:00",
-    "latitude": "20.725805",
-    "longitude": "-103.352821",
-    "venue_name": "Foro Principal - Auditorio Benito Juárez",
-    "venue_city": "Zapopan",
-    "summary": "Concierto de la Banda Cuisillos en el Foro Principal del Auditorio Benito Juárez como parte de la cartelera oficial de las Fiestas de Octubre 2026.",
-    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/cuisillos.jpg",
-    "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre"
-  },
-  {
-    "id": "mariachi_chg_fiestas_octubre_2026",
-    "name": "Mariachi Internacional CHG - Fiestas de Octubre 2026",
-    "start_date": "2026-10-31",
-    "start_time": "20:00",
-    "latitude": "20.725805",
-    "longitude": "-103.352821",
-    "venue_name": "Foro Principal - Auditorio Benito Juárez",
-    "venue_city": "Zapopan",
-    "summary": "Presentación especial de música vernácula mexicana con el Mariachi Internacional CHG en las Fiestas de Octubre.",
-    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/mariachi_chg.jpg",
-    "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre"
-  },
-  {
-    "id": "el_tri_fiestas_octubre_2026",
-    "name": "El Tri - Fiestas de Octubre 2026",
-    "start_date": "2026-11-01",
-    "start_time": "20:00",
-    "latitude": "20.725805",
-    "longitude": "-103.352821",
-    "venue_name": "Foro Principal - Auditorio Benito Juárez",
-    "venue_city": "Zapopan",
-    "summary": "Noche de rock mexicano en vivo con Alex Lora y El Tri en el Foro Principal.",
-    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/el_tri.jpg",
-    "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre"
-  },
-  {
-    "id": "carlos_rivera_fiestas_octubre_2026",
-    "name": "Carlos Rivera - Gran Cierre Fiestas de Octubre 2026",
-    "start_date": "2026-11-02",
-    "start_time": "20:00",
-    "latitude": "20.725805",
-    "longitude": "-103.352821",
-    "venue_name": "Foro Principal - Auditorio Benito Juárez",
-    "venue_city": "Zapopan",
-    "summary": "Concierto estelar de clausura oficial de las Fiestas de Octubre 2026 a cargo de Carlos Rivera.",
-    "image_url": "https://fiestasdeoctubre.jalisco.gob.mx/images/carlos_rivera.jpg",
-    "url": "https://www.superboletos.com/busqueda?query=fiestas%20de%20octubre"
-  },
-  {
-    "id": "calaverandia_2026",
-    "name": "Calaverandia 2026 - Parque Temático de Día de Muertos",
-    "start_date": "2026-10-30",
-    "start_time": "19:00",
-    "latitude": "20.713500",
-    "longitude": "-103.376800",
-    "venue_name": "Parque Ávila Camacho",
-    "venue_city": "Zapopan",
-    "summary": "El parque temático del Día de Muertos con tecnología interactiva, instalaciones artísticas, iluminación monumental, espectáculos multimedia, gastronomía y atracciones familiares.",
-    "image_url": "https://calaverandia.com.mx/images/calaverandia_banner.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
     "id": "tina_y_tomas_obra_infantil_2026",
     "name": "Tina y Tomás - Obra Infantil y Familiar",
     "start_date": "2026-11-01",
@@ -988,32 +884,6 @@
     "url": "https://tiempo-mandarina.org/eventos/"
   },
   {
-    "id": "taller_alfareria_barro_2026",
-    "name": "Taller Infantil de Alfarería y Barro",
-    "start_date": "2026-11-04",
-    "start_time": "11:00",
-    "latitude": "20.640200",
-    "longitude": "-103.313500",
-    "venue_name": "Centro Cultural El Refugio",
-    "venue_city": "San Pedro Tlaquepaque",
-    "summary": "Taller didáctico para niños sobre técnicas tradicionales de moldeo y pintura en piezas de barro guiado por artesanos de Tlaquepaque.",
-    "image_url": "https://tlaquepaque.gob.mx/images/taller_alfareria.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
-    "id": "concierto_cuentos_sinfonicos_2026",
-    "name": "Concierto Didáctico: Cuentos Sinfónicos",
-    "start_date": "2026-11-05",
-    "start_time": "18:00",
-    "latitude": "20.728500",
-    "longitude": "-103.418200",
-    "venue_name": "PALCCO - Teatro José Pablo Moncayo",
-    "venue_city": "Zapopan",
-    "summary": "Presentación orquestal de piezas clásicas narradas especialmente para público infantil y adolescente en el teatro principal.",
-    "image_url": "https://palcco.com/images/cuentos_sinfonicos.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
     "id": "festival_calaveras_tlaquepaque_2026",
     "name": "Festival Cultural de Calaveras en Tlaquepaque",
     "start_date": "2026-11-06",
@@ -1092,19 +962,6 @@
     "url": "https://tiempo-mandarina.org/eventos/"
   },
   {
-    "id": "taller_grabado_musa_2026",
-    "name": "Taller de Pintura y Grabado para Adolescentes",
-    "start_date": "2026-11-12",
-    "start_time": "16:00",
-    "latitude": "20.674812",
-    "longitude": "-103.359210",
-    "venue_name": "Museo de las Artes de la Universidad de Guadalajara (MUSA)",
-    "venue_city": "Guadalajara",
-    "summary": "Sesión práctica de linograbado e impresión artesanal impartida por artistas plásticos del museo MUSA.",
-    "image_url": "https://www.musaudg.mx/images/taller_grabado.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
     "id": "cine_infantil_monstruos_2026",
     "name": "Ciclo de Cine Infantil 'Monstruos Divertidos'",
     "start_date": "2026-11-13",
@@ -1131,19 +988,6 @@
     "url": "https://tiempo-mandarina.org/eventos/"
   },
   {
-    "id": "taller_escultura_barro_2026",
-    "name": "Taller de Escultura en Barro Moldeado",
-    "start_date": "2026-11-15",
-    "start_time": "11:00",
-    "latitude": "20.640200",
-    "longitude": "-103.313500",
-    "venue_name": "Museo Pantaleón Panduro",
-    "venue_city": "San Pedro Tlaquepaque",
-    "summary": "Práctica creativa de creación de figuras de barro dentro del Museo Pantaleón Panduro para familias.",
-    "image_url": "https://tlaquepaque.gob.mx/images/pantaleon_panduro.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
     "id": "noche_museos_abiertos_2026",
     "name": "Noche de Museos Abiertos en el Centro Histórico",
     "start_date": "2026-11-16",
@@ -1154,19 +998,6 @@
     "venue_city": "Guadalajara",
     "summary": "Acceso nocturno gratuito a múltiples recintos culturales con música en vivo, visitas guiadas y callejonadas.",
     "image_url": "https://guadalajara.gob.mx/images/noche_museos_gdl.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
-    "id": "recorrido_botanico_colomos_2026",
-    "name": "Recorrido de Biodiversidad y Botánica Familiar",
-    "start_date": "2026-11-17",
-    "start_time": "09:30",
-    "latitude": "20.707200",
-    "longitude": "-103.392500",
-    "venue_name": "Bosque Los Colomos",
-    "venue_city": "Guadalajara",
-    "summary": "Caminata ecológica guiada por biólogos reconociendo la flora, árboles centenarios y aves del parque urbano.",
-    "image_url": "https://bosquecolomos.org/images/recorrido_botanico.jpg",
     "url": "https://tiempo-mandarina.org/eventos/"
   },
   {
@@ -1222,32 +1053,6 @@
     "url": "https://tiempo-mandarina.org/eventos/"
   },
   {
-    "id": "taller_alebrijes_cartoneria_2026",
-    "name": "Taller de Alebrijes y Cartonería Mexicana",
-    "start_date": "2026-11-22",
-    "start_time": "11:00",
-    "latitude": "20.672100",
-    "longitude": "-103.341200",
-    "venue_name": "Casa de la Cultura Jalisciense",
-    "venue_city": "Guadalajara",
-    "summary": "Taller de diseño, engrudo y pintura folclórica para la elaboración de criaturas fantásticas de papel en familia.",
-    "image_url": "https://sc.jalisco.gob.mx/images/taller_alebrijes.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
-    "id": "maraton_cuentacuentos_2026",
-    "name": "Maratón de Cuentacuentos y Literatura Infantil",
-    "start_date": "2026-11-23",
-    "start_time": "11:00",
-    "latitude": "20.726500",
-    "longitude": "-103.352000",
-    "venue_name": "Biblioteca Pública del Estado Juan José Arreola",
-    "venue_city": "Zapopan",
-    "summary": "Jornada continua de narración oral con actores, títeres y música acústica en el piso infantil de la biblioteca.",
-    "image_url": "https://bpej.udg.mx/images/cuentacuentos_maraton.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
     "id": "festival_sabores_mi_tierra_2026",
     "name": "Festival Gastronómico 'Sabores de Mi Tierra'",
     "start_date": "2026-11-24",
@@ -1261,19 +1066,6 @@
     "url": "https://www.informador.mx/jalisco/festival-del-pan-de-muerto-2026-en-guadalajara-fechas-sedes-y-horarios-20260928-0097.html"
   },
   {
-    "id": "recorrido_botanico_agua_azul_2026",
-    "name": "Recorrido Botánico e Histórico Familiar",
-    "start_date": "2026-11-25",
-    "start_time": "10:00",
-    "latitude": "20.661200",
-    "longitude": "-103.348500",
-    "venue_name": "Parque Agua Azul",
-    "venue_city": "Guadalajara",
-    "summary": "Visita al orquidario y mariposario con dinámicas didácticas sobre conservación ambiental e historia del parque.",
-    "image_url": "https://guadalajara.gob.mx/images/mariposario_agua_azul.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
     "id": "concierto_sinfonico_videojuegos_2026",
     "name": "Concierto Sinfónico 'Música de Videojuegos'",
     "start_date": "2026-11-26",
@@ -1284,19 +1076,6 @@
     "venue_city": "Guadalajara",
     "summary": "Interpretación orquestal de las bandas sonoras más emblemáticas de videojuegos clásicos y modernos con proyecciones sincronizadas.",
     "image_url": "https://www.teatrodiana.com/images/videojuegos_sinfonico.jpg",
-    "url": "https://tiempo-mandarina.org/eventos/"
-  },
-  {
-    "id": "taller_robotica_trompo_2026",
-    "name": "Taller de Robótica y Ciencia Divertida",
-    "start_date": "2026-11-27",
-    "start_time": "11:00",
-    "latitude": "20.722512",
-    "longitude": "-103.415234",
-    "venue_name": "Museo Trompo Mágico",
-    "venue_city": "Zapopan",
-    "summary": "Experimentos interactivos, construcción de circuitos sencillos y talleres de lógica espacial para niñas y niños.",
-    "image_url": "https://trompomagico.jalisco.gob.mx/images/robotica_divertida.jpg",
     "url": "https://tiempo-mandarina.org/eventos/"
   },
   {
