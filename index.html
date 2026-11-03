@@ -84,7 +84,7 @@
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
-  /* SPLASH MEJORADO CON LOGO Y EDIFICIO */
+  /* SPLASH MEJORADO CON LOGO */
   .splash {
     position: fixed; inset: 0; z-index: var(--z-splash);
     background: linear-gradient(135deg, var(--festive-splash-from, #4F46E5) 0%, var(--festive-splash-mid, #7C3AED) 50%, var(--festive-splash-to, #EC4899) 100%);
@@ -95,39 +95,65 @@
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   html[data-theme="dark"] .splash { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%); }
   
-  .splash-brand-container {
-    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  .splash-logo-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 8px;
     animation: splashFloat 3s ease-in-out infinite;
   }
+  
+  .splash-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 10px;
+  }
+  
   @keyframes splashFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
   
-  .splash-logo-main {
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 64px; font-weight: 800; letter-spacing: -0.04em;
-    color: #FFFFFF;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    position: relative;
+  .splash-building-icon {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 48px;
+    height: 48px;
+    background: var(--surface);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border: 2px solid var(--primary);
   }
-  .splash-logo-main .logo-icon {
-    font-size: 64px; color: #FFFFFF; margin-right: 4px;
-  }
-  .splash-logo-main .logo-text {
-    background: linear-gradient(to right, #FFFFFF, #FDE047);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .splash-building-icon .ms {
+    font-size: 28px;
+    color: var(--primary);
+    font-variation-settings: 'FILL' 1, 'wght' 500;
   }
   
+  .splash-greeting {
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800;
+    letter-spacing: -0.03em; color: #FFFFFF; text-align: center; line-height: 1.2;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: splashFadeIn .8s var(--ease-emphasized) .2s both;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .splash-greeting .ms { font-size: 36px; color: #FFFFFF; }
+  @keyframes splashFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .splash-subtitle {
     font-size: 15px; font-weight: 500; color: rgba(255, 255, 255, 0.85);
     text-align: center; max-width: 280px; line-height: 1.5;
     animation: splashFadeIn .8s var(--ease-emphasized) .4s both;
   }
-  @keyframes splashFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  
   .splash-loader {
-    width: 240px; height: 6px; background: rgba(255, 255, 255, 0.2);
+    width: 200px; height: 4px; background: rgba(255, 255, 255, 0.2);
     border-radius: 999px; overflow: hidden; margin-top: 16px;
     animation: splashFadeIn .8s var(--ease-emphasized) .6s both;
   }
@@ -136,12 +162,23 @@
     width: 30%; animation: splashLoad 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
   @keyframes splashLoad { 0% { width: 5%; margin-left: 0; } 50% { width: 60%; margin-left: 20%; } 100% { width: 5%; margin-left: 95%; } }
-  .splash-brand-footer {
+  .splash-brand {
     position: absolute; bottom: calc(32px + var(--safe-bottom));
     font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700;
     color: rgba(255, 255, 255, 0.6); letter-spacing: 0.1em; text-transform: uppercase;
     animation: splashFadeIn .8s var(--ease-emphasized) .8s both;
   }
+  .splash-festive-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: #FFFFFF; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-top: 8px;
+    animation: splashFadeIn .8s var(--ease-emphasized) .5s both;
+  }
+  .splash-festive-badge .ms { font-size: 16px; }
   
   #map { position: absolute; inset: 0; z-index: var(--z-map); background: var(--surface-2); }
   html[data-theme="dark"] #map { filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
@@ -1068,8 +1105,10 @@
     .sidebar-right { width: 92%; max-width: 400px; }
     .install-banner { width: calc(100% - 32px); }
     .event-photo { width: 88px; }
-    .splash-logo-main { font-size: 48px; }
-    .splash-logo-main .logo-icon { font-size: 48px; }
+    .splash-greeting { font-size: 26px; }
+    .splash-logo-container { width: 110px; height: 110px; }
+    .splash-building-icon { width: 40px; height: 40px; bottom: -8px; right: -8px; }
+    .splash-building-icon .ms { font-size: 24px; }
     .date-filter-panel { width: 90%; max-width: 340px; }
     .festive-banner { top: calc(76px + var(--safe-top)); font-size: 11px; }
     .event-detail-card { max-width: 90%; max-height: 70vh; max-height: 70dvh; }
@@ -1107,17 +1146,25 @@
 </script>
 
 <div class="splash" id="splash">
-  <div class="splash-brand-container">
-    <div class="splash-logo-main">
-      <span class="ms fill logo-icon">location_city</span>
-      <span class="logo-text">2D</span>
+  <div class="splash-logo-container">
+    <img src="logo.png" alt="2DTODAY Logo" class="splash-logo-img" onerror="this.style.display='none'">
+    <div class="splash-building-icon">
+      <span class="ms fill">location_city</span>
     </div>
-    <div class="splash-subtitle" id="splashSubtitle">Descubre museos y eventos en Guadalajara</div>
+  </div>
+  <div class="splash-greeting" id="splashGreeting">
+    <span class="ms fill" id="splashIcon">wb_sunny</span>
+    <span id="splashGreetingText">Buenos días</span>
+  </div>
+  <div class="splash-subtitle" id="splashSubtitle">Descubre museos y eventos en Guadalajara</div>
+  <div class="splash-festive-badge" id="splashFestiveBadge" style="display: none;">
+    <span class="ms fill" id="splashFestiveIcon">celebration</span>
+    <span id="splashFestiveLabel">Temporada festiva</span>
   </div>
   <div class="splash-loader">
     <div class="splash-loader-bar"></div>
   </div>
-  <div class="splash-brand-footer">2DTODAY</div>
+  <div class="splash-brand">2DTODAY</div>
 </div>
 
 <div class="festive-confetti" id="festiveConfetti"></div>
@@ -1264,11 +1311,11 @@ let localEventbriteEvents = [];
 let localEventsLoaded = false;
 
 /* ============================================
-   TEMAS FESTIVOS
+   TEMAS FESTIVOS (Sin Emojis, usando iconos)
    ============================================ */
 const FESTIVE_THEMES = {
   default: {
-    id: 'default', name: '2DAY', icon: 'location_city',
+    id: 'default', name: '2DAY', icon: 'location_city', emojiIcon: 'wb_sunny',
     greeting: { es: 'Buenos días', en: 'Good morning' },
     subtitle: { es: 'Descubre museos y eventos en Guadalajara', en: 'Discover museums and events in Guadalajara' },
     colors: { splashFrom: '#4F46E5', splashMid: '#7C3AED', splashTo: '#EC4899', primary: '#4F46E5', accent: '#EC4899',
@@ -1276,7 +1323,7 @@ const FESTIVE_THEMES = {
     confetti: false, banner: null
   },
   reyes: {
-    id: 'reyes', name: 'Día de Reyes', icon: 'cake',
+    id: 'reyes', name: 'Día de Reyes', icon: 'cake', emojiIcon: 'crown',
     greeting: { es: '¡Feliz Día de Reyes!', en: 'Happy Three Kings Day!' },
     subtitle: { es: 'Celebra la magia de los Reyes Magos en Guadalajara', en: 'Celebrate the magic of the Three Kings' },
     colors: { splashFrom: '#1E3A8A', splashMid: '#F59E0B', splashTo: '#DC2626', primary: '#B45309', accent: '#DC2626',
@@ -1285,7 +1332,7 @@ const FESTIVE_THEMES = {
         banner: { es: 'Día de Reyes · 6 de enero', en: 'Three Kings Day · January 6' }
   },
   san_valentin: {
-    id: 'san_valentin', name: 'San Valentín', icon: 'favorite',
+    id: 'san_valentin', name: 'San Valentín', icon: 'favorite', emojiIcon: 'favorite',
     greeting: { es: '¡Feliz San Valentín!', en: "Happy Valentine's Day!" },
     subtitle: { es: 'Los mejores planes románticos en Guadalajara', en: 'The best romantic plans in Guadalajara' },
     colors: { splashFrom: '#BE123C', splashMid: '#EC4899', splashTo: '#F472B6', primary: '#DB2777', accent: '#F43F5E',
@@ -1294,7 +1341,7 @@ const FESTIVE_THEMES = {
     banner: { es: 'San Valentín · 14 de febrero', en: "Valentine's Day · February 14" }
   },
   carnaval: {
-    id: 'carnaval', name: 'Carnaval', icon: 'celebration',
+    id: 'carnaval', name: 'Carnaval', icon: 'celebration', emojiIcon: 'masks',
     greeting: { es: '¡Feliz Carnaval!', en: 'Happy Carnival!' },
     subtitle: { es: 'Vive la fiesta y el color del Carnaval tapatío', en: 'Live the party and color of Carnival' },
     colors: { splashFrom: '#7C3AED', splashMid: '#F59E0B', splashTo: '#EC4899', primary: '#7C3AED', accent: '#F59E0B',
@@ -1303,7 +1350,7 @@ const FESTIVE_THEMES = {
     banner: { es: 'Carnaval · Fecha variable', en: 'Carnival · Variable date' }
   },
   dia_nino: {
-    id: 'dia_nino', name: 'Día del Niño', icon: 'child_care',
+    id: 'dia_nino', name: 'Día del Niño', icon: 'child_care', emojiIcon: 'toys',
     greeting: { es: '¡Feliz Día del Niño!', en: "Happy Children's Day!" },
     subtitle: { es: 'Planes divertidos para los más pequeños', en: 'Fun plans for the little ones' },
     colors: { splashFrom: '#06B6D4', splashMid: '#F59E0B', splashTo: '#EC4899', primary: '#0891B2', accent: '#F59E0B',
@@ -1312,7 +1359,7 @@ const FESTIVE_THEMES = {
     banner: { es: 'Día del Niño · 30 de abril', en: "Children's Day · April 30" }
   },
   dia_madre: {
-    id: 'dia_madre', name: 'Día de las Madres', icon: 'local_florist',
+    id: 'dia_madre', name: 'Día de las Madres', icon: 'local_florist', emojiIcon: 'local_florist',
     greeting: { es: '¡Feliz Día de las Madres!', en: "Happy Mother's Day!" },
     subtitle: { es: 'Celebra a mamá con los mejores planes', en: 'Celebrate mom with the best plans' },
     colors: { splashFrom: '#BE185D', splashMid: '#F472B6', splashTo: '#FBCFE8', primary: '#BE185D', accent: '#EC4899',
@@ -1321,7 +1368,7 @@ const FESTIVE_THEMES = {
     banner: { es: 'Día de las Madres · 10 de mayo', en: "Mother's Day · May 10" }
   },
   dia_padre: {
-    id: 'dia_padre', name: 'Día del Padre', icon: 'sports_bar',
+    id: 'dia_padre', name: 'Día del Padre', icon: 'sports_bar', emojiIcon: 'sports_bar',
     greeting: { es: '¡Feliz Día del Padre!', en: "Happy Father's Day!" },
     subtitle: { es: 'Celebra a papá con los mejores planes', en: 'Celebrate dad with the best plans' },
     colors: { splashFrom: '#1E40AF', splashMid: '#3B82F6', splashTo: '#60A5FA', primary: '#1E40AF', accent: '#3B82F6',
@@ -1330,7 +1377,7 @@ const FESTIVE_THEMES = {
     banner: { es: 'Día del Padre · 3er domingo de junio', en: "Father's Day · 3rd Sunday of June" }
   },
   independencia: {
-    id: 'independencia', name: 'Independencia de México', icon: 'flag',
+    id: 'independencia', name: 'Independencia de México', icon: 'flag', emojiIcon: 'flag',
     greeting: { es: '¡Viva México!', en: 'Viva Mexico!' },
     subtitle: { es: 'Celebra la Independencia de México en Guadalajara', en: "Celebrate Mexico's Independence" },
     colors: { splashFrom: '#006847', splashMid: '#CE1126', splashTo: '#FFFFFF', primary: '#006847', accent: '#CE1126',
@@ -1339,7 +1386,7 @@ const FESTIVE_THEMES = {
     banner: { es: 'Independencia de México · 15-16 de septiembre', en: "Mexico's Independence · Sep 15-16" }
   },
   halloween: {
-    id: 'halloween', name: 'Halloween', icon: 'skull',
+    id: 'halloween', name: 'Halloween', icon: 'skull', emojiIcon: 'skull',
     greeting: { es: '¡Feliz Halloween!', en: 'Happy Halloween!' },
     subtitle: { es: 'Los planes más escalofriantes en Guadalajara', en: 'The spookiest plans in Guadalajara' },
     colors: { splashFrom: '#1A1A1A', splashMid: '#EA580C', splashTo: '#7C2D12', primary: '#EA580C', accent: '#A855F7',
@@ -1349,7 +1396,7 @@ const FESTIVE_THEMES = {
     darkMap: true
   },
   dia_muertos: {
-    id: 'dia_muertos', name: 'Día de Muertos', icon: 'local_florist',
+    id: 'dia_muertos', name: 'Día de Muertos', icon: 'local_florist', emojiIcon: 'skull',
     greeting: { es: '¡Feliz Día de Muertos!', en: 'Happy Day of the Dead!' },
     subtitle: { es: 'Celebra la tradición más hermosa de México', en: "Celebrate Mexico's most beautiful tradition" },
     colors: { splashFrom: '#1E1B4B', splashMid: '#7C2D12', splashTo: '#EA580C', primary: '#C2410C', accent: '#F97316',
@@ -1359,7 +1406,7 @@ const FESTIVE_THEMES = {
     darkMap: true
   },
   navidad: {
-    id: 'navidad', name: 'Navidad', icon: 'celebration',
+    id: 'navidad', name: 'Navidad', icon: 'celebration', emojiIcon: 'park',
     greeting: { es: '¡Feliz Navidad!', en: 'Merry Christmas!' },
     subtitle: { es: 'Vive la magia navideña en Guadalajara', en: 'Live the Christmas magic in Guadalajara' },
     colors: { splashFrom: '#065F46', splashMid: '#DC2626', splashTo: '#F59E0B', primary: '#047857', accent: '#DC2626',
@@ -1368,7 +1415,7 @@ const FESTIVE_THEMES = {
     banner: { es: 'Navidad · 24-25 de diciembre', en: 'Christmas · Dec 24-25' }
   },
   ano_nuevo: {
-    id: 'ano_nuevo', name: 'Año Nuevo', icon: 'auto_awesome',
+    id: 'ano_nuevo', name: 'Año Nuevo', icon: 'auto_awesome', emojiIcon: 'celebration',
     greeting: { es: '¡Feliz Año Nuevo!', en: 'Happy New Year!' },
     subtitle: { es: 'Comienza el año con los mejores planes', en: 'Start the year with the best plans' },
     colors: { splashFrom: '#1E1B4B', splashMid: '#7C3AED', splashTo: '#F59E0B', primary: '#7C3AED', accent: '#F59E0B',
@@ -1394,107 +1441,57 @@ function detectFestiveTheme() {
   const date = now.getDate();
   const dayOfWeek = now.getDay(); // 0=domingo, 1=lunes, ..., 6=sábado
   
-  // ==========================================================
   // ENERO
-  // ==========================================================
-  // Año Nuevo (1-5 enero)
   if (month === 0 && date >= 1 && date <= 5) return FESTIVE_THEMES.ano_nuevo;
-  // Día de Reyes (6-8 enero)
   if (month === 0 && date >= 6 && date <= 8) return FESTIVE_THEMES.reyes;
   
-  // ==========================================================
   // FEBRERO
-  // ==========================================================
-  // Día de la Candelaria (2 febrero)
   if (month === 1 && date >= 1 && date <= 3) return FESTIVE_THEMES.candelaria;
-  // San Valentín (7-15 febrero)
   if (month === 1 && date >= 7 && date <= 15) return FESTIVE_THEMES.san_valentin;
-  // Carnaval (20 feb - 5 mar)
   if (month === 1 && date >= 20) return FESTIVE_THEMES.carnaval;
   if (month === 2 && date <= 5) return FESTIVE_THEMES.carnaval;
-  // Constitución (5 feb, pero se celebra el primer lunes de feb)
-  const firstMondayFeb = getNthWeekdayOfMonth(year, 1, 1, 1);
-  if (month === 1 && date === firstMondayFeb.getDate()) return FESTIVE_THEMES.constitucion;
   
-  // ==========================================================
   // MARZO
-  // ==========================================================
-  // Natalicio de Benito Juárez (21 mar, se celebra el tercer lunes de mar)
   const thirdMondayMar = getNthWeekdayOfMonth(year, 2, 1, 3);
   if (month === 2 && date === thirdMondayMar.getDate()) return FESTIVE_THEMES.juarez;
   
-  // ==========================================================
   // ABRIL
-  // ==========================================================
-  // Día del Niño (30 abril - 2 mayo)
   if ((month === 3 && date >= 28) || (month === 4 && date <= 2)) return FESTIVE_THEMES.dia_nino;
-  // Feria de San Marcos Aguascalientes (18 abril - 10 mayo)
   if (month === 3 && date >= 18) return FESTIVE_THEMES.feria_san_marcos;
   
-  // ==========================================================
   // MAYO
-  // ==========================================================
-  // Día del Trabajo (1 mayo)
   if (month === 4 && date === 1) return FESTIVE_THEMES.trabajo;
-  // Batalla de Puebla (5 mayo)
   if (month === 4 && date === 5) return FESTIVE_THEMES.batalla_puebla;
-  // Día de las Madres (10 mayo)
   if (month === 4 && date >= 8 && date <= 12) return FESTIVE_THEMES.dia_madre;
   
-  // ==========================================================
   // JUNIO
-  // ==========================================================
-  // Día del Padre (3er domingo de junio)
   const thirdSundayJun = getNthWeekdayOfMonth(year, 5, 0, 3);
   const fatherDayDate = thirdSundayJun.getDate();
   if (month === 5 && date >= fatherDayDate - 3 && date <= fatherDayDate + 2) return FESTIVE_THEMES.dia_padre;
-  // Día de San Juan Bautista (24 junio)
   if (month === 5 && date >= 23 && date <= 25) return FESTIVE_THEMES.san_juan;
   
-  // ==========================================================
   // JULIO
-  // ==========================================================
-  // Guelaguetza Oaxaca (2 lunes después del 16 julio)
   if (month === 6 && date >= 16 && date <= 31) return FESTIVE_THEMES.guelaguetza;
   
-  // ==========================================================
   // SEPTIEMBRE
-  // ==========================================================
-  // Independencia de México (15-16 septiembre)
   if (month === 8 && date >= 15 && date <= 17) return FESTIVE_THEMES.independencia;
   
-  // ==========================================================
   // OCTUBRE
-  // ==========================================================
-  // Festival Cervantino (aprox 10-27 octubre)
   if (month === 9 && date >= 10 && date <= 27) return FESTIVE_THEMES.cervantino;
-  // Halloween SOLO 28, 29, 30, 31 de octubre
   if (month === 9 && date >= 28 && date <= 31) return FESTIVE_THEMES.halloween;
   
-  // ==========================================================
   // NOVIEMBRE
-  // ==========================================================
-  // DÍA DE MUERTOS PRIMERO: 1 y 2 de noviembre (UNESCO)
   if (month === 10 && date >= 1 && date <= 3) return FESTIVE_THEMES.dia_muertos;
-  // Festival del Globo León (aprox 13-16 noviembre)
   if (month === 10 && date >= 13 && date <= 17) return FESTIVE_THEMES.festival_globo;
-  // Revolución Mexicana (20 nov, se celebra 3er lunes de nov)
   const thirdMondayNov = getNthWeekdayOfMonth(year, 10, 1, 3);
   if (month === 10 && date === thirdMondayNov.getDate()) return FESTIVE_THEMES.revolucion;
   
-  // ==========================================================
   // DICIEMBRE
-  // ==========================================================
-  // Virgen de Guadalupe (12 diciembre)
   if (month === 11 && date >= 11 && date <= 13) return FESTIVE_THEMES.guadalupe;
-  // Posadas (16-23 diciembre)
   if (month === 11 && date >= 16 && date <= 23) return FESTIVE_THEMES.posadas;
-  // Navidad (24-25 diciembre)
   if (month === 11 && date >= 24 && date <= 26) return FESTIVE_THEMES.navidad;
-  // Fin de año / Año Nuevo (27 dic - 5 ene)
   if (month === 11 && date >= 27) return FESTIVE_THEMES.ano_nuevo;
   
-  // Fallback
   return FESTIVE_THEMES.default;
 }
 
@@ -1513,8 +1510,23 @@ function applyFestiveTheme(theme) {
   
   const splashLogoIcon = document.getElementById('splashLogoIcon');
   if (splashLogoIcon) splashLogoIcon.textContent = theme.icon;
+  const splashIcon = document.getElementById('splashIcon');
+  if (splashIcon) splashIcon.textContent = theme.emojiIcon;
+  const splashGreeting = document.getElementById('splashGreetingText');
+  if (splashGreeting) splashGreeting.textContent = theme.greeting[currentLang] || theme.greeting.es;
   const splashSubtitle = document.getElementById('splashSubtitle');
   if (splashSubtitle) splashSubtitle.textContent = theme.subtitle[currentLang] || theme.subtitle.es;
+  
+  const festiveBadge = document.getElementById('splashFestiveBadge');
+  const festiveIcon = document.getElementById('splashFestiveIcon');
+  const festiveLabel = document.getElementById('splashFestiveLabel');
+  if (theme.id !== 'default' && festiveBadge) {
+    festiveBadge.style.display = 'inline-flex';
+    if (festiveIcon) festiveIcon.textContent = theme.icon;
+    if (festiveLabel) festiveLabel.textContent = theme.banner?.[currentLang] || theme.banner?.es || theme.name;
+  } else if (festiveBadge) {
+    festiveBadge.style.display = 'none';
+  }
   
   const brandLogoIcon = document.getElementById('brandLogoIcon');
   if (brandLogoIcon) brandLogoIcon.textContent = theme.icon;
@@ -1565,7 +1577,6 @@ function updateMapStyles(theme) {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   const fc = theme.colors.map;
   
-  // Colores de calles claros para que siempre se vean bien
   const useDark = isDark || theme.darkMap;
   const roadColor = useDark ? (fc.road || '#57534e') : (fc.road || '#ffffff');
   const highwayColor = useDark ? (fc.highway || '#b45309') : (fc.highway || '#dadada');
@@ -1585,35 +1596,35 @@ function updateMapStyles(theme) {
 }
 
 /* ============================================
-   SALUDO
+   SALUDO (Sin emojis, usando iconos)
    ============================================ */
 function getGreeting() {
   const hour = new Date().getHours();
   const greetings = {
     es: {
-      morning: { text: 'Buenos días', subtitle: 'Descubre museos y eventos en Guadalajara' },
-      afternoon: { text: 'Buenas tardes', subtitle: 'Explora la cultura tapatía hoy' },
-      evening: { text: 'Buenas noches', subtitle: 'Encuentra planes para esta noche' }
+      morning: { text: 'Buenos días', icon: 'wb_sunny', subtitle: 'Descubre museos y eventos en Guadalajara' },
+      afternoon: { text: 'Buenas tardes', icon: 'wb_twilight', subtitle: 'Explora la cultura tapatía hoy' },
+      evening: { text: 'Buenas noches', icon: 'bedtime', subtitle: 'Encuentra planes para esta noche' }
     },
     en: {
-      morning: { text: 'Good morning', subtitle: 'Discover museums and events in Guadalajara' },
-      afternoon: { text: 'Good afternoon', subtitle: 'Explore the local culture today' },
-      evening: { text: 'Good evening', subtitle: 'Find plans for tonight' }
+      morning: { text: 'Good morning', icon: 'wb_sunny', subtitle: 'Discover museums and events in Guadalajara' },
+      afternoon: { text: 'Good afternoon', icon: 'wb_twilight', subtitle: 'Explore the local culture today' },
+      evening: { text: 'Good evening', icon: 'bedtime', subtitle: 'Find plans for tonight' }
     },
     fr: {
-      morning: { text: 'Bonjour', subtitle: 'Découvrez les musées et événements à Guadalajara' },
-      afternoon: { text: 'Bon après-midi', subtitle: 'Explorez la culture locale aujourd\'hui' },
-      evening: { text: 'Bonsoir', subtitle: 'Trouvez des idées pour ce soir' }
+      morning: { text: 'Bonjour', icon: 'wb_sunny', subtitle: 'Découvrez les musées et événements à Guadalajara' },
+      afternoon: { text: 'Bon après-midi', icon: 'wb_twilight', subtitle: 'Explorez la culture locale aujourd\'hui' },
+      evening: { text: 'Bonsoir', icon: 'bedtime', subtitle: 'Trouvez des idées pour ce soir' }
     },
     pt: {
-      morning: { text: 'Bom dia', subtitle: 'Descubra museus e eventos em Guadalajara' },
-      afternoon: { text: 'Boa tarde', subtitle: 'Explore a cultura local hoje' },
-      evening: { text: 'Boa noite', subtitle: 'Encontre planos para hoje à noite' }
+      morning: { text: 'Bom dia', icon: 'wb_sunny', subtitle: 'Descubra museus e eventos em Guadalajara' },
+      afternoon: { text: 'Boa tarde', icon: 'wb_twilight', subtitle: 'Explore a cultura local hoje' },
+      evening: { text: 'Boa noite', icon: 'bedtime', subtitle: 'Encontre planos para hoje à noite' }
     },
     de: {
-      morning: { text: 'Guten Morgen', subtitle: 'Entdecken Sie Museen und Veranstaltungen in Guadalajara' },
-      afternoon: { text: 'Guten Tag', subtitle: 'Erkunden Sie heute die lokale Kultur' },
-      evening: { text: 'Guten Abend', subtitle: 'Finden Sie Pläne für heute Abend' }
+      morning: { text: 'Guten Morgen', icon: 'wb_sunny', subtitle: 'Entdecken Sie Museen und Veranstaltungen in Guadalajara' },
+      afternoon: { text: 'Guten Tag', icon: 'wb_twilight', subtitle: 'Erkunden Sie heute die lokale Kultur' },
+      evening: { text: 'Guten Abend', icon: 'bedtime', subtitle: 'Finden Sie Pläne für heute Abend' }
     }
   };
   let period = 'morning';
@@ -1625,25 +1636,43 @@ function getGreeting() {
 function updateSplashGreeting() {
   if (currentFestiveTheme && currentFestiveTheme.id !== 'default') {
     const theme = currentFestiveTheme;
+    const iconEl = document.getElementById('splashIcon');
+    const textEl = document.getElementById('splashGreetingText');
     const subtitleEl = document.getElementById('splashSubtitle');
     const logoIcon = document.getElementById('splashLogoIcon');
+    if (iconEl) iconEl.textContent = theme.emojiIcon;
+    if (textEl) textEl.textContent = theme.greeting[currentLang] || theme.greeting.es;
     if (subtitleEl) subtitleEl.textContent = theme.subtitle[currentLang] || theme.subtitle.es;
     if (logoIcon) logoIcon.textContent = theme.icon;
+    const festiveBadge = document.getElementById('splashFestiveBadge');
+    const festiveIcon = document.getElementById('splashFestiveIcon');
+    const festiveLabel = document.getElementById('splashFestiveLabel');
+    if (festiveBadge) {
+      festiveBadge.style.display = 'inline-flex';
+      if (festiveIcon) festiveIcon.textContent = theme.icon;
+      if (festiveLabel) festiveLabel.textContent = theme.banner?.[currentLang] || theme.banner?.es || theme.name;
+    }
   } else {
     const greeting = getGreeting();
+    const iconEl = document.getElementById('splashIcon');
+    const textEl = document.getElementById('splashGreetingText');
     const subtitleEl = document.getElementById('splashSubtitle');
+    if (iconEl) iconEl.textContent = greeting.icon;
+    if (textEl) textEl.textContent = greeting.text;
     if (subtitleEl) subtitleEl.textContent = greeting.subtitle;
+    const festiveBadge = document.getElementById('splashFestiveBadge');
+    if (festiveBadge) festiveBadge.style.display = 'none';
   }
 }
 
 /* ============================================
-   CATEGORÍAS DE AUDIENCIA (UNIFICADAS Y SIN FAMILIA)
+   CATEGORÍAS DE AUDIENCIA (Unificadas y con iconos cool)
    ============================================ */
 const AGE_CATEGORIES = {
-  adults:   { key: 'adults',   label: 'Adultos',       icon: 'groups',          color: '#2563EB', bg: '#DBEAFE' },
-  teens:    { key: 'teens',    label: 'Adolescentes',  icon: 'sports_esports',  color: '#8B5CF6', bg: '#EDE9FE' },
-  kids:     { key: 'kids',     label: 'Niños',         icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' },
-  bebes:    { key: 'bebes',    label: 'Bebés',         icon: 'stroller',        color: '#06B6D4', bg: '#CFFAFE' }
+  adults: { key: 'adults', label: 'Adultos', icon: 'groups', color: '#000000', bg: '#F4F4F5' },
+  teens:  { key: 'teens',  label: 'Adolescentes', icon: 'sports_esports', color: '#8B5CF6', bg: '#EDE9FE' },
+  kids:   { key: 'kids',   label: 'Niños', icon: 'toys', color: '#F59E0B', bg: '#FEF3C7' },
+  bebes:  { key: 'bebes',  label: 'Bebés', icon: 'child_friendly', color: '#06B6D4', bg: '#CFFAFE' }
 };
 
 const ACCESSIBILITY_CATEGORIES = {
@@ -1920,7 +1949,7 @@ function tDate(key) { return TRANSLATIONS[currentLang].dateOptions[key] || key; 
 function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key; }
 
 /* ============================================
-   DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD
+   DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD (Unificada)
    ============================================ */
 function detectEventAudiences(event) {
   const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
@@ -1929,13 +1958,11 @@ function detectEventAudiences(event) {
   if (/\b(bebé|bebe|baby|babies|maternal|estimulación temprana|lactante|0 años|1 año|2 años|hasta 3 años|stroller|carriola)\b/i.test(text)) audiences.bebes = true;
   if (/\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|danza infantil|teatro infantil)\b/i.test(text)) audiences.kids = true;
   if (/\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer|escuela|estudiante)\b/i.test(text)) audiences.teens = true;
-  if (/\b(adulto|adult|hombre|mujer|men|women|18\+|21\+|bar|antro|casino|night|club|cantina)\b/i.test(text)) audiences.adults = true;
+  if (/\b(mujer|mujeres|women|femenino|dama|hombre|hombres|men|masculino|caballero|adulto|adultos)\b/i.test(text)) audiences.adults = true;
   
+  // Si no se detecta ninguna, se asume que es para adultos
   if (!Object.values(audiences).some(v => v)) {
     audiences.adults = true;
-    audiences.teens = true;
-    audiences.kids = true;
-    audiences.bebes = true;
   }
   return audiences;
 }
@@ -3192,7 +3219,6 @@ function onSearchInput() {
 function manualRefresh() {
   if (isManualRefreshing) return;
   isManualRefreshing = true;
-  // Forzar recarga del JSON
   localEventsLoaded = false;
   const btn = document.getElementById('refreshBtn');
   if (btn) { const icon = btn.querySelector('.ms'); if (icon) icon.style.animation = 'spin 1s linear infinite'; }
