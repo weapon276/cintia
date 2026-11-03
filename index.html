@@ -84,67 +84,91 @@
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
-  /* SPLASH */
+  /* SPLASH MEJORADO */
   .splash {
     position: fixed; inset: 0; z-index: var(--z-splash);
     background: linear-gradient(135deg, var(--festive-splash-from, #4F46E5) 0%, var(--festive-splash-mid, #7C3AED) 50%, var(--festive-splash-to, #EC4899) 100%);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 24px; padding: 32px;
-    transition: opacity .6s var(--ease-emphasized), visibility .6s;
+    gap: 28px; padding: 32px;
+    transition: opacity .8s var(--ease-emphasized), visibility .8s;
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   html[data-theme="dark"] .splash { background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #500724 100%); }
+  
   .splash-logo {
-    width: 96px; height: 96px; border-radius: 28px;
+    width: 160px; height: 160px; border-radius: 44px;
     background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
     display: grid; place-items: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: splashFloat 3s ease-in-out infinite;
+    box-shadow: 0 0 80px rgba(255, 255, 255, 0.3), 0 30px 80px rgba(0, 0, 0, 0.4);
+    animation: splashFloat 3.5s ease-in-out infinite;
+    position: relative;
   }
-  @keyframes splashFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
-  .splash-logo .ms { font-size: 52px; color: #FFFFFF; font-variation-settings: 'FILL' 1, 'wght' 500; }
+  .splash-logo::after {
+    content: ''; position: absolute; inset: -20px;
+    border-radius: 64px; border: 1px solid rgba(255, 255, 255, 0.15);
+    animation: splashPulse 3.5s ease-in-out infinite;
+  }
+  @keyframes splashFloat { 
+    0%, 100% { transform: translateY(0) scale(1); } 
+    50% { transform: translateY(-10px) scale(1.03); } 
+  }
+  @keyframes splashPulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.1; transform: scale(1.1); }
+  }
+  .splash-logo .ms { 
+    font-size: 84px; 
+    color: #FFFFFF; 
+    font-variation-settings: 'FILL' 1, 'wght' 500;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  }
+  
   .splash-greeting {
-    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 38px; font-weight: 800;
     letter-spacing: -0.03em; color: #FFFFFF; text-align: center; line-height: 1.2;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    animation: splashFadeIn .8s var(--ease-emphasized) .2s both;
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    animation: splashFadeIn .9s var(--ease-emphasized) .3s both;
   }
-  .splash-greeting-emoji { display: block; font-size: 48px; margin-bottom: 8px; animation: splashFadeIn .8s var(--ease-emphasized) .1s both; }
-  @keyframes splashFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .splash-greeting-emoji { display: block; font-size: 56px; margin-bottom: 12px; animation: splashFadeIn .9s var(--ease-emphasized) .15s both; }
+  @keyframes splashFadeIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  
   .splash-subtitle {
-    font-size: 15px; font-weight: 500; color: rgba(255, 255, 255, 0.85);
-    text-align: center; max-width: 280px; line-height: 1.5;
-    animation: splashFadeIn .8s var(--ease-emphasized) .4s both;
+    font-size: 16px; font-weight: 500; color: rgba(255, 255, 255, 0.9);
+    text-align: center; max-width: 320px; line-height: 1.6;
+    animation: splashFadeIn .9s var(--ease-emphasized) .5s both;
   }
+  
   .splash-loader {
-    width: 200px; height: 4px; background: rgba(255, 255, 255, 0.2);
-    border-radius: 999px; overflow: hidden; margin-top: 16px;
-    animation: splashFadeIn .8s var(--ease-emphasized) .6s both;
+    width: 240px; height: 5px; background: rgba(255, 255, 255, 0.2);
+    border-radius: 999px; overflow: hidden; margin-top: 12px;
+    animation: splashFadeIn .9s var(--ease-emphasized) .7s both;
   }
   .splash-loader-bar {
     height: 100%; background: #FFFFFF; border-radius: 999px;
-    width: 30%; animation: splashLoad 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    width: 30%; animation: splashLoad 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
   }
   @keyframes splashLoad { 0% { width: 5%; margin-left: 0; } 50% { width: 60%; margin-left: 20%; } 100% { width: 5%; margin-left: 95%; } }
+  
   .splash-brand {
-    position: absolute; bottom: calc(32px + var(--safe-bottom));
-    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700;
-    color: rgba(255, 255, 255, 0.6); letter-spacing: 0.1em; text-transform: uppercase;
-    animation: splashFadeIn .8s var(--ease-emphasized) .8s both;
+    position: absolute; bottom: calc(40px + var(--safe-bottom));
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700;
+    color: rgba(255, 255, 255, 0.7); letter-spacing: 0.15em; text-transform: uppercase;
+    animation: splashFadeIn .9s var(--ease-emphasized) .9s both;
   }
   .splash-festive-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 14px; border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px; border-radius: 999px;
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    color: #FFFFFF; font-size: 12px; font-weight: 700;
+    backdrop-filter: blur(12px);
+    color: #FFFFFF; font-size: 13px; font-weight: 700;
     text-transform: uppercase; letter-spacing: 0.08em;
-    margin-top: 8px;
-    animation: splashFadeIn .8s var(--ease-emphasized) .5s both;
+    margin-top: 12px;
+    animation: splashFadeIn .9s var(--ease-emphasized) .6s both;
   }
-  .splash-festive-badge .ms { font-size: 16px; }
+  .splash-festive-badge .ms { font-size: 18px; }
   
   #map { position: absolute; inset: 0; z-index: var(--z-map); background: var(--surface-2); }
   html[data-theme="dark"] #map { filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
@@ -581,7 +605,7 @@
   .icon-chip .ms { font-size: 14px; }
   .icon-chip.active {
     background: var(--chip-color, #4F46E5);
-        color: #FFFFFF;
+    color: #FFFFFF;
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
   .icon-chip.active .ms { font-variation-settings: 'FILL' 1, 'wght' 500; }
@@ -732,9 +756,7 @@
   .install-banner-close:hover { background: var(--surface-2); color: var(--text); }
   .install-banner-close .ms { font-size: 18px; }
 
-  /* ============================================
-     MODAL DE DETALLE DEL EVENTO - REDUCIDO A ~60%
-     ============================================ */
+  /* MODAL DE DETALLE DEL EVENTO */
   .event-detail-modal {
     position: fixed;
     inset: 0;
@@ -1073,10 +1095,10 @@
     .sidebar-right { width: 92%; max-width: 400px; }
     .install-banner { width: calc(100% - 32px); }
     .event-photo { width: 88px; }
-    .splash-greeting { font-size: 26px; }
-    .splash-greeting-emoji { font-size: 40px; }
-    .splash-logo { width: 80px; height: 80px; }
-    .splash-logo .ms { font-size: 44px; }
+    .splash-greeting { font-size: 30px; }
+    .splash-greeting-emoji { font-size: 48px; }
+    .splash-logo { width: 130px; height: 130px; }
+    .splash-logo .ms { font-size: 68px; }
     .date-filter-panel { width: 90%; max-width: 340px; }
     .festive-banner { top: calc(76px + var(--safe-top)); font-size: 11px; }
     .event-detail-card { max-width: 90%; max-height: 70vh; max-height: 70dvh; }
@@ -1110,7 +1132,7 @@
 <body class="escapaditas-closed">
 
 <script>
-  const ESCAPADITAS_ENABLED = false; // ← Cambia a true para activar Escapaditas
+  const ESCAPADITAS_ENABLED = false;
 </script>
 
 <div class="splash" id="splash">
@@ -1294,7 +1316,7 @@ const FESTIVE_THEMES = {
     colors: { splashFrom: '#1E3A8A', splashMid: '#F59E0B', splashTo: '#DC2626', primary: '#B45309', accent: '#DC2626',
       map: { water: '#bfdbfe', park: '#fef3c7', highway: '#fcd34d', road: '#fffbeb', geometry: '#fef9e7', text: '#92400e' } },
     confetti: ['#F59E0B', '#DC2626', '#1E3A8A', '#FBBF24'],
-        banner: { es: '👑 Día de Reyes · 6 de enero', en: '👑 Three Kings Day · January 6' }
+    banner: { es: '👑 Día de Reyes · 6 de enero', en: '👑 Three Kings Day · January 6' }
   },
   san_valentin: {
     id: 'san_valentin', name: 'San Valentín', icon: 'favorite', emoji: '💕',
@@ -1402,111 +1424,42 @@ function getNthWeekdayOfMonth(year, month, weekday, nth) {
 function detectFestiveTheme() {
   const now = new Date();
   const year = now.getFullYear();
-  const month = now.getMonth();  // 0=enero, 11=diciembre
+  const month = now.getMonth();
   const date = now.getDate();
-  const dayOfWeek = now.getDay(); // 0=domingo, 1=lunes, ..., 6=sábado
+  const dayOfWeek = now.getDay();
   
-  // ==========================================================
-  // ENERO
-  // ==========================================================
-  // Año Nuevo (1-5 enero)
   if (month === 0 && date >= 1 && date <= 5) return FESTIVE_THEMES.ano_nuevo;
-  // Día de Reyes (6-8 enero)
   if (month === 0 && date >= 6 && date <= 8) return FESTIVE_THEMES.reyes;
-  
-  // ==========================================================
-  // FEBRERO
-  // ==========================================================
-  // Día de la Candelaria (2 febrero)
   if (month === 1 && date >= 1 && date <= 3) return FESTIVE_THEMES.candelaria;
-  // San Valentín (7-15 febrero)
   if (month === 1 && date >= 7 && date <= 15) return FESTIVE_THEMES.san_valentin;
-  // Carnaval (20 feb - 5 mar)
   if (month === 1 && date >= 20) return FESTIVE_THEMES.carnaval;
   if (month === 2 && date <= 5) return FESTIVE_THEMES.carnaval;
-  // Constitución (5 feb, pero se celebra el primer lunes de feb)
   const firstMondayFeb = getNthWeekdayOfMonth(year, 1, 1, 1);
   if (month === 1 && date === firstMondayFeb.getDate()) return FESTIVE_THEMES.constitucion;
-  
-  // ==========================================================
-  // MARZO
-  // ==========================================================
-  // Natalicio de Benito Juárez (21 mar, se celebra el tercer lunes de mar)
   const thirdMondayMar = getNthWeekdayOfMonth(year, 2, 1, 3);
   if (month === 2 && date === thirdMondayMar.getDate()) return FESTIVE_THEMES.juarez;
-  
-  // ==========================================================
-  // ABRIL
-  // ==========================================================
-  // Día del Niño (30 abril - 2 mayo)
   if ((month === 3 && date >= 28) || (month === 4 && date <= 2)) return FESTIVE_THEMES.dia_nino;
-  // Feria de San Marcos Aguascalientes (18 abril - 10 mayo)
   if (month === 3 && date >= 18) return FESTIVE_THEMES.feria_san_marcos;
-  
-  // ==========================================================
-  // MAYO
-  // ==========================================================
-  // Día del Trabajo (1 mayo)
   if (month === 4 && date === 1) return FESTIVE_THEMES.trabajo;
-  // Batalla de Puebla (5 mayo)
   if (month === 4 && date === 5) return FESTIVE_THEMES.batalla_puebla;
-  // Día de las Madres (10 mayo)
   if (month === 4 && date >= 8 && date <= 12) return FESTIVE_THEMES.dia_madre;
-  
-  // ==========================================================
-  // JUNIO
-  // ==========================================================
-  // Día del Padre (3er domingo de junio)
   const thirdSundayJun = getNthWeekdayOfMonth(year, 5, 0, 3);
   const fatherDayDate = thirdSundayJun.getDate();
   if (month === 5 && date >= fatherDayDate - 3 && date <= fatherDayDate + 2) return FESTIVE_THEMES.dia_padre;
-  // Día de San Juan Bautista (24 junio)
   if (month === 5 && date >= 23 && date <= 25) return FESTIVE_THEMES.san_juan;
-  
-  // ==========================================================
-  // JULIO
-  // ==========================================================
-  // Guelaguetza Oaxaca (2 lunes después del 16 julio)
   if (month === 6 && date >= 16 && date <= 31) return FESTIVE_THEMES.guelaguetza;
-  
-  // ==========================================================
-  // SEPTIEMBRE
-  // ==========================================================
-  // Independencia de México (15-16 septiembre)
   if (month === 8 && date >= 15 && date <= 17) return FESTIVE_THEMES.independencia;
-  
-  // ==========================================================
-  // OCTUBRE
-  // ==========================================================
-  // Festival Cervantino (aprox 10-27 octubre)
   if (month === 9 && date >= 10 && date <= 27) return FESTIVE_THEMES.cervantino;
-  // Halloween SOLO 28, 29, 30, 31 de octubre
   if (month === 9 && date >= 28 && date <= 31) return FESTIVE_THEMES.halloween;
-  
-  // ==========================================================
-  // NOVIEMBRE
-  // ==========================================================
-  // ⚠️ DÍA DE MUERTOS PRIMERO: 1 y 2 de noviembre (UNESCO)
   if (month === 10 && date >= 1 && date <= 3) return FESTIVE_THEMES.dia_muertos;
-  // Festival del Globo León (aprox 13-16 noviembre)
   if (month === 10 && date >= 13 && date <= 17) return FESTIVE_THEMES.festival_globo;
-  // Revolución Mexicana (20 nov, se celebra 3er lunes de nov)
   const thirdMondayNov = getNthWeekdayOfMonth(year, 10, 1, 3);
   if (month === 10 && date === thirdMondayNov.getDate()) return FESTIVE_THEMES.revolucion;
-  
-  // ==========================================================
-  // DICIEMBRE
-  // ==========================================================
-  // Virgen de Guadalupe (12 diciembre)
   if (month === 11 && date >= 11 && date <= 13) return FESTIVE_THEMES.guadalupe;
-  // Posadas (16-23 diciembre)
   if (month === 11 && date >= 16 && date <= 23) return FESTIVE_THEMES.posadas;
-  // Navidad (24-25 diciembre)
   if (month === 11 && date >= 24 && date <= 26) return FESTIVE_THEMES.navidad;
-  // Fin de año / Año Nuevo (27 dic - 5 ene)
   if (month === 11 && date >= 27) return FESTIVE_THEMES.ano_nuevo;
   
-  // Fallback
   return FESTIVE_THEMES.default;
 }
 
@@ -1592,7 +1545,6 @@ function updateMapStyles(theme) {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   const fc = theme.colors.map;
   
-  // Colores de calles claros para que siempre se vean bien
   const useDark = isDark || theme.darkMap;
   const roadColor = useDark ? (fc.road || '#57534e') : (fc.road || '#ffffff');
   const highwayColor = useDark ? (fc.highway || '#b45309') : (fc.highway || '#dadada');
@@ -1682,15 +1634,13 @@ function updateSplashGreeting() {
 }
 
 /* ============================================
-   CATEGORÍAS DE AUDIENCIA (Icono Teens cambiado a 'school')
+   CATEGORÍAS DE AUDIENCIA (UNIFICADAS Y MEJORADAS)
    ============================================ */
 const AGE_CATEGORIES = {
-  family:   { key: 'family',   label: 'Familia',      icon: 'home',            color: '#000000', bg: '#F4F4F5' },
-  adults_m: { key: 'adults_m', label: 'Hombres',      icon: 'man',             color: '#2563EB', bg: '#DBEAFE' },
-  adults_w: { key: 'adults_w', label: 'Mujeres',      icon: 'woman',           color: '#EC4899', bg: '#FCE7F3' },
-  teens:    { key: 'teens',    label: 'Adolescentes', icon: 'school',          color: '#8B5CF6', bg: '#EDE9FE' },
-  kids:     { key: 'kids',     label: 'Niños',        icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' },
-  bebes:    { key: 'bebes',    label: 'Bebés',        icon: 'stroller',        color: '#06B6D4', bg: '#CFFAFE' }
+  adults:   { key: 'adults',   label: 'Adultos',       icon: 'group',           color: '#4F46E5', bg: '#EEF2FF' },
+  teens:    { key: 'teens',    label: 'Adolescentes',  icon: 'face_6',          color: '#8B5CF6', bg: '#EDE9FE' },
+  kids:     { key: 'kids',     label: 'Niños',         icon: 'child_care',      color: '#F59E0B', bg: '#FEF3C7' },
+  bebes:    { key: 'bebes',    label: 'Bebés',         icon: 'stroller',        color: '#06B6D4', bg: '#CFFAFE' }
 };
 
 const ACCESSIBILITY_CATEGORIES = {
@@ -1700,7 +1650,7 @@ const ACCESSIBILITY_CATEGORIES = {
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES
+   CATEGORÍAS DE LUGARES (SIN CASA, CON ICONOS LIMPIOS)
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#4F46E5', bg: '#EEF2FF', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
@@ -1967,22 +1917,22 @@ function tDate(key) { return TRANSLATIONS[currentLang].dateOptions[key] || key; 
 function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key; }
 
 /* ============================================
-   DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD
+   DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD (ACTUALIZADA)
    ============================================ */
 function detectEventAudiences(event) {
   const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
-  const audiences = { family: false, adults_m: false, adults_w: false, teens: false, kids: false, bebes: false };
+  const audiences = { adults: false, teens: false, kids: false, bebes: false };
   
   if (/\b(bebé|bebe|baby|babies|maternal|estimulación temprana|lactante|0 años|1 año|2 años|hasta 3 años|stroller|carriola)\b/i.test(text)) audiences.bebes = true;
   if (/\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|danza infantil|teatro infantil)\b/i.test(text)) audiences.kids = true;
   if (/\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer|escuela|estudiante)\b/i.test(text)) audiences.teens = true;
-  if (/\b(mujer|mujeres|women|femenino|dama)\b/i.test(text)) audiences.adults_w = true;
-  if (/\b(hombre|hombres|men|masculino|caballero)\b/i.test(text)) audiences.adults_m = true;
-  if (/\b(familiar|familia|family|todos|all ages|para toda la familia|recreativo|parque|zoo|circo|festival|taller|obra|teatro)\b/i.test(text)) audiences.family = true;
+  if (/\b(adulto|adult|mayor|18\+|21\+|bar|antro|nightclub|cerveza|vino|mezcal|tequila|concierto|teatro|obra|exposición|galería|museo|cata|degustación)\b/i.test(text)) audiences.adults = true;
   
   if (!Object.values(audiences).some(v => v)) {
-    audiences.family = true; audiences.adults_m = true; audiences.adults_w = true;
-    audiences.teens = true; audiences.kids = true; audiences.bebes = true;
+    audiences.adults = true;
+    audiences.teens = true;
+    audiences.kids = true;
+    audiences.bebes = true;
   }
   return audiences;
 }
@@ -2054,7 +2004,6 @@ async function loadLocalEventbriteEvents() {
     console.log(`📦 ${raw.length} eventos encontrados en el JSON`);
 
     const normalized = raw.map((item, idx) => {
-      // Extraer coordenadas con múltiples fallbacks
       const lat = parseFloat(
         item.latitude ?? item.lat ?? item.venue_latitude ??
         item.primary_venue?.address?.latitude ?? item.location?.lat
@@ -2069,7 +2018,6 @@ async function loadLocalEventbriteEvents() {
         return null;
       }
 
-      // Extraer datos con múltiples fallbacks
       const title = item.name || item.title || item.event_name || 'Evento';
       const dateStr = item.start_date || item.startDate ||
                       item.start_datetime?.slice(0, 10) ||
@@ -2087,7 +2035,6 @@ async function loadLocalEventbriteEvents() {
       const description = item.summary || item.description || item.info || '';
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
-      // Accesibilidad
       let wheelchairAccessible = false, petFriendly = false, smokeFree = false;
       const lt = title.toLowerCase(), lv = venueName.toLowerCase();
 
@@ -2178,7 +2125,7 @@ window.initMap = function() {
   renderEscapaditasPanel();
   searchEverything();
   
-  setTimeout(hideSplash, 2500);
+  setTimeout(hideSplash, 3000);
 };
 
 function scheduleMapIdleUpdate() {
@@ -2198,7 +2145,7 @@ function hideSplash() {
         const banner = document.getElementById('festiveBanner');
         if (banner) banner.classList.add('show');
       }
-    }, 700);
+    }, 800);
   }
 }
 
@@ -2412,21 +2359,17 @@ function createMarkerSVG(color) {
 function renderMarkersForAll(eventsForMap = []) {
   clearMarkers();
   
-  // Marcadores de eventos
   eventsForMap.forEach(event => {
     const audiences = detectEventAudiences(event);
     let color = '#4F46E5';
     if (audiences.kids) color = AGE_CATEGORIES.kids.color;
     else if (audiences.bebes) color = AGE_CATEGORIES.bebes.color;
     else if (audiences.teens) color = AGE_CATEGORIES.teens.color;
-    else if (audiences.family) color = AGE_CATEGORIES.family.color;
-    else if (audiences.adults_w) color = AGE_CATEGORIES.adults_w.color;
-    else if (audiences.adults_m) color = AGE_CATEGORIES.adults_m.color;
+    else if (audiences.adults) color = AGE_CATEGORIES.adults.color;
     addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG(color), title: event.title,
       payload: event, payloadType: 'event', id: event.id });
   });
   
-  // Marcadores de lugares
   allPlaces.forEach(place => {
     if (!place.geometry?.location) return;
     const cat = getPlaceCategory(place);
@@ -2434,7 +2377,6 @@ function renderMarkersForAll(eventsForMap = []) {
       icon: createMarkerSVG(cat.color), title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
   
-  // Marcadores de escapaditas
   escapaditasEvents.forEach(event => {
     addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG('#EC4899'),
       title: event.title, payload: event, payloadType: 'event', id: event.id });
@@ -2548,9 +2490,7 @@ function renderEventCard(event) {
   if (audiences.kids) { cardColor = AGE_CATEGORIES.kids.color; cardBg = AGE_CATEGORIES.kids.bg; }
   else if (audiences.bebes) { cardColor = AGE_CATEGORIES.bebes.color; cardBg = AGE_CATEGORIES.bebes.bg; }
   else if (audiences.teens) { cardColor = AGE_CATEGORIES.teens.color; cardBg = AGE_CATEGORIES.teens.bg; }
-  else if (audiences.family) { cardColor = AGE_CATEGORIES.family.color; cardBg = AGE_CATEGORIES.family.bg; }
-  else if (audiences.adults_w) { cardColor = AGE_CATEGORIES.adults_w.color; cardBg = AGE_CATEGORIES.adults_w.bg; }
-  else if (audiences.adults_m) { cardColor = AGE_CATEGORIES.adults_m.color; cardBg = AGE_CATEGORIES.adults_m.bg; }
+  else if (audiences.adults) { cardColor = AGE_CATEGORIES.adults.color; cardBg = AGE_CATEGORIES.adults.bg; }
   
   const srcTag = event.source === 'eventbrite'
     ? `<span class="event-source-tag eb">EB</span>`
@@ -2599,7 +2539,7 @@ function renderUnifiedList() {
 }
 
 /* ============================================
-   MODAL DE DETALLE DEL EVENTO (60% tamaño)
+   MODAL DE DETALLE DEL EVENTO
    ============================================ */
 function openEventDetailById(eventId) {
   const event = allEvents.find(e => e.id === eventId) || escapaditasEvents.find(e => e.id === eventId);
@@ -3249,7 +3189,6 @@ function onSearchInput() {
 function manualRefresh() {
   if (isManualRefreshing) return;
   isManualRefreshing = true;
-  // Forzar recarga del JSON
   localEventsLoaded = false;
   const btn = document.getElementById('refreshBtn');
   if (btn) { const icon = btn.querySelector('.ms'); if (icon) icon.style.animation = 'spin 1s linear infinite'; }
