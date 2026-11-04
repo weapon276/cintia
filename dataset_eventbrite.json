@@ -1112,7 +1112,7 @@
     "latitude": "20.6768",
     "longitude": "-103.3371",
     "summary": "Estaciones de creación de 5 a 7 PM con cuatro talleres simultáneos: 1) Del fresco al glass (taller de decorado de galletas relacionando la técnica de glaseado con la pintura al fresco de Orozco); 2) Antimonumentos (reflexión sobre la ocupación física y simbólica de monumentos y esculturas en espacio público); 3) Rediseñando el espacio (fotobordado de espacios representativos de la ciudad); 4) ¿Ciudades para quién? (Fanzine inspirado en el urbanista Jan Gehl sobre una ciudad dignamente habitable).",
-    "image_url": "",
+    "image_url": "https://museocabanas.jalisco.gob.mx/wp-content/uploads/2019/09/Recurso-11.png",
     "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
     "primary_venue": { "name": "Museo Cabañas" }
   },
@@ -1124,19 +1124,19 @@
     "latitude": "20.6768",
     "longitude": "-103.3371",
     "summary": "Charla de 6:30 a 7:30 PM impartida por Luisa Aguilera, Gabriela Gómez y César Martínez Silva. Coordina Laura Bordes. Parte del programa de la Noche de Museo Cabañas.",
-    "image_url": "",
+    "image_url": "https://museocabanas.jalisco.gob.mx/wp-content/uploads/2019/09/Recurso-11.png",
     "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
     "primary_venue": { "name": "Museo Cabañas" }
   },
   {
-    "id": "El puseo del placer",
+    "id": "El Museo del placer",
     "name": "El Museo del Placer Degustativo. Banquete iconoclasta — Noche de Museo Cabañas",
     "start_date": "2026-11-25",
     "start_time": "19:30",
     "latitude": "20.6768",
     "longitude": "-103.3371",
     "summary": "Performance de 7:30 a 8:30 PM con el historiador y artista César Martínez Silva. Invita a degustar esculturas a escala de monumentos históricos globales y bustos de héroes, mediante una cocina conceptual donde los ingredientes portan trasfondo político y los sabores se entrelazan con la memoria colectiva; el público devora el propio patrimonio cultural de la humanidad.",
-    "image_url": "",
+    "image_url": "https://museocabanas.jalisco.gob.mx/wp-content/uploads/2019/09/Recurso-11.png",
     "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
     "primary_venue": { "name": "Museo Cabañas" }
   },
@@ -1148,7 +1148,7 @@
     "latitude": "20.6768",
     "longitude": "-103.3371",
     "summary": "Proyección a las 8:30 PM de la película 'Una paloma se posó en una rama a reflexionar sobre la existencia' (En duva satt på en gren och funderade på tillvaron), Dir. Roy Andersson, Suecia, 2014, 101 min, comedia ácida, clasificación B15. Parte de la Noche de Museo Cabañas.",
-    "image_url": "",
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTg1R9SoO1Kok6cVA7oN5Uea6EDEB9tX3eFx5dsmW060cUi1cvoVmumys&s=10",
     "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
     "primary_venue": { "name": "Museo Cabañas" }
   },
@@ -1160,9 +1160,23 @@
     "latitude": "20.7205800",
     "longitude": "-103.3686564",
     "summary": "Actividad recreativa para niñxs de 6 a 12 años impartida por el Equipo de programas públicos del MAZ. Requisitos: traer agua, refrigerio y ropa cómoda que permita el libre movimiento y pueda ensuciarse. Al llenar el formulario quedas automáticamente registradx; se enviará correo de confirmación de 24 a 48 horas antes. Dudas vía WhatsApp al +52 33 5109 6640.",
-    "image_url": "",
+    "image_url": "https://maz.zapopan.gob.mx/wp-content/uploads/2025/04/recreo_jun.png",
     "url": "https://docs.google.com/forms/d/e/1FAIpQLSff5D6djWF9sM9LtkFufZUKaui0oTgt748S1ICfoJ7UfZB0TQ/viewform?pli=1",
     "primary_venue": { "name": "Vestíbulo de EstaciónMAZ" }
+  },
+  
+  {
+    "id": "Vive Viernes: Tlaloques",
+    "name": "Vive Viernes: Tlaloques",
+    "start_date": "2026-11-27",
+    "start_time": "10:00",
+    "latitude": "20.6747",
+    "longitude": "-103.3439",
+    "summary": "Recorrido teatralizado + taller + cine para niños de 5 a 11 años. Dedicado al agua y su cuidado. Se escuchará el mito de Tlaloc y sus Tlaloques, se recorrerá la sala 'Lo que la humedad oculta de la luz' y se realizará un taller lúdico sobre la repartición justa del agua. Cierra con proyección en Cine Cabañas. Requisitos: ropa cómoda que se pueda ensuciar, asistir desayunados, traer lunch y agua. Cuota de recuperación: $180 pesos.",
+    "image_url": "https://museocabanas.jalisco.gob.mx/wp-content/uploads/2026/08/Recurso-1-3.png",
+    "url": "https://museocabanas.jalisco.gob.mx/show-item/vive_viernes/",
+    "primary_venue": { "name": "Museo Cabañas" }
   }
+
 ]
 
