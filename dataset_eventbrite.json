@@ -1103,5 +1103,50 @@
     "summary": "Exposición de textiles hechos a mano, demostración de telares de cintura y venta de productos artesanales jaliscienses.",
     "image_url": "https://guadalajara.gob.mx/images/telar_artesanal.jpg",
     "url": "https://tiempo-mandarina.org/eventos/"
+  },
+  {
+    "name": "Noche de Museo Cabañas — Estaciones de Creación",
+    "start_date": "2026-11-25",
+    "start_time": "17:00",
+    "latitude": "",
+    "longitude": "",
+    "summary": "Estaciones de creación de 5 a 7 PM con cuatro talleres simultáneos: 1) Del fresco al glass (taller de decorado de galletas relacionando la técnica de glaseado con la pintura al fresco de Orozco); 2) Antimonumentos (reflexión sobre la ocupación física y simbólica de monumentos y esculturas en espacio público); 3) Rediseñando el espacio (fotobordado de espacios representativos de la ciudad); 4) ¿Ciudades para quién? (Fanzine inspirado en el urbanista Jan Gehl sobre una ciudad dignamente habitable).",
+    "image_url": "",
+    "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
+    "primary_venue": { "name": "Museo Cabañas" }
+  },
+  {
+    "name": "Charla: La idea y la odisea — Noche de Museo Cabañas",
+    "start_date": "2026-11-25",
+    "start_time": "18:30",
+    "latitude": "",
+    "longitude": "",
+    "summary": "Charla de 6:30 a 7:30 PM impartida por Luisa Aguilera, Gabriela Gómez y César Martínez Silva. Coordina Laura Bordes. Parte del programa de la Noche de Museo Cabañas.",
+    "image_url": "",
+    "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
+    "primary_venue": { "name": "Museo Cabañas" }
+  },
+  {
+    "name": "El Museo del Placer Degustativo. Banquete iconoclasta — Noche de Museo Cabañas",
+    "start_date": "2026-11-25",
+    "start_time": "19:30",
+    "latitude": "",
+    "longitude": "",
+    "summary": "Performance de 7:30 a 8:30 PM con el historiador y artista César Martínez Silva. Invita a degustar esculturas a escala de monumentos históricos globales y bustos de héroes, mediante una cocina conceptual donde los ingredientes portan trasfondo político y los sabores se entrelazan con la memoria colectiva; el público devora el propio patrimonio cultural de la humanidad.",
+    "image_url": "",
+    "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
+    "primary_venue": { "name": "Museo Cabañas" }
+  },
+  {
+    "name": "Proyección de cine al aire libre: Una paloma se posó en una rama a reflexionar sobre la existencia",
+    "start_date": "2026-11-25",
+    "start_time": "20:30",
+    "latitude": "",
+    "longitude": "",
+    "summary": "Proyección a las 8:30 PM de la película 'Una paloma se posó en una rama a reflexionar sobre la existencia' (En duva satt på en gren och funderade på tillvaron), Dir. Roy Andersson, Suecia, 2014, 101 min, comedia ácida, clasificación B15. Parte de la Noche de Museo Cabañas.",
+    "image_url": "",
+    "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
+    "primary_venue": { "name": "Museo Cabañas" }
   }
+]
 ]
