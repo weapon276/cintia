@@ -1105,6 +1105,7 @@
     "url": "https://tiempo-mandarina.org/eventos/"
   },
   {
+    "id": "Noche de museo",
     "name": "Noche de Museo Cabañas — Estaciones de Creación",
     "start_date": "2026-11-25",
     "start_time": "17:00",
@@ -1116,6 +1117,7 @@
     "primary_venue": { "name": "Museo Cabañas" }
   },
   {
+    "id": "Charla",
     "name": "Charla: La idea y la odisea — Noche de Museo Cabañas",
     "start_date": "2026-11-25",
     "start_time": "18:30",
@@ -1127,6 +1129,7 @@
     "primary_venue": { "name": "Museo Cabañas" }
   },
   {
+    "id": "El puseo del placer",
     "name": "El Museo del Placer Degustativo. Banquete iconoclasta — Noche de Museo Cabañas",
     "start_date": "2026-11-25",
     "start_time": "19:30",
@@ -1138,6 +1141,7 @@
     "primary_venue": { "name": "Museo Cabañas" }
   },
   {
+    "id": "Proyeccion del cine",
     "name": "Proyección de cine al aire libre: Una paloma se posó en una rama a reflexionar sobre la existencia",
     "start_date": "2026-11-25",
     "start_time": "20:30",
@@ -1147,6 +1151,18 @@
     "image_url": "",
     "url": "https://drive.google.com/file/d/13DwIXVv5EwcxhLpYn9ipIAEnnE9uPR3Q/view",
     "primary_venue": { "name": "Museo Cabañas" }
+  },
+    {
+    "id": "Viernes de recreo",
+    "name": "Viernes de Recreo en el MAZ",
+    "start_date": "2026-11-27",
+    "start_time": "11:00",
+    "latitude": "20.6705151",
+    "longitude": "-103.3686564",
+    "summary": "Actividad recreativa para niñxs de 6 a 12 años impartida por el Equipo de programas públicos del MAZ. Requisitos: traer agua, refrigerio y ropa cómoda que permita el libre movimiento y pueda ensuciarse. Al llenar el formulario quedas automáticamente registradx; se enviará correo de confirmación de 24 a 48 horas antes. Dudas vía WhatsApp al +52 33 5109 6640.",
+    "image_url": "",
+    "url": "https://docs.google.com/forms/d/e/1FAIpQLSff5D6djWF9sM9LtkFufZUKaui0oTgt748S1ICfoJ7UfZB0TQ/viewform?pli=1",
+    "primary_venue": { "name": "Vestíbulo de EstaciónMAZ" }
   }
 ]
 
