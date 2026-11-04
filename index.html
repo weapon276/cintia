@@ -92,7 +92,7 @@
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
-  /* SPLASH - REDISEÑADO CON LOGO.PNG, FONDO CREMA Y SIN CUADROS */
+  /* SPLASH - CON VIDEO Y FALLBACK A IMAGEN */
   .splash {
     position: fixed; inset: 0; z-index: var(--z-splash);
     background-color: var(--bg);
@@ -107,9 +107,11 @@
     animation: splashFloat 3s ease-in-out infinite;
     margin-bottom: 20px;
   }
+  .splash-logo-container video,
   .splash-logo-container img {
     width: 100%; height: auto; object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
+    border-radius: var(--r-md);
   }
   @keyframes splashFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
   
@@ -161,18 +163,7 @@
     pointer-events: none;
     transition: left .4s var(--ease-emphasized);
   }
-  .search-pill {
-    flex: 1; height: 56px; background: var(--surface);
-    border-radius: var(--r-full); padding: 0 20px;
-    box-shadow: var(--shadow-3);
-    display: flex; align-items: center; gap: 14px;
-    pointer-events: auto; cursor: pointer;
-    transition: transform .2s var(--ease-standard), box-shadow .2s;
-    border: 1px solid var(--outline);
-  }
-  .search-pill:active { transform: scale(0.985); }
-  .search-pill .ms { color: var(--text-3); }
-  .search-pill span { color: var(--text-2); font-size: 15px; font-weight: 500; }
+  /* Se eliminó la barra de búsqueda del mapa */
   .icon-btn {
     width: 56px; height: 56px; border-radius: var(--r-full);
     background: var(--surface); border: 1px solid var(--outline);
@@ -185,7 +176,7 @@
   .icon-btn:hover { background: var(--surface-2); }
   .icon-btn:active { transform: scale(0.92); }
   .icon-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
-  .header-actions { display: flex; gap: 8px; pointer-events: auto; }
+  .header-actions { display: flex; gap: 8px; pointer-events: auto; margin-left: auto; }
   
   /* MAIN CATEGORIES */
   .main-categories {
@@ -428,11 +419,11 @@
     flex-shrink: 0;
   }
   .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  /* FONDO AZUL ELIMINADO DEL LOGO DEL SIDEBAR */
   .brand-logo {
     width: 44px; height: 44px; border-radius: var(--r-md);
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    display: grid; place-items: center; color: #FFFFFF;
-    box-shadow: 0 4px 12px rgba(29, 106, 94, 0.3);
+    background: transparent;
+    display: grid; place-items: center; color: var(--primary);
     flex-shrink: 0;
     overflow: hidden;
     padding: 4px;
@@ -484,6 +475,45 @@
     transition: transform .2s;
   }
   .gps-button:active { transform: scale(0.97); }
+  
+  /* PUBLICIDAD */
+  .ads-section {
+    padding: 16px 24px 8px;
+    border-bottom: 1px solid var(--outline);
+  }
+  .ads-card {
+    background: linear-gradient(135deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--outline);
+    border-radius: var(--r-md);
+    padding: 12px;
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .ads-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+  .ads-card::before {
+    content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
+    background: linear-gradient(180deg, var(--secondary), var(--tertiary));
+  }
+  .ads-card-icon {
+    width: 40px; height: 40px; border-radius: var(--r-sm);
+    background: var(--secondary-container);
+    display: grid; place-items: center; color: var(--secondary);
+    flex-shrink: 0;
+  }
+  .ads-card-icon .ms { font-size: 24px; }
+  .ads-card-text { flex: 1; min-width: 0; }
+  .ads-card-text h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .ads-card-text p { font-size: 10px; color: var(--text-3); font-weight: 500; }
+  .ads-card-btn {
+    padding: 6px 12px; border: none; border-radius: var(--r-full);
+    background: var(--primary); color: white; font-size: 10px; font-weight: 700;
+    cursor: pointer; flex-shrink: 0;
+    transition: background .2s;
+  }
+  .ads-card-btn:hover { background: var(--primary-dark); }
   
   .events-scroll {
     flex: 1; overflow-y: auto;
@@ -570,12 +600,13 @@
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
   .event-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   
-  /* ICON ROW */
+  /* ICON ROW - NUEVOS ICONOS SVG */
   .icon-row {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
     margin-top: 2px;
+    align-items: center;
   }
   .icon-chip {
     display: inline-flex;
@@ -585,20 +616,25 @@
     height: 24px;
     border-radius: 50%;
     transition: opacity .2s, background .2s;
+    background: var(--surface-2);
+    color: var(--text-3);
   }
-  .icon-chip .ms { font-size: 14px; }
   .icon-chip.active {
     background: var(--chip-color, #1D6A5E);
     color: #FFFFFF;
     box-shadow: 0 1px 3px rgba(0,0,0,0.2);
   }
-  .icon-chip.active .ms { font-variation-settings: 'FILL' 1, 'wght' 500; }
   .icon-chip.inactive {
     background: var(--surface-2);
     color: var(--text-3);
     opacity: 0.35;
   }
-  .icon-chip.inactive .ms { font-variation-settings: 'FILL' 0, 'wght' 400; }
+  .icon-chip svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+  .icon-chip.active svg { fill: #FFFFFF; }
   .icon-divider {
     width: 1px; height: 18px;
     background: var(--outline);
@@ -741,7 +777,7 @@
   .install-banner-close .ms { font-size: 18px; }
 
   /* ============================================
-     MODAL DE DETALLE DEL EVENTO - REDUCIDO A ~60%
+     MODAL DE DETALLE DEL EVENTO
      ============================================ */
   .event-detail-modal {
     position: fixed;
@@ -911,8 +947,9 @@
     width: 24px;
     height: 24px;
   }
-  .event-detail-icons .icon-chip .ms {
-    font-size: 14px;
+  .event-detail-icons .icon-chip svg {
+    width: 14px;
+    height: 14px;
   }
   
   .event-detail-footer {
@@ -955,6 +992,157 @@
     box-shadow: none;
     cursor: default;
   }
+
+  /* ============================================
+     MODAL DE PUBLICIDAD
+     ============================================ */
+  .ads-modal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s var(--ease-standard), visibility .3s;
+    pointer-events: none;
+  }
+  .ads-modal.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .ads-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(24, 24, 27, 0.6);
+    backdrop-filter: blur(6px);
+  }
+  .ads-modal-card {
+    position: relative;
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4);
+    width: 100%;
+    max-width: 480px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 24px;
+    transform: translateY(20px) scale(0.95);
+    transition: transform .35s var(--ease-spring);
+    border: 1px solid var(--outline);
+    z-index: 1;
+  }
+  .ads-modal.open .ads-modal-card {
+    transform: translateY(0) scale(1);
+  }
+  .ads-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--r-full);
+    border: none;
+    background: var(--surface-2);
+    color: var(--text-2);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .ads-modal-close:hover { background: var(--surface-3); }
+  .ads-modal-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+    text-align: center;
+  }
+  .ads-modal-subtitle {
+    font-size: 13px;
+    color: var(--text-2);
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .ads-plans {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ads-plan {
+    background: var(--surface-2);
+    border: 1px solid var(--outline);
+    border-radius: var(--r-md);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .ads-plan:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-2px);
+  }
+  .ads-plan-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--r-sm);
+    background: var(--primary-container);
+    display: grid;
+    place-items: center;
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+  .ads-plan-icon .ms { font-size: 28px; }
+  .ads-plan-info { flex: 1; }
+  .ads-plan-info h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .ads-plan-info p {
+    font-size: 12px;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+  .ads-plan-price {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  .ads-plan-price span {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-3);
+  }
+  .ads-cta {
+    margin-top: 20px;
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: var(--r-md);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(29, 106, 94, 0.3);
+    transition: transform .2s, filter .2s;
+  }
+  .ads-cta:hover { filter: brightness(1.08); }
+  .ads-cta:active { transform: scale(0.97); }
   
   /* PROXIMAMENTE OVERLAY */
   .coming-soon-container {
@@ -1074,8 +1262,6 @@
     .submenu { right: 76px; top: auto; bottom: calc(160px + var(--safe-bottom)); transform: translateY(0) translateX(20px) scale(0.95); transform-origin: right bottom; max-width: calc(100vw - 100px); }
     .submenu.open { transform: translateY(0) translateX(0) scale(1); }
     .header { left: 12px; right: 12px; gap: 8px; }
-    .search-pill { height: 52px; padding: 0 16px; }
-    .search-pill span { font-size: 14px; }
     .icon-btn { width: 52px; height: 52px; }
     .sidebar { width: 92%; max-width: 400px; }
     .sidebar-right { width: 92%; max-width: 400px; }
@@ -1088,6 +1274,7 @@
     .event-detail-card { max-width: 90%; max-height: 70vh; max-height: 70dvh; }
     .event-detail-hero { height: 100px; }
     .event-detail-title { font-size: 14px; }
+    .ads-modal-card { max-width: 90%; padding: 16px; }
   }
   
   @media (min-width: 768px) and (max-width: 1199px) {
@@ -1121,8 +1308,11 @@
 
 <div class="splash" id="splash">
   <div class="splash-logo-container">
-    <!-- LOGO PROPIO EN LUGAR DEL EDIFICIO, SIN FONDO, GRANDE -->
-    <img src="logo.png" alt="2DTODAY Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'ms fill\' style=\'font-size:80px;color:var(--primary);\'>location_city</span>';">
+    <!-- VIDEO DEL LOGO CON FALLBACK A IMAGEN -->
+    <video autoplay loop muted playsinline poster="logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <source src="logo.mp4" type="video/mp4">
+    </video>
+    <img src="logo.png" alt="2DTODAY Logo" style="display:none;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'ms fill\' style=\'font-size:80px;color:var(--primary);\'>location_city</span>';">
   </div>
   <div class="splash-greeting" id="splashGreeting">Buenos días</div>
   <div class="splash-subtitle" id="splashSubtitle">Descubre museos y eventos en Guadalajara</div>
@@ -1142,7 +1332,8 @@
 <aside class="sidebar" id="sidebar" aria-label="Panel de resultados">
   <div class="sidebar-top">
     <div class="brand">
-      <div class="brand-logo"><img src="logo.png" alt="2DTODAY" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'ms fill\' style=\'font-size:24px;color:#fff;\'>location_city</span>';"></div>
+      <!-- FONDO AZUL ELIMINADO -->
+      <div class="brand-logo"><img src="logo.png" alt="2DTODAY" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'ms fill\' style=\'font-size:24px;color:var(--primary);\'>location_city</span>';"></div>
       <div class="brand-text">
         <h1 id="brandTitle">2DTODAY</h1>
         <p id="brandSubtitle">Museos y eventos en Guadalajara</p>
@@ -1162,6 +1353,21 @@
       <span id="gpsLabel">Buscar cerca de mí</span>
     </button>
   </div>
+  
+  <!-- SECCIÓN DE PUBLICIDAD -->
+  <div class="ads-section">
+    <div class="ads-card" onclick="openAdsModal()">
+      <div class="ads-card-icon">
+        <span class="ms fill">campaign</span>
+      </div>
+      <div class="ads-card-text">
+        <h4>Anúnciate aquí</h4>
+        <p>Llega a miles de personas</p>
+      </div>
+      <button class="ads-card-btn">Ver planes</button>
+    </div>
+  </div>
+  
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
@@ -1183,7 +1389,7 @@
 
 <header class="header" id="header">
   <button class="icon-btn" onclick="toggleSidebar()" aria-label="Abrir/cerrar panel" id="menuBtn"><span class="ms" id="menuIcon">menu</span></button>
-  <div class="search-pill" onclick="openSidebar()" role="button" tabindex="0"><span class="ms">search</span><span id="searchPlaceholder">Buscar museos, eventos...</span></div>
+  <!-- BARRA DE BÚSQUEDA DEL MAPA ELIMINADA -->
   <div class="header-actions">
     <button class="icon-btn" onclick="toggleTheme()" aria-label="Cambiar tema" id="themeBtn"><span class="ms" id="themeIcon">dark_mode</span></button>
     <button class="icon-btn" onclick="manualRefresh()" aria-label="Actualizar resultados" id="refreshBtn" title="Actualizar resultados"><span class="ms">refresh</span></button>
@@ -1250,6 +1456,7 @@
   <button class="install-banner-close" onclick="dismissInstallBanner()" aria-label="Cerrar"><span class="ms">close</span></button>
 </div>
 
+<!-- MODAL DE DETALLE DEL EVENTO -->
 <div class="event-detail-modal" id="eventDetailModal" role="dialog" aria-modal="true">
   <div class="event-detail-overlay" onclick="closeEventDetail()"></div>
   <div class="event-detail-card" id="eventDetailCard">
@@ -1257,6 +1464,47 @@
     <button class="event-detail-close" onclick="closeEventDetail()" aria-label="Cerrar"><span class="ms">close</span></button>
     <div class="event-detail-body" id="eventDetailBody"></div>
     <div class="event-detail-footer" id="eventDetailFooter"></div>
+  </div>
+</div>
+
+<!-- MODAL DE PUBLICIDAD -->
+<div class="ads-modal" id="adsModal" role="dialog" aria-modal="true">
+  <div class="ads-modal-overlay" onclick="closeAdsModal()"></div>
+  <div class="ads-modal-card">
+    <button class="ads-modal-close" onclick="closeAdsModal()"><span class="ms">close</span></button>
+    <div class="ads-modal-title">Anúnciate en 2DTODAY</div>
+    <div class="ads-modal-subtitle">Llega a miles de personas que buscan qué hacer en Guadalajara. Elige el plan que mejor se adapte a tu negocio.</div>
+    
+    <div class="ads-plans">
+      <div class="ads-plan">
+        <div class="ads-plan-icon"><span class="ms fill">calendar_view_week</span></div>
+        <div class="ads-plan-info">
+          <h4>Plan Semanal</h4>
+          <p>Ideal para eventos puntuales</p>
+        </div>
+        <div class="ads-plan-price">$499 <span>/semana</span></div>
+      </div>
+      
+      <div class="ads-plan">
+        <div class="ads-plan-icon"><span class="ms fill">calendar_month</span></div>
+        <div class="ads-plan-info">
+          <h4>Plan Mensual</h4>
+          <p>Mayor visibilidad y alcance</p>
+        </div>
+        <div class="ads-plan-price">$1,499 <span>/mes</span></div>
+      </div>
+      
+      <div class="ads-plan">
+        <div class="ads-plan-icon"><span class="ms fill">calendar_today</span></div>
+        <div class="ads-plan-info">
+          <h4>Plan Anual</h4>
+          <p>Máximo ahorro y presencia</p>
+        </div>
+        <div class="ads-plan-price">$9,999 <span>/año</span></div>
+      </div>
+    </div>
+    
+    <button class="ads-cta" onclick="showToast('check_circle', '¡Solicitud enviada! Pronto te contactaremos.')">Solicitar informes</button>
   </div>
 </div>
 
@@ -1604,13 +1852,39 @@ function updateSplashGreeting() {
 }
 
 /* ============================================
-   CATEGORÍAS DE AUDIENCIA (UNIFICADAS Y CON ICONOS COOL)
+   CATEGORÍAS DE AUDIENCIA (ICONOS VECTORIALES COOL)
    ============================================ */
 const AGE_CATEGORIES = {
-  adults:   { key: 'adults',   label: 'Adultos',       icon: 'people',          color: '#1D6A5E', bg: '#E6F2F0' },
-  teens:    { key: 'teens',    label: 'Adolescentes',  icon: 'headphones',      color: '#8B5CF6', bg: '#EDE9FE' },
-  kids:     { key: 'kids',     label: 'Niños',         icon: 'child_care',      color: '#F5B027', bg: '#FEF8E7' },
-  bebes:    { key: 'bebes',    label: 'Bebés',         icon: 'stroller',        color: '#2979FF', bg: '#E3F2FD' }
+  adults: { 
+    key: 'adults', 
+    label: 'Adultos', 
+    color: '#1D6A5E', 
+    bg: '#E6F2F0',
+    // Icono de silueta doble (hombre y mujer)
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7H18V9C18 9.55 18.45 10 19 10C19.55 10 20 9.55 20 9H21ZM18 5.5C18 6.33 18.67 7 19.5 7C20.33 7 21 6.33 21 5.5C21 4.67 20.33 4 19.5 4C18.67 4 18 4.67 18 5.5ZM6 7V9C6 9.55 6.45 10 7 10C7.55 10 8 9.55 8 9V7H6ZM7 5.5C7 6.33 7.67 7 8.5 7C9.33 7 10 6.33 10 5.5C10 4.67 9.33 4 8.5 4C7.67 4 7 4.67 7 5.5ZM12 9C12 9 13 9 13 10V14C13 14.55 12.55 15 12 15H11V21H9V15H8C7.45 15 7 14.55 7 14V10C7 9 8 9 8 9H12ZM17 9C17 9 16 9 16 10V14C16 14.55 16.45 15 17 15H18V21H20V15H21C21.55 15 22 14.55 22 14V10C22 9 21 9 21 9H17Z"/></svg>`
+  },
+  teens: { 
+    key: 'teens', 
+    label: 'Adolescentes', 
+    color: '#8B5CF6', 
+    bg: '#EDE9FE',
+    // Icono de chico con audífonos y lentes
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C10.34 2 9 3.34 9 5V6H6V12C6 12.55 6.45 13 7 13C7.55 13 8 12.55 8 12V7H9V9C9 10.1 9.9 11 11 11H13C14.1 11 15 10.1 15 9V7H16V12C16 12.55 16.45 13 17 13C17.55 13 18 12.55 18 12V6H15V5C15 3.34 13.66 2 12 2ZM7 14C5.9 14 5 14.9 5 16V22H9V16C9 14.9 8.1 14 7 14ZM17 14C15.9 14 15 14.9 15 16V22H19V16C19 14.9 18.1 14 17 14ZM12 13C10.9 13 10 13.9 10 15V22H14V15C14 13.9 13.1 13 12 13Z"/><path d="M2 10V12C2 13.1 2.9 14 4 14H5V10H4C2.9 10 2 10.9 2 12Z"/><path d="M22 10V12C22 13.1 21.1 14 20 14H19V10H20C21.1 10 22 10.9 22 12Z"/></svg>`
+  },
+  kids: { 
+    key: 'kids', 
+    label: 'Niños', 
+    color: '#F5B027', 
+    bg: '#FEF8E7',
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C13.66 2 15 3.34 15 5C15 6.66 13.66 8 12 8C10.34 8 9 6.66 9 5C9 3.34 10.34 2 12 2ZM12 10C14.33 10 16 11.67 16 14V22H14V15H13V22H11V15H10V22H8V14C8 11.67 9.67 10 12 10Z"/></svg>`
+  },
+  bebes: { 
+    key: 'bebes', 
+    label: 'Bebés', 
+    color: '#2979FF', 
+    bg: '#E3F2FD',
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM9 7C7.9 7 7 7.9 7 9V13C7 14.1 7.9 15 9 15V22H15V15C16.1 15 17 14.1 17 13V9C17 7.9 16.1 7 15 7H9Z"/></svg>`
+  }
 };
 
 const ACCESSIBILITY_CATEGORIES = {
@@ -1887,7 +2161,7 @@ function tDate(key) { return TRANSLATIONS[currentLang].dateOptions[key] || key; 
 function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key; }
 
 /* ============================================
-   DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD (ACTUALIZADO)
+   DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD
    ============================================ */
 function detectEventAudiences(event) {
   const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
@@ -2395,13 +2669,13 @@ function showInfoWindowGoogle(marker, place) {
 }
 
 /* ============================================
-   CONSTRUCCIÓN DE ICONOS (ACTUALIZADO)
+   CONSTRUCCIÓN DE ICONOS (ACTUALIZADO CON SVG)
    ============================================ */
 function buildIconRow(audiences, accessibility) {
   const audienceIcons = Object.entries(AGE_CATEGORIES).map(([key, cat]) => {
     const isActive = audiences[key];
     return `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="--chip-color:${cat.color};" title="${cat.label}${isActive ? '' : ' (no disponible)'}">
-      <span class="ms">${cat.icon}</span>
+      ${cat.icon}
     </span>`;
   }).join('');
   
@@ -2508,7 +2782,7 @@ function renderUnifiedList() {
 }
 
 /* ============================================
-   MODAL DE DETALLE DEL EVENTO (60% tamaño)
+   MODAL DE DETALLE DEL EVENTO
    ============================================ */
 function openEventDetailById(eventId) {
   const event = allEvents.find(e => e.id === eventId) || escapaditasEvents.find(e => e.id === eventId);
@@ -2554,7 +2828,7 @@ function openEventDetail(event) {
   Object.entries(AGE_CATEGORIES).forEach(([key, cat]) => {
     const isActive = audiences[key];
     html += `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="--chip-color:${cat.color};" title="${cat.label}">
-      <span class="ms">${cat.icon}</span>
+      ${cat.icon}
     </span>`;
   });
   html += `</div>`;
@@ -2595,6 +2869,16 @@ function closeEventDetail() {
   modal.classList.remove('open');
   document.body.style.overflow = '';
   currentOpenEvent = null;
+}
+
+/* ============================================
+   MODAL DE PUBLICIDAD
+   ============================================ */
+function openAdsModal() {
+  document.getElementById('adsModal').classList.add('open');
+}
+function closeAdsModal() {
+  document.getElementById('adsModal').classList.remove('open');
 }
 
 /* ============================================
@@ -3084,7 +3368,6 @@ function updateAllTranslations() {
   set('brandTitle', t('brandTitle'));
   set('brandSubtitle', t('brandSubtitle'));
   set('gpsLabel', isTracking ? t('gpsTracking') : t('gpsButton'));
-  set('searchPlaceholder', t('searchPlaceholder'));
   set('installBannerTitle', currentLang === 'en' ? 'Install 2DTODAY' : 'Instala 2DTODAY');
   set('installBannerSubtitle', currentLang === 'en' ? 'Quick access from your home screen' : 'Accede rápido desde tu pantalla de inicio');
   set('installBannerBtn', currentLang === 'en' ? 'Install' : 'Instalar');
@@ -3245,6 +3528,7 @@ window.addEventListener('resize', () => { updateSidebarState(); updateOverlay();
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeEventDetail();
+    closeAdsModal();
     closeSubmenu();
     closeDateFilterPanel();
   }
