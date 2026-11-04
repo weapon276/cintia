@@ -103,12 +103,29 @@
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   .splash-logo-container {
-    width: 85vw; max-width: 450px; height: auto;
-    display: flex; align-items: center; justify-content: center;
-    animation: splashFloat 3s ease-in-out infinite;
+    width: 100vw; /* Ocupa todo el ancho disponible */
+    max-width: 600px; /* Un límite para que no se vea gigante en PC */
+    height: auto;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
     margin-bottom: 20px;
+    padding: 0; 
+    background: transparent; /* Sin fondo */
+    border: none; /* Sin bordes */
+    box-shadow: none; /* Sin sombra */
   }
+  
   .splash-logo-container video,
+  .splash-logo-container img {
+    width: 100%; 
+    height: auto; 
+    object-fit: contain;
+    /* Mantenemos una sombra suave solo en el video/imagen para que resalte, no en el contenedor */
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
+    border-radius: 0; /* Sin bordes redondeados en el contenedor */
+    display: block;
+  }
   .splash-logo-container img {
     width: 100%; height: auto; object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
