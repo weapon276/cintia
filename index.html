@@ -1595,12 +1595,15 @@ const API_KEYS = {
    ============================================ */
 const LOCAL_EVENTS_CONFIG = { filePath: 'dataset_eventbrite.json', source: 'eventbrite' };
 const LOCAL_PLACES_CONFIG = { filePath: 'lugares.json' };
+const LOCAL_ADS_CONFIG = { filePath: 'publicidad.json' };
 const ADS_FORM_URL = 'https://forms.gle/tu-formulario-aqui'; // Cambia esto por tu enlace real
 
 let localEventbriteEvents = [];
 let localEventsLoaded = false;
 let localPlacesData = [];
 let localPlacesLoaded = false;
+let localAdsData = [];
+let localAdsLoaded = false;
 
 // CIUDADES - Fácil de editar
 const CITIES = [
@@ -2448,6 +2451,61 @@ async function loadLocalPlaces() {
     return [];
   }
 }
+
+/* ============================================
+   CARGA MASIVA DE PUBLICIDAD DESDE JSON
+   ============================================ */
+async function loadLocalAds() {
+  if (localAdsLoaded) return localAdsData;
+  try {
+    console.log('📂 Cargando publicidad desde:', LOCAL_ADS_CONFIG.filePath);
+    const response = await fetch(LOCAL_ADS_CONFIG.filePath + '?v=' + Date.now(), { cache: 'no-store' });
+    if (!response.ok) {
+      console.warn(`⚠️ No se pudo cargar ${LOCAL_ADS_CONFIG.filePath}: HTTP ${response.status}`);
+      localAdsLoaded = true;
+      return [];
+    }
+    const raw = await response.json();
+    if (!Array.isArray(raw)) {
+      console.warn('⚠️ El JSON no es un array');
+      localAdsLoaded = true;
+      return [];
+    }
+
+    const normalized = raw.map((item, idx) => {
+      const lat = parseFloat(item.latitude ?? item.lat);
+      const lng = parseFloat(item.longitude ?? item.lng);
+      if (!isFinite(lat) || !isFinite(lng)) return null;
+
+      return {
+        id: 'ad_' + (item.id || idx),
+        type: 'event',
+        source: 'ad',
+        title: item.title || 'Evento publicitario',
+        date: item.date || '',
+        time: item.time || '',
+        venue: item.venue || '',
+        city: item.city || '',
+        lat, lng,
+        description: item.description || '',
+        image: item.image || '',
+        url: item.url || '',
+        wheelchairAccessible: !!item.wheelchairAccessible,
+        petFriendly: !!item.petFriendly,
+        smokeFree: !!item.smokeFree
+      };
+    }).filter(Boolean);
+
+    localAdsData = normalized;
+    localAdsLoaded = true;
+    console.log(`✅ ${normalized.length} anuncios cargados correctamente`);
+    return localAdsData;
+  } catch (err) {
+    console.error('❌ Error cargando JSON de publicidad:', err);
+    localAdsLoaded = true;
+    return [];
+  }
+}
 </script>
 
 <script>
@@ -2501,8 +2559,8 @@ window.initMap = function() {
   updateSidebarState();
   renderEscapaditasPanel();
   
-  // Cargar lugares y eventos
-  Promise.all([searchEverything(), loadLocalPlaces()]).then(() => {
+  // Cargar lugares, eventos y publicidad
+  Promise.all([searchEverything(), loadLocalPlaces(), loadLocalAds()]).then(() => {
     // Renderizar lugares locales en el mapa
     localPlacesData.forEach(place => {
       const cat = CATEGORIES[place.category] || CATEGORIES.monument;
@@ -2511,8 +2569,31 @@ window.initMap = function() {
     });
   });
   
+  // Solicitar ubicación al iniciar
+  requestLocationPermission();
+  
   setTimeout(hideSplash, 2500);
 };
+
+function requestLocationPermission() {
+  if (!navigator.geolocation) {
+    console.warn('Geolocalización no disponible');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      map.panTo(loc);
+      map.setZoom(14);
+      updateUserMarker(loc);
+      showToast('check_circle', 'Ubicación encontrada');
+    },
+    (err) => {
+      console.warn('No se pudo obtener la ubicación al iniciar:', err);
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+}
 
 function scheduleMapIdleUpdate() {
   if (mapIdleTimer) clearTimeout(mapIdleTimer);
@@ -2610,6 +2691,16 @@ function applyFilters() {
         return false;
       }
       return true;
+    });
+  }
+
+  // Filtrar por categoría estricta
+  if (currentCategory !== 'all') {
+    const catKeywords = CATEGORIES[currentCategory].keywords || [];
+    eventsFiltered = eventsFiltered.filter(e => {
+      const text = ((e.title || '') + ' ' + (e.description || '') + ' ' + (e.venue || '')).toLowerCase();
+      return catKeywords.some(kw => text.includes(kw.toLowerCase())) || 
+             (e._searchType && e._searchType === CATEGORIES[currentCategory].type);
     });
   }
 
@@ -2934,17 +3025,38 @@ function renderUnifiedList() {
     container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3><p>${msg}</p></div>`;
     return;
   }
-  const categoryLabel = currentCategory === 'all' ? tCat('all') : tCat(currentCategory);
-  const dateLabel = currentDateFilter === 'all' ? '' : ` · ${tDate(currentDateFilter)}${currentDateFilter === 'custom' && currentCustomDate ? ' (' + currentCustomDate + ')' : ''}`;
-  const label = `${unifiedResults.length} resultados · ${categoryLabel}${dateLabel}`;
-  container.innerHTML = `<div class="section-label">Espacio publicitario pagado</div>` + unifiedResults.map(item => item.type === 'event' ? renderEventCard(item) : renderGoogleCard(item)).join('');
+  
+  // Filtrar solo eventos de publicidad para el sidebar
+  const adsToDisplay = localAdsData.filter(ad => {
+    if (currentCategory !== 'all') {
+      const catKeywords = CATEGORIES[currentCategory].keywords || [];
+      const text = ((ad.title || '') + ' ' + (ad.description || '')).toLowerCase();
+      return catKeywords.some(kw => text.includes(kw.toLowerCase()));
+    }
+    return true;
+  });
+
+  if (adsToDisplay.length === 0) {
+    container.innerHTML = `<div class="section-label">Espacio publicitario pagado</div>
+      <div class="empty-state" style="padding: 40px 20px;">
+        <span class="ms" style="font-size: 40px; color: var(--outline-strong);">campaign</span>
+        <h3 style="font-size: 14px;">No hay anuncios disponibles</h3>
+        <p style="font-size: 12px;">Los eventos publicitarios aparecerán aquí.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `<div class="section-label">Espacio publicitario pagado</div>` + 
+    adsToDisplay.map(item => renderEventCard(item)).join('');
 }
 
 /* ============================================
    MODAL DE DETALLE DEL EVENTO
    ============================================ */
 function openEventDetailById(eventId) {
-  const event = allEvents.find(e => e.id === eventId) || escapaditasEvents.find(e => e.id === eventId);
+  const event = allEvents.find(e => e.id === eventId) || 
+                escapaditasEvents.find(e => e.id === eventId) ||
+                localAdsData.find(e => e.id === eventId);
   if (event) openEventDetail(event);
 }
 
