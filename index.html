@@ -23,19 +23,14 @@
     --primary-dark: #145247;
     --primary-light: #2A8C7C;
     --primary-container: #E6F2F0;
-    
     --secondary: #F5B027;
     --secondary-container: #FEF8E7;
-    
     --tertiary: #E91E63;
     --tertiary-container: #FCE4EC;
-    
     --accent: #2979FF;
     --accent-container: #E3F2FD;
-
     --success: #10B981;
     --success-container: #D1FAE5;
-    
     --bg: #FDFBF7;
     --surface: #FFFFFF;
     --surface-2: #F4F4F5;
@@ -45,12 +40,10 @@
     --text: #18181B;
     --text-2: #52525B;
     --text-3: #A1A1AA;
-    
     --shadow-1: 0 1px 2px rgba(24, 24, 27, 0.05), 0 1px 3px rgba(24, 24, 27, 0.08);
     --shadow-2: 0 2px 6px rgba(24, 24, 27, 0.06), 0 4px 12px rgba(24, 24, 27, 0.08);
     --shadow-3: 0 8px 24px rgba(24, 24, 27, 0.10), 0 4px 8px rgba(24, 24, 27, 0.06);
     --shadow-4: 0 20px 48px rgba(24, 24, 27, 0.14);
-    
     --r-xs: 8px; --r-sm: 12px; --r-md: 16px; --r-lg: 24px; --r-xl: 28px; --r-full: 999px;
     --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
     --ease-emphasized: cubic-bezier(0.2, 0, 0, 1); --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
@@ -102,27 +95,14 @@
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   .splash-logo-container {
-    width: 100vw;
-    max-width: 600px;
-    height: auto;
+    width: 100vw; max-width: 600px; height: auto;
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px;
-    padding: 0; 
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    margin-bottom: 20px; padding: 0; background: transparent; border: none; box-shadow: none;
   }
-  .splash-logo-container video,
-  .splash-logo-container img {
-    width: 100%; 
-    height: auto; 
-    object-fit: contain;
-    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
-    border-radius: 0;
-    display: block;
+  .splash-logo-container video, .splash-logo-container img {
+    width: 100%; height: auto; object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15)); border-radius: 0; display: block;
   }
-  @keyframes splashFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
-  
   .splash-greeting {
     font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800;
     letter-spacing: -0.03em; color: var(--primary); text-align: center; line-height: 1.2;
@@ -152,11 +132,9 @@
   .splash-festive-badge {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 6px 14px; border-radius: 999px;
-    background: var(--surface-2);
-    color: var(--primary); font-size: 12px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    margin-top: 8px;
-    animation: splashFadeIn .8s var(--ease-emphasized) .5s both;
+    background: var(--surface-2); color: var(--primary);
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    margin-top: 8px; animation: splashFadeIn .8s var(--ease-emphasized) .5s both;
   }
   .splash-festive-badge .ms { font-size: 16px; }
   @keyframes splashFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -165,20 +143,16 @@
   html[data-theme="dark"] #map { filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
   
   .header {
-    position: absolute; top: calc(16px + var(--safe-top));
-    left: 16px; right: 16px; z-index: var(--z-header);
-    display: flex; align-items: center; gap: 10px;
-    pointer-events: none;
-    transition: left .4s var(--ease-emphasized);
+    position: absolute; top: calc(16px + var(--safe-top)); left: 16px; right: 16px;
+    z-index: var(--z-header); display: flex; align-items: center; gap: 10px;
+    pointer-events: none; transition: left .4s var(--ease-emphasized);
   }
   .icon-btn {
     width: 56px; height: 56px; border-radius: var(--r-full);
     background: var(--surface); border: 1px solid var(--outline);
-    display: grid; place-items: center;
-    box-shadow: var(--shadow-3); cursor: pointer;
+    display: grid; place-items: center; box-shadow: var(--shadow-3); cursor: pointer;
     color: var(--text); pointer-events: auto;
-    transition: transform .2s var(--ease-standard), background .2s, color .2s;
-    flex-shrink: 0;
+    transition: transform .2s var(--ease-standard), background .2s, color .2s; flex-shrink: 0;
   }
   .icon-btn:hover { background: var(--surface-2); }
   .icon-btn:active { transform: scale(0.92); }
@@ -187,16 +161,13 @@
   
   /* MAIN CATEGORIES */
   .main-categories {
-    position: absolute; right: 16px; top: 50%;
-    transform: translateY(-50%); z-index: var(--z-chips);
-    display: flex; flex-direction: column; gap: 12px;
-    pointer-events: auto;
+    position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+    z-index: var(--z-chips); display: flex; flex-direction: column; gap: 12px; pointer-events: auto;
   }
   .cat-btn {
     width: 56px; height: 56px; border-radius: var(--r-lg);
     background: var(--surface); border: 1px solid var(--outline);
-    display: grid; place-items: center;
-    box-shadow: var(--shadow-3); cursor: pointer;
+    display: grid; place-items: center; box-shadow: var(--shadow-3); cursor: pointer;
     color: var(--text); position: relative;
     transition: transform .25s var(--ease-spring), background .2s, color .2s, border-color .2s, opacity .2s;
   }
@@ -206,86 +177,59 @@
   
   /* SUBMENU */
   .submenu {
-    position: absolute; right: 84px; top: 50%;
-    transform: translateY(-50%);
-    z-index: var(--z-submenu);
-    background: var(--surface); border: 1px solid var(--outline);
-    border-radius: var(--r-lg); box-shadow: var(--shadow-4);
-    padding: 12px; min-width: 280px; max-width: 380px;
-    opacity: 0; visibility: hidden;
+    position: absolute; right: 84px; top: 50%; transform: translateY(-50%);
+    z-index: var(--z-submenu); background: var(--surface); border: 1px solid var(--outline);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-4); padding: 12px;
+    min-width: 280px; max-width: 380px; opacity: 0; visibility: hidden;
     transform: translateY(-50%) translateX(20px) scale(0.95);
-    transform-origin: right center;
-    transition: all .3s var(--ease-spring);
-    pointer-events: none;
-    max-height: 85vh;
-    overflow-y: auto;
+    transform-origin: right center; transition: all .3s var(--ease-spring);
+    pointer-events: none; max-height: 85vh; overflow-y: auto;
   }
-  .submenu.open {
-    opacity: 1; visibility: visible;
-    transform: translateY(-50%) translateX(0) scale(1);
-    pointer-events: auto;
-  }
+  .submenu.open { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(0) scale(1); pointer-events: auto; }
   .submenu-header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 4px 8px 12px; border-bottom: 1px solid var(--outline); margin-bottom: 8px;
   }
   .submenu-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px; font-weight: 800; letter-spacing: -0.02em;
-    color: var(--text); display: flex; align-items: center; gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800;
+    letter-spacing: -0.02em; color: var(--text); display: flex; align-items: center; gap: 8px;
   }
   .submenu-title .ms { font-size: 22px; color: var(--primary); }
   .submenu-close {
-    width: 32px; height: 32px; border-radius: var(--r-full);
-    border: none; background: transparent; color: var(--text-2);
-    display: grid; place-items: center; cursor: pointer;
-    transition: background .2s;
+    width: 32px; height: 32px; border-radius: var(--r-full); border: none;
+    background: transparent; color: var(--text-2); display: grid; place-items: center;
+    cursor: pointer; transition: background .2s;
   }
   .submenu-close:hover { background: var(--surface-2); color: var(--text); }
   .submenu-close .ms { font-size: 20px; }
   
   .submenu-search {
-    display: flex; align-items: center; gap: 8px;
-    height: 44px; background: var(--surface-2);
-    border-radius: var(--r-sm); padding: 0 14px;
-    margin-bottom: 10px;
-    border: 2px solid transparent;
-    transition: all .2s;
+    display: flex; align-items: center; gap: 8px; height: 44px;
+    background: var(--surface-2); border-radius: var(--r-sm); padding: 0 14px;
+    margin-bottom: 10px; border: 2px solid transparent; transition: all .2s;
   }
-  .submenu-search:focus-within {
-    background: var(--surface); border-color: var(--primary);
-  }
+  .submenu-search:focus-within { background: var(--surface); border-color: var(--primary); }
   .submenu-search .ms { font-size: 20px; color: var(--text-3); }
   .submenu-search input {
     flex: 1; background: transparent; border: none; outline: none;
-    font-family: inherit; font-size: 14px; font-weight: 500;
-    color: var(--text);
+    font-family: inherit; font-size: 14px; font-weight: 500; color: var(--text);
   }
   .submenu-search input::placeholder { color: var(--text-3); font-weight: 400; }
   
-  .submenu-options {
-    display: flex; flex-direction: column; gap: 4px;
-    max-height: 500px; overflow-y: auto;
-  }
+  .submenu-options { display: flex; flex-direction: column; gap: 4px; max-height: 500px; overflow-y: auto; }
   .submenu-group { margin-top: 8px; margin-bottom: 4px; }
   .submenu-group:first-child { margin-top: 0; }
   .submenu-group-label {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 10px; font-weight: 800;
-    color: var(--text-3);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 8px 8px 4px;
-    display: flex; align-items: center; gap: 6px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 800;
+    color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 8px 8px 4px; display: flex; align-items: center; gap: 6px;
   }
   .submenu-group-label .ms { font-size: 14px; }
   .submenu-option {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px 14px; border: none; background: transparent;
-    border-radius: var(--r-sm); cursor: pointer;
-    font-family: inherit; font-size: 14px; font-weight: 600;
-    color: var(--text); transition: background .15s, transform .15s, opacity .2s;
-    text-align: left; width: 100%;
+    display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+    border: none; background: transparent; border-radius: var(--r-sm); cursor: pointer;
+    font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text);
+    transition: background .15s, transform .15s, opacity .2s; text-align: left; width: 100%;
   }
   .submenu-option:hover { background: var(--surface-2); }
   .submenu-option:active { transform: scale(0.98); }
@@ -294,187 +238,123 @@
     background: var(--option-bg, var(--primary-container));
     color: var(--option-color, var(--primary-dark));
   }
-  .submenu-option .ms {
-    font-size: 22px; color: var(--text-2); flex-shrink: 0;
-    transition: color .2s;
-  }
-  .submenu-option.active .ms {
-    color: var(--option-color, var(--primary));
-    font-variation-settings: 'FILL' 1, 'wght' 500;
-  }
-  .submenu-option .check {
-    margin-left: auto; font-size: 20px;
-    color: var(--option-color, var(--primary));
-    opacity: 0; transition: opacity .2s;
-  }
+  .submenu-option .ms { font-size: 22px; color: var(--text-2); flex-shrink: 0; transition: color .2s; }
+  .submenu-option.active .ms { color: var(--option-color, var(--primary)); font-variation-settings: 'FILL' 1, 'wght' 500; }
+  .submenu-option .check { margin-left: auto; font-size: 20px; color: var(--option-color, var(--primary)); opacity: 0; transition: opacity .2s; }
   .submenu-option.active .check { opacity: 1; }
   .submenu-empty {
-    text-align: center; padding: 24px 12px;
-    font-size: 13px; color: var(--text-3);
+    text-align: center; padding: 24px 12px; font-size: 13px; color: var(--text-3);
     display: flex; flex-direction: column; align-items: center; gap: 6px;
   }
   .submenu-empty .ms { font-size: 36px; color: var(--outline-strong); }
 
+  /* CITY SELECTOR */
+  .city-selector-wrapper {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+  }
+  .city-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+    background: var(--surface-2); border-radius: var(--r-full); font-size: 11px; font-weight: 700;
+    color: var(--text-3); border: 1px solid var(--outline); text-transform: uppercase; letter-spacing: 0.05em;
+    cursor: pointer; transition: background .2s; position: relative;
+  }
+  .city-btn:hover { background: var(--surface-3); }
+  .city-btn .ms { font-size: 14px; }
+  .city-dropdown {
+    position: absolute; top: calc(100% + 8px); left: 0; background: var(--surface);
+    border: 1px solid var(--outline); border-radius: var(--r-md); box-shadow: var(--shadow-4);
+    padding: 8px; min-width: 200px; opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: all .2s var(--ease-spring); z-index: var(--z-submenu); pointer-events: none;
+  }
+  .city-dropdown.open { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+  .city-option {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+    border-radius: var(--r-sm); border: none; background: transparent;
+    font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text);
+    cursor: pointer; transition: background .15s; width: 100%; text-align: left;
+  }
+  .city-option:hover { background: var(--surface-2); }
+  .city-option.active { background: var(--primary-container); color: var(--primary-dark); }
+  .city-option .ms { font-size: 18px; color: var(--text-3); }
+  .city-option.active .ms { color: var(--primary); }
+  .coming-soon-tag {
+    margin-left: auto; font-size: 9px; font-weight: 800; background: var(--surface-3);
+    color: var(--text-3); padding: 2px 6px; border-radius: 999px; text-transform: uppercase;
+  }
+
   /* DATE FILTER PANEL */
   .date-filter-panel {
-    position: absolute;
-    top: calc(80px + var(--safe-top));
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
-    z-index: var(--z-submenu);
-    background: var(--surface);
-    border: 1px solid var(--outline);
-    border-radius: var(--r-lg);
-    box-shadow: var(--shadow-4);
-    padding: 16px;
-    width: 320px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all .3s var(--ease-spring);
-    pointer-events: none;
+    position: absolute; top: calc(80px + var(--safe-top)); left: 50%;
+    transform: translateX(-50%) translateY(-10px); z-index: var(--z-submenu);
+    background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4); padding: 16px; width: 320px;
+    opacity: 0; visibility: hidden; transition: all .3s var(--ease-spring); pointer-events: none;
   }
-  .date-filter-panel.open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-    pointer-events: auto;
-  }
+  .date-filter-panel.open { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
   .date-filter-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 800;
+    color: var(--text); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
   }
   .date-filter-title .ms { color: var(--primary); font-size: 22px; }
   .date-option {
-    display: flex; align-items: center; gap: 12px;
-    padding: 12px; border-radius: var(--r-sm);
-    border: none; background: transparent;
-    cursor: pointer; width: 100%;
-    text-align: left; font-family: inherit;
-    font-size: 14px; font-weight: 600;
-    color: var(--text); transition: background .2s;
-    margin-bottom: 4px;
+    display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--r-sm);
+    border: none; background: transparent; cursor: pointer; width: 100%; text-align: left;
+    font-family: inherit; font-size: 14px; font-weight: 600; color: var(--text); transition: background .2s; margin-bottom: 4px;
   }
   .date-option:hover { background: var(--surface-2); }
   .date-option.active { background: var(--primary-container); color: var(--primary-dark); }
   .date-option .ms { font-size: 22px; color: var(--text-3); }
   .date-option.active .ms { color: var(--primary); }
-  .date-input-wrapper {
-    margin-top: 12px; padding-top: 12px;
-    border-top: 1px solid var(--outline);
-  }
-  .date-input-wrapper label {
-    display: block; font-size: 12px; font-weight: 700;
-    color: var(--text-2); margin-bottom: 8px;
-  }
+  .date-input-wrapper { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--outline); }
+  .date-input-wrapper label { display: block; font-size: 12px; font-weight: 700; color: var(--text-2); margin-bottom: 8px; }
   .date-input-wrapper input[type="date"] {
-    width: 100%; height: 44px; padding: 0 12px;
-    border-radius: var(--r-sm);
-    border: 1px solid var(--outline);
-    background: var(--surface-2);
-    color: var(--text);
+    width: 100%; height: 44px; padding: 0 12px; border-radius: var(--r-sm);
+    border: 1px solid var(--outline); background: var(--surface-2); color: var(--text);
     font-family: inherit; font-size: 14px;
   }
-  .date-input-wrapper input[type="date"]:focus {
-    outline: none; border-color: var(--primary);
-  }
+  .date-input-wrapper input[type="date"]:focus { outline: none; border-color: var(--primary); }
   .date-clear-btn {
-    margin-top: 12px; width: 100%; padding: 12px;
-    border: none; border-radius: var(--r-sm);
-    background: var(--surface-3);
-    color: var(--text);
-    font-weight: 600; cursor: pointer;
+    margin-top: 12px; width: 100%; padding: 12px; border: none; border-radius: var(--r-sm);
+    background: var(--surface-3); color: var(--text); font-weight: 600; cursor: pointer;
   }
   .date-clear-btn:hover { background: var(--outline-strong); }
 
   /* SIDEBARS */
   .sidebar {
-    position: absolute; top: 0; left: 0;
-    width: 400px; height: 100%;
-    background: var(--surface);
-    box-shadow: var(--shadow-4);
-    z-index: var(--z-sidebar);
-    transform: translateX(-100%);
-    transition: transform .4s var(--ease-emphasized), background .3s;
-    display: flex; flex-direction: column;
-    padding-top: var(--safe-top);
-    border-right: 1px solid var(--outline);
+    position: absolute; top: 0; left: 0; width: 400px; height: 100%;
+    background: var(--surface); box-shadow: var(--shadow-4); z-index: var(--z-sidebar);
+    transform: translateX(-100%); transition: transform .4s var(--ease-emphasized), background .3s;
+    display: flex; flex-direction: column; padding-top: var(--safe-top); border-right: 1px solid var(--outline);
   }
   .sidebar.open { transform: translateX(0); }
   .sidebar-right {
-    position: absolute; top: 0; right: 0;
-    width: 400px; height: 100%;
-    background: var(--surface);
-    box-shadow: var(--shadow-4);
-    z-index: var(--z-sidebar);
-    transform: translateX(100%);
-    transition: transform .4s var(--ease-emphasized), background .3s;
-    display: flex; flex-direction: column;
-    padding-top: var(--safe-top);
-    border-left: 1px solid var(--outline);
+    position: absolute; top: 0; right: 0; width: 400px; height: 100%;
+    background: var(--surface); box-shadow: var(--shadow-4); z-index: var(--z-sidebar);
+    transform: translateX(100%); transition: transform .4s var(--ease-emphasized), background .3s;
+    display: flex; flex-direction: column; padding-top: var(--safe-top); border-left: 1px solid var(--outline);
   }
   .sidebar-right.open { transform: translateX(0); }
   
-  .sidebar-top {
-    padding: 24px 24px 16px;
-    border-bottom: 1px solid var(--outline);
-    flex-shrink: 0;
-  }
+  .sidebar-top { padding: 24px 24px 16px; border-bottom: 1px solid var(--outline); flex-shrink: 0; }
   .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
   .brand-logo {
-    width: 44px; height: 44px; border-radius: var(--r-md);
-    background: transparent;
-    display: grid; place-items: center; color: var(--primary);
-    flex-shrink: 0;
-    overflow: hidden;
-    padding: 4px;
+    width: 44px; height: 44px; border-radius: var(--r-md); background: transparent;
+    display: grid; place-items: center; color: var(--primary); flex-shrink: 0; overflow: hidden; padding: 4px;
   }
   .brand-logo img { width: 100%; height: 100%; object-fit: contain; }
   .brand-text { flex: 1; min-width: 0; }
   .brand-text h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); line-height: 1.1; }
   .brand-text p { font-size: 12px; color: var(--text-3); font-weight: 500; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .close-btn {
-    width: 40px; height: 40px; border-radius: var(--r-full);
-    border: none; background: transparent; color: var(--text-2);
-    display: grid; place-items: center; cursor: pointer;
+    width: 40px; height: 40px; border-radius: var(--r-full); border: none; background: transparent;
+    color: var(--text-2); display: grid; place-items: center; cursor: pointer;
     transition: background .2s, color .2s; flex-shrink: 0;
   }
   .close-btn:hover { background: var(--surface-2); color: var(--text); }
   
-  .lang-badge {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 12px; background: var(--surface-2);
-    border-radius: var(--r-full); font-size: 11px; font-weight: 700;
-    color: var(--text-3); margin-bottom: 12px;
-    border: 1px solid var(--outline);
-    text-transform: uppercase; letter-spacing: 0.05em;
-  }
-  .lang-badge .ms { font-size: 14px; }
-
-  .city-selector {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 6px 12px; background: var(--surface-2);
-    border-radius: var(--r-full); font-size: 11px; font-weight: 700;
-    color: var(--text-3); margin-bottom: 12px; margin-left: 8px;
-    border: 1px solid var(--outline);
-    cursor: pointer;
-    transition: background .2s, border-color .2s;
-  }
-  .city-selector:hover { background: var(--surface-3); border-color: var(--outline-strong); }
-  .city-selector .ms { font-size: 14px; }
-  .city-selector.active { background: var(--primary-container); color: var(--primary); border-color: var(--primary); }
-  
   .search-field {
-    display: flex; align-items: center;
-    height: 52px; background: var(--surface-2);
-    border-radius: var(--r-md);
-    padding: 0 16px; gap: 12px;
-    border: 2px solid transparent;
+    display: flex; align-items: center; height: 52px; background: var(--surface-2);
+    border-radius: var(--r-md); padding: 0 16px; gap: 12px; border: 2px solid transparent;
     transition: all .2s; margin-bottom: 12px;
   }
   .search-field:focus-within { background: var(--surface); border-color: var(--primary); }
@@ -483,34 +363,21 @@
   .search-field input::placeholder { color: var(--text-3); font-weight: 400; }
   
   .gps-button {
-    width: 100%; height: 52px;
-    border: none; border-radius: var(--r-md);
+    width: 100%; height: 52px; border: none; border-radius: var(--r-md);
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: #FFFFFF;
-    font-family: inherit; font-size: 15px; font-weight: 700;
-    cursor: pointer;
+    color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    box-shadow: 0 4px 14px rgba(29, 106, 94, 0.3);
-    transition: transform .2s;
+    box-shadow: 0 4px 14px rgba(29, 106, 94, 0.3); transition: transform .2s; margin-bottom: 12px;
   }
   .gps-button:active { transform: scale(0.97); }
 
-  /* BOTÓN DE PUBLICIDAD */
+  /* NUEVO BOTÓN DE PUBLICIDAD */
   .ads-button {
-    width: 100%;
-    height: 56px;
-    border: none;
-    border-radius: var(--r-md);
+    width: 100%; height: 56px; border: none; border-radius: var(--r-md);
     background: linear-gradient(135deg, var(--secondary) 0%, #E67E22 100%);
-    color: #FFFFFF;
-    font-family: inherit;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 16px;
-    box-shadow: 0 4px 14px rgba(245, 176, 39, 0.3);
-    transition: transform .2s, filter .2s;
+    color: #FFFFFF; font-family: inherit; cursor: pointer; display: flex;
+    align-items: center; justify-content: space-between; padding: 0 16px;
+    box-shadow: 0 4px 14px rgba(245, 176, 39, 0.3); transition: transform .2s, filter .2s;
     margin-bottom: 12px;
   }
   .ads-button:hover { filter: brightness(1.05); }
@@ -518,217 +385,117 @@
   .ads-button .ms { color: white; }
   
   .events-scroll {
-    flex: 1; overflow-y: auto;
-    padding: 16px 16px 100px 16px;
-    display: flex; flex-direction: column; gap: 12px;
-    -webkit-overflow-scrolling: touch;
+    flex: 1; overflow-y: auto; padding: 16px 16px 100px 16px;
+    display: flex; flex-direction: column; gap: 12px; -webkit-overflow-scrolling: touch;
   }
   .events-scroll::-webkit-scrollbar { width: 6px; }
   .events-scroll::-webkit-scrollbar-thumb { background: var(--outline-strong); border-radius: 3px; }
   
   .section-label {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px; font-weight: 800;
-    color: var(--text-3);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding: 4px 4px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 800;
+    color: var(--text-3); text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 4px 0;
   }
   
   /* EVENT CARDS */
   .event-card {
-    background: var(--surface);
-    border: 1px solid var(--outline);
-    border-radius: var(--r-lg);
-    padding: 0;
-    display: flex; gap: 0;
-    cursor: pointer;
-    transition: all .22s var(--ease-standard);
-    position: relative; overflow: hidden;
-    min-height: 120px;
+    background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-lg);
+    padding: 0; display: flex; gap: 0; cursor: pointer; transition: all .22s var(--ease-standard);
+    position: relative; overflow: hidden; min-height: 120px;
   }
   .event-card::before {
-    content: ''; position: absolute;
-    left: 0; top: 0; bottom: 0; width: 4px;
-    background: var(--card-color, var(--primary));
-    opacity: 0; transition: opacity .22s;
-    z-index: 2;
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--card-color, var(--primary)); opacity: 0; transition: opacity .22s; z-index: 2;
   }
   .event-card:hover { border-color: var(--outline-strong); box-shadow: var(--shadow-2); transform: translateY(-2px); }
   .event-card:hover::before { opacity: 1; }
   .event-card:active { transform: scale(0.985) translateY(0); }
   
   .event-photo {
-    width: 100px; height: auto; flex-shrink: 0;
-    background: var(--card-bg, var(--primary-container));
-    display: grid; place-items: center; overflow: hidden;
-    position: relative;
+    width: 100px; height: auto; flex-shrink: 0; background: var(--card-bg, var(--primary-container));
+    display: grid; place-items: center; overflow: hidden; position: relative;
   }
-  .event-photo img {
-    width: 100%; height: 100%; object-fit: cover;
-    display: block; transition: transform .3s var(--ease-standard);
-  }
+  .event-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s var(--ease-standard); }
   .event-card:hover .event-photo img { transform: scale(1.08); }
-  .event-photo .placeholder {
-    font-family: 'Material Symbols Rounded';
-    font-size: 36px;
-    color: var(--card-color, var(--primary));
-    font-variation-settings: 'FILL' 1, 'wght' 500;
-  }
+  .event-photo .placeholder { font-family: 'Material Symbols Rounded'; font-size: 36px; color: var(--card-color, var(--primary)); font-variation-settings: 'FILL' 1, 'wght' 500; }
   
   .event-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; justify-content: center; padding: 12px 14px; }
   .event-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px; font-weight: 700;
-    letter-spacing: -0.015em; line-height: 1.3;
-    color: var(--text);
-    display: -webkit-box;
-    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-    overflow: hidden; word-break: break-word;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700;
+    letter-spacing: -0.015em; line-height: 1.3; color: var(--text);
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word;
   }
   .event-description {
-    font-size: 11px;
-    color: var(--text-2);
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 11px; color: var(--text-2); line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
   .event-venue {
-    font-size: 12px; color: var(--text-2); font-weight: 500;
-    display: flex; align-items: center; gap: 4px;
+    font-size: 12px; color: var(--text-2); font-weight: 500; display: flex; align-items: center; gap: 4px;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
   .event-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   
   /* ICON ROW */
-  .icon-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 2px;
-    align-items: center;
-  }
+  .icon-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; align-items: center; }
   .icon-chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    transition: opacity .2s, background .2s;
-    background: var(--surface-2);
-    color: var(--text-3);
+    display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px;
+    border-radius: 50%; transition: opacity .2s, background .2s; background: var(--surface-2); color: var(--text-3);
   }
-  .icon-chip.active {
-    background: var(--chip-color, #1D6A5E);
-    color: #FFFFFF;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
-  .icon-chip.inactive {
-    background: var(--surface-2);
-    color: var(--text-3);
-    opacity: 0.35;
-  }
-  .icon-chip svg {
-    width: 15px;
-    height: 15px;
-    fill: currentColor;
-  }
+  .icon-chip.active { background: var(--chip-color, #1D6A5E); color: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .icon-chip.inactive { background: var(--surface-2); color: var(--text-3); opacity: 0.35; }
+  .icon-chip svg { width: 15px; height: 15px; fill: currentColor; }
   .icon-chip.active svg { fill: #FFFFFF; }
-  .icon-divider {
-    width: 1px; height: 18px;
-    background: var(--outline);
-    margin: 0 4px;
-    align-self: center;
-  }
+  .icon-divider { width: 1px; height: 18px; background: var(--outline); margin: 0 4px; align-self: center; }
   
   /* CATEGORY PILL */
-  .category-pill-container {
-    display: flex; align-items: center;
-    gap: 4px; margin-top: 2px;
-  }
+  .category-pill-container { display: flex; align-items: center; gap: 4px; margin-top: 2px; }
   .category-pill-icon {
-    display: inline-flex;
-    align-items: center; justify-content: center;
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: var(--cat-color, var(--primary));
-    color: #FFFFFF;
-    font-size: 14px;
+    display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px;
+    border-radius: 50%; background: var(--cat-color, var(--primary)); color: #FFFFFF; font-size: 14px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
   .category-pill-icon .ms { font-size: 14px; }
   .category-pill-label {
-    background: #1A1A1A;
-    color: #FFFFFF;
-    font-size: 9px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 999px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
+    background: #1A1A1A; color: #FFFFFF; font-size: 9px; font-weight: 700;
+    padding: 3px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
   }
   
   .event-source-tag {
-    display: inline-flex; align-items: center;
-    gap: 3px; font-size: 9px; font-weight: 800;
-    padding: 2px 6px; border-radius: 999px;
-    text-transform: uppercase; letter-spacing: .05em;
+    display: inline-flex; align-items: center; gap: 3px; font-size: 9px; font-weight: 800;
+    padding: 2px 6px; border-radius: 999px; text-transform: uppercase; letter-spacing: .05em;
   }
   .event-source-tag.eb { background: #FCE7F3; color: #DB2777; }
   .event-source-tag.tm { background: #EEF2FF; color: #4F46E5; }
   
   .event-date-info {
-    font-size: 11px; color: var(--text-3);
-    font-weight: 600;
-    display: flex; align-items: center; gap: 3px;
-    margin-left: auto;
+    font-size: 11px; color: var(--text-3); font-weight: 600;
+    display: flex; align-items: center; gap: 3px; margin-left: auto;
   }
   .event-date-info .ms { font-size: 12px; }
   
   .empty-state {
-    text-align: center; padding: 60px 20px;
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    text-align: center; padding: 60px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px;
   }
   .empty-state .ms { font-size: 56px; color: var(--outline-strong); }
   .empty-state h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
   .empty-state p { font-size: 13px; color: var(--text-3); max-width: 240px; line-height: 1.5; }
   
   .overlay {
-    position: absolute; inset: 0;
-    background: rgba(24, 24, 27, 0.4);
-    z-index: var(--z-overlay);
-    opacity: 0; pointer-events: none;
-    transition: opacity .3s var(--ease-standard);
-    backdrop-filter: blur(4px);
+    position: absolute; inset: 0; background: rgba(24, 24, 27, 0.4); z-index: var(--z-overlay);
+    opacity: 0; pointer-events: none; transition: opacity .3s var(--ease-standard); backdrop-filter: blur(4px);
   }
   .overlay.show { opacity: 1; pointer-events: auto; }
   
   .toast-container {
-    position: absolute;
-    bottom: calc(24px + var(--safe-bottom));
-    left: 50%; transform: translateX(-50%);
-    z-index: var(--z-toast);
-    display: flex; flex-direction: column-reverse;
-    gap: 8px; pointer-events: none;
-    max-width: calc(100% - 32px);
-    align-items: center;
+    position: absolute; bottom: calc(24px + var(--safe-bottom)); left: 50%; transform: translateX(-50%);
+    z-index: var(--z-toast); display: flex; flex-direction: column-reverse; gap: 8px;
+    pointer-events: none; max-width: calc(100% - 32px); align-items: center;
   }
   .toast {
-    background: var(--text); color: var(--surface);
-    padding: 14px 22px; border-radius: var(--r-full);
-    font-size: 14px; font-weight: 600;
-    box-shadow: var(--shadow-4);
-    display: flex; align-items: center; gap: 8px;
-    white-space: nowrap;
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    animation: toastIn .3s var(--ease-spring) forwards;
-    pointer-events: auto;
-    max-width: 100%;
+    background: var(--text); color: var(--surface); padding: 14px 22px; border-radius: var(--r-full);
+    font-size: 14px; font-weight: 600; box-shadow: var(--shadow-4); display: flex; align-items: center; gap: 8px;
+    white-space: nowrap; opacity: 0; transform: translateY(20px) scale(0.95);
+    animation: toastIn .3s var(--ease-spring) forwards; pointer-events: auto; max-width: 100%;
   }
   .toast.leaving { animation: toastOut .3s var(--ease-standard) forwards; }
   @keyframes toastIn { to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -737,22 +504,12 @@
   .toast span:not(.ms) { overflow: hidden; text-overflow: ellipsis; }
   
   .install-banner {
-    position: absolute;
-    bottom: calc(24px + var(--safe-bottom));
-    left: 50%;
-    transform: translateX(-50%) translateY(200%);
-    z-index: var(--z-banner);
-    background: var(--surface);
-    border: 1px solid var(--outline);
-    border-radius: var(--r-lg);
-    box-shadow: var(--shadow-4);
-    padding: 14px 16px;
-    display: flex; align-items: center; gap: 12px;
-    transition: transform .4s var(--ease-spring), opacity .3s;
-    pointer-events: none;
-    max-width: calc(100% - 32px);
-    width: 440px;
-    opacity: 0;
+    position: absolute; bottom: calc(24px + var(--safe-bottom)); left: 50%;
+    transform: translateX(-50%) translateY(200%); z-index: var(--z-banner);
+    background: var(--surface); border: 1px solid var(--outline); border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4); padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+    transition: transform .4s var(--ease-spring), opacity .3s; pointer-events: none;
+    max-width: calc(100% - 32px); width: 440px; opacity: 0;
   }
   .install-banner.show { transform: translateX(-50%) translateY(0); pointer-events: auto; opacity: 1; }
   .install-banner .ms.install-icon { color: var(--primary); font-size: 28px; flex-shrink: 0; }
@@ -761,536 +518,216 @@
   .install-banner-text span { font-size: 12px; color: var(--text-3); display: block; margin-top: 2px; }
   .install-banner-btn {
     padding: 10px 18px; border: none; border-radius: var(--r-full);
-    background: var(--primary); color: #FFFFFF;
-    font-family: inherit; font-size: 13px; font-weight: 700;
-    cursor: pointer; transition: transform .2s, background .2s;
-    flex-shrink: 0;
+    background: var(--primary); color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: transform .2s, background .2s; flex-shrink: 0;
   }
   .install-banner-btn:hover { background: var(--primary-dark); }
   .install-banner-btn:active { transform: scale(0.95); }
   .install-banner-close {
-    width: 32px; height: 32px; border-radius: var(--r-full);
-    border: none; background: transparent;
-    color: var(--text-3);
-    display: grid; place-items: center;
-    cursor: pointer; flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: var(--r-full); border: none; background: transparent;
+    color: var(--text-3); display: grid; place-items: center; cursor: pointer; flex-shrink: 0;
   }
   .install-banner-close:hover { background: var(--surface-2); color: var(--text); }
   .install-banner-close .ms { font-size: 18px; }
 
   /* ============================================
-     MODAL DE DETALLE DEL EVENTO CON SUBPESTAÑAS
+     MODAL DE DETALLE DEL EVENTO
      ============================================ */
   .event-detail-modal {
-    position: fixed;
-    inset: 0;
-    z-index: var(--z-modal);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .3s var(--ease-standard), visibility .3s;
-    pointer-events: none;
+    position: fixed; inset: 0; z-index: var(--z-modal); display: flex;
+    align-items: center; justify-content: center; padding: 16px;
+    opacity: 0; visibility: hidden; transition: opacity .3s var(--ease-standard), visibility .3s; pointer-events: none;
   }
-  .event-detail-modal.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
+  .event-detail-modal.open { opacity: 1; visibility: visible; pointer-events: auto; }
   .event-detail-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(24, 24, 27, 0.6);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    position: absolute; inset: 0; background: rgba(24, 24, 27, 0.6);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   }
   .event-detail-card {
-    position: relative;
-    background: var(--surface);
-    border-radius: var(--r-lg);
-    box-shadow: var(--shadow-4);
-    width: 100%;
-    max-width: 360px;
-    max-height: calc(70vh);
-    max-height: calc(70dvh);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transform: translateY(20px) scale(0.95);
-    transition: transform .35s var(--ease-spring);
-    border: 1px solid var(--outline);
+    position: relative; background: var(--surface); border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4); width: 100%; max-width: 340px;
+    max-height: calc(60vh); max-height: calc(60dvh); display: flex; flex-direction: column;
+    overflow: hidden; transform: translateY(20px) scale(0.95);
+    transition: transform .35s var(--ease-spring); border: 1px solid var(--outline);
   }
-  .event-detail-modal.open .event-detail-card {
-    transform: translateY(0) scale(1);
-  }
+  .event-detail-modal.open .event-detail-card { transform: translateY(0) scale(1); }
   .event-detail-hero {
-    position: relative;
-    width: 100%;
-    height: 120px;
-    background: var(--primary-container);
-    flex-shrink: 0;
-    overflow: hidden;
+    position: relative; width: 100%; height: 110px; background: var(--primary-container);
+    flex-shrink: 0; overflow: hidden;
   }
-  .event-detail-hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+  .event-detail-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .event-detail-hero .hero-placeholder {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
+    width: 100%; height: 100%; display: grid; place-items: center;
     background: linear-gradient(135deg, var(--primary-container), var(--accent-container));
   }
-  .event-detail-hero .hero-placeholder .ms {
-    font-size: 40px;
-    color: var(--primary);
-    font-variation-settings: 'FILL' 1, 'wght' 500;
-    opacity: 0.6;
-  }
+  .event-detail-hero .hero-placeholder .ms { font-size: 40px; color: var(--primary); font-variation-settings: 'FILL' 1, 'wght' 500; opacity: 0.6; }
   .event-detail-close {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 30px;
-    height: 30px;
-    border-radius: var(--r-full);
-    border: none;
-    background: rgba(0, 0, 0, 0.55);
-    color: #FFFFFF;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: background .2s, transform .2s;
-    z-index: 2;
+    position: absolute; top: 8px; right: 8px; width: 30px; height: 30px;
+    border-radius: var(--r-full); border: none; background: rgba(0, 0, 0, 0.55); color: #FFFFFF;
+    display: grid; place-items: center; cursor: pointer;
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    transition: background .2s, transform .2s; z-index: 2;
   }
   .event-detail-close:hover { background: rgba(0, 0, 0, 0.75); }
   .event-detail-close:active { transform: scale(0.92); }
   .event-detail-close .ms { font-size: 18px; }
   
   .event-detail-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 12px 14px 70px 14px;
-    -webkit-overflow-scrolling: touch;
+    flex: 1; overflow-y: auto; padding: 12px 14px 70px 14px; -webkit-overflow-scrolling: touch;
   }
   .event-detail-body::-webkit-scrollbar { width: 4px; }
   .event-detail-body::-webkit-scrollbar-thumb { background: var(--outline-strong); border-radius: 3px; }
-
-  /* TABS DE EVENTOS */
-  .event-tabs {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--outline);
-    -webkit-overflow-scrolling: touch;
-  }
-  .event-tabs::-webkit-scrollbar { height: 3px; }
-  .event-tab {
-    flex-shrink: 0;
-    padding: 6px 12px;
-    border-radius: var(--r-full);
-    border: 1px solid var(--outline);
-    background: var(--surface-2);
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-2);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all .2s;
-  }
-  .event-tab:hover { background: var(--surface-3); }
-  .event-tab.active {
-    background: var(--primary);
-    color: #FFFFFF;
-    border-color: var(--primary);
-    box-shadow: 0 2px 8px rgba(29, 106, 94, 0.3);
-  }
   
   .event-detail-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
-    color: var(--text);
-    margin-bottom: 6px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.25; color: var(--text); margin-bottom: 6px;
   }
   .event-detail-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--outline);
+    display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--outline);
   }
   .event-detail-meta-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    font-size: 11px;
-    color: var(--text-2);
-    font-weight: 500;
+    display: flex; align-items: flex-start; gap: 6px; font-size: 11px;
+    color: var(--text-2); font-weight: 500;
   }
-  .event-detail-meta-row .ms {
-    font-size: 14px;
-    color: var(--text-3);
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .event-detail-meta-row strong {
-    color: var(--text);
-    font-weight: 700;
-  }
+  .event-detail-meta-row .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; margin-top: 1px; }
+  .event-detail-meta-row strong { color: var(--text); font-weight: 700; }
   
   .event-detail-section-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 9px;
-    font-weight: 800;
-    color: var(--text-3);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 5px;
-    margin-top: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 800;
+    color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; margin-top: 10px;
   }
   .event-detail-section-title:first-child { margin-top: 0; }
   
   .event-detail-description {
-    font-size: 11px;
-    line-height: 1.5;
-    color: var(--text-2);
-    white-space: pre-line;
-    word-break: break-word;
+    font-size: 11px; line-height: 1.5; color: var(--text-2); white-space: pre-line; word-break: break-word;
   }
   
-  .event-detail-icons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 2px;
-  }
-  .event-detail-icons .icon-chip {
-    width: 26px;
-    height: 26px;
-  }
-  .event-detail-icons .icon-chip svg {
-    width: 15px;
-    height: 15px;
-  }
+  .event-detail-icons { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 2px; }
+  .event-detail-icons .icon-chip { width: 26px; height: 26px; }
+  .event-detail-icons .icon-chip svg { width: 15px; height: 15px; }
   
   .event-detail-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px 14px;
-    background: var(--surface);
-    border-top: 1px solid var(--outline);
-    display: flex;
-    gap: 8px;
-    box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px;
+    background: var(--surface); border-top: 1px solid var(--outline);
+    display: flex; gap: 8px; box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
   }
   .event-detail-cta {
-    flex: 1;
-    height: 38px;
-    border: none;
-    border-radius: var(--r-sm);
+    flex: 1; height: 38px; border: none; border-radius: var(--r-sm);
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: #FFFFFF;
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    text-decoration: none;
-    box-shadow: 0 4px 14px rgba(29, 106, 94, 0.3);
-    transition: transform .2s, filter .2s;
+    color: #FFFFFF; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
+    box-shadow: 0 4px 14px rgba(29, 106, 94, 0.3); transition: transform .2s, filter .2s;
   }
   .event-detail-cta:hover { filter: brightness(1.08); }
   .event-detail-cta:active { transform: scale(0.97); }
   .event-detail-cta .ms { font-size: 16px; }
-  .event-detail-cta.disabled {
-    background: var(--surface-3);
-    color: var(--text-3);
-    box-shadow: none;
-    cursor: default;
-  }
+  .event-detail-cta.disabled { background: var(--surface-3); color: var(--text-3); box-shadow: none; cursor: default; }
 
   /* ============================================
      MODAL DE PUBLICIDAD
      ============================================ */
   .ads-modal {
-    position: fixed;
-    inset: 0;
-    z-index: var(--z-modal);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .3s var(--ease-standard), visibility .3s;
-    pointer-events: none;
+    position: fixed; inset: 0; z-index: var(--z-modal); display: flex;
+    align-items: center; justify-content: center; padding: 16px;
+    opacity: 0; visibility: hidden; transition: opacity .3s var(--ease-standard), visibility .3s; pointer-events: none;
   }
-  .ads-modal.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-  .ads-modal-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(24, 24, 27, 0.6);
-    backdrop-filter: blur(6px);
-  }
+  .ads-modal.open { opacity: 1; visibility: visible; pointer-events: auto; }
+  .ads-modal-overlay { position: absolute; inset: 0; background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(6px); }
   .ads-modal-card {
-    position: relative;
-    background: var(--surface);
-    border-radius: var(--r-lg);
-    box-shadow: var(--shadow-4);
-    width: 100%;
-    max-width: 480px;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 24px;
-    transform: translateY(20px) scale(0.95);
-    transition: transform .35s var(--ease-spring);
-    border: 1px solid var(--outline);
-    z-index: 1;
+    position: relative; background: var(--surface); border-radius: var(--r-lg);
+    box-shadow: var(--shadow-4); width: 100%; max-width: 480px; max-height: 85vh;
+    overflow-y: auto; padding: 24px; transform: translateY(20px) scale(0.95);
+    transition: transform .35s var(--ease-spring); border: 1px solid var(--outline); z-index: 1;
   }
-  .ads-modal.open .ads-modal-card {
-    transform: translateY(0) scale(1);
-  }
+  .ads-modal.open .ads-modal-card { transform: translateY(0) scale(1); }
   .ads-modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--r-full);
-    border: none;
-    background: var(--surface-2);
-    color: var(--text-2);
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-    transition: background .2s;
+    position: absolute; top: 12px; right: 12px; width: 32px; height: 32px;
+    border-radius: var(--r-full); border: none; background: var(--surface-2);
+    color: var(--text-2); display: grid; place-items: center; cursor: pointer; transition: background .2s;
   }
   .ads-modal-close:hover { background: var(--surface-3); }
   .ads-modal-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 4px;
-    text-align: center;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800;
+    color: var(--text); margin-bottom: 4px; text-align: center;
   }
   .ads-modal-subtitle {
-    font-size: 13px;
-    color: var(--text-2);
-    text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.5;
+    font-size: 13px; color: var(--text-2); text-align: center; margin-bottom: 20px; line-height: 1.5;
   }
-  .ads-plans {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  .ads-plans { display: flex; flex-direction: column; gap: 12px; }
   .ads-plan {
-    background: var(--surface-2);
-    border: 1px solid var(--outline);
-    border-radius: var(--r-md);
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    cursor: pointer;
+    background: var(--surface-2); border: 1px solid var(--outline); border-radius: var(--r-md);
+    padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer;
     transition: border-color .2s, box-shadow .2s, transform .2s;
   }
-  .ads-plan:hover {
-    border-color: var(--primary);
-    box-shadow: var(--shadow-2);
-    transform: translateY(-2px);
-  }
+  .ads-plan:hover { border-color: var(--primary); box-shadow: var(--shadow-2); transform: translateY(-2px); }
   .ads-plan-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--r-sm);
-    background: var(--primary-container);
-    display: grid;
-    place-items: center;
-    color: var(--primary);
-    flex-shrink: 0;
+    width: 48px; height: 48px; border-radius: var(--r-sm); background: var(--primary-container);
+    display: grid; place-items: center; color: var(--primary); flex-shrink: 0;
   }
   .ads-plan-icon .ms { font-size: 28px; }
   .ads-plan-info { flex: 1; }
-  .ads-plan-info h4 {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-  .ads-plan-info p {
-    font-size: 12px;
-    color: var(--text-3);
-    font-weight: 500;
-  }
-  .ads-plan-price {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--primary);
-    white-space: nowrap;
-  }
-  .ads-plan-price span {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-3);
-  }
+  .ads-plan-info h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+  .ads-plan-info p { font-size: 12px; color: var(--text-3); font-weight: 500; }
+  .ads-plan-price { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; color: var(--primary); white-space: nowrap; }
+  .ads-plan-price span { font-size: 11px; font-weight: 600; color: var(--text-3); }
   .ads-cta {
-    margin-top: 20px;
-    width: 100%;
-    height: 48px;
-    border: none;
-    border-radius: var(--r-md);
+    margin-top: 20px; width: 100%; height: 48px; border: none; border-radius: var(--r-md);
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: #FFFFFF;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 14px rgba(29, 106, 94, 0.3);
-    transition: transform .2s, filter .2s;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+    box-shadow: 0 4px 14px rgba(29, 106, 94, 0.3); transition: transform .2s, filter .2s;
   }
   .ads-cta:hover { filter: brightness(1.08); }
   .ads-cta:active { transform: scale(0.97); }
   
   /* PROXIMAMENTE OVERLAY */
   .coming-soon-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 24px;
-    text-align: center;
-    gap: 16px;
-    height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 60px 24px; text-align: center; gap: 16px; height: 100%;
   }
   .coming-soon-icon {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
+    width: 96px; height: 96px; border-radius: 50%;
     background: linear-gradient(135deg, var(--accent-container), var(--primary-container));
-    display: grid;
-    place-items: center;
-    animation: comingSoonPulse 2.5s ease-in-out infinite;
+    display: grid; place-items: center; animation: comingSoonPulse 2.5s ease-in-out infinite;
   }
   @keyframes comingSoonPulse {
     0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.4); }
     50% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(233, 30, 99, 0); }
   }
-  .coming-soon-icon .ms {
-    font-size: 48px;
-    color: var(--tertiary);
-    font-variation-settings: 'FILL' 1, 'wght' 500;
-  }
-  .coming-soon-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.02em;
-  }
-  .coming-soon-subtitle {
-    font-size: 14px;
-    color: var(--text-2);
-    line-height: 1.6;
-    max-width: 300px;
-  }
+  .coming-soon-icon .ms { font-size: 48px; color: var(--tertiary); font-variation-settings: 'FILL' 1, 'wght' 500; }
+  .coming-soon-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+  .coming-soon-subtitle { font-size: 14px; color: var(--text-2); line-height: 1.6; max-width: 300px; }
   .coming-soon-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: 999px;
-    background: var(--tertiary-container);
-    color: var(--tertiary);
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-top: 8px;
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px;
+    background: var(--tertiary-container); color: var(--tertiary); font-size: 12px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-top: 8px;
   }
   .coming-soon-badge .ms { font-size: 16px; }
   
   .festive-confetti {
-    position: fixed; inset: 0; pointer-events: none; z-index: calc(var(--z-splash) - 1);
-    overflow: hidden;
+    position: fixed; inset: 0; pointer-events: none; z-index: calc(var(--z-splash) - 1); overflow: hidden;
   }
   .festive-confetti-piece {
-    position: absolute;
-    width: 10px; height: 10px;
-    opacity: 0.85;
-    animation: festiveFall linear infinite;
-    border-radius: 2px;
+    position: absolute; width: 10px; height: 10px; opacity: 0.85;
+    animation: festiveFall linear infinite; border-radius: 2px;
   }
   @keyframes festiveFall {
     0% { transform: translateY(-100vh) rotate(0deg); }
     100% { transform: translateY(100vh) rotate(720deg); }
   }
   .festive-banner {
-    position: absolute;
-    top: calc(84px + var(--safe-top));
-    left: 50%;
-    transform: translateX(-50%) translateY(-20px);
-    z-index: var(--z-header);
-    background: var(--surface);
-    border: 2px solid var(--festive-primary);
-    border-radius: var(--r-full);
-    padding: 8px 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: var(--shadow-3);
-    opacity: 0;
-    visibility: hidden;
-    transition: all .4s var(--ease-spring);
-    pointer-events: none;
-    max-width: calc(100% - 32px);
+    position: absolute; top: calc(84px + var(--safe-top)); left: 50%;
+    transform: translateX(-50%) translateY(-20px); z-index: var(--z-header);
+    background: var(--surface); border: 2px solid var(--festive-primary); border-radius: var(--r-full);
+    padding: 8px 18px; display: flex; align-items: center; gap: 8px;
+    box-shadow: var(--shadow-3); opacity: 0; visibility: hidden;
+    transition: all .4s var(--ease-spring); pointer-events: none; max-width: calc(100% - 32px);
   }
-  .festive-banner.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-  }
+  .festive-banner.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
   .festive-banner .ms { font-size: 20px; color: var(--festive-primary); }
   .festive-banner-text {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
@@ -1311,7 +748,7 @@
     .splash-logo-container { width: 90vw; max-width: 350px; }
     .date-filter-panel { width: 90%; max-width: 340px; }
     .festive-banner { top: calc(76px + var(--safe-top)); font-size: 11px; }
-    .event-detail-card { max-width: 90%; max-height: 80vh; max-height: 80dvh; }
+    .event-detail-card { max-width: 90%; max-height: 70vh; max-height: 70dvh; }
     .event-detail-hero { height: 100px; }
     .event-detail-title { font-size: 14px; }
     .ads-modal-card { max-width: 90%; padding: 16px; }
@@ -1343,7 +780,7 @@
 <body class="escapaditas-closed">
 
 <script>
-  const ESCAPADITAS_ENABLED = true; // Activado para mostrar agencias
+  const ESCAPADITAS_ENABLED = false; // ← Cambia a true para activar Escapaditas
 </script>
 
 <div class="splash" id="splash">
@@ -1379,30 +816,51 @@
       <button class="close-btn" onclick="closeSidebar()" aria-label="Cerrar panel"><span class="ms">close</span></button>
     </div>
     
-    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+    <!-- SELECTOR DE CIUDAD Y TRADUCTOR -->
+    <div class="city-selector-wrapper">
+      <div class="city-btn" id="cityBtn" onclick="toggleCityDropdown(event)">
+        <span class="ms">location_on</span>
+        <span id="currentCityLabel">Guadalajara</span>
+        <span class="ms" style="font-size: 16px;">expand_more</span>
+        <div class="city-dropdown" id="cityDropdown">
+          <button class="city-option active" onclick="setCity('guadalajara', event)">
+            <span class="ms">location_city</span>
+            <span>Guadalajara</span>
+            <span class="ms check" style="margin-left: auto; opacity: 1;">check</span>
+          </button>
+          <button class="city-option" onclick="setCity('monterrey', event)">
+            <span class="ms">location_city</span>
+            <span>Monterrey</span>
+            <span class="coming-soon-tag">Pronto</span>
+          </button>
+          <button class="city-option" onclick="setCity('cdmx', event)">
+            <span class="ms">location_city</span>
+            <span>Ciudad de México</span>
+            <span class="coming-soon-tag">Pronto</span>
+          </button>
+          <button class="city-option" onclick="setCity('edomex', event)">
+            <span class="ms">location_city</span>
+            <span>Estado de México</span>
+            <span class="coming-soon-tag">Pronto</span>
+          </button>
+        </div>
+      </div>
       <div class="lang-badge" style="margin-bottom: 0;">
         <span class="ms">language</span>
         <span id="langBadgeLabel">AUTO · ES</span>
       </div>
-      <!-- SELECTOR DE CIUDAD -->
-      <div class="city-selector" onclick="toggleCitySelector(event)">
-        <span class="ms fill">location_on</span>
-        <span id="currentCityLabel">Guadalajara</span>
-        <span class="ms">expand_more</span>
-      </div>
     </div>
-    
-    <div class="search-field" style="margin-top: 12px;">
+
+    <div class="search-field">
       <span class="ms">search</span>
       <input type="text" id="searchInput" placeholder="Buscar evento, lugar..." oninput="onSearchInput()" autocomplete="off">
     </div>
     
-    <button class="gps-button" onclick="searchNearMe()" id="gpsButtonSidebar" style="margin-bottom: 12px;">
+    <button class="gps-button" onclick="searchNearMe()" id="gpsButtonSidebar">
       <span class="ms fill">my_location</span>
       <span id="gpsLabel">Buscar cerca de mí</span>
     </button>
 
-    <!-- BOTÓN DE PUBLICIDAD -->
     <button class="ads-button" onclick="openAdsModal()">
       <div style="display: flex; align-items: center; gap: 10px;">
         <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center;">
@@ -1420,13 +878,13 @@
   <div class="events-scroll" id="sidebarEvents"></div>
 </aside>
 
-<aside class="sidebar-right" id="sidebarRight" aria-label="Panel de Escapadas">
+<aside class="sidebar-right" id="sidebarRight" aria-label="Panel de Escapaditas">
   <div class="sidebar-top">
     <div class="brand">
       <div class="brand-logo" style="background: linear-gradient(135deg, var(--tertiary), var(--secondary));"><span class="ms fill">luggage</span></div>
       <div class="brand-text">
         <h1>Escapadas</h1>
-        <p id="escapaditasSubtitle">Tours y agencias de viaje</p>
+        <p id="escapaditasSubtitle">Tours a Tequila, Shalala y más</p>
       </div>
       <button class="close-btn" onclick="closeEscapaditas()" aria-label="Cerrar panel"><span class="ms">close</span></button>
     </div>
@@ -1504,7 +962,7 @@
   <button class="install-banner-close" onclick="dismissInstallBanner()" aria-label="Cerrar"><span class="ms">close</span></button>
 </div>
 
-<!-- MODAL DE DETALLE DEL EVENTO CON SUBPESTAÑAS -->
+<!-- MODAL DE DETALLE DEL EVENTO -->
 <div class="event-detail-modal" id="eventDetailModal" role="dialog" aria-modal="true">
   <div class="event-detail-overlay" onclick="closeEventDetail()"></div>
   <div class="event-detail-card" id="eventDetailCard">
@@ -1552,10 +1010,7 @@
       </div>
     </div>
     
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSf..." target="_blank" class="ads-cta">
-      <span class="ms fill">send</span>
-      <span>Solicitar informes</span>
-    </a>
+    <button class="ads-cta" onclick="openAdForm()">Solicitar informes</button>
   </div>
 </div>
 
@@ -1574,21 +1029,22 @@ const API_KEYS = {
    CONFIGURACIÓN
    ============================================ */
 const LOCAL_EVENTS_CONFIG = { filePath: 'dataset_eventbrite.json', source: 'eventbrite' };
-const LOCAL_PLACES_CONFIG = { filePath: 'catalogo_lugares.json' };
+const LOCAL_LUGARES_CONFIG = { filePath: 'lugares.json', source: 'local' };
+const ADS_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf.../viewform'; // ← CAMBIA ESTO POR TU ENLACE DE GOOGLE FORMS
 
 let localEventbriteEvents = [];
+let localPlacesEvents = [];
 let localEventsLoaded = false;
-let localPlacesCatalog = [];
 let localPlacesLoaded = false;
 
-// Configuración de Ciudades
+// CIUDADES DISPONIBLES
 const CITIES = {
-  gdl: { name: 'Guadalajara', center: { lat: 20.6736, lng: -103.3440 }, enabled: true, icon: 'location_city' },
-  mty: { name: 'Monterrey', center: { lat: 25.6866, lng: -100.3161 }, enabled: false, icon: 'location_city' },
-  cdmx: { name: 'Ciudad de México', center: { lat: 19.4326, lng: -99.1332 }, enabled: false, icon: 'location_city' },
-  edomex: { name: 'Estado de México', center: { lat: 19.4969, lng: -99.7233 }, enabled: false, icon: 'location_city' }
+  guadalajara: { name: 'Guadalajara', coords: { lat: 20.6736, lng: -103.3440 }, enabled: true },
+  monterrey:   { name: 'Monterrey', coords: { lat: 25.6866, lng: -100.3161 }, enabled: false },
+  cdmx:        { name: 'Ciudad de México', coords: { lat: 19.4326, lng: -99.1332 }, enabled: false },
+  edomex:      { name: 'Estado de México', coords: { lat: 19.2826, lng: -99.6557 }, enabled: false }
 };
-let currentCity = 'gdl';
+let currentCityKey = 'guadalajara';
 
 /* ============================================
    TEMAS FESTIVOS
@@ -1919,31 +1375,19 @@ function updateSplashGreeting() {
    ============================================ */
 const AGE_CATEGORIES = {
   adults: { 
-    key: 'adults', 
-    label: 'Adultos', 
-    color: '#1D6A5E', 
-    bg: '#E6F2F0',
+    key: 'adults', label: 'Adultos', color: '#1D6A5E', bg: '#E6F2F0',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>`
   },
   teens: { 
-    key: 'teens', 
-    label: 'Adolescentes', 
-    color: '#8B5CF6', 
-    bg: '#EDE9FE',
+    key: 'teens', label: 'Adolescentes', color: '#8B5CF6', bg: '#EDE9FE',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C10.34 2 9 3.34 9 5V6H6V12C6 12.55 6.45 13 7 13C7.55 13 8 12.55 8 12V7H9V9C9 10.1 9.9 11 11 11H13C14.1 11 15 10.1 15 9V7H16V12C16 12.55 16.45 13 17 13C17.55 13 18 12.55 18 12V6H15V5C15 3.34 13.66 2 12 2ZM7 14C5.9 14 5 14.9 5 16V22H9V16C9 14.9 8.1 14 7 14ZM17 14C15.9 14 15 14.9 15 16V22H19V16C19 14.9 18.1 14 17 14ZM12 13C10.9 13 10 13.9 10 15V22H14V15C14 13.9 13.1 13 12 13Z"/></svg>`
   },
   kids: { 
-    key: 'kids', 
-    label: 'Niños', 
-    color: '#F5B027', 
-    bg: '#FEF8E7',
+    key: 'kids', label: 'Niños', color: '#F5B027', bg: '#FEF8E7',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C13.66 2 15 3.34 15 5C15 6.66 13.66 8 12 8C10.34 8 9 6.66 9 5C9 3.34 10.34 2 12 2ZM12 10C14.33 10 16 11.67 16 14V22H14V15H13V22H11V15H10V22H8V14C8 11.67 9.67 10 12 10Z"/></svg>`
   },
   bebes: { 
-    key: 'bebes', 
-    label: 'Bebés', 
-    color: '#2979FF', 
-    bg: '#E3F2FD',
+    key: 'bebes', label: 'Bebés', color: '#2979FF', bg: '#E3F2FD',
     icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM9 7C7.9 7 7 7.9 7 9V13C7 14.1 7.9 15 9 15V22H15V15C16.1 15 17 14.1 17 13V9C17 7.9 16.1 7 15 7H9Z"/></svg>`
   }
 };
@@ -1955,7 +1399,7 @@ const ACCESSIBILITY_CATEGORIES = {
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES (ACTUALIZADO)
+   CATEGORÍAS DE LUGARES (LIMPIEZA Y CAMBIOS)
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#1D6A5E', bg: '#E6F2F0', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
@@ -1963,25 +1407,16 @@ const CATEGORIES = {
   art_gallery:        { icon: 'palette',        color: '#F5B027', bg: '#FEF8E7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'arte', 'gallery'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'templo'] },
   library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'libro'] },
-  monument:           { icon: 'attractions',    color: '#2979FF', bg: '#E3F2FD', type: 'tourist_attraction', group: 'cultura', keywords: ['monumento', 'atracción', 'turístico'] }, // Cambiado a Monumentos
+  tourist_attraction: { icon: 'attractions',    color: '#2979FF', bg: '#E3F2FD', type: 'tourist_attraction', group: 'cultura', keywords: ['atracción', 'turístico', 'monumento'] },
   park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'jardín', 'plaza'] },
   zoo:                { icon: 'pets',           color: '#E91E63', bg: '#FCE4EC', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'animales'] },
   aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'peces'] },
-  movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'película'] }, // Se llamará Cine Alternativo
+  movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'película'] },
   stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'deporte'] },
   amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones'] },
   bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bolos'] },
   casino:             { icon: 'casino',         color: '#B91C1C', bg: '#FEE2E2', type: 'casino', group: 'entretenimiento', keywords: ['casino', 'apuestas'] },
-  shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall'] },
-  clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'moda'] },
-  bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libros'] },
-  department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental'] },
-  supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado'] },
-  gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'fitness'] },
-  spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'masaje'] },
-  lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal'] },
-  hospital:           { icon: 'local_hospital', color: '#DC2626', bg: '#FEE2E2', type: 'hospital', group: 'servicios', keywords: ['hospital', 'salud'] },
-  pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia'] }
+  bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libros'] }
 };
 
 const CATEGORY_GROUPS = {
@@ -1989,8 +1424,7 @@ const CATEGORY_GROUPS = {
   'cultura':        { label: 'Cultura', icon: 'palette' },
   'aire libre':     { label: 'Aire libre', icon: 'park' },
   'entretenimiento':{ label: 'Entretenimiento', icon: 'theaters' },
-  'compras':        { label: 'Compras', icon: 'shopping_bag' },
-  'servicios':      { label: 'Servicios', icon: 'build' }
+  'compras':        { label: 'Compras', icon: 'shopping_bag' }
 };
 </script>
 
@@ -2011,9 +1445,10 @@ const TRANSLATIONS = {
     refreshing: 'Actualizando resultados...', updated: 'Resultados actualizados',
     dateOptions: { all: 'Cualquier fecha', today: 'Hoy', tomorrow: 'Mañana', this_weekend: 'Este fin de semana', next_7_days: 'Próximos 7 días', this_month: 'Este mes', custom: 'Fecha específica' },
     categories: {
-      all: 'Todas', museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Librerías', monument: 'Monumentos',
-      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios',
-      movie_theater: 'Cine Alternativo', stadium: 'Estadios', amusement_park: 'Parques de diversiones', bowling_alley: 'Boliches', casino: 'Casinos',
+      all: 'Todas', museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Bibliotecas', tourist_attraction: 'Monumentos',
+      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios', campground: 'Campamentos',
+      movie_theater: 'Cine Alternativo', stadium: 'Estadios', amusement_park: 'Parques de diversiones', bowling_alley: 'Boliches', casino: 'Casinos', night_club: 'Antros',
+      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares', bakery: 'Panaderías', meal_takeaway: 'Comida para llevar',
       shopping_mall: 'Centros comerciales', clothing_store: 'Tiendas de ropa', bookstore: 'Librerías', department_store: 'Tiendas departamentales', supermarket: 'Supermercados',
       gym: 'Gimnasios', spa: 'Spas', lodging: 'Hoteles', hospital: 'Hospitales', pharmacy: 'Farmacias'
     },
@@ -2022,7 +1457,7 @@ const TRANSLATIONS = {
       buyTickets: 'Comprar boletos', moreInfo: 'Más información', noUrl: 'Sin enlace disponible',
       close: 'Cerrar', noDescription: 'Sin descripción disponible.'
     },
-    comingSoon: 'Próximamente', comingSoonSubtitle: 'Estamos preparando algo increíble. Muy pronto podrás descubrir escapadas a 3 horas a la redonda.',
+    comingSoon: 'Próximamente', comingSoonSubtitle: 'Estamos preparando algo increíble. Muy pronto podrás descubrir escapaditas a 3 horas a la redonda.',
     comingSoonBadge: 'En desarrollo'
   },
   en: {
@@ -2037,9 +1472,10 @@ const TRANSLATIONS = {
     refreshing: 'Refreshing results...', updated: 'Results updated',
     dateOptions: { all: 'Any date', today: 'Today', tomorrow: 'Tomorrow', this_weekend: 'This weekend', next_7_days: 'Next 7 days', this_month: 'This month', custom: 'Specific date' },
     categories: {
-      all: 'All', museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', monument: 'Monuments',
-      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums',
-      movie_theater: 'Alternative Cinema', stadium: 'Stadiums', amusement_park: 'Amusement Parks', bowling_alley: 'Bowling Alleys', casino: 'Casinos',
+      all: 'All', museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Libraries', tourist_attraction: 'Monuments',
+      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums', campground: 'Campgrounds',
+      movie_theater: 'Alternative Cinema', stadium: 'Stadiums', amusement_park: 'Amusement Parks', bowling_alley: 'Bowling Alleys', casino: 'Casinos', night_club: 'Night Clubs',
+      restaurant: 'Restaurants', cafe: 'Cafes', bar: 'Bars', bakery: 'Bakeries', meal_takeaway: 'Takeaway',
       shopping_mall: 'Shopping Malls', clothing_store: 'Clothing Stores', bookstore: 'Bookstores', department_store: 'Department Stores', supermarket: 'Supermarkets',
       gym: 'Gyms', spa: 'Spas', lodging: 'Hotels', hospital: 'Hospitals', pharmacy: 'Pharmacies'
     },
@@ -2063,9 +1499,10 @@ const TRANSLATIONS = {
     refreshing: 'Actualisation des résultats...', updated: 'Résultats actualisés',
     dateOptions: { all: 'Toute date', today: 'Aujourd\'hui', tomorrow: 'Demain', this_weekend: 'Ce week-end', next_7_days: '7 prochains jours', this_month: 'Ce mois-ci', custom: 'Date spécifique' },
     categories: {
-      all: 'Toutes', museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', monument: 'Monuments',
-      park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums',
-      movie_theater: 'Cinéma Alternatif', stadium: 'Stades', amusement_park: 'Parcs d\'attractions', bowling_alley: 'Bowlings', casino: 'Casinos',
+      all: 'Toutes', museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Bibliothèques', tourist_attraction: 'Monuments',
+      park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums', campground: 'Campings',
+      movie_theater: 'Cinéma Alternatif', stadium: 'Stades', amusement_park: 'Parcs d\'attractions', bowling_alley: 'Bowlings', casino: 'Casinos', night_club: 'Boîtes de nuit',
+      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars', bakery: 'Boulangeries', meal_takeaway: 'À emporter',
       shopping_mall: 'Centres commerciaux', clothing_store: 'Magasins de vêtements', bookstore: 'Librairies', department_store: 'Grands magasins', supermarket: 'Supermarchés',
       gym: 'Salles de sport', spa: 'Spas', lodging: 'Hôtels', hospital: 'Hôpitaux', pharmacy: 'Pharmacies'
     },
@@ -2089,9 +1526,10 @@ const TRANSLATIONS = {
     refreshing: 'Atualizando resultados...', updated: 'Resultados atualizados',
     dateOptions: { all: 'Qualquer data', today: 'Hoje', tomorrow: 'Amanhã', this_weekend: 'Este fim de semana', next_7_days: 'Próximos 7 dias', this_month: 'Este mês', custom: 'Data específica' },
     categories: {
-      all: 'Todas', museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', monument: 'Monumentos',
-      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários',
-      movie_theater: 'Cinema Alternativo', stadium: 'Estádios', amusement_park: 'Parques de diversões', bowling_alley: 'Boliches', casino: 'Cassinos',
+      all: 'Todas', museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Bibliotecas', tourist_attraction: 'Monumentos',
+      park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários', campground: 'Campings',
+      movie_theater: 'Cinema Alternativo', stadium: 'Estádios', amusement_park: 'Parques de diversões', bowling_alley: 'Boliches', casino: 'Cassinos', night_club: 'Baladas',
+      restaurant: 'Restaurantes', cafe: 'Cafés', bar: 'Bares', bakery: 'Padarias', meal_takeaway: 'Comida para viagem',
       shopping_mall: 'Centros comerciais', clothing_store: 'Lojas de roupas', bookstore: 'Livrarias', department_store: 'Lojas de departamento', supermarket: 'Supermercados',
       gym: 'Academias', spa: 'Spas', lodging: 'Hotéis', hospital: 'Hospitais', pharmacy: 'Farmácias'
     },
@@ -2115,9 +1553,10 @@ const TRANSLATIONS = {
     refreshing: 'Ergebnisse werden aktualisiert...', updated: 'Ergebnisse aktualisiert',
     dateOptions: { all: 'Jedes Datum', today: 'Heute', tomorrow: 'Morgen', this_weekend: 'Dieses Wochenende', next_7_days: 'Nächste 7 Tage', this_month: 'Diesen Monat', custom: 'Bestimmtes Datum' },
     categories: {
-      all: 'Alle', museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', monument: 'Denkmäler',
-      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien',
-      movie_theater: 'Alternatives Kino', stadium: 'Stadien', amusement_park: 'Freizeitparks', bowling_alley: 'Bowlingbahnen', casino: 'Casinos',
+      all: 'Alle', museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Bibliotheken', tourist_attraction: 'Monumente',
+      park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien', campground: 'Campingplätze',
+      movie_theater: 'Alternatives Kino', stadium: 'Stadien', amusement_park: 'Freizeitparks', bowling_alley: 'Bowlingbahnen', casino: 'Casinos', night_club: 'Nachtclubs',
+      restaurant: 'Restaurants', cafe: 'Cafés', bar: 'Bars', bakery: 'Bäckereien', meal_takeaway: 'Zum Mitnehmen',
       shopping_mall: 'Einkaufszentren', clothing_store: 'Bekleidungsgeschäfte', bookstore: 'Buchhandlungen', department_store: 'Kaufhäuser', supermarket: 'Supermärkte',
       gym: 'Fitnessstudios', spa: 'Spas', lodging: 'Hotels', hospital: 'Krankenhäuser', pharmacy: 'Apotheken'
     },
@@ -2153,7 +1592,6 @@ let escapaditasEvents = [];
 let escapaditasLocation = null;
 let mapIdleTimer = null;
 let currentOpenEvent = null;
-let currentOpenEventsList = []; // Para subpestañas
 const MAP_IDLE_DELAY = 400;
 
 const GDL_CENTER = { lat: 20.6736, lng: -103.3440 };
@@ -2208,6 +1646,76 @@ function t(key) { const v = TRANSLATIONS[currentLang][key]; return v || key; }
 function tCat(key) { return TRANSLATIONS[currentLang].categories[key] || key; }
 function tDate(key) { return TRANSLATIONS[currentLang].dateOptions[key] || key; }
 function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key; }
+
+/* ============================================
+   SELECCIÓN DE CIUDAD
+   ============================================ */
+function toggleCityDropdown(event) {
+  event.stopPropagation();
+  const dropdown = document.getElementById('cityDropdown');
+  dropdown.classList.toggle('open');
+}
+
+function setCity(cityKey, event) {
+  if (event) event.stopPropagation();
+  const city = CITIES[cityKey];
+  if (!city) return;
+
+  // Actualizar UI
+  document.getElementById('currentCityLabel').textContent = city.name;
+  document.querySelectorAll('.city-option').forEach(btn => {
+    btn.classList.remove('active');
+    const check = btn.querySelector('.check');
+    if (check) check.style.opacity = '0';
+  });
+
+  // Encontrar el botón correcto y activarlo
+  const buttons = document.querySelectorAll('.city-option');
+  buttons.forEach(btn => {
+    if (btn.textContent.includes(city.name)) {
+      btn.classList.add('active');
+      const check = btn.querySelector('.check');
+      if (check) check.style.opacity = '1';
+    }
+  });
+
+  // Cerrar dropdown
+  document.getElementById('cityDropdown').classList.remove('open');
+
+  // Lógica de la ciudad
+  currentCityKey = cityKey;
+  if (city.enabled) {
+    // Si la ciudad está habilitada, mostrar todo normal
+    map.setCenter(city.coords);
+    map.setZoom(12);
+    searchEverything();
+    showToast('location_on', `Ciudad cambiada a ${city.name}`);
+  } else {
+    // Si es "Próximamente", limpiar y mostrar aviso
+    clearMarkers();
+    allPlaces = []; allEvents = []; unifiedResults = [];
+    document.getElementById('sidebarEvents').innerHTML = `
+      <div class="coming-soon-container" style="padding: 40px 20px; height: auto;">
+        <div class="coming-soon-icon" style="width: 64px; height: 64px;">
+          <span class="ms" style="font-size: 32px; color: var(--tertiary);">location_off</span>
+        </div>
+        <div class="coming-soon-title" style="font-size: 18px;">Próximamente en ${city.name}</div>
+        <div class="coming-soon-subtitle">Estamos trabajando para traerte los mejores eventos y lugares de esta ciudad.</div>
+        <div class="coming-soon-badge" style="background: var(--surface-2); color: var(--text-2);">En desarrollo</div>
+      </div>
+    `;
+    showToast('construction', `Próximamente en ${city.name}`);
+  }
+}
+
+// Cerrar dropdown al hacer clic fuera
+document.addEventListener('click', (e) => {
+  const dropdown = document.getElementById('cityDropdown');
+  const cityBtn = document.getElementById('cityBtn');
+  if (dropdown && dropdown.classList.contains('open') && !cityBtn.contains(e.target)) {
+    dropdown.classList.remove('open');
+  }
+});
 
 /* ============================================
    DETECCIÓN DE AUDIENCIAS
@@ -2274,79 +1782,165 @@ function checkIfPWAInstalled() {
 }
 
 /* ============================================
-   CARGA DE DATOS (JSON)
+   CARGA MASIVA DE LUGARES (JSON)
+   ============================================ */
+async function loadLocalPlaces() {
+  if (localPlacesLoaded) return localPlacesEvents;
+  try {
+    console.log('📂 Cargando lugares desde:', LOCAL_LUGARES_CONFIG.filePath);
+    const response = await fetch(LOCAL_LUGARES_CONFIG.filePath + '?v=' + Date.now(), { cache: 'no-store' });
+    if (!response.ok) {
+      console.warn(`⚠️ No se pudo cargar ${LOCAL_LUGARES_CONFIG.filePath}: HTTP ${response.status}`);
+      localPlacesLoaded = true;
+      return [];
+    }
+    const raw = await response.json();
+    if (!Array.isArray(raw)) {
+      console.warn('⚠️ El JSON no es un array');
+      localPlacesLoaded = true;
+      return [];
+    }
+
+    console.log(`📦 ${raw.length} lugares encontrados en el JSON`);
+
+    const normalized = raw.map((item, idx) => {
+      const lat = parseFloat(item.lat || item.latitude);
+      const lng = parseFloat(item.lng || item.longitude);
+      if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) {
+        console.warn(`⚠️ Lugar sin coordenadas válidas (idx ${idx}):`, item.name);
+        return null;
+      }
+
+      // Validación de ubicación para "Cabañas" (corrección de coordenadas)
+      let correctedLat = lat, correctedLng = lng;
+      const titleLower = (item.name || '').toLowerCase();
+      if (titleLower.includes('cabañas') && correctedLat > 20.8) {
+        // Si las coordenadas son extrañas, usar las de Guadalajara centro
+        correctedLat = 20.6736; correctedLng = -103.3440;
+      }
+
+      return {
+        id: 'lug_' + idx,
+        type: 'place',
+        source: 'local',
+        title: item.name || 'Lugar',
+        description: item.description || '',
+        category: item.category || 'tourist_attraction',
+        lat: correctedLat,
+        lng: correctedLng,
+        image: item.image || '',
+        url: item.url || '',
+        rating: item.rating || 0,
+        address: item.address || '',
+        wheelchairAccessible: !!item.wheelchairAccessible,
+        petFriendly: !!item.petFriendly,
+        smokeFree: !!item.smokeFree,
+        events: item.events || [] // Subpestaña de eventos
+      };
+    }).filter(Boolean);
+
+    localPlacesEvents = normalized;
+    localPlacesLoaded = true;
+    console.log(`✅ ${normalized.length} lugares cargados correctamente`);
+    return localPlacesEvents;
+  } catch (err) {
+    console.error('❌ Error cargando JSON de lugares:', err);
+    localPlacesLoaded = true;
+    return [];
+  }
+}
+
+/* ============================================
+   CARGA MASIVA DE EVENTOS (JSON)
    ============================================ */
 async function loadLocalEventbriteEvents() {
   if (localEventsLoaded) return localEventbriteEvents;
   try {
+    console.log('📂 Cargando eventos desde:', LOCAL_EVENTS_CONFIG.filePath);
     const response = await fetch(LOCAL_EVENTS_CONFIG.filePath + '?v=' + Date.now(), { cache: 'no-store' });
-    if (!response.ok) { localEventsLoaded = true; return []; }
+    if (!response.ok) {
+      console.warn(`⚠️ No se pudo cargar ${LOCAL_EVENTS_CONFIG.filePath}: HTTP ${response.status}`);
+      localEventsLoaded = true;
+      return [];
+    }
     const raw = await response.json();
-    if (!Array.isArray(raw)) { localEventsLoaded = true; return []; }
+    if (!Array.isArray(raw)) {
+      console.warn('⚠️ El JSON no es un array');
+      localEventsLoaded = true;
+      return [];
+    }
+
+    console.log(`📦 ${raw.length} eventos encontrados en el JSON`);
 
     const normalized = raw.map((item, idx) => {
-      const lat = parseFloat(item.latitude ?? item.lat ?? item.venue_latitude ?? item.primary_venue?.address?.latitude ?? item.location?.lat);
-      const lng = parseFloat(item.longitude ?? item.lng ?? item.venue_longitude ?? item.primary_venue?.address?.longitude ?? item.location?.lng);
-      if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) return null;
+      const lat = parseFloat(
+        item.latitude ?? item.lat ?? item.venue_latitude ??
+        item.primary_venue?.address?.latitude ?? item.location?.lat
+      );
+      const lng = parseFloat(
+        item.longitude ?? item.lng ?? item.venue_longitude ??
+        item.primary_venue?.address?.longitude ?? item.location?.lng
+      );
+      
+      if (!isFinite(lat) || !isFinite(lng) || (lat === 0 && lng === 0)) {
+        console.warn(`⚠️ Evento sin coordenadas válidas (idx ${idx}):`, item.name);
+        return null;
+      }
 
       const title = item.name || item.title || item.event_name || 'Evento';
-      const dateStr = item.start_date || item.startDate || item.start_datetime?.slice(0, 10) || item.dates?.start?.localDate || '';
-      const timeStr = item.start_time || item.startTime || item.start_datetime?.slice(11, 16) || item.dates?.start?.localTime || '';
-      const venueName = item.primary_venue?.name || item.venue_name || item.venueName || item.venue || '';
-      const cityName = item.primary_venue?.address?.city || item.venue_city || item.city || '';
-      const img = item.image_url || item.image?.url || item.imageUrl || item.image?.image_sizes?.medium || '';
+      const dateStr = item.start_date || item.startDate ||
+                      item.start_datetime?.slice(0, 10) ||
+                      item.dates?.start?.localDate || '';
+      const timeStr = item.start_time || item.startTime ||
+                      item.start_datetime?.slice(11, 16) ||
+                      item.dates?.start?.localTime || '';
+      const venueName = item.primary_venue?.name || item.venue_name ||
+                        item.venueName || item.venue || '';
+      const cityName = item.primary_venue?.address?.city || item.venue_city ||
+                       item.city || '';
+      const img = item.image_url || item.image?.url || item.imageUrl ||
+                  item.image?.image_sizes?.medium || '';
       const url = item.url || item.event_url || item.tickets_url || '';
       const description = item.summary || item.description || item.info || '';
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
       let wheelchairAccessible = false, petFriendly = false, smokeFree = false;
       const lt = title.toLowerCase(), lv = venueName.toLowerCase();
-      if (lv.includes('cabañas') || lv.includes('teatro diana') || lv.includes('trompo mágico') || lv.includes('paleontología') || lv.includes('parque alcalde') || lv.includes('iteso')) wheelchairAccessible = true;
-      if (lv.includes('parque de las niñas') || lt.includes('tequila') || lt.includes('cantaritos') || lt.includes('tour')) petFriendly = true;
-      if (lv.includes('foro') || lv.includes('teatro') || lv.includes('museo') || lv.includes('auditorio') || lv.includes('casa') || lv.includes('centro cultural')) smokeFree = true;
+
+      if (lv.includes('cabañas') || lv.includes('teatro diana') || lv.includes('trompo mágico') ||
+          lv.includes('paleontología') || lv.includes('parque alcalde') || lv.includes('iteso')) {
+        wheelchairAccessible = true;
+      }
+      if (lv.includes('parque de las niñas') || lt.includes('tequila') || lt.includes('cantaritos') || lt.includes('tour')) {
+        petFriendly = true;
+      }
+      if (lv.includes('foro') || lv.includes('teatro') || lv.includes('museo') ||
+          lv.includes('auditorio') || lv.includes('casa') || lv.includes('centro cultural')) {
+        smokeFree = true;
+      }
 
       return {
-        id, type: 'event', source: LOCAL_EVENTS_CONFIG.source, title,
-        date: typeof dateStr === 'string' ? dateStr.slice(0, 10) : '', time: timeStr,
-        venue: venueName, city: cityName, lat, lng, url, description, image: img,
+        id, type: 'event', source: LOCAL_EVENTS_CONFIG.source,
+        title,
+        date: typeof dateStr === 'string' ? dateStr.slice(0, 10) : '',
+        time: timeStr,
+        venue: venueName,
+        city: cityName,
+        lat, lng, url, description,
+        image: img,
         wheelchairAccessible, petFriendly, smokeFree
       };
     }).filter(Boolean);
 
     localEventbriteEvents = normalized;
     localEventsLoaded = true;
+    console.log(`✅ ${normalized.length} eventos Eventbrite cargados correctamente`);
     return localEventbriteEvents;
-  } catch (err) { localEventsLoaded = true; return []; }
-}
-
-async function loadLocalPlacesCatalog() {
-  if (localPlacesLoaded) return localPlacesCatalog;
-  try {
-    const response = await fetch(LOCAL_PLACES_CONFIG.filePath + '?v=' + Date.now(), { cache: 'no-store' });
-    if (!response.ok) { localPlacesLoaded = true; return []; }
-    const raw = await response.json();
-    if (!Array.isArray(raw)) { localPlacesLoaded = true; return []; }
-
-    localPlacesCatalog = raw.map(item => ({
-      id: 'custom_' + (item.id || Math.random().toString(36).substr(2, 9)),
-      type: 'place',
-      source: 'custom',
-      name: item.name,
-      category: item.category || 'monument',
-      lat: parseFloat(item.lat),
-      lng: parseFloat(item.lng),
-      address: item.address || '',
-      description: item.description || '',
-      image: item.image || '',
-      wheelchairAccessible: !!item.wheelchair,
-      petFriendly: !!item.pet,
-      smokeFree: !!item.smokeFree,
-      rating: item.rating || 0
-    })).filter(p => isFinite(p.lat) && isFinite(p.lng));
-
-    localPlacesLoaded = true;
-    return localPlacesCatalog;
-  } catch (err) { localPlacesLoaded = true; return []; }
+  } catch (err) {
+    console.error('❌ Error cargando JSON local:', err);
+    localEventsLoaded = true;
+    return [];
+  }
 }
 </script>
 
@@ -2361,9 +1955,8 @@ window.initMap = function() {
   const festiveTheme = detectFestiveTheme();
   applyFestiveTheme(festiveTheme);
   
-  const cityCenter = CITIES[currentCity].center;
   map = new google.maps.Map(document.getElementById('map'), {
-    center: cityCenter, zoom: 12,
+    center: GDL_CENTER, zoom: 12,
     styles: currentTheme === 'dark' ? MAP_STYLES.dark : MAP_STYLES.light,
     mapTypeControl: false, streetViewControl: false, fullscreenControl: false,
     zoomControl: false, clickableIcons: false, gestureHandling: 'greedy',
@@ -2401,20 +1994,23 @@ window.initMap = function() {
   renderEscapaditasPanel();
   searchEverything();
   
-  // Solicitar ubicación al abrir
-  setTimeout(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(pos => {
-        const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        map.panTo(loc);
-        map.setZoom(14);
-        updateUserMarker(loc);
-      }, () => {}, { enableHighAccuracy: true, timeout: 8000 });
-    }
-  }, 1500);
+  // Solicitar ubicación automáticamente
+  requestInitialLocation();
 
   setTimeout(hideSplash, 2500);
 };
+
+function requestInitialLocation() {
+  if (!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(pos => {
+    const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+    map.panTo(loc);
+    map.setZoom(14);
+    updateUserMarker(loc);
+  }, () => {
+    console.warn('Ubicación no obtenida al inicio');
+  }, { enableHighAccuracy: true, timeout: 5000 });
+}
 
 function scheduleMapIdleUpdate() {
   if (mapIdleTimer) clearTimeout(mapIdleTimer);
@@ -2446,19 +2042,26 @@ async function searchEverything() {
   if (infoWindow) infoWindow.close();
   allPlaces = []; allEvents = []; unifiedResults = [];
 
-  const [placesRes, tmRes, localRes, customPlacesRes] = await Promise.allSettled([
+  // Si la ciudad actual no está habilitada, no buscar
+  if (!CITIES[currentCityKey].enabled) {
+    renderUnifiedList();
+    return;
+  }
+
+  const [placesRes, tmRes, localRes, localPlacesRes] = await Promise.allSettled([
     searchPlacesPromise(),
     searchTicketmasterPromise(),
     loadLocalEventbriteEvents(),
-    loadLocalPlacesCatalog()
+    loadLocalPlaces()
   ]);
 
   if (placesRes.status === 'fulfilled') allPlaces = placesRes.value || [];
   if (tmRes.status === 'fulfilled') allEvents = allEvents.concat(tmRes.value || []);
   if (localRes.status === 'fulfilled') allEvents = allEvents.concat(localRes.value || []);
-  if (customPlacesRes.status === 'fulfilled') allPlaces = allPlaces.concat(customPlacesRes.value || []);
+  if (localPlacesRes.status === 'fulfilled') allPlaces = allPlaces.concat(localPlacesRes.value || []);
 
   allEvents = deduplicateEvents(allEvents);
+  console.log(`📊 Total: ${allPlaces.length} lugares + ${allEvents.length} eventos`);
   applyFilters();
 }
 
@@ -2509,15 +2112,6 @@ function applyFilters() {
     });
   }
 
-  // Filtrar por ciudad (si no es GDL, deshabilitar eventos de GDL)
-  if (currentCity !== 'gdl') {
-    eventsFiltered = eventsFiltered.filter(e => {
-      const cityName = (e.city || '').toLowerCase();
-      const currentCityName = CITIES[currentCity].name.toLowerCase();
-      return cityName.includes(currentCityName) || cityName === '';
-    });
-  }
-
   const eventsForList = eventsFiltered.filter(e => !isEventPast(e) || (currentDateFilter === 'custom' && currentCustomDate));
   unifiedResults = [...eventsForList, ...allPlaces];
   const eventsForMap = eventsForList.filter(e => !isEventPast(e));
@@ -2532,7 +2126,7 @@ function isEventPast(event) {
 }
 
 /* ============================================
-   BÚSQUEDA DE LUGARES
+   BÚSQUEDA DE LUGARES (Google Places)
    ============================================ */
 function searchPlacesPromise() {
   return new Promise(async (resolve) => {
@@ -2540,7 +2134,7 @@ function searchPlacesPromise() {
     const category = CATEGORIES[currentCategory];
     
     if (currentCategory === 'all') {
-      const types = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater', 'shopping_mall', 'book_store'];
+      const types = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater'];
       const promises = types.map(type => new Promise((res) => {
         const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type };
         if (currentSearch) request.keyword = currentSearch;
@@ -2612,9 +2206,15 @@ function deduplicateEvents(events) {
 }
 
 /* ============================================
-   CATEGORIZACIÓN Y MARCADORES
+   CATEGORIZACIÓN DE LUGARES
    ============================================ */
 function getPlaceCategory(place) {
+  if (place.category) {
+    // Si viene del JSON local, usar su categoría
+    for (const key of Object.keys(CATEGORIES)) {
+      if (CATEGORIES[key].type === place.category) return CATEGORIES[key];
+    }
+  }
   if (place._searchType) {
     for (const key of Object.keys(CATEGORIES)) {
       if (CATEGORIES[key].type === place._searchType) return CATEGORIES[key];
@@ -2624,10 +2224,15 @@ function getPlaceCategory(place) {
   for (const key of Object.keys(CATEGORIES)) {
     if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) return CATEGORIES[key];
   }
-  return CATEGORIES.monument;
+  return CATEGORIES.tourist_attraction;
 }
 
 function getCategoryKey(place) {
+  if (place.category) {
+    for (const key of Object.keys(CATEGORIES)) {
+      if (CATEGORIES[key].type === place.category) return key;
+    }
+  }
   if (place._searchType) {
     for (const key of Object.keys(CATEGORIES)) {
       if (CATEGORIES[key].type === place._searchType) return key;
@@ -2637,19 +2242,18 @@ function getCategoryKey(place) {
   for (const key of Object.keys(CATEGORIES)) {
     if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) return key;
   }
-  return 'monument';
+  return 'tourist_attraction';
 }
 
+/* ============================================
+   MARCADORES
+   ============================================ */
 function clearMarkers() {
   markers.forEach(m => { if (m._label) m._label.setMap(null); m.setMap(null); });
   markers = [];
 }
 
-function createMarkerSVG(color, isGps = false) {
-  if (isGps) {
-    return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" fill="${color}" stroke="white" stroke-width="3"><animate attributeName="r" values="10;14;10" dur="1.5s" repeatCount="indefinite"/></circle><circle cx="16" cy="16" r="4" fill="white"/></svg>`),
-      scaledSize: new google.maps.Size(32, 32), anchor: new google.maps.Point(16, 16) };
-  }
+function createMarkerSVG(color) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.2"/></filter></defs><circle cx="16" cy="16" r="12" fill="${color}" stroke="white" stroke-width="3" filter="url(#shadow)"/></svg>`;
   return { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg),
     scaledSize: new google.maps.Size(32, 32), anchor: new google.maps.Point(16, 16) };
@@ -2658,9 +2262,10 @@ function createMarkerSVG(color, isGps = false) {
 function renderMarkersForAll(eventsForMap = []) {
   clearMarkers();
   
+  // Marcadores de eventos
   eventsForMap.forEach(event => {
     const audiences = detectEventAudiences(event);
-    let color = '#2979FF'; // Azul para eventos en general
+    let color = '#1D6A5E';
     if (audiences.kids) color = AGE_CATEGORIES.kids.color;
     else if (audiences.bebes) color = AGE_CATEGORIES.bebes.color;
     else if (audiences.teens) color = AGE_CATEGORIES.teens.color;
@@ -2669,23 +2274,28 @@ function renderMarkersForAll(eventsForMap = []) {
       payload: event, payloadType: 'event', id: event.id });
   });
   
+  // Marcadores de lugares
   allPlaces.forEach(place => {
-    if (!place.geometry?.location) {
-      if (place.lat && place.lng) {
-        const cat = getPlaceCategory(place);
-        addMarkerToMap({ lat: place.lat, lng: place.lng, icon: createMarkerSVG(cat.color), title: place.name, payload: place, payloadType: 'place', id: place.id });
-      }
-      return;
-    }
+    if (!place.geometry?.location) return;
     const cat = getPlaceCategory(place);
     addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(),
       icon: createMarkerSVG(cat.color), title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
   
+  // Marcadores de lugares locales (JSON)
+  allPlaces.filter(p => p.source === 'local').forEach(place => {
+    const cat = getPlaceCategory(place);
+    addMarkerToMap({ lat: place.lat, lng: place.lng,
+      icon: createMarkerSVG(cat.color), title: place.title, payload: place, payloadType: 'place', id: place.id });
+  });
+  
+  // Marcadores de escapaditas
   escapaditasEvents.forEach(event => {
     addMarkerToMap({ lat: event.lat, lng: event.lng, icon: createMarkerSVG('#E91E63'),
       title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
+  
+  console.log(`📍 ${markers.length} marcadores en el mapa`);
 }
 
 function addMarkerToMap({ lat, lng, icon, title, payload, payloadType, id }) {
@@ -2693,45 +2303,40 @@ function addMarkerToMap({ lat, lng, icon, title, payload, payloadType, id }) {
   marker._payload = payload; marker._payloadType = payloadType;
   marker.addListener('click', () => {
     closeSubmenu();
-    if (payloadType === 'event') {
-      // Verificar si hay más eventos en el mismo lugar
-      const sameVenueEvents = allEvents.filter(e => 
-        Math.abs(e.lat - lat) < 0.0001 && Math.abs(e.lng - lng) < 0.0001
-      );
-      if (sameVenueEvents.length > 1) {
-        openEventDetailWithTabs(sameVenueEvents, 0);
-      } else {
-        openEventDetail(payload);
-      }
-    } else {
-      // Verificar si el lugar tiene eventos asociados
-      const eventsAtPlace = allEvents.filter(e => 
-        (e.venue && payload.name && e.venue.toLowerCase().includes(payload.name.toLowerCase())) ||
-        (Math.abs(e.lat - lat) < 0.0001 && Math.abs(e.lng - lng) < 0.0001)
-      );
-      if (eventsAtPlace.length > 0) {
-        openEventDetailWithTabs(eventsAtPlace, 0);
-      } else {
-        showInfoWindowGoogle(marker, payload);
-      }
-    }
+    if (payloadType === 'event') openEventDetail(payload);
+    else showInfoWindowGoogle(marker, payload);
   });
   marker.placeId = id;
   markers.push(marker);
 }
 
 /* ============================================
-   INFO WINDOW GOOGLE PLACES
+   INFO WINDOW GOOGLE PLACES (Con Subpestaña de Eventos)
    ============================================ */
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
   const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
-  const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 400 }) : (place.image || '');
+  const photoUrl = (place.photos && place.photos.length > 0) ? place.photos[0].getUrl({ maxWidth: 400 }) : (place.image || '');
+  const address = place.vicinity || place.address || t('addressNA');
   
+  // Buscar eventos en este lugar
+  const placeName = place.name || place.title || '';
+  const eventsAtPlace = allEvents.filter(e => 
+    (e.venue || '').toLowerCase().includes(placeName.toLowerCase()) || 
+    (placeName.toLowerCase().includes((e.venue || '').toLowerCase()) && e.venue)
+  );
+
+  const eventsHtml = eventsAtPlace.length > 0 
+    ? `<div style="margin-top: 8px; border-top: 1px solid #E4E4E7; padding-top: 8px;">
+         <div style="font-size: 10px; font-weight: 800; color: #A1A1AA; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Eventos en este lugar</div>
+         ${eventsAtPlace.map(e => `<div style="font-size: 12px; color: #52525B; margin-bottom: 2px; display: flex; justify-content: space-between;"><span>• ${e.title}</span><span style="font-weight:600;color:#1D6A5E;">${e.date}</span></div>`).join('')}
+       </div>` 
+    : '';
+
   infoWindow.setContent(`<div style="padding:0;max-width:280px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
     ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
     <div style="padding:12px;">
-      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;margin-bottom:6px;">${place.name || t('noName')}</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;margin-bottom:6px;">${place.name || place.title || t('noName')}</div>
       <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
         <div style="width:28px;height:28px;border-radius:50%;background:${cat.color};color:white;display:grid;place-items:center;">
           <span style="font-family:'Material Symbols Rounded';font-size:16px;">${cat.icon}</span>
@@ -2739,10 +2344,11 @@ function showInfoWindowGoogle(marker, place) {
         <div style="background:#1A1A1A;color:white;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">${tCat(getCategoryKey(place))}</div>
       </div>
       <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:10px;">
-        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${place.vicinity || place.address || t('addressNA')}</div>
+        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${address}</div>
         ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F59E0B;">star</span>${ratingText}</div>` : ''}
       </div>
-      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#1D6A5E;color:white;font-weight:700;font-size:12px;cursor:pointer;">${t('viewMore')}</button>
+      ${eventsHtml}
+      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#1D6A5E;color:white;font-weight:700;font-size:12px;cursor:pointer; margin-top:8px;">${t('viewMore')}</button>
     </div>
   </div>`);
   infoWindow.open(map, marker);
@@ -2775,7 +2381,7 @@ function buildIconRow(audiences, accessibility) {
 function renderGoogleCard(place) {
   const cat = getPlaceCategory(place);
   const rating = place.rating ? `<span class="event-date-info"><span class="ms fill">star</span>${place.rating}</span>` : '';
-  const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 200 }) : (place.image || '');
+  const photoUrl = (place.photos && place.photos.length > 0) ? place.photos[0].getUrl({ maxWidth: 200 }) : (place.image || '');
   const photoHtml = photoUrl
     ? `<img src="${photoUrl}" alt="${place.name || ''}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'placeholder\\'>${cat.icon}</span>'">`
     : `<span class="placeholder">${cat.icon}</span>`;
@@ -2790,7 +2396,7 @@ function renderGoogleCard(place) {
   return `<div class="event-card" onclick="focusPlace('${place.place_id || place.id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
     <div class="event-photo" style="background:${cat.bg};">${photoHtml}</div>
     <div class="event-body">
-      <div class="event-title">${place.name || t('noName')}</div>
+      <div class="event-title">${place.name || place.title || t('noName')}</div>
       <div class="event-venue"><span class="ms">location_on</span>${place.vicinity || place.address || t('addressNA')}</div>
       ${catPill}
       <div class="event-footer">${rating}</div>
@@ -2850,6 +2456,9 @@ function renderEventCard(event) {
 
 function renderUnifiedList() {
   const container = document.getElementById('sidebarEvents');
+  if (!CITIES[currentCityKey].enabled) {
+    return; // Ya se muestra el mensaje de "Próximamente"
+  }
   if (unifiedResults.length === 0) {
     const msg = !placesApiAvailable ? 'Google Places no disponible.' : t('noResultsHint');
     container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>${t('noResults')}</h3><p>${msg}</p></div>`;
@@ -2862,27 +2471,15 @@ function renderUnifiedList() {
 }
 
 /* ============================================
-   MODAL DE DETALLE CON SUBPESTAÑAS
+   MODAL DE DETALLE DEL EVENTO
    ============================================ */
 function openEventDetailById(eventId) {
   const event = allEvents.find(e => e.id === eventId) || escapaditasEvents.find(e => e.id === eventId);
-  if (event) {
-    const sameVenueEvents = allEvents.filter(e => 
-      Math.abs(e.lat - event.lat) < 0.0001 && Math.abs(e.lng - event.lng) < 0.0001
-    );
-    if (sameVenueEvents.length > 1) {
-      openEventDetailWithTabs(sameVenueEvents, sameVenueEvents.findIndex(e => e.id === eventId));
-    } else {
-      openEventDetail(event);
-    }
-  }
+  if (event) openEventDetail(event);
 }
 
-function openEventDetailWithTabs(events, activeIndex) {
-  currentOpenEventsList = events;
-  const event = events[activeIndex];
+function openEventDetail(event) {
   currentOpenEvent = event;
-  
   const modal = document.getElementById('eventDetailModal');
   const hero = document.getElementById('eventDetailHero');
   const body = document.getElementById('eventDetailBody');
@@ -2897,20 +2494,7 @@ function openEventDetailWithTabs(events, activeIndex) {
   const audiences = detectEventAudiences(event);
   const accessibility = detectEventAccessibility(event);
   
-  let html = '';
-  
-  // Subpestañas si hay más de 1 evento
-  if (events.length > 1) {
-    html += `<div class="event-tabs">`;
-    events.forEach((ev, idx) => {
-      html += `<button class="event-tab ${idx === activeIndex ? 'active' : ''}" onclick="switchEventTab(${idx})">
-        ${ev.date ? ev.date.slice(5) : 'Evento'} ${ev.time || ''}
-      </button>`;
-    });
-    html += `</div>`;
-  }
-  
-  html += `<div class="event-detail-title">${event.title || 'Evento'}</div>`;
+  let html = `<div class="event-detail-title">${event.title || 'Evento'}</div>`;
   
   html += `<div class="event-detail-meta">`;
   if (event.venue) {
@@ -2969,23 +2553,11 @@ function openEventDetailWithTabs(events, activeIndex) {
   document.body.style.overflow = 'hidden';
 }
 
-function switchEventTab(index) {
-  if (currentOpenEventsList && currentOpenEventsList[index]) {
-    openEventDetailWithTabs(currentOpenEventsList, index);
-  }
-}
-
-function openEventDetail(event) {
-  currentOpenEventsList = [event];
-  openEventDetailWithTabs([event], 0);
-}
-
 function closeEventDetail() {
   const modal = document.getElementById('eventDetailModal');
   modal.classList.remove('open');
   document.body.style.overflow = '';
   currentOpenEvent = null;
-  currentOpenEventsList = [];
 }
 
 /* ============================================
@@ -2996,6 +2568,10 @@ function openAdsModal() {
 }
 function closeAdsModal() {
   document.getElementById('adsModal').classList.remove('open');
+}
+
+function openAdForm() {
+  window.open(ADS_FORM_URL, '_blank');
 }
 
 /* ============================================
@@ -3050,7 +2626,7 @@ function renderSubmenuOptions(type, searchTerm) {
     });
     
     let html = '';
-    const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'compras', 'servicios'];
+    const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'compras'];
     const sortedGroups = Object.keys(grouped).sort((a, b) => {
       const ia = groupOrder.indexOf(a), ib = groupOrder.indexOf(b);
       return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
@@ -3093,177 +2669,22 @@ function filterSubmenuOptions() {
 }
 
 /* ============================================
-   SELECTOR DE CIUDAD
+   BOTONES CATEGORÍA Y ESCAPADITAS
    ============================================ */
-function toggleCitySelector(e) {
-  if (e) e.stopPropagation();
-  const selector = document.querySelector('.city-selector');
-  
-  // Crear menú temporal
-  const existingMenu = document.getElementById('cityMenu');
-  if (existingMenu) {
-    existingMenu.remove();
-    selector.classList.remove('active');
-    return;
-  }
-  
-  selector.classList.add('active');
-  const menu = document.createElement('div');
-  menu.id = 'cityMenu';
-  menu.style.cssText = `
-    position: absolute; top: 60px; left: 24px; z-index: 9999;
-    background: var(--surface); border: 1px solid var(--outline);
-    border-radius: var(--r-md); box-shadow: var(--shadow-4);
-    padding: 8px; min-width: 200px;
-    display: flex; flex-direction: column; gap: 4px;
-  `;
-  
-  Object.entries(CITIES).forEach(([key, city]) => {
-    const btn = document.createElement('button');
-    btn.style.cssText = `
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; border: none; border-radius: var(--r-sm);
-      background: ${key === currentCity ? 'var(--primary-container)' : 'transparent'};
-      color: ${key === currentCity ? 'var(--primary-dark)' : 'var(--text)'};
-      font-family: inherit; font-size: 13px; font-weight: 600;
-      cursor: pointer; text-align: left; width: 100%;
-      transition: background .2s;
-    `;
-    btn.innerHTML = `
-      <span class="ms fill" style="font-size: 18px; color: ${key === currentCity ? 'var(--primary)' : 'var(--text-3)'};">${city.icon || 'location_city'}</span>
-      <span>${city.name}</span>
-      ${!city.enabled ? '<span style="margin-left: auto; font-size: 9px; background: var(--secondary-container); color: var(--secondary); padding: 2px 6px; border-radius: 99px; font-weight: 800;">Próximamente</span>' : ''}
-    `;
-    btn.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      selectCity(key);
-      menu.remove();
-      selector.classList.remove('active');
-    });
-    menu.appendChild(btn);
-  });
-  
-  // Cerrar al hacer clic fuera
-  setTimeout(() => {
-    document.addEventListener('click', function closeMenu(ev) {
-      if (!menu.contains(ev.target) && ev.target !== selector) {
-        menu.remove();
-        selector.classList.remove('active');
-        document.removeEventListener('click', closeMenu);
-      }
-    });
-  }, 10);
-  
-  document.getElementById('sidebar').appendChild(menu);
-}
-
-function selectCity(cityKey) {
-  const city = CITIES[cityKey];
-  if (!city) return;
-  
-  if (!city.enabled) {
-    showToast('info', 'Esta ciudad estará disponible próximamente.');
-    return;
-  }
-  
-  currentCity = cityKey;
-  document.getElementById('currentCityLabel').textContent = city.name;
-  document.getElementById('brandSubtitle').textContent = `Museos y eventos en ${city.name}`;
-  document.getElementById('splashSubtitle').textContent = `Descubre museos y eventos en ${city.name}`;
-  document.getElementById('splashGreeting').textContent = `Buenos días`;
-  
-  map.panTo(city.center);
-  map.setZoom(12);
-  
-  lastSearchTime = 0;
-  if (infoWindow) infoWindow.close();
-  searchEverything();
-  
-  showToast('location_on', `Ciudad cambiada a ${city.name}`);
-}
-</script>
-
-<script>
-/* ============================================
-   LÓGICA ESCAPADITAS (AGENCIAS)
-   ============================================ */
-function renderEscapaditasPanel() {
-  const container = document.getElementById('sidebarEscapaditasEvents');
-  if (!container) return;
-  
+function renderMainCategories() {
+  const container = document.getElementById('mainCategories');
   container.innerHTML = `
-    <div class="sidebar-top" style="border-top:none;">
-      <div class="search-field">
-        <span class="ms">my_location</span>
-        <input type="text" id="escapaditasLocationInput" placeholder="Usando tu ubicación actual..." readonly>
-      </div>
-      <button class="gps-button" onclick="updateEscapaditasLocation()" id="gpsButtonEscapaditas" style="background: linear-gradient(135deg, var(--tertiary) 0%, #BE185D 100%);">
-        <span class="ms fill">explore</span>
-        <span>Actualizar ubicación</span>
-      </button>
-      <div style="margin-top: 16px;">
-        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 12px;">Agencias de Tours</h3>
-        <div class="event-card" style="--card-color: var(--tertiary); --card-bg: var(--tertiary-container);">
-          <div class="event-photo" style="background: var(--tertiary-container);"><span class="ms fill" style="color: var(--tertiary); font-size: 32px;">tour</span></div>
-          <div class="event-body">
-            <div class="event-title">Tours a Tequila</div>
-            <div class="event-venue"><span class="ms">location_on</span>Salida desde Guadalajara</div>
-            <div class="event-footer"><span class="event-source-tag" style="background: var(--tertiary-container); color: var(--tertiary);">Agencia</span></div>
-          </div>
-        </div>
-        <div class="event-card" style="--card-color: var(--tertiary); --card-bg: var(--tertiary-container); margin-top: 8px;">
-          <div class="event-photo" style="background: var(--tertiary-container);"><span class="ms fill" style="color: var(--tertiary); font-size: 32px;">tour</span></div>
-          <div class="event-body">
-            <div class="event-title">Tours a Shalala</div>
-            <div class="event-venue"><span class="ms">location_on</span>Salida desde Guadalajara</div>
-            <div class="event-footer"><span class="event-source-tag" style="background: var(--tertiary-container); color: var(--tertiary);">Agencia</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="events-scroll" id="escapaditasEventsScroll" style="padding: 16px;">
-      <div class="empty-state">
-        <span class="ms">travel_explore</span>
-        <h3>Más agencias próximamente</h3>
-        <p>Estamos trabajando para traerte las mejores opciones de viaje.</p>
-      </div>
-    </div>
+    <button class="cat-btn" data-type="category" onclick="event.stopPropagation(); openSubmenu('category')" data-label="${t('categoriesLabel')}">
+      <span class="ms fill" id="categoryIcon">${CATEGORIES[currentCategory].icon}</span>
+    </button>
+    <button class="cat-btn" onclick="toggleEscapaditas()" aria-label="Escapadas" style="background: var(--tertiary); color: white; border-color: var(--tertiary);">
+      <span class="ms fill">luggage</span>
+    </button>
   `;
 }
 
-function updateEscapaditasLocation() {
-  const input = document.getElementById('escapaditasLocationInput');
-  if (!input) return;
-  input.value = 'Obteniendo ubicación...';
-
-  if (!navigator.geolocation) {
-    showToast('error', t('geoNotAvailable'));
-    input.value = 'Geolocalización no disponible';
-    return;
-  }
-
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-      escapaditasLocation = loc;
-      input.value = `Lat: ${loc.lat.toFixed(4)}, Lng: ${loc.lng.toFixed(4)}`;
-      showToast('location_on', 'Ubicación actualizada');
-      map.panTo(loc);
-      map.setZoom(10);
-    },
-    (err) => {
-      showToast('error', 'No se pudo obtener la ubicación. Usando GDL por defecto.');
-      input.value = 'Usando Guadalajara por defecto';
-      escapaditasLocation = CITIES.gdl.center;
-    },
-    { enableHighAccuracy: true, timeout: 10000 }
-  );
-}
-</script>
-
-<script>
 /* ============================================
-   ACCIONES Y RESTO DE FUNCIONES
+   ACCIONES
    ============================================ */
 function focusPlace(id) {
   const marker = markers.find(m => m.placeId === id);
@@ -3293,6 +2714,7 @@ function setDateFilter(key) {
   currentDateFilter = key;
   if (key !== 'custom') currentCustomDate = '';
   applyFilters();
+  if (isEscapaditasOpen() && escapaditasLocation && ESCAPADITAS_ENABLED) searchEscapaditas(escapaditasLocation);
   updateDateFilterUI();
   showToast('calendar_month', tDate(key));
   if (!isDesktop() && isSidebarOpen()) closeSidebar();
@@ -3303,6 +2725,7 @@ function onCustomDateChange(val) {
   currentCustomDate = val;
   currentDateFilter = 'custom';
   applyFilters();
+  if (isEscapaditasOpen() && escapaditasLocation && ESCAPADITAS_ENABLED) searchEscapaditas(escapaditasLocation);
   updateDateFilterUI();
   showToast('calendar_month', `${tDate('custom')}: ${val}`);
   closeDateFilterPanel();
@@ -3312,11 +2735,15 @@ function clearDateFilter() {
   currentDateFilter = 'all';
   currentCustomDate = '';
   applyFilters();
+  if (isEscapaditasOpen() && escapaditasLocation && ESCAPADITAS_ENABLED) searchEscapaditas(escapaditasLocation);
   updateDateFilterUI();
   showToast('calendar_month', 'Filtro eliminado');
   closeDateFilterPanel();
 }
 
+/* ============================================
+   PANEL DE FECHAS
+   ============================================ */
 function toggleDateFilterPanel(e) {
   if (e) e.stopPropagation();
   const panel = document.getElementById('dateFilterPanel');
@@ -3379,6 +2806,7 @@ function openEscapaditas() {
   document.getElementById('sidebarRight').classList.add('open');
   document.body.classList.remove('escapaditas-closed');
   updateOverlay();
+  if (ESCAPADITAS_ENABLED) updateEscapaditasLocation();
 }
 function closeEscapaditas() {
   document.getElementById('sidebarRight').classList.remove('open');
@@ -3392,6 +2820,195 @@ function updateOverlay() {
   document.getElementById('overlay').classList.toggle('show', sidebarOpen || escapaditasOpen);
 }
 function handleOverlayClick() { closeSidebar(); closeEscapaditas(); closeSubmenu(); closeDateFilterPanel(); }
+
+/* ============================================
+   RENDER PANEL ESCAPADITAS
+   ============================================ */
+function renderEscapaditasPanel() {
+  const container = document.getElementById('sidebarEscapaditasEvents');
+  if (!container) return;
+  
+  if (!ESCAPADITAS_ENABLED) {
+    container.innerHTML = `
+      <div class="coming-soon-container">
+        <div class="coming-soon-icon">
+          <span class="ms">luggage</span>
+        </div>
+        <div class="coming-soon-title">${t('comingSoon')}</div>
+        <div class="coming-soon-subtitle">${t('comingSoonSubtitle')}</div>
+        <div class="coming-soon-badge">
+          <span class="ms fill">auto_awesome</span>
+          <span>${t('comingSoonBadge')}</span>
+        </div>
+      </div>
+    `;
+    return;
+  }
+  
+  container.innerHTML = `
+    <div class="sidebar-top" style="border-top:none;">
+      <div class="search-field">
+        <span class="ms">my_location</span>
+        <input type="text" id="escapaditasLocationInput" placeholder="Usando tu ubicación actual..." readonly>
+      </div>
+      <button class="gps-button" onclick="updateEscapaditasLocation()" id="gpsButtonEscapaditas" style="background: linear-gradient(135deg, var(--tertiary) 0%, #BE185D 100%);">
+        <span class="ms fill">explore</span>
+        <span>Actualizar ubicación</span>
+      </button>
+      <div id="escapaditasDateFilterIndicator" style="display:none; margin-top: 12px; padding: 8px 12px; background: var(--tertiary-container); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; color: var(--tertiary); display: flex; align-items: center; gap: 6px;">
+        <span class="ms fill" style="font-size: 16px;">calendar_month</span>
+        <span id="escapaditasDateLabel">Filtrando por fecha</span>
+      </div>
+    </div>
+    <div class="events-scroll" id="escapaditasEventsScroll" style="padding: 16px 16px 100px 16px;">
+      <div class="empty-state">
+        <span class="ms">travel_explore</span>
+        <h3>Buscando escapadas...</h3>
+        <p>Toca "Actualizar ubicación" para encontrar eventos cerca de ti.</p>
+      </div>
+    </div>
+  `;
+}
+
+/* ============================================
+   LÓGICA ESCAPADITAS
+   ============================================ */
+function updateEscapaditasLocation() {
+  if (!ESCAPADITAS_ENABLED) return;
+  const input = document.getElementById('escapaditasLocationInput');
+  if (!input) return;
+  input.value = 'Obteniendo ubicación...';
+
+  if (!navigator.geolocation) {
+    showToast('error', t('geoNotAvailable'));
+    input.value = 'Geolocalización no disponible';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      escapaditasLocation = loc;
+      input.value = `Lat: ${loc.lat.toFixed(4)}, Lng: ${loc.lng.toFixed(4)}`;
+      showToast('location_on', 'Ubicación actualizada');
+      map.panTo(loc);
+      map.setZoom(10);
+      searchEscapaditas(loc);
+    },
+    (err) => {
+      showToast('error', 'No se pudo obtener la ubicación. Usando GDL por defecto.');
+      input.value = 'Usando Guadalajara por defecto';
+      escapaditasLocation = GDL_CENTER;
+      searchEscapaditas(GDL_CENTER);
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  );
+}
+
+async function searchEscapaditas(location) {
+  if (!ESCAPADITAS_ENABLED) return;
+  const container = document.getElementById('escapaditasEventsScroll');
+  if (!container) return;
+  
+  const subtitleEl = document.getElementById('escapaditasSubtitle');
+  const dateIndicator = document.getElementById('escapaditasDateFilterIndicator');
+  const dateLabel = document.getElementById('escapaditasDateLabel');
+  
+  if (currentDateFilter !== 'all' && subtitleEl) {
+    subtitleEl.textContent = `Eventos · ${tDate(currentDateFilter)}`;
+    if (dateIndicator) dateIndicator.style.display = 'flex';
+    if (dateLabel) dateLabel.textContent = `Filtrando por: ${tDate(currentDateFilter)}`;
+  } else if (subtitleEl) {
+    subtitleEl.textContent = 'Tours a Tequila, Shalala y más';
+    if (dateIndicator) dateIndicator.style.display = 'none';
+  }
+
+  container.innerHTML = `<div class="empty-state"><span class="ms">travel_explore</span><h3>Buscando escapadas...</h3></div>`;
+
+  try {
+    const [tmRes, placesRes] = await Promise.allSettled([
+      searchTicketmasterEscapaditas(location),
+      searchPlacesEscapaditas(location)
+    ]);
+
+    let events = [];
+    if (tmRes.status === 'fulfilled') events = events.concat(tmRes.value || []);
+    if (placesRes.status === 'fulfilled') events = events.concat(placesRes.value || []);
+    events = deduplicateEvents(events).filter(e => !isEventPast(e));
+
+    escapaditasEvents = events;
+
+    if (events.length === 0) {
+      container.innerHTML = `<div class="empty-state"><span class="ms">search_off</span><h3>Sin escapadas cercanas</h3></div>`;
+      return;
+    }
+
+    container.innerHTML = `<div class="section-label">${events.length} escapadas</div>` + 
+      events.map(item => renderEventCard(item)).join('');
+
+    renderMarkersForAll(events);
+    showToast('check_circle', `${events.length} escapadas encontradas`);
+  } catch (err) {
+    console.error('Error escapaditas:', err);
+    container.innerHTML = `<div class="empty-state"><span class="ms">error</span><h3>Error al buscar</h3></div>`;
+  }
+}
+
+function searchTicketmasterEscapaditas(location) {
+  return new Promise(async (resolve) => {
+    try {
+      const url = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${API_KEYS.ticketmaster}&latlong=${location.lat},${location.lng}&radius=250&unit=km&size=50&sort=date,asc&locale=${currentLang === 'es' ? 'es' : 'en-us'}`;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 10000);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+      const data = await response.json();
+      const events = (data._embedded?.events || []).map(e => {
+        const venue = e._embedded?.venues?.[0] || {}, loc = venue.location || {};
+        const lat = parseFloat(loc.latitude), lng = parseFloat(loc.longitude);
+        if (!lat || !lng) return null;
+        return { id: 'tm_esc_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento',
+          date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '',
+          venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url,
+          description: e.info || '', image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
+      }).filter(Boolean);
+      resolve(events);
+    } catch (err) { resolve([]); }
+  });
+}
+
+function searchPlacesEscapaditas(location) {
+  return new Promise((resolve) => {
+    if (!placesService || !placesApiAvailable) return resolve([]);
+    const typesToFetch = ['museum', 'tourist_attraction', 'art_gallery', 'park', 'zoo', 'aquarium', 'stadium'];
+    const promises = typesToFetch.map(type => {
+      return new Promise((res) => {
+        const request = { location: new google.maps.LatLng(location.lat, location.lng), radius: ESCAPADITAS_RADIUS_METERS, type };
+        const timeout = setTimeout(() => res([]), 10000);
+        try {
+          placesService.nearbySearch(request, (results, status) => {
+            clearTimeout(timeout);
+            if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+              res(results.map(p => ({
+                id: 'place_esc_' + p.place_id, type: 'place', source: 'google',
+                title: p.name, date: '', time: '', venue: p.vicinity || '', city: '',
+                lat: p.geometry.location.lat(), lng: p.geometry.location.lng(), url: '',
+                description: '', image: p.photos && p.photos.length > 0 ? p.photos[0].getUrl({ maxWidth: 200 }) : '',
+                _isPlace: true, rating: p.rating, place_id: p.place_id, photos: p.photos,
+                vicinity: p.vicinity, types: p.types, _searchType: type
+              })));
+            } else res([]);
+          });
+        } catch (err) { clearTimeout(timeout); res([]); }
+      });
+    });
+    Promise.all(promises).then(allResults => {
+      const flat = allResults.flat();
+      const seen = new Set();
+      resolve(flat.filter(p => { if (!p.place_id || seen.has(p.place_id)) return false; seen.add(p.place_id); return true; }));
+    });
+  });
+}
 
 /* ============================================
    PREFERENCIAS Y TEMA
@@ -3461,7 +3078,7 @@ function updateAllTranslations() {
 }
 
 /* ============================================
-   UBICACIÓN (GPS)
+   UBICACIÓN
    ============================================ */
 function searchNearMe() {
   if (!navigator.geolocation) return showToast('error', t('geoNotAvailable'));
@@ -3487,8 +3104,10 @@ function stopTracking() {
 function updateUserMarker(loc) {
   if (userMarker) userMarker.setPosition(loc);
   else {
-    const markerIcon = createMarkerSVG('#2979FF', true);
-    userMarker = new google.maps.Marker({ position: loc, map, icon: markerIcon, title: 'Tu ubicación', zIndex: 9999 });
+    userMarker = new google.maps.Marker({ position: loc, map,
+      icon: { url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8" fill="#2979FF" stroke="white" stroke-width="3"/></svg>`),
+      scaledSize: new google.maps.Size(22, 22), anchor: new google.maps.Point(11, 11) },
+      title: 'Tu ubicación', zIndex: 9999 });
   }
 }
 
@@ -3606,9 +3225,6 @@ document.addEventListener('keydown', (e) => {
     closeAdsModal();
     closeSubmenu();
     closeDateFilterPanel();
-    const menu = document.getElementById('cityMenu');
-    if (menu) menu.remove();
-    document.querySelector('.city-selector').classList.remove('active');
   }
 });
 
