@@ -1,1 +1,22 @@
-ASDASD
+[
+  {
+    "id": "1",
+    "name": "Museo Cabañas",
+    "description": "Un lugar emblemático de Guadalajara con murales de Orozco.",
+    "lat": 20.6768,
+    "lng": -103.3454,
+    "category": "museo",
+    "image_url": "https://tusitio.com/foto-cabanas.jpg",
+    "address": "Calle Cabañas 8, Las Fresas, 44360 Guadalajara, Jal."
+  },
+  {
+    "id": "2",
+    "name": "Librería Gandhi",
+    "description": "La librería más grande de la ciudad.",
+    "lat": 20.6745,
+    "lng": -103.3905,
+    "category": "libreria",
+    "image_url": "https://tusitio.com/foto-gandhi.jpg",
+    "address": "Av. Ignacio L. Vallarta 2425, Arcos Vallarta"
+  }
+]
