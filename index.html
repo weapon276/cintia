@@ -1354,10 +1354,8 @@
   }
 </style>
 </head>
- 
 <body class="escapaditas-closed">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9476248438912264"
-     crossorigin="anonymous"></script>
+
 <script>
   const ESCAPADITAS_ENABLED = false; // ← Cambia a true para activar Escapaditas
 </script>
@@ -1990,7 +1988,7 @@ const ACCESSIBILITY_CATEGORIES = {
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#1D6A5E', bg: '#E6F2F0', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
-  museum:             { icon: 'museum',         color: '#1D6A5E', bg: '#E6F2F0', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'arte'] },
+  museum:             { icon: 'museum',         color: '#d9ead3', bg: '#E6F2F0', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'arte'] },
   art_gallery:        { icon: 'palette',        color: '#F5B027', bg: '#FEF8E7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'arte', 'gallery'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'templo'] },
   library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'libro'] },
@@ -2709,6 +2707,11 @@ function applyFilters() {
       return catKeywords.some(kw => text.includes(kw.toLowerCase())) || 
              (e._searchType && e._searchType === CATEGORIES[currentCategory].type);
     });
+    // Filtrar también los lugares locales
+    localPlacesData = localPlacesData.filter(p => p.category === currentCategory);
+  } else {
+    // Si es 'all', restaurar todos los lugares locales
+    localPlacesData = localPlacesData.filter(p => true);
   }
 
   const eventsForList = eventsFiltered.filter(e => !isEventPast(e) || (currentDateFilter === 'custom' && currentCustomDate));
@@ -2873,7 +2876,7 @@ function renderMarkersForAll(eventsForMap = []) {
       title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
   
-  // Añadir lugares locales
+  // Añadir lugares locales filtrados por categoría
   localPlacesData.forEach(place => {
     if (place.lat && place.lng) {
       const cat = CATEGORIES[place.category] || CATEGORIES.monument;
