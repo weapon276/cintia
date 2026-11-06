@@ -2242,16 +2242,47 @@ function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key
    DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD
    ============================================ */
 function detectEventAudiences(event) {
-  const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '') + ' ' + (event.categoryLabel || '')).toLowerCase();
+  // Aseguramos que todos los campos sean strings para evitar errores
+  const title = (event.title || event.name || '').toString();
+  const description = (event.description || event.summary || '').toString();
+  const venue = (event.venue || event.venue_name || '').toString();
+  const categoryLabel = (event.categoryLabel || '').toString();
+  
+  const text = (title + ' ' + description + ' ' + venue + ' ' + categoryLabel).toLowerCase();
+  
   const audiences = { adults: false, teens: false, kids: false, bebes: false };
   
-  if (/\b(bebé|bebe|baby|babies|maternal|estimulación temprana|lactante|0 años|1 año|2 años|hasta 3 años|stroller|carriola)\b/i.test(text)) audiences.bebes = true;
-  if (/\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|danza infantil|teatro infantil)\b/i.test(text)) audiences.kids = true;
-  if (/\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer|escuela|estudiante)\b/i.test(text)) audiences.teens = true;
+  // Detección de Bebés
+  if (/\b(bebé|bebe|baby|babies|maternal|estimulación temprana|lactante|0 años|1 año|2 años|hasta 3 años|stroller|carriola)\b/i.test(text)) {
+    audiences.bebes = true;
+  }
   
-  if (/\b(adulto|adultos|adult|mayores de edad|18\+|21\+|mujer|mujeres|women|hombre|hombres|men)\b/i.test(text)) audiences.adults = true;
+  // Detección de Niños
+  if (/\b(niño|niña|kids|child|infantil|cuentacuentos|taller infantil|manualidades|danza infantil|teatro infantil)\b/i.test(text)) {
+    audiences.kids = true;
+  }
   
-  if (!audiences.bebes && !audiences.kids && !audiences.teens) {
+  // Detección de Adolescentes
+  if (/\b(adolescente|teen|joven|youth|gaming|videojuego|esports|concierto|rock|pop|festival juvenil|13\+|14\+|15\+|tech|developer|escuela|estudiante)\b/i.test(text)) {
+    audiences.teens = true;
+  }
+  
+  // Detección de Adultos
+  if (/\b(adulto|adultos|adult|mayores de edad|18\+|21\+|mujer|mujeres|women|hombre|hombres|men)\b/i.test(text)) {
+    audiences.adults = true;
+  }
+  
+  // Si el evento es "para toda la familia" o similar, marcamos todas las audiencias
+  if (/\b(familiar|familia|family|todos|all ages|para toda la familia|recreativo|parque|zoo|circo|festival|taller|obra|teatro)\b/i.test(text)) {
+    audiences.adults = true;
+    audiences.teens = true;
+    audiences.kids = true;
+    audiences.bebes = true;
+  }
+  
+  // Si después de todas las detecciones no hay ninguna audiencia marcada,
+  // asumimos que es para adultos (público general)
+  if (!audiences.bebes && !audiences.kids && !audiences.teens && !audiences.adults) {
     audiences.adults = true;
   }
   
@@ -2260,12 +2291,11 @@ function detectEventAudiences(event) {
 
 function detectEventAccessibility(event) {
   return {
-    wheelchair: !!event.wheelchairAccessible,
-    pet: !!event.petFriendly,
-    smokeFree: !!event.smokeFree
+    wheelchair: !!(event.wheelchairAccessible || event.wheelchair),
+    pet: !!(event.petFriendly || event.pet),
+    smokeFree: !!(event.smokeFree || event.smokeFreeZone)
   };
 }
-
 /* ============================================
    TOASTS
    ============================================ */
