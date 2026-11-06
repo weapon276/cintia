@@ -13,7 +13,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia / patrimonio",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": false, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "2",
@@ -29,7 +31,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Infantil / interactivo",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": false, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "3",
@@ -45,7 +49,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte / historia / patrimonio",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": true, "pet": false, "smokeFree": true }
   },
   {
     "id": "4",
@@ -61,7 +67,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Entretenimiento / figuras de cera",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "5",
@@ -77,7 +85,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia / patrimonio",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "6",
@@ -93,7 +103,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia / medicina",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": false, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "7",
@@ -109,7 +121,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Memoria / historia social",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "8",
@@ -125,7 +139,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Curiosidades / historia / Arte / experiencia inmersiva",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "9",
@@ -141,7 +157,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "10",
@@ -157,7 +175,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte popular / tradiciones",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "11",
@@ -173,7 +193,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Ciencia / paleontología",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "12",
@@ -189,7 +211,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Curiosidades / entretenimiento",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "13",
@@ -205,7 +229,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia / patrimonio",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": false, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "14",
@@ -221,7 +247,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia / arqueología urbana",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": false, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "15",
@@ -237,7 +265,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia / comunicación / artes gráficas",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "16",
@@ -253,7 +283,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte / exposiciones",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "17",
@@ -269,7 +301,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia / patrimonio funerario",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "18",
@@ -285,7 +319,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "19",
@@ -301,7 +337,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia / arqueología / paleontología / arte",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "20",
@@ -317,7 +355,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Ciencia / astronomía / interactivo",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": true, "smokeFree": true }
   },
   {
     "id": "21",
@@ -333,7 +373,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte contemporáneo",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "22",
@@ -349,7 +391,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte / cultura indígena",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "23",
@@ -365,7 +409,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Deporte / historia deportiva",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "24",
@@ -381,7 +427,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Ciencia / cultura / interactivo",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": true, "pet": false, "smokeFree": true }
   },
   {
     "id": "25",
@@ -397,7 +445,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Cultura del tequila / historia",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": true, "pet": false, "smokeFree": true }
   },
   {
     "id": "26",
@@ -413,7 +463,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte popular / cerámica",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "27",
@@ -429,7 +481,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte popular / cerámica",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "28",
@@ -445,7 +499,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Arte popular / cerámica",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": true, "pet": false, "smokeFree": true }
   },
   {
     "id": "29",
@@ -461,7 +517,9 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Tradiciones / patrimonio inmaterial",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": true, "kids": true, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   },
   {
     "id": "30",
@@ -477,6 +535,8 @@
     "url": "",
     "category": "museum",
     "categoryLabel": "Historia",
-    "color": "#d9ead3"
+    "color": "#d9ead3",
+    "audience": { "adults": true, "teens": false, "kids": false, "bebes": false },
+    "accessibility": { "wheelchair": false, "pet": false, "smokeFree": true }
   }
 ]
