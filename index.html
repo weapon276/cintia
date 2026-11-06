@@ -3256,13 +3256,13 @@ function openEventDetail(event) {
     html += `</div>`;
   }
   
-  html += `<div class="event-detail-title">${event.title || 'Evento'}</div>`;
+  html += `<div class="event-detail-title">${event.title || event.name || 'Lugar'}</div>`;
   
   html += `<div class="event-detail-meta">`;
-  if (event.venue) {
+  if (event.venue || event.vicinity) {
     html += `<div class="event-detail-meta-row">
       <span class="ms">location_on</span>
-      <div><strong>${event.venue}</strong>${event.city ? '<br><span style="color:var(--text-3);font-size:10px;">' + event.city + '</span>' : ''}</div>
+      <div><strong>${event.venue || event.vicinity}</strong>${event.city ? '<br><span style="color:var(--text-3);font-size:10px;">' + event.city + '</span>' : ''}</div>
     </div>`;
   }
   if (event.date) {
@@ -3294,32 +3294,46 @@ function openEventDetail(event) {
   });
   html += `</div>`;
   
+  // AQUÍ MOVEMOS LA DESCRIPCIÓN AL FINAL, JUSTO ANTES DEL BOTÓN
   html += `<div class="event-detail-section-title">${tDetail('description')}</div>`;
-  html += `<div class="event-detail-description">${event.description || tDetail('noDescription')}</div>`;
+  html += `<div class="event-detail-description">${event.description || event.summary || tDetail('noDescription')}</div>`;
   
   body.innerHTML = html;
   
-  if (event.url) {
-    footer.innerHTML = `<a href="${event.url}" target="_blank" rel="noopener" class="event-detail-cta">
-      <span class="ms fill">confirmation_number</span>
-      <span>${tDetail('buyTickets')}</span>
-    </a>`;
+  // LÓGICA DEL FOOTER (BOTÓN)
+  // Si es un lugar (viene de lugares.json o Google Places), NO mostramos el botón.
+  // Si es un evento y tiene URL, mostramos el botón de comprar.
+  const isPlace = event.type === 'place' || event._isPlace;
+  
+  if (isPlace) {
+    // Ocultar el footer por completo para los lugares
+    footer.style.display = 'none';
+    footer.innerHTML = '';
   } else {
-    footer.innerHTML = `<button class="event-detail-cta disabled" disabled>
-      <span class="ms">link_off</span>
-      <span>${tDetail('noUrl')}</span>
-    </button>`;
+    // Mostrar el footer para eventos
+    footer.style.display = 'flex';
+    if (event.url) {
+      footer.innerHTML = `<a href="${event.url}" target="_blank" rel="noopener" class="event-detail-cta">
+        <span class="ms fill">confirmation_number</span>
+        <span>${tDetail('buyTickets')}</span>
+      </a>`;
+    } else {
+      footer.innerHTML = `<button class="event-detail-cta disabled" disabled>
+        <span class="ms">link_off</span>
+        <span>${tDetail('noUrl')}</span>
+      </button>`;
+    }
+  }
+  
+  // Ajustar el padding del body si no hay footer para que no quede espacio vacío abajo
+  if (isPlace) {
+    body.style.paddingBottom = '14px';
+  } else {
+    body.style.paddingBottom = '70px';
   }
   
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
-}
-
-function closeEventDetail() {
-  const modal = document.getElementById('eventDetailModal');
-  modal.classList.remove('open');
-  document.body.style.overflow = '';
-  currentOpenEvent = null;
 }
 
 /* ============================================
