@@ -2016,7 +2016,6 @@ const CATEGORY_GROUPS = {
   'aire libre':     { label: 'Aire libre', icon: 'park' },
   'entretenimiento':{ label: 'Entretenimiento', icon: 'theaters' },
   'compras':        { label: 'Compras', icon: 'shopping_bag' },
-  'servicios':      { label: 'Servicios', icon: 'build' }
 };
 </script>
 
@@ -3027,7 +3026,7 @@ function showInfoWindowGoogle(marker, place) {
   const isLocalPlace = place.type === 'place' && place.source === 'local';
   
   // Botón Ver Más (solo si no es local)
-  const buttonHtml = !isLocalPlace ? `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#1D6A5E;color:white;font-weight:700;font-size:12px;cursor:pointer;margin-top:8px;">${t('viewMore')}</button>` : '';
+  const buttonHtml = !isLocalPlace ? `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#114711;color:white;font-weight:700;font-size:12px;cursor:pointer;margin-top:8px;">${t('viewMore')}</button>` : '';
   
   // Obtener descripción (soporta description o summary)
   const descriptionText = place.description || place.summary || '';
