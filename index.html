@@ -2731,6 +2731,8 @@ function applyFilters() {
     eventsFiltered = eventsFiltered.filter(e => {
         // Si el evento tiene una categoría forzada explícita
         if (e.category) {
+            // Si estamos en la categoría "events", aceptamos cualquier evento (sin importar la subcategoría)
+            if (currentCategory === 'events') return true;
             return e.category === currentCategory;
         }
         
