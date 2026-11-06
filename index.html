@@ -1988,15 +1988,15 @@ const ACCESSIBILITY_CATEGORIES = {
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#1D6A5E', bg: '#E6F2F0', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
-  museum:             { icon: 'museum',         color: '#1D6A5E', bg: '#E6F2F0', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'arte'] },
-  art_gallery:        { icon: 'palette',        color: '#F5B027', bg: '#FEF8E7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'arte', 'gallery'] },
+  museum:             { icon: 'museum',         color: '#1D6A5E', bg: '#E6F2F0', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'arte', 'historia', 'patrimonio'] },
+  art_gallery:        { icon: 'palette',        color: '#F5B027', bg: '#FEF8E7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'arte', 'gallery', 'exposición'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'templo'] },
-  library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'libro'] },
-  monument:           { icon: 'attractions',    color: '#2979FF', bg: '#E3F2FD', type: 'tourist_attraction', group: 'cultura', keywords: ['monumento', 'atracción', 'turístico'] },
-  park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'jardín', 'plaza'] },
+  library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'libro', 'librería'] },
+  monument:           { icon: 'attractions',    color: '#2979FF', bg: '#E3F2FD', type: 'tourist_attraction', group: 'cultura', keywords: ['monumento', 'atracción', 'turístico', 'plaza', 'monumentos'] },
+  park:               { icon: 'park',           color: '#10B981', bg: '#D1FAE5', type: 'park', group: 'aire libre', keywords: ['parque', 'jardín', 'plaza', 'aire libre'] },
   zoo:                { icon: 'pets',           color: '#E91E63', bg: '#FCE4EC', type: 'zoo', group: 'aire libre', keywords: ['zoo', 'animales'] },
   aquarium:           { icon: 'water',          color: '#0891B2', bg: '#CFFAFE', type: 'aquarium', group: 'aire libre', keywords: ['acuario', 'peces'] },
-  movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'película'] },
+  movie_theater:      { icon: 'theaters',       color: '#DB2777', bg: '#FCE7F3', type: 'movie_theater', group: 'entretenimiento', keywords: ['cine', 'película', 'cine alternativo'] },
   stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'deporte'] },
   amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones'] },
   bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bolos'] },
@@ -2242,7 +2242,7 @@ function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key
    DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD
    ============================================ */
 function detectEventAudiences(event) {
-  const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
+  const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '') + ' ' + (event.categoryLabel || '')).toLowerCase();
   const audiences = { adults: false, teens: false, kids: false, bebes: false };
   
   if (/\b(bebé|bebe|baby|babies|maternal|estimulación temprana|lactante|0 años|1 año|2 años|hasta 3 años|stroller|carriola)\b/i.test(text)) audiences.bebes = true;
@@ -2355,27 +2355,38 @@ async function loadLocalEventbriteEvents() {
       const url = item.url || item.event_url || item.tickets_url || '';
       const description = item.summary || item.description || item.info || '';
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
-
-      // Corrección de ubicación para Cabañas (fecha 27)
-      if (venueName.toLowerCase().includes('cabañas') && dateStr.includes('27')) {
-        // Coordenadas correctas de Cabañas (aprox)
-        // Nota: aquí se podría ajustar si es necesario
-      }
-
-      let wheelchairAccessible = false, petFriendly = false, smokeFree = false;
-      const lt = title.toLowerCase(), lv = venueName.toLowerCase();
-
-      if (lv.includes('cabañas') || lv.includes('teatro diana') || lv.includes('trompo mágico') ||
-          lv.includes('paleontología') || lv.includes('parque alcalde') || lv.includes('iteso')) {
-        wheelchairAccessible = true;
-      }
-      if (lv.includes('parque de las niñas') || lt.includes('tequila') || lt.includes('cantaritos') || lt.includes('tour')) {
-        petFriendly = true;
-      }
-      if (lv.includes('foro') || lv.includes('teatro') || lv.includes('museo') ||
-          lv.includes('auditorio') || lv.includes('casa') || lv.includes('centro cultural')) {
-        smokeFree = true;
-      }
+      
+      // Detectar categoría por palabras clave
+      let category = 'event';
+      const catText = (title + ' ' + description + ' ' + venueName + ' ' + (item.categoryLabel || '')).toLowerCase();
+      if (/\b(museo|museos|museum|exposición|arte|historia|patrimonio)\b/i.test(catText)) category = 'museum';
+      else if (/\b(galería|arte|gallery)\b/i.test(catText)) category = 'art_gallery';
+      else if (/\b(iglesia|catedral|templo)\b/i.test(catText)) category = 'church';
+      else if (/\b(biblioteca|libro|librería)\b/i.test(catText)) category = 'library';
+      else if (/\b(monumento|atracción|turístico|plaza)\b/i.test(catText)) category = 'monument';
+      else if (/\b(parque|jardín|plaza)\b/i.test(catText)) category = 'park';
+      else if (/\b(zoo|animales)\b/i.test(catText)) category = 'zoo';
+      else if (/\b(acuario|peces)\b/i.test(catText)) category = 'aquarium';
+      else if (/\b(cine|película)\b/i.test(catText)) category = 'movie_theater';
+      else if (/\b(estadio|deporte)\b/i.test(catText)) category = 'stadium';
+      else if (/\b(parque de diversiones)\b/i.test(catText)) category = 'amusement_park';
+      else if (/\b(boliche|bolos)\b/i.test(catText)) category = 'bowling_alley';
+      else if (/\b(danza|baile|antro|discoteca)\b/i.test(catText)) category = 'dance';
+      else if (/\b(desfile|parada|procesión)\b/i.test(catText)) category = 'parade';
+      else if (/\b(comercial|mall)\b/i.test(catText)) category = 'shopping_mall';
+      else if (/\b(ropa|moda)\b/i.test(catText)) category = 'clothing_store';
+      else if (/\b(librería|libros)\b/i.test(catText)) category = 'bookstore';
+      else if (/\b(departamental)\b/i.test(catText)) category = 'department_store';
+      else if (/\b(supermercado)\b/i.test(catText)) category = 'supermarket';
+      else if (/\b(gimnasio|fitness)\b/i.test(catText)) category = 'gym';
+      else if (/\b(spa|masaje)\b/i.test(catText)) category = 'spa';
+      else if (/\b(hotel|hostal)\b/i.test(catText)) category = 'lodging';
+      else if (/\b(hospital|salud)\b/i.test(catText)) category = 'hospital';
+      else if (/\b(farmacia)\b/i.test(catText)) category = 'pharmacy';
+      
+      // Detectar audiencia y accesibilidad
+      const audiences = detectEventAudiences({ title, description, venue: venueName, categoryLabel: item.categoryLabel || '' });
+      const accessibility = detectEventAccessibility(item);
 
       return {
         id, type: 'event', source: LOCAL_EVENTS_CONFIG.source,
@@ -2386,7 +2397,12 @@ async function loadLocalEventbriteEvents() {
         city: cityName,
         lat, lng, url, description,
         image: img,
-        wheelchairAccessible, petFriendly, smokeFree
+        category,
+        categoryLabel: item.categoryLabel || '',
+        wheelchairAccessible: accessibility.wheelchair,
+        petFriendly: accessibility.pet,
+        smokeFree: accessibility.smokeFree,
+        audience: audiences
       };
     }).filter(Boolean);
 
@@ -2436,6 +2452,7 @@ async function loadLocalPlaces() {
         vicinity: item.address || '',
         lat, lng,
         category: item.category || 'monument',
+        categoryLabel: item.categoryLabel || '',
         image: item.image || '',
         rating: item.rating || null,
         photos: item.image ? [{ getUrl: () => item.image }] : [],
@@ -2488,6 +2505,13 @@ async function loadLocalAds() {
       const lng = parseFloat(item.longitude ?? item.lng);
       if (!isFinite(lat) || !isFinite(lng)) return null;
 
+      const audiences = detectEventAudiences({ 
+        title: item.title || '', 
+        description: item.description || '', 
+        venue: item.venue || '',
+        categoryLabel: item.categoryLabel || ''
+      });
+      
       return {
         id: 'ad_' + (item.id || idx),
         type: 'event',
@@ -2501,9 +2525,12 @@ async function loadLocalAds() {
         description: item.description || '',
         image: item.image || '',
         url: item.url || '',
+        category: item.category || 'event',
+        categoryLabel: item.categoryLabel || '',
         wheelchairAccessible: !!item.wheelchairAccessible,
         petFriendly: !!item.petFriendly,
-        smokeFree: !!item.smokeFree
+        smokeFree: !!item.smokeFree,
+        audience: audiences
       };
     }).filter(Boolean);
 
@@ -2710,9 +2737,9 @@ function applyFilters() {
   if (currentCategory !== 'all') {
     const catKeywords = CATEGORIES[currentCategory].keywords || [];
     eventsFiltered = eventsFiltered.filter(e => {
-      const text = ((e.title || '') + ' ' + (e.description || '') + ' ' + (e.venue || '')).toLowerCase();
+      const text = ((e.title || '') + ' ' + (e.description || '') + ' ' + (e.venue || '') + ' ' + (e.categoryLabel || '')).toLowerCase();
       return catKeywords.some(kw => text.includes(kw.toLowerCase())) || 
-             (e._searchType && e._searchType === CATEGORIES[currentCategory].type);
+             (e.category && e.category === currentCategory);
     });
   }
 
@@ -2793,7 +2820,14 @@ function searchTicketmasterPromise() {
           date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '',
           venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url,
           description: e.info || e.pleaseNote || '',
-          image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
+          image: (e.images && e.images.length > 0) ? e.images[0].url : '',
+          category: 'event',
+          categoryLabel: '',
+          wheelchairAccessible: false,
+          petFriendly: false,
+          smokeFree: false,
+          audience: detectEventAudiences({ title: e.name || '', description: e.info || '', venue: venue.name || '' })
+        };
       }).filter(Boolean);
       resolve(events);
     } catch (err) { resolve([]); }
@@ -2818,6 +2852,7 @@ function getPlaceCategory(place) {
       if (CATEGORIES[key].type === place._searchType) return CATEGORIES[key];
     }
   }
+  if (place.category && CATEGORIES[place.category]) return CATEGORIES[place.category];
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) {
     if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) return CATEGORIES[key];
@@ -2831,6 +2866,7 @@ function getCategoryKey(place) {
       if (CATEGORIES[key].type === place._searchType) return key;
     }
   }
+  if (place.category && CATEGORIES[place.category]) return place.category;
   const types = place.types || [];
   for (const key of Object.keys(CATEGORIES)) {
     if (key !== 'all' && CATEGORIES[key].type && types.includes(CATEGORIES[key].type)) return key;
@@ -2856,7 +2892,7 @@ function renderMarkersForAll(eventsForMap = []) {
   clearMarkers();
   
   eventsForMap.forEach(event => {
-    const audiences = detectEventAudiences(event);
+    const audiences = event.audience || detectEventAudiences(event);
     let color = '#1D6A5E';
     if (audiences.kids) color = AGE_CATEGORIES.kids.color;
     else if (audiences.bebes) color = AGE_CATEGORIES.bebes.color;
@@ -2983,7 +3019,7 @@ function renderGoogleCard(place) {
 }
 
 function renderEventCard(event) {
-  const audiences = detectEventAudiences(event);
+  const audiences = event.audience || detectEventAudiences(event);
   const accessibility = detectEventAccessibility(event);
   const title = event.title || 'Evento sin título';
   const venue = event.venue ? event.venue + (event.city ? ', ' + event.city : '') : t('addressNA');
@@ -3045,7 +3081,8 @@ function renderUnifiedList() {
     if (currentCategory !== 'all') {
       const catKeywords = CATEGORIES[currentCategory].keywords || [];
       const text = ((ad.title || '') + ' ' + (ad.description || '')).toLowerCase();
-      return catKeywords.some(kw => text.includes(kw.toLowerCase()));
+      return catKeywords.some(kw => text.includes(kw.toLowerCase())) || 
+             (ad.category && ad.category === currentCategory);
     }
     return true;
   });
@@ -3087,7 +3124,7 @@ function openEventDetail(event) {
     hero.innerHTML = `<div class="hero-placeholder"><span class="ms">event</span></div>`;
   }
   
-  const audiences = detectEventAudiences(event);
+  const audiences = event.audience || detectEventAudiences(event);
   const accessibility = detectEventAccessibility(event);
   
   // Buscar eventos en el mismo lugar (mismas coordenadas aproximadas)
@@ -3124,6 +3161,18 @@ function openEventDetail(event) {
     html += `<div class="event-detail-meta-row">
       <span class="ms">calendar_today</span>
       <div><strong>${dateStr}</strong></div>
+    </div>`;
+  }
+  if (event.price) {
+    html += `<div class="event-detail-meta-row">
+      <span class="ms">confirmation_number</span>
+      <div><strong>${event.price}</strong></div>
+    </div>`;
+  }
+  if (event.schedule) {
+    html += `<div class="event-detail-meta-row">
+      <span class="ms">schedule</span>
+      <div><strong>${event.schedule}</strong></div>
     </div>`;
   }
   html += `</div>`;
@@ -3625,7 +3674,14 @@ function searchTicketmasterEscapaditas(location) {
         return { id: 'tm_esc_' + e.id, type: 'event', source: 'ticketmaster', title: e.name || 'Evento',
           date: e.dates?.start?.localDate || '', time: e.dates?.start?.localTime || '',
           venue: venue.name || '', city: venue.city?.name || '', lat, lng, url: e.url,
-          description: e.info || '', image: (e.images && e.images.length > 0) ? e.images[0].url : '' };
+          description: e.info || '', image: (e.images && e.images.length > 0) ? e.images[0].url : '',
+          category: 'event',
+          categoryLabel: '',
+          wheelchairAccessible: false,
+          petFriendly: false,
+          smokeFree: false,
+          audience: detectEventAudiences({ title: e.name || '', description: e.info || '', venue: venue.name || '' })
+        };
       }).filter(Boolean);
       resolve(events);
     } catch (err) { resolve([]); }
