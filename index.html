@@ -1988,7 +1988,7 @@ const ACCESSIBILITY_CATEGORIES = {
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#1D6A5E', bg: '#E6F2F0', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
-  museum:             { icon: 'museum',         color: '#d9ead3', bg: '#E6F2F0', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'arte'] },
+  museum:             { icon: 'museum',         color: '#1D6A5E', bg: '#E6F2F0', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'arte'] },
   art_gallery:        { icon: 'palette',        color: '#F5B027', bg: '#FEF8E7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'arte', 'gallery'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'templo'] },
   library:            { icon: 'local_library',  color: '#CA8A04', bg: '#FEF9C3', type: 'library', group: 'cultura', keywords: ['biblioteca', 'libro'] },
@@ -2442,7 +2442,13 @@ async function loadLocalPlaces() {
         geometry: { location: { lat: () => lat, lng: () => lng } },
         place_id: 'place_' + idx,
         types: [item.category || 'tourist_attraction'],
-        _searchType: item.category || 'tourist_attraction'
+        _searchType: item.category || 'tourist_attraction',
+        color: item.color || null,
+        price: item.price || null,
+        schedule: item.schedule || null,
+        wheelchairAccessible: !!item.wheelchairAccessible,
+        petFriendly: !!item.petFriendly,
+        smokeFree: !!item.smokeFree
       };
     }).filter(Boolean);
 
@@ -2569,7 +2575,8 @@ window.initMap = function() {
     // Renderizar lugares locales en el mapa
     localPlacesData.forEach(place => {
       const cat = CATEGORIES[place.category] || CATEGORIES.monument;
-      addMarkerToMap({ lat: place.lat, lng: place.lng, icon: createMarkerSVG(cat.color), title: place.name,
+      const color = place.color || cat.color;
+      addMarkerToMap({ lat: place.lat, lng: place.lng, icon: createMarkerSVG(color), title: place.name,
         payload: place, payloadType: 'place', id: place.place_id });
     });
   });
@@ -2707,11 +2714,6 @@ function applyFilters() {
       return catKeywords.some(kw => text.includes(kw.toLowerCase())) || 
              (e._searchType && e._searchType === CATEGORIES[currentCategory].type);
     });
-    // Filtrar también los lugares locales
-    localPlacesData = localPlacesData.filter(p => p.category === currentCategory);
-  } else {
-    // Si es 'all', restaurar todos los lugares locales
-    localPlacesData = localPlacesData.filter(p => true);
   }
 
   const eventsForList = eventsFiltered.filter(e => !isEventPast(e) || (currentDateFilter === 'custom' && currentCustomDate));
@@ -2867,8 +2869,9 @@ function renderMarkersForAll(eventsForMap = []) {
   allPlaces.forEach(place => {
     if (!place.geometry?.location) return;
     const cat = getPlaceCategory(place);
+    const color = place.color || cat.color;
     addMarkerToMap({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng(),
-      icon: createMarkerSVG(cat.color), title: place.name, payload: place, payloadType: 'place', id: place.place_id });
+      icon: createMarkerSVG(color), title: place.name, payload: place, payloadType: 'place', id: place.place_id });
   });
   
   escapaditasEvents.forEach(event => {
@@ -2876,11 +2879,12 @@ function renderMarkersForAll(eventsForMap = []) {
       title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
   
-  // Añadir lugares locales filtrados por categoría
+  // Añadir lugares locales
   localPlacesData.forEach(place => {
     if (place.lat && place.lng) {
       const cat = CATEGORIES[place.category] || CATEGORIES.monument;
-      addMarkerToMap({ lat: place.lat, lng: place.lng, icon: createMarkerSVG(cat.color), title: place.name,
+      const color = place.color || cat.color;
+      addMarkerToMap({ lat: place.lat, lng: place.lng, icon: createMarkerSVG(color), title: place.name,
         payload: place, payloadType: 'place', id: place.place_id });
     }
   });
