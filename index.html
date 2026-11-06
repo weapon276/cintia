@@ -1988,6 +1988,7 @@ const ACCESSIBILITY_CATEGORIES = {
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#1D6A5E', bg: '#E6F2F0', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
+  events:             { icon: 'event',          color: '#E91E63', bg: '#FCE4EC', type: 'event', group: 'general', keywords: ['evento', 'eventos', 'concierto', 'festival', 'fiesta', 'teatro', 'danza', 'cine', 'exposición'] },
   museum:             { icon: 'museum',         color: '#1D6A5E', bg: '#E6F2F0', type: 'museum', group: 'cultura', keywords: ['museo', 'museos', 'museum', 'exposición', 'arte'] },
   art_gallery:        { icon: 'palette',        color: '#F5B027', bg: '#FEF8E7', type: 'art_gallery', group: 'cultura', keywords: ['galería', 'arte', 'gallery'] },
   church:             { icon: 'church',         color: '#8B5CF6', bg: '#EDE9FE', type: 'church', group: 'cultura', keywords: ['iglesia', 'catedral', 'templo'] },
@@ -2000,14 +2001,9 @@ const CATEGORIES = {
   stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'deporte'] },
   amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones'] },
   bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bolos'] },
-  dance:              { icon: 'music_note',     color: '#D946EF', bg: '#FAE8FF', type: 'night_club', group: 'entretenimiento', keywords: ['danza', 'baile', 'antro', 'discoteca'] }, // Reemplaza casino
-  parade:             { icon: 'festival',       color: '#F97316', bg: '#FFEDD5', type: null, group: 'entretenimiento', keywords: ['desfile', 'parada', 'procesión'] }, // Nueva
+  dance:              { icon: 'music_note',     color: '#D946EF', bg: '#FAE8FF', type: 'night_club', group: 'entretenimiento', keywords: ['danza', 'baile', 'antro', 'discoteca'] },
+  parade:             { icon: 'festival',       color: '#F97316', bg: '#FFEDD5', type: null, group: 'entretenimiento', keywords: ['desfile', 'parada', 'procesión'] },
   bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libros'] },
-  gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'fitness'] },
-  spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'masaje'] },
-  lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal'] },
-  hospital:           { icon: 'local_hospital', color: '#DC2626', bg: '#FEE2E2', type: 'hospital', group: 'servicios', keywords: ['hospital', 'salud'] },
-  pharmacy:           { icon: 'local_pharmacy', color: '#10B981', bg: '#D1FAE5', type: 'pharmacy', group: 'servicios', keywords: ['farmacia'] }
 };
 
 const CATEGORY_GROUPS = {
@@ -2036,11 +2032,10 @@ const TRANSLATIONS = {
     refreshing: 'Actualizando resultados...', updated: 'Resultados actualizados',
     dateOptions: { all: 'Cualquier fecha', today: 'Hoy', tomorrow: 'Mañana', this_weekend: 'Este fin de semana', next_7_days: 'Próximos 7 días', this_month: 'Este mes', custom: 'Fecha específica' },
     categories: {
-      all: 'Todas', museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Librerías', monument: 'Monumentos',
+      all: 'Todas', events: 'Eventos', museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Librerías', monument: 'Monumentos',
       park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios',
       movie_theater: 'Cine Alternativo', stadium: 'Estadios', amusement_park: 'Parques de diversiones', bowling_alley: 'Boliches', dance: 'Danza/Baile', parade: 'Desfiles',
-      bookstore: 'Librerías',
-      gym: 'Gimnasios', spa: 'Spas', lodging: 'Hoteles', hospital: 'Hospitales', pharmacy: 'Farmacias'
+      bookstore: 'Librerías'
     },
     eventDetail: {
       description: 'Descripción', audience: 'Audiencia', accessibility: 'Accesibilidad',
@@ -2062,11 +2057,10 @@ const TRANSLATIONS = {
     refreshing: 'Refreshing results...', updated: 'Results updated',
     dateOptions: { all: 'Any date', today: 'Today', tomorrow: 'Tomorrow', this_weekend: 'This weekend', next_7_days: 'Next 7 days', this_month: 'This month', custom: 'Specific date' },
     categories: {
-      all: 'All', museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Bookstores', monument: 'Monuments',
+      all: 'All', events: 'Events', museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Bookstores', monument: 'Monuments',
       park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums',
       movie_theater: 'Alternative Cinema', stadium: 'Stadiums', amusement_park: 'Amusement Parks', bowling_alley: 'Bowling Alleys', dance: 'Dance', parade: 'Parades',
-      bookstore: 'Bookstores',
-      gym: 'Gyms', spa: 'Spas', lodging: 'Hotels', hospital: 'Hospitals', pharmacy: 'Pharmacies'
+      bookstore: 'Bookstores'
     },
     eventDetail: {
       description: 'Description', audience: 'Audience', accessibility: 'Accessibility',
@@ -2088,11 +2082,10 @@ const TRANSLATIONS = {
     refreshing: 'Actualisation des résultats...', updated: 'Résultats actualisés',
     dateOptions: { all: 'Toute date', today: 'Aujourd\'hui', tomorrow: 'Demain', this_weekend: 'Ce week-end', next_7_days: '7 prochains jours', this_month: 'Ce mois-ci', custom: 'Date spécifique' },
     categories: {
-      all: 'Toutes', museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Librairies', monument: 'Monuments',
+      all: 'Toutes', events: 'Événements', museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Librairies', monument: 'Monuments',
       park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums',
       movie_theater: 'Cinéma Alternatif', stadium: 'Stades', amusement_park: 'Parcs d\'attractions', bowling_alley: 'Bowlings', dance: 'Danse', parade: 'Défilés',
-      bookstore: 'Librairies',
-      gym: 'Salles de sport', spa: 'Spas', lodging: 'Hôtels', hospital: 'Hôpitaux', pharmacy: 'Pharmacies'
+      bookstore: 'Librairies'
     },
     eventDetail: {
       description: 'Description', audience: 'Public', accessibility: 'Accessibilité',
@@ -2114,11 +2107,10 @@ const TRANSLATIONS = {
     refreshing: 'Atualizando resultados...', updated: 'Resultados atualizados',
     dateOptions: { all: 'Qualquer data', today: 'Hoje', tomorrow: 'Amanhã', this_weekend: 'Este fim de semana', next_7_days: 'Próximos 7 dias', this_month: 'Este mês', custom: 'Data específica' },
     categories: {
-      all: 'Todas', museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Livrarias', monument: 'Monumentos',
+      all: 'Todas', events: 'Eventos', museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Livrarias', monument: 'Monumentos',
       park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários',
       movie_theater: 'Cinema Alternativo', stadium: 'Estádios', amusement_park: 'Parques de diversões', bowling_alley: 'Boliches', dance: 'Dança', parade: 'Desfiles',
-      bookstore: 'Livrarias',
-      gym: 'Academias', spa: 'Spas', lodging: 'Hotéis', hospital: 'Hospitais', pharmacy: 'Farmácias'
+      bookstore: 'Livrarias'
     },
     eventDetail: {
       description: 'Descrição', audience: 'Público', accessibility: 'Acessibilidade',
@@ -2140,11 +2132,10 @@ const TRANSLATIONS = {
     refreshing: 'Ergebnisse werden aktualisiert...', updated: 'Ergebnisse aktualisiert',
     dateOptions: { all: 'Jedes Datum', today: 'Heute', tomorrow: 'Morgen', this_weekend: 'Dieses Wochenende', next_7_days: 'Nächste 7 Tage', this_month: 'Diesen Monat', custom: 'Bestimmtes Datum' },
     categories: {
-      all: 'Alle', museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Buchhandlungen', monument: 'Denkmäler',
+      all: 'Alle', events: 'Veranstaltungen', museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Buchhandlungen', monument: 'Denkmäler',
       park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien',
       movie_theater: 'Alternatives Kino', stadium: 'Stadien', amusement_park: 'Freizeitparks', bowling_alley: 'Bowlingbahnen', dance: 'Tanz', parade: 'Paraden',
-      bookstore: 'Buchhandlungen',
-      gym: 'Fitnessstudios', spa: 'Spas', lodging: 'Hotels', hospital: 'Krankenhäuser', pharmacy: 'Apotheken'
+      bookstore: 'Buchhandlungen'
     },
     eventDetail: {
       description: 'Beschreibung', audience: 'Publikum', accessibility: 'Barrierefreiheit',
@@ -2161,7 +2152,7 @@ const TRANSLATIONS = {
    ============================================ */
 let map, markers = [], infoWindow, placesService;
 let userMarker = null, watchId = null, isTracking = false;
-let currentCategory = 'museum';
+let currentCategory = 'events'; // Default a eventos
 let currentDateFilter = 'all';
 let currentCustomDate = '';
 let currentSearch = '';
@@ -2733,7 +2724,7 @@ function applyFilters() {
     });
   }
 
-  // Filtrado ESTRICTO de EVENTOS por Categoria (para que no se mezclen)
+  // Filtrado ESTRICTO de EVENTOS por Categoria
   if (currentCategory !== 'all') {
     const targetType = CATEGORIES[currentCategory].type;
     
@@ -2742,6 +2733,9 @@ function applyFilters() {
         if (e.category) {
             return e.category === currentCategory;
         }
+        
+        // Si estamos en la categoría "events", mostramos todos los eventos
+        if (currentCategory === 'events') return true;
 
         // Si no, intentamos por keywords o tipo
         const text = ((e.title || '') + ' ' + (e.description || '') + ' ' + (e.venue || '')).toLowerCase();
@@ -2755,8 +2749,11 @@ function applyFilters() {
     });
   }
 
-  // Filtrado de LUGARES (Google Places + Lugares Locales)
-  if (currentCategory !== 'all') {
+  // Filtrado de LUGARES
+  if (currentCategory === 'events') {
+     // Si estamos en Eventos, ocultamos todos los lugares
+     placesFiltered = [];
+  } else if (currentCategory !== 'all') {
     const targetType = CATEGORIES[currentCategory].type;
     
     // Filtrar lugares de Google
@@ -2768,7 +2765,6 @@ function applyFilters() {
     // Filtrar lugares Locales (lugares.json)
     localPlacesData.forEach(p => {
         if (p.category === currentCategory) {
-            // Verificar si no está ya en la lista (por ID)
             if (!placesFiltered.find(existing => existing.place_id === p.place_id)) {
                 placesFiltered.push(p);
             }
@@ -2785,14 +2781,13 @@ function applyFilters() {
 
   const eventsForList = eventsFiltered.filter(e => !isEventPast(e) || (currentDateFilter === 'custom' && currentCustomDate));
   
-  // Unificar para la lista y el mapa
+  // Unificar para la lista
   unifiedResults = [...eventsForList, ...placesFiltered];
   
-  // Filtrar para el mapa (solo eventos y lugares válidos)
+  // Filtrar para el mapa
   const eventsForMap = eventsForList.filter(e => !isEventPast(e));
   
-  // Renderizar marcadores solo con los resultados filtrados
-  // Primero limpiamos
+  // Renderizar marcadores
   clearMarkers();
   
   // Agregamos eventos filtrados
@@ -2817,7 +2812,8 @@ function applyFilters() {
           icon: createMarkerSVG(color), title: place.name, payload: place, payloadType: 'place', id: place.place_id });
     } else {
         const cat = CATEGORIES[place.category] || CATEGORIES.monument;
-        const color = place.color || cat.color;
+        // Forzamos el color #114711 para lugares locales
+        const color = '#114711';
         addMarkerToMap({ lat: place.lat, lng: place.lng, icon: createMarkerSVG(color), title: place.name,
           payload: place, payloadType: 'place', id: place.place_id });
     }
@@ -2840,7 +2836,7 @@ function searchPlacesPromise() {
     if (!placesService || !placesApiAvailable) return resolve([]);
     const category = CATEGORIES[currentCategory];
     
-    if (currentCategory === 'all') {
+    if (currentCategory === 'all' || currentCategory === 'events') {
       const types = ['museum', 'tourist_attraction', 'art_gallery', 'church', 'park', 'zoo', 'aquarium', 'stadium', 'library', 'movie_theater', 'shopping_mall', 'restaurant', 'cafe', 'bar'];
       const promises = types.map(type => new Promise((res) => {
         const request = { location: map.getCenter(), radius: DEFAULT_RADIUS, type };
@@ -2982,11 +2978,11 @@ function renderMarkersForAll(eventsForMap = []) {
       title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
   
-  // Añadir lugares locales
+  // Añadir lugares locales con el color #114711
   localPlacesData.forEach(place => {
     if (place.lat && place.lng) {
       const cat = CATEGORIES[place.category] || CATEGORIES.monument;
-      const color = place.color || cat.color;
+      const color = '#114711';
       addMarkerToMap({ lat: place.lat, lng: place.lng, icon: createMarkerSVG(color), title: place.name,
         payload: place, payloadType: 'place', id: place.place_id });
     }
@@ -3026,7 +3022,7 @@ function showInfoWindowGoogle(marker, place) {
   const isLocalPlace = place.type === 'place' && place.source === 'local';
   
   // Botón Ver Más (solo si no es local)
-  const buttonHtml = !isLocalPlace ? `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#114711;color:white;font-weight:700;font-size:12px;cursor:pointer;margin-top:8px;">${t('viewMore')}</button>` : '';
+  const buttonHtml = !isLocalPlace ? `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#1D6A5E;color:white;font-weight:700;font-size:12px;cursor:pointer;margin-top:8px;">${t('viewMore')}</button>` : '';
   
   // Obtener descripción (soporta description o summary)
   const descriptionText = place.description || place.summary || '';
@@ -3161,6 +3157,12 @@ function renderEventCard(event) {
   else if (audiences.teens) { cardColor = AGE_CATEGORIES.teens.color; cardBg = AGE_CATEGORIES.teens.bg; }
   else if (audiences.adults) { cardColor = AGE_CATEGORIES.adults.color; cardBg = AGE_CATEGORIES.adults.bg; }
   
+  // Forzar color #114711 para lugares locales si es necesario
+  if (event.type === 'place' && event.source === 'local') {
+    cardColor = '#114711';
+    cardBg = '#114711';
+  }
+
   const srcTag = event.source === 'eventbrite'
     ? `<span class="event-source-tag eb">EB</span>`
     : event.source === 'ticketmaster' ? `<span class="event-source-tag tm">TM</span>` : '';
@@ -3168,7 +3170,7 @@ function renderEventCard(event) {
   const pastClass = isEventPast(event) ? 'opacity: 0.6;' : '';
   
   // Usar el tipo de evento para la categoría en la tarjeta
-  let catKey = 'event';
+  let catKey = 'events';
   if (event.category && CATEGORIES[event.category]) catKey = event.category;
   else if (currentCategory !== 'all') catKey = currentCategory;
   
@@ -3209,7 +3211,7 @@ function renderUnifiedList() {
   
   // Filtrar solo eventos de publicidad para el sidebar
   const adsToDisplay = localAdsData.filter(ad => {
-    if (currentCategory !== 'all') {
+    if (currentCategory !== 'all' && currentCategory !== 'events') {
       const catKeywords = CATEGORIES[currentCategory].keywords || [];
       const text = ((ad.title || '') + ' ' + (ad.description || '')).toLowerCase();
       return catKeywords.some(kw => text.includes(kw.toLowerCase()));
@@ -3449,7 +3451,7 @@ function renderSubmenuOptions(type, searchTerm) {
     });
     
     let html = '';
-    const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'compras', 'servicios'];
+    const groupOrder = ['general', 'cultura', 'aire libre', 'entretenimiento', 'compras'];
     const sortedGroups = Object.keys(grouped).sort((a, b) => {
       const ia = groupOrder.indexOf(a), ib = groupOrder.indexOf(b);
       return (ia === -1 ? 999 : ia) - (ib === -1 ? 999 : ib);
