@@ -2242,8 +2242,8 @@ function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key
    DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD
    ============================================ */
 function detectEventAudiences(event) {
-  // Primero verificamos si el JSON trae la información explícita
-  if (event.audience) {
+  // 1. PRIORIDAD MÁXIMA: Si el JSON trae la información explícita, la usamos.
+  if (event.audience && typeof event.audience === 'object') {
     return {
       adults: !!event.audience.adults,
       teens: !!event.audience.teens,
@@ -2252,12 +2252,11 @@ function detectEventAudiences(event) {
     };
   }
 
-  // Si es un lugar de Google Places (lugar local), usamos su categoría
+  // 2. Si es un lugar de Google Places (lugar local sin datos explícitos), intentamos inferir.
   if (event.type === 'place' || event._isPlace) {
     const types = event.types || [];
     const cat = event.category || '';
     if (cat === 'museum' || types.includes('museum')) {
-       // Los museos suelen ser para adultos y niños
        return { adults: true, teens: false, kids: true, bebes: false };
     }
     if (cat === 'zoo' || cat === 'park' || cat === 'aquarium') {
@@ -2266,6 +2265,7 @@ function detectEventAudiences(event) {
     return { adults: true, teens: false, kids: false, bebes: false };
   }
 
+  // 3. Si no hay datos explícitos, usamos la detección por texto (como último recurso).
   const text = ((event.title || '') + ' ' + (event.description || '') + ' ' + (event.venue || '')).toLowerCase();
   const audiences = { adults: false, teens: false, kids: false, bebes: false };
   
@@ -2275,6 +2275,7 @@ function detectEventAudiences(event) {
   
   if (/\b(adulto|adultos|adult|mayores de edad|18\+|21\+|mujer|mujeres|women|hombre|hombres|men)\b/i.test(text)) audiences.adults = true;
   
+  // Si después de buscar en el texto no encontramos nada, asumimos adultos por defecto.
   if (!audiences.bebes && !audiences.kids && !audiences.teens) {
     audiences.adults = true;
   }
@@ -2283,8 +2284,8 @@ function detectEventAudiences(event) {
 }
 
 function detectEventAccessibility(event) {
-  // Primero verificamos si el JSON trae la información explícita
-  if (event.accessibility) {
+  // 1. PRIORIDAD MÁXIMA: Si el JSON trae la información explícita, la usamos.
+  if (event.accessibility && typeof event.accessibility === 'object') {
     return {
       wheelchair: !!event.accessibility.wheelchair,
       pet: !!event.accessibility.pet,
@@ -2292,14 +2293,7 @@ function detectEventAccessibility(event) {
     };
   }
 
-  if (event.type === 'place' || event._isPlace) {
-    return {
-      wheelchair: !!event.wheelchairAccessible,
-      pet: !!event.petFriendly,
-      smokeFree: !!event.smokeFree
-    };
-  }
-
+  // 2. Si no hay datos explícitos, revisamos las propiedades sueltas (para Google Places o JSON sin estructura).
   return {
     wheelchair: !!event.wheelchairAccessible,
     pet: !!event.petFriendly,
