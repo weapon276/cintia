@@ -18,25 +18,19 @@
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   :root {
-    /* PALETA DE COLORES BASADA EN EL LOGO 2D */
-    --primary: #1D6A5E;         /* Verde oscuro del fondo */
+    --primary: #1D6A5E;
     --primary-dark: #145247;
     --primary-light: #2A8C7C;
     --primary-container: #E6F2F0;
-    
-    --secondary: #F5B027;       /* Amarillo del sol */
+    --secondary: #F5B027;
     --secondary-container: #FEF8E7;
-    
-    --tertiary: #E91E63;        /* Magenta de las letras */
+    --tertiary: #E91E63;
     --tertiary-container: #FCE4EC;
-    
-    --accent: #2979FF;          /* Azul de las alas */
+    --accent: #2979FF;
     --accent-container: #E3F2FD;
-
     --success: #10B981;
     --success-container: #D1FAE5;
-    
-    --bg: #FDFBF7;              /* Fondo crema de la imagen */
+    --bg: #FDFBF7;
     --surface: #FFFFFF;
     --surface-2: #F4F4F5;
     --surface-3: #E4E4E7;
@@ -45,12 +39,10 @@
     --text: #18181B;
     --text-2: #52525B;
     --text-3: #A1A1AA;
-    
     --shadow-1: 0 1px 2px rgba(24, 24, 27, 0.05), 0 1px 3px rgba(24, 24, 27, 0.08);
     --shadow-2: 0 2px 6px rgba(24, 24, 27, 0.06), 0 4px 12px rgba(24, 24, 27, 0.08);
     --shadow-3: 0 8px 24px rgba(24, 24, 27, 0.10), 0 4px 8px rgba(24, 24, 27, 0.06);
     --shadow-4: 0 20px 48px rgba(24, 24, 27, 0.14);
-    
     --r-xs: 8px; --r-sm: 12px; --r-md: 16px; --r-lg: 24px; --r-xl: 28px; --r-full: 999px;
     --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
     --ease-emphasized: cubic-bezier(0.2, 0, 0, 1); --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
@@ -92,7 +84,7 @@
   .ms { font-family: 'Material Symbols Rounded'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; display: inline-block; white-space: nowrap; direction: ltr; user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   .ms.fill { font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24; }
   
-  /* SPLASH - VIDEO LIMPIO SIN CONTENEDOR */
+  /* SPLASH */
   .splash {
     position: fixed; inset: 0; z-index: var(--z-splash);
     background-color: #f9f2e8;
@@ -102,27 +94,16 @@
   }
   .splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   .splash-logo-container {
-    width: 100vw;
-    max-width: 600px;
-    height: auto;
+    width: 100vw; max-width: 600px; height: auto;
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px;
-    padding: 0; 
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    margin-bottom: 20px; padding: 0; background: transparent; border: none; box-shadow: none;
   }
   .splash-logo-container video,
   .splash-logo-container img {
-    width: 100%; 
-    height: auto; 
-    object-fit: contain;
+    width: 100%; height: auto; object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
-    border-radius: 0;
-    display: block;
+    border-radius: 0; display: block;
   }
-  @keyframes splashFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.02); } }
-  
   .splash-greeting {
     font-family: 'Plus Jakarta Sans', sans-serif; font-size: 32px; font-weight: 800;
     letter-spacing: -0.03em; color: var(--primary); text-align: center; line-height: 1.2;
@@ -185,7 +166,6 @@
   .icon-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
   .header-actions { display: flex; gap: 8px; pointer-events: auto; margin-left: auto; }
   
-  /* MAIN CATEGORIES */
   .main-categories {
     position: absolute; right: 16px; top: 50%;
     transform: translateY(-50%); z-index: var(--z-chips);
@@ -204,7 +184,6 @@
   .cat-btn:hover { transform: scale(1.05); }
   .cat-btn:active { transform: scale(0.92); }
   
-  /* SUBMENU */
   .submenu {
     position: absolute; right: 84px; top: 50%;
     transform: translateY(-50%);
@@ -315,7 +294,6 @@
   }
   .submenu-empty .ms { font-size: 36px; color: var(--outline-strong); }
 
-  /* DATE FILTER PANEL */
   .date-filter-panel {
     position: absolute;
     top: calc(80px + var(--safe-top));
@@ -392,7 +370,6 @@
   }
   .date-clear-btn:hover { background: var(--outline-strong); }
 
-  /* SIDEBARS */
   .sidebar {
     position: absolute; top: 0; left: 0;
     width: 400px; height: 100%;
@@ -494,7 +471,6 @@
   }
   .gps-button:active { transform: scale(0.97); }
 
-  /* NUEVO BOTÓN DE PUBLICIDAD */
   .ads-button {
     width: 100%;
     height: 56px;
@@ -534,7 +510,6 @@
     padding: 4px 4px 0;
   }
   
-  /* EVENT CARDS */
   .event-card {
     background: var(--surface);
     border: 1px solid var(--outline);
@@ -601,7 +576,6 @@
   .event-venue .ms { font-size: 14px; color: var(--text-3); flex-shrink: 0; }
   .event-footer { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   
-  /* ICON ROW - ICONOS PROFESIONALES */
   .icon-row {
     display: flex;
     flex-wrap: wrap;
@@ -643,7 +617,6 @@
     align-self: center;
   }
   
-  /* CATEGORY PILL */
   .category-pill-container {
     display: flex; align-items: center;
     gap: 4px; margin-top: 2px;
@@ -777,9 +750,6 @@
   .install-banner-close:hover { background: var(--surface-2); color: var(--text); }
   .install-banner-close .ms { font-size: 18px; }
 
-  /* ============================================
-     MODAL DE DETALLE DEL EVENTO
-     ============================================ */
   .event-detail-modal {
     position: fixed;
     inset: 0;
@@ -994,7 +964,6 @@
     cursor: default;
   }
 
-  /* SUBPESTAÑA DE EVENTOS EN EL MISMO LUGAR */
   .event-subtabs {
     display: flex;
     gap: 4px;
@@ -1023,9 +992,6 @@
   }
   .event-subtab:hover { background: var(--surface-3); }
 
-  /* ============================================
-     MODAL DE PUBLICIDAD
-     ============================================ */
   .ads-modal {
     position: fixed;
     inset: 0;
@@ -1174,7 +1140,6 @@
   .ads-cta:hover { filter: brightness(1.08); }
   .ads-cta:active { transform: scale(0.97); }
   
-  /* PROXIMAMENTE OVERLAY */
   .coming-soon-container {
     display: flex;
     flex-direction: column;
@@ -1286,7 +1251,6 @@
   @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ANIMACIÓN GPS */
   @keyframes gpsPulse {
     0% { transform: scale(1); opacity: 0.6; }
     100% { transform: scale(3); opacity: 0; }
@@ -1362,7 +1326,6 @@
 
 <div class="splash" id="splash">
   <div class="splash-logo-container">
-    <!-- VIDEO DEL LOGO CON FALLBACK A IMAGEN -->
     <video autoplay loop muted playsinline poster="logo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
       <source src="logo.mp4" type="video/mp4">
     </video>
@@ -1386,7 +1349,6 @@
 <aside class="sidebar" id="sidebar" aria-label="Panel de resultados">
   <div class="sidebar-top">
     <div class="brand">
-      <!-- FONDO AZUL ELIMINADO -->
       <div class="brand-logo"><img src="logo.png" alt="2DTODAY" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'ms fill\' style=\'font-size:24px;color:var(--primary);\'>location_city</span>';"></div>
       <div class="brand-text">
         <h1 id="brandTitle">2DTODAY</h1>
@@ -1414,7 +1376,6 @@
       <span id="gpsLabel">Buscar cerca de mí</span>
     </button>
 
-    <!-- NUEVO BOTÓN DE PUBLICIDAD -->
     <button class="ads-button" onclick="openAdsModal()">
       <div style="display: flex; align-items: center; gap: 10px;">
         <div style="width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2); display: grid; place-items: center;">
@@ -1516,7 +1477,6 @@
   <button class="install-banner-close" onclick="dismissInstallBanner()" aria-label="Cerrar"><span class="ms">close</span></button>
 </div>
 
-<!-- MODAL DE DETALLE DEL EVENTO -->
 <div class="event-detail-modal" id="eventDetailModal" role="dialog" aria-modal="true">
   <div class="event-detail-overlay" onclick="closeEventDetail()"></div>
   <div class="event-detail-card" id="eventDetailCard">
@@ -1527,7 +1487,6 @@
   </div>
 </div>
 
-<!-- MODAL DE PUBLICIDAD -->
 <div class="ads-modal" id="adsModal" role="dialog" aria-modal="true">
   <div class="ads-modal-overlay" onclick="closeAdsModal()"></div>
   <div class="ads-modal-card">
@@ -1568,7 +1527,6 @@
   </div>
 </div>
 
-<!-- MODAL DE CIUDADES -->
 <div class="ads-modal" id="cityModal" role="dialog" aria-modal="true">
   <div class="ads-modal-overlay" onclick="closeCityModal()"></div>
   <div class="ads-modal-card" style="max-width: 340px;">
@@ -1596,7 +1554,7 @@ const API_KEYS = {
 const LOCAL_EVENTS_CONFIG = { filePath: 'dataset_eventbrite.json', source: 'eventbrite' };
 const LOCAL_PLACES_CONFIG = { filePath: 'lugares.json' };
 const LOCAL_ADS_CONFIG = { filePath: 'publicidad.json' };
-const ADS_FORM_URL = 'https://forms.gle/tu-formulario-aqui'; // Cambia esto por tu enlace real
+const ADS_FORM_URL = 'https://forms.gle/tu-formulario-aqui';
 
 let localEventbriteEvents = [];
 let localEventsLoaded = false;
@@ -1605,7 +1563,6 @@ let localPlacesLoaded = false;
 let localAdsData = [];
 let localAdsLoaded = false;
 
-// CIUDADES - Fácil de editar
 const CITIES = [
   { id: 'gdl', name: 'Guadalajara', active: true, center: { lat: 20.6736, lng: -103.3440 } },
   { id: 'mty', name: 'Monterrey', active: false, center: { lat: 25.6866, lng: -100.3161 } },
@@ -1633,7 +1590,7 @@ const FESTIVE_THEMES = {
     colors: { splashFrom: '#1E3A8A', splashMid: '#F59E0B', splashTo: '#DC2626', primary: '#B45309', accent: '#DC2626',
       map: { water: '#bfdbfe', park: '#fef3c7', highway: '#fcd34d', road: '#fffbeb', geometry: '#fef9e7', text: '#92400e' } },
     confetti: ['#F59E0B', '#DC2626', '#1E3A8A', '#FBBF24'],
-        banner: { es: '👑 Día de Reyes · 6 de enero', en: '👑 Three Kings Day · January 6' }
+    banner: { es: '👑 Día de Reyes · 6 de enero', en: '👑 Three Kings Day · January 6' }
   },
   san_valentin: {
     id: 'san_valentin', name: 'San Valentín', icon: 'favorite',
@@ -1875,7 +1832,7 @@ function updateMapStyles(theme) {
 }
 
 /* ============================================
-   SALUDO (SIN EMOJIS, SOLO TEXTO)
+   SALUDO
    ============================================ */
 function getGreeting() {
   const hour = new Date().getHours();
@@ -1939,7 +1896,7 @@ function updateSplashGreeting() {
 }
 
 /* ============================================
-   CATEGORÍAS DE AUDIENCIA (ICONOS PROFESIONALES)
+   CATEGORÍAS DE AUDIENCIA
    ============================================ */
 const AGE_CATEGORIES = {
   adults: { 
@@ -1984,7 +1941,7 @@ const ACCESSIBILITY_CATEGORIES = {
 };
 
 /* ============================================
-   CATEGORÍAS DE LUGARES (ACTUALIZADO SEGÚN LISTA)
+   CATEGORÍAS DE LUGARES
    ============================================ */
 const CATEGORIES = {
   all:                { icon: 'explore',        color: '#1D6A5E', bg: '#E6F2F0', type: null, group: 'general', keywords: ['todo', 'todos', 'all', 'cualquiera', 'general'] },
@@ -2000,8 +1957,8 @@ const CATEGORIES = {
   stadium:            { icon: 'stadium',        color: '#DC2626', bg: '#FEE2E2', type: 'stadium', group: 'entretenimiento', keywords: ['estadio', 'deporte'] },
   amusement_park:     { icon: 'attractions',    color: '#E11D48', bg: '#FFE4E6', type: 'amusement_park', group: 'entretenimiento', keywords: ['parque de diversiones'] },
   bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bolos'] },
-  dance:              { icon: 'music_note',     color: '#D946EF', bg: '#FAE8FF', type: 'night_club', group: 'entretenimiento', keywords: ['danza', 'baile', 'antro', 'discoteca'] }, // Reemplaza casino
-  parade:             { icon: 'festival',       color: '#F97316', bg: '#FFEDD5', type: null, group: 'entretenimiento', keywords: ['desfile', 'parada', 'procesión'] }, // Nueva
+  dance:              { icon: 'music_note',     color: '#D946EF', bg: '#FAE8FF', type: 'night_club', group: 'entretenimiento', keywords: ['danza', 'baile', 'antro', 'discoteca'] },
+  parade:             { icon: 'festival',       color: '#F97316', bg: '#FFEDD5', type: null, group: 'entretenimiento', keywords: ['desfile', 'parada', 'procesión'] },
   shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall'] },
   clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'moda'] },
   bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libros'] },
@@ -2242,7 +2199,6 @@ function tDetail(key) { return TRANSLATIONS[currentLang].eventDetail[key] || key
    DETECCIÓN DE AUDIENCIAS Y ACCESIBILIDAD
    ============================================ */
 function detectEventAudiences(event) {
-  // Primero verificamos si el JSON trae la información explícita
   if (event.audience) {
     return {
       adults: !!event.audience.adults,
@@ -2269,7 +2225,6 @@ function detectEventAudiences(event) {
 }
 
 function detectEventAccessibility(event) {
-  // Primero verificamos si el JSON trae la información explícita
   if (event.accessibility) {
     return {
       wheelchair: !!event.accessibility.wheelchair,
@@ -2322,7 +2277,7 @@ function checkIfPWAInstalled() {
 }
 
 /* ============================================
-   CARGA MASIVA DE EVENTOS DESDE JSON
+   CARGA DE EVENTOS DESDE JSON
    ============================================ */
 async function loadLocalEventbriteEvents() {
   if (localEventsLoaded) return localEventbriteEvents;
@@ -2375,12 +2330,6 @@ async function loadLocalEventbriteEvents() {
       const description = item.summary || item.description || item.info || '';
       const id = 'eb_' + (item.id || item.eventbrite_event_id || idx);
 
-      // Corrección de ubicación para Cabañas (fecha 27)
-      if (venueName.toLowerCase().includes('cabañas') && dateStr.includes('27')) {
-        // Coordenadas correctas de Cabañas (aprox)
-        // Nota: aquí se podría ajustar si es necesario
-      }
-
       let wheelchairAccessible = false, petFriendly = false, smokeFree = false;
       const lt = title.toLowerCase(), lv = venueName.toLowerCase();
 
@@ -2423,7 +2372,7 @@ async function loadLocalEventbriteEvents() {
 }
 
 /* ============================================
-   CARGA MASIVA DE LUGARES DESDE JSON
+   CARGA DE LUGARES DESDE JSON
    ============================================ */
 async function loadLocalPlaces() {
   if (localPlacesLoaded) return localPlacesData;
@@ -2487,7 +2436,7 @@ async function loadLocalPlaces() {
 }
 
 /* ============================================
-   CARGA MASIVA DE PUBLICIDAD DESDE JSON
+   CARGA DE PUBLICIDAD DESDE JSON
    ============================================ */
 async function loadLocalAds() {
   if (localAdsLoaded) return localAdsData;
@@ -2595,9 +2544,7 @@ window.initMap = function() {
   updateSidebarState();
   renderEscapaditasPanel();
   
-  // Cargar lugares, eventos y publicidad
   Promise.all([searchEverything(), loadLocalPlaces(), loadLocalAds()]).then(() => {
-    // Renderizar lugares locales en el mapa
     localPlacesData.forEach(place => {
       const cat = CATEGORIES[place.category] || CATEGORIES.monument;
       const color = place.color || cat.color;
@@ -2606,7 +2553,6 @@ window.initMap = function() {
     });
   });
   
-  // Solicitar ubicación al iniciar
   requestLocationPermission();
   
   setTimeout(hideSplash, 2500);
@@ -2674,7 +2620,6 @@ async function searchEverything() {
 
   allEvents = deduplicateEvents(allEvents);
   
-  // Filtrar por ciudad
   if (currentCity.id !== 'gdl') {
     allEvents = allEvents.filter(e => false);
     allPlaces = allPlaces.filter(p => false);
@@ -2904,7 +2849,6 @@ function renderMarkersForAll(eventsForMap = []) {
       title: event.title, payload: event, payloadType: 'event', id: event.id });
   });
   
-  // Añadir lugares locales
   localPlacesData.forEach(place => {
     if (place.lat && place.lng) {
       const cat = CATEGORIES[place.category] || CATEGORIES.monument;
@@ -2930,12 +2874,34 @@ function addMarkerToMap({ lat, lng, icon, title, payload, payloadType, id }) {
 }
 
 /* ============================================
-   INFO WINDOW GOOGLE PLACES
+   INFO WINDOW GOOGLE PLACES (MEJORADO)
    ============================================ */
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
   const ratingText = place.rating ? `${place.rating} (${place.user_ratings_total || 0})` : '';
   const photoUrl = place.photos && place.photos.length > 0 ? place.photos[0].getUrl({ maxWidth: 400 }) : '';
+  
+  const audiences = detectEventAudiences(place);
+  const accessibility = detectEventAccessibility(place);
+  
+  const catKey = getCategoryKey(place);
+  const catLabel = tCat(catKey);
+  
+  // Construir iconos de audiencia
+  const audienceIcons = Object.entries(AGE_CATEGORIES).map(([key, cat]) => {
+    const isActive = audiences[key];
+    return `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="--chip-color:${cat.color};" title="${cat.label}${isActive ? '' : ' (no disponible)'}">
+      ${cat.icon}
+    </span>`;
+  }).join('');
+  
+  // Construir iconos de accesibilidad
+  const accessIcons = Object.entries(ACCESSIBILITY_CATEGORIES).map(([key, cat]) => {
+    const isActive = accessibility[key];
+    return `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="--chip-color:${cat.color};" title="${cat.label}${isActive ? '' : ' (no disponible)'}">
+      <span class="ms">${cat.icon}</span>
+    </span>`;
+  }).join('');
   
   infoWindow.setContent(`<div style="padding:0;max-width:280px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
     ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
@@ -2945,20 +2911,24 @@ function showInfoWindowGoogle(marker, place) {
         <div style="width:28px;height:28px;border-radius:50%;background:${cat.color};color:white;display:grid;place-items:center;">
           <span style="font-family:'Material Symbols Rounded';font-size:16px;">${cat.icon}</span>
         </div>
-        <div style="background:#1A1A1A;color:white;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">${tCat(getCategoryKey(place))}</div>
+        <div style="background:#1A1A1A;color:white;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">${catLabel}</div>
       </div>
       <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${place.vicinity || t('addressNA')}</div>
         ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F59E0B;">star</span>${ratingText}</div>` : ''}
       </div>
-      <button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#1D6A5E;color:white;font-weight:700;font-size:12px;cursor:pointer;">${t('viewMore')}</button>
+      <div style="margin-bottom:10px;">
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px;">${audienceIcons}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;">${accessIcons}</div>
+      </div>
+      <!-- Botón "Ver más" eliminado para lugares locales -->
     </div>
   </div>`);
   infoWindow.open(map, marker);
 }
 
 /* ============================================
-   CONSTRUCCIÓN DE ICONOS (ACTUALIZADO CON SVG)
+   CONSTRUCCIÓN DE ICONOS
    ============================================ */
 function buildIconRow(audiences, accessibility) {
   const audienceIcons = Object.entries(AGE_CATEGORIES).map(([key, cat]) => {
@@ -3065,7 +3035,6 @@ function renderUnifiedList() {
     return;
   }
   
-  // Filtrar solo eventos de publicidad para el sidebar
   const adsToDisplay = localAdsData.filter(ad => {
     if (currentCategory !== 'all') {
       const catKeywords = CATEGORIES[currentCategory].keywords || [];
@@ -3115,7 +3084,6 @@ function openEventDetail(event) {
   const audiences = detectEventAudiences(event);
   const accessibility = detectEventAccessibility(event);
   
-  // Buscar eventos en el mismo lugar (mismas coordenadas aproximadas)
   const sameVenueEvents = allEvents.filter(e => 
     e.id !== event.id && 
     e.lat && e.lng && 
@@ -3125,7 +3093,6 @@ function openEventDetail(event) {
   
   let html = '';
   
-  // Subpestañas si hay más eventos en el mismo lugar
   if (sameVenueEvents.length > 0) {
     html += `<div class="event-subtabs">`;
     html += `<button class="event-subtab active" onclick="event.stopPropagation(); openEventDetailById('${event.id}')">${event.title.substring(0, 20)}${event.title.length > 20 ? '...' : ''}</button>`;
@@ -3239,11 +3206,9 @@ function selectCity(cityId) {
   document.getElementById('cityLabel').textContent = city.name;
   closeCityModal();
   
-  // Centrar mapa en la ciudad
   map.panTo(city.center);
   map.setZoom(12);
   
-  // Filtrar eventos
   if (cityId !== 'gdl') {
     allEvents = [];
     allPlaces = [];
@@ -3784,7 +3749,6 @@ function stopTracking() {
 function updateUserMarker(loc) {
   if (userMarker) userMarker.setPosition(loc);
   else {
-    // Punto azul animado estilo Google Maps
     const gpsSvg = `<div class="gps-dot"></div>`;
     userMarker = new google.maps.Marker({ 
       position: loc, 
