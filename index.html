@@ -2002,11 +2002,7 @@ const CATEGORIES = {
   bowling_alley:      { icon: 'sports_esports', color: '#7C3AED', bg: '#EDE9FE', type: 'bowling_alley', group: 'entretenimiento', keywords: ['boliche', 'bolos'] },
   dance:              { icon: 'music_note',     color: '#D946EF', bg: '#FAE8FF', type: 'night_club', group: 'entretenimiento', keywords: ['danza', 'baile', 'antro', 'discoteca'] }, // Reemplaza casino
   parade:             { icon: 'festival',       color: '#F97316', bg: '#FFEDD5', type: null, group: 'entretenimiento', keywords: ['desfile', 'parada', 'procesión'] }, // Nueva
-  shopping_mall:      { icon: 'shopping_bag',   color: '#7C3AED', bg: '#EDE9FE', type: 'shopping_mall', group: 'compras', keywords: ['comercial', 'mall'] },
-  clothing_store:     { icon: 'checkroom',      color: '#7C3AED', bg: '#EDE9FE', type: 'clothing_store', group: 'compras', keywords: ['ropa', 'moda'] },
   bookstore:          { icon: 'menu_book',      color: '#CA8A04', bg: '#FEF9C3', type: 'book_store', group: 'compras', keywords: ['librería', 'libros'] },
-  department_store:   { icon: 'storefront',     color: '#7C3AED', bg: '#EDE9FE', type: 'department_store', group: 'compras', keywords: ['departamental'] },
-  supermarket:        { icon: 'local_grocery_store', color: '#059669', bg: '#D1FAE5', type: 'supermarket', group: 'compras', keywords: ['supermercado'] },
   gym:                { icon: 'fitness_center', color: '#DC2626', bg: '#FEE2E2', type: 'gym', group: 'servicios', keywords: ['gimnasio', 'fitness'] },
   spa:                { icon: 'spa',            color: '#EC4899', bg: '#FCE7F3', type: 'spa', group: 'servicios', keywords: ['spa', 'masaje'] },
   lodging:            { icon: 'hotel',          color: '#0891B2', bg: '#CFFAFE', type: 'lodging', group: 'servicios', keywords: ['hotel', 'hostal'] },
@@ -2044,7 +2040,7 @@ const TRANSLATIONS = {
       all: 'Todas', museum: 'Museos', art_gallery: 'Galerías', church: 'Iglesias', library: 'Librerías', monument: 'Monumentos',
       park: 'Parques', zoo: 'Zoológicos', aquarium: 'Acuarios',
       movie_theater: 'Cine Alternativo', stadium: 'Estadios', amusement_park: 'Parques de diversiones', bowling_alley: 'Boliches', dance: 'Danza/Baile', parade: 'Desfiles',
-      shopping_mall: 'Centros comerciales', clothing_store: 'Tiendas de ropa', bookstore: 'Librerías', department_store: 'Tiendas departamentales', supermarket: 'Supermercados',
+      bookstore: 'Librerías',
       gym: 'Gimnasios', spa: 'Spas', lodging: 'Hoteles', hospital: 'Hospitales', pharmacy: 'Farmacias'
     },
     eventDetail: {
@@ -2070,7 +2066,7 @@ const TRANSLATIONS = {
       all: 'All', museum: 'Museums', art_gallery: 'Galleries', church: 'Churches', library: 'Bookstores', monument: 'Monuments',
       park: 'Parks', zoo: 'Zoos', aquarium: 'Aquariums',
       movie_theater: 'Alternative Cinema', stadium: 'Stadiums', amusement_park: 'Amusement Parks', bowling_alley: 'Bowling Alleys', dance: 'Dance', parade: 'Parades',
-      shopping_mall: 'Shopping Malls', clothing_store: 'Clothing Stores', bookstore: 'Bookstores', department_store: 'Department Stores', supermarket: 'Supermarkets',
+      bookstore: 'Bookstores',
       gym: 'Gyms', spa: 'Spas', lodging: 'Hotels', hospital: 'Hospitals', pharmacy: 'Pharmacies'
     },
     eventDetail: {
@@ -2096,7 +2092,7 @@ const TRANSLATIONS = {
       all: 'Toutes', museum: 'Musées', art_gallery: 'Galeries', church: 'Églises', library: 'Librairies', monument: 'Monuments',
       park: 'Parcs', zoo: 'Zoos', aquarium: 'Aquariums',
       movie_theater: 'Cinéma Alternatif', stadium: 'Stades', amusement_park: 'Parcs d\'attractions', bowling_alley: 'Bowlings', dance: 'Danse', parade: 'Défilés',
-      shopping_mall: 'Centres commerciaux', clothing_store: 'Magasins de vêtements', bookstore: 'Librairies', department_store: 'Grands magasins', supermarket: 'Supermarchés',
+      bookstore: 'Librairies',
       gym: 'Salles de sport', spa: 'Spas', lodging: 'Hôtels', hospital: 'Hôpitaux', pharmacy: 'Pharmacies'
     },
     eventDetail: {
@@ -2122,7 +2118,7 @@ const TRANSLATIONS = {
       all: 'Todas', museum: 'Museus', art_gallery: 'Galerias', church: 'Igrejas', library: 'Livrarias', monument: 'Monumentos',
       park: 'Parques', zoo: 'Zoológicos', aquarium: 'Aquários',
       movie_theater: 'Cinema Alternativo', stadium: 'Estádios', amusement_park: 'Parques de diversões', bowling_alley: 'Boliches', dance: 'Dança', parade: 'Desfiles',
-      shopping_mall: 'Centros comerciais', clothing_store: 'Lojas de roupas', bookstore: 'Livrarias', department_store: 'Lojas de departamento', supermarket: 'Supermercados',
+      bookstore: 'Livrarias',
       gym: 'Academias', spa: 'Spas', lodging: 'Hotéis', hospital: 'Hospitais', pharmacy: 'Farmácias'
     },
     eventDetail: {
@@ -2148,7 +2144,7 @@ const TRANSLATIONS = {
       all: 'Alle', museum: 'Museen', art_gallery: 'Galerien', church: 'Kirchen', library: 'Buchhandlungen', monument: 'Denkmäler',
       park: 'Parks', zoo: 'Zoos', aquarium: 'Aquarien',
       movie_theater: 'Alternatives Kino', stadium: 'Stadien', amusement_park: 'Freizeitparks', bowling_alley: 'Bowlingbahnen', dance: 'Tanz', parade: 'Paraden',
-      shopping_mall: 'Einkaufszentren', clothing_store: 'Bekleidungsgeschäfte', bookstore: 'Buchhandlungen', department_store: 'Kaufhäuser', supermarket: 'Supermärkte',
+      bookstore: 'Buchhandlungen',
       gym: 'Fitnessstudios', spa: 'Spas', lodging: 'Hotels', hospital: 'Krankenhäuser', pharmacy: 'Apotheken'
     },
     eventDetail: {
@@ -3013,7 +3009,7 @@ function addMarkerToMap({ lat, lng, icon, title, payload, payloadType, id }) {
 }
 
 /* ============================================
-   INFO WINDOW GOOGLE PLACES
+   INFO WINDOW GOOGLE PLACES (REDISEÑADO)
    ============================================ */
 function showInfoWindowGoogle(marker, place) {
   const cat = getPlaceCategory(place);
@@ -3043,30 +3039,57 @@ function showInfoWindowGoogle(marker, place) {
        </div>` 
     : '';
 
-  infoWindow.setContent(`<div style="padding:0;max-width:280px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
+  // Obtener datos para el formato de EventDetailBody
+  const title = place.name || t('noName');
+  const venueName = place.vicinity || t('addressNA');
+  const cityName = place.city || 'Guadalajara'; // Fallback
+  
+  // Generar la estructura de EventDetailBody para el InfoWindow
+  infoWindow.setContent(`<div style="padding:0;max-width:300px;font-family:'Inter',sans-serif;overflow:hidden;border-radius:12px;">
     ${photoUrl ? `<img src="${photoUrl}" style="width:100%;height:120px;object-fit:cover;display:block;" onerror="this.style.display='none'">` : ''}
     <div style="padding:12px;">
-      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;line-height:1.2;color:#18181B;margin-bottom:6px;">${place.name || t('noName')}</div>
       
-      <!-- Iconos de Audiencia y Accesibilidad -->
-      ${iconRow}
+      <!-- Título -->
+      <div class="event-detail-title" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;letter-spacing:-0.02em;line-height:1.25;color:#18181B;margin-bottom:6px;">${title}</div>
       
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;margin-top:8px;">
-        <div style="width:28px;height:28px;border-radius:50%;background:${cat.color};color:white;display:grid;place-items:center;">
-          <span style="font-family:'Material Symbols Rounded';font-size:16px;">${cat.icon}</span>
+      <!-- Meta Info -->
+      <div class="event-detail-meta" style="display:flex;flex-direction:column;gap:4px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #E4E4E7;">
+        <div class="event-detail-meta-row" style="display:flex;align-items:flex-start;gap:6px;font-size:11px;color:#52525B;font-weight:500;">
+          <span class="ms" style="font-size:14px;color:#A1A1AA;flex-shrink:0;margin-top:1px;">location_on</span>
+          <div><strong style="color:#18181B;font-weight:700;">${venueName}</strong><br><span style="color:#A1A1AA;font-size:10px;">${cityName}</span></div>
         </div>
-        <div style="background:#1A1A1A;color:white;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">${tCat(getCategoryKey(place))}</div>
+        <!-- No mostramos fecha porque es un lugar -->
       </div>
       
-      <!-- DESCRIPCIÓN / COSTO / HORARIO -->
-      ${descriptionHtml}
-      
-      <div style="font-size:12px;color:#52525B;line-height:1.5;margin-bottom:10px;">
-        <div style="display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#A1A1AA;">location_on</span>${place.vicinity || t('addressNA')}</div>
-        ${ratingText ? `<div style="display:flex;align-items:center;gap:6px;margin-top:2px;"><span style="font-family:'Material Symbols Rounded';font-size:14px;color:#F59E0B;">star</span>${ratingText}</div>` : ''}
+      <!-- Audiencia -->
+      <div class="event-detail-section-title" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:800;color:#A1A1AA;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;margin-top:10px;">${tDetail('audience')}</div>
+      <div class="event-detail-icons" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;">
+        ${Object.entries(AGE_CATEGORIES).map(([key, cat]) => {
+          const isActive = audiences[key];
+          return `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:${isActive ? cat.color : '#F4F4F5'};color:${isActive ? 'white' : '#A1A1AA'};opacity:${isActive ? 1 : 0.35};" title="${cat.label}">
+            ${cat.icon}
+          </span>`;
+        }).join('')}
       </div>
       
-      ${buttonHtml}
+      <!-- Accesibilidad -->
+      <div class="event-detail-section-title" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:800;color:#A1A1AA;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;margin-top:10px;">${tDetail('accessibility')}</div>
+      <div class="event-detail-icons" style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;">
+        ${Object.entries(ACCESSIBILITY_CATEGORIES).map(([key, cat]) => {
+          const isActive = accessibility[key];
+          return `<span class="icon-chip ${isActive ? 'active' : 'inactive'}" style="width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:${isActive ? cat.color : '#F4F4F5'};color:${isActive ? 'white' : '#A1A1AA'};opacity:${isActive ? 1 : 0.35};" title="${cat.label}">
+            <span class="ms" style="font-size:15px;">${cat.icon}</span>
+          </span>`;
+        }).join('')}
+      </div>
+      
+      <!-- Descripción -->
+      <div class="event-detail-section-title" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;font-weight:800;color:#A1A1AA;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px;margin-top:10px;">${tDetail('description')}</div>
+      <div class="event-detail-description" style="font-size:11px;line-height:1.5;color:#52525B;white-space:pre-line;word-break:break-word;">${descriptionText || tDetail('noDescription')}</div>
+      
+      <!-- Sin botón para lugares locales -->
+      ${!isLocalPlace ? `<button onclick="showToast('info', '${t('viewMore')}')" style="width:100%;padding:8px;border:none;border-radius:8px;background:#1D6A5E;color:white;font-weight:700;font-size:12px;cursor:pointer;margin-top:12px;">${t('viewMore')}</button>` : ''}
+      
     </div>
   </div>`);
   infoWindow.open(map, marker);
@@ -3111,7 +3134,7 @@ function renderGoogleCard(place) {
     </div>
   `;
 
-  return `<div class="event-card" onclick="focusPlace('${place.place_id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
+  return `<div class="event-card" onclick="openEventDetailById('${place.place_id}')" style="--card-color:${cat.color};--card-bg:${cat.bg};">
     <div class="event-photo" style="background:${cat.bg};">${photoHtml}</div>
     <div class="event-body">
       <div class="event-title">${place.name || t('noName')}</div>
