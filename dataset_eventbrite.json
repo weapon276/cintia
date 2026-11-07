@@ -1319,5 +1319,98 @@
     "image_url": "",
     "url": "",
     "primary_venue": { "name": "Plaza de Armas" }
-  }
+  },
+   {
+    "name": "Gran Navidad con Zuly | Imitadora de Luli Pampín",
+    "start_date": "2026-11-28",
+    "start_time": "16:30",
+    "latitude": "20.65736",
+    "longitude": "-103.39780",
+    "summary": "Show navideño de Zuly, imitadora profesional de Luli Pampín autorizada por la producción oficial en Guadalajara. Un espectáculo lleno de magia, alegría y diversión con las canciones más populares de estas fechas decembrinas, contando con Santa Claus como invitado especial. Menores de 2 años no pagan boleto.",
+    "image_url": "https://boletomovil.com/evento/gran-navidad-con-zuly-imitadora-de-luli-pampin-2026-11-28",
+    "url": "https://boletomovil.com/evento/gran-navidad-con-zuly-imitadora-de-luli-pampin-2026-11-28",
+    "primary_venue": {
+      "name": "Foro del Ángel"
+    },
+       {
+    "name": "Frozen Una historia congelada",
+    "start_date": "2026-11-28",
+    "start_time": "13:00",
+   "latitude": "20.65736",
+    "longitude": "-103.3978",
+    "summary": "Elsa y Ana son dos hermanas que viven en un reino muy lejano y encantado. Juntas y con la ayuda de varios amigos, aprenderán el verdadero significado del amor y así podrán salvar a su pueblo de un temible eterno invierno. Los invitamos a esta encantadora adaptación teatral dónde se canta en vivo. Ideal para pequeños y grandes.",
+    "image_url": "https://boletomovil.com/assets/img/eventos/placeholder.jpg",
+    "url": "https://boletomovil.com/evento/frozen-una-historia-congelada-2026-11-14",
+    "primary_venue": {
+      "name": "Foro del Angel"
+    },
+       {
+    "name": "Frozen Una historia congelada",
+    "start_date": "2026-11-21",
+    "start_time": "13:00",
+   "latitude": "20.65736",
+    "longitude": "-103.3978",
+    "summary": "Elsa y Ana son dos hermanas que viven en un reino muy lejano y encantado. Juntas y con la ayuda de varios amigos, aprenderán el verdadero significado del amor y así podrán salvar a su pueblo de un temible eterno invierno. Los invitamos a esta encantadora adaptación teatral dónde se canta en vivo. Ideal para pequeños y grandes.",
+    "image_url": "https://boletomovil.com/assets/img/eventos/placeholder.jpg",
+    "url": "https://boletomovil.com/evento/frozen-una-historia-congelada-2026-11-14",
+    "primary_venue": {
+      "name": "Foro del Angel"
+    },
+       {
+    "name": "Frozen Una historia congelada",
+    "start_date": "2026-11-14",
+    "start_time": "13:00",
+   "latitude": "20.65736",
+    "longitude": "-103.3978",
+    "summary": "Elsa y Ana son dos hermanas que viven en un reino muy lejano y encantado. Juntas y con la ayuda de varios amigos, aprenderán el verdadero significado del amor y así podrán salvar a su pueblo de un temible eterno invierno. Los invitamos a esta encantadora adaptación teatral dónde se canta en vivo. Ideal para pequeños y grandes.",
+    "image_url": "https://boletomovil.com/assets/img/eventos/placeholder.jpg",
+    "url": "https://boletomovil.com/evento/frozen-una-historia-congelada-2026-11-14",
+    "primary_venue": {
+      "name": "Foro del Angel"
+    },
+       {
+    "name": "Ligthning",
+    "start_date": "2026-11-12",
+    "start_time": "20:30",
+    "latitude": "20.65736",
+    "longitude": "-103.3978",
+    "summary": "Ligthning es una experiencia de teatro musical que explora el misterio de la vida, la muerte y aquello que trasciende más allá de nuestra existencia. Entre música, emociones y reflexión, la obra confronta al espectador con la eterna lucha entre el bien y el mal, el sacrificio y la huella que dejamos en los demás.",
+    "image_url": "https://boletomovil.com/evento/ligthning-2026-11-12",
+    "url": "https://boletomovil.com/evento/ligthning-2026-11-12",
+    "primary_venue": {
+      "name": "Foro del Angel"
+    },
+      {
+    "name": "Sleeping With Sirens: An Ending In Itself Tour",
+    "start_date": "2026-12-21",
+    "start_time": "21:00",
+    "latitude": "20.73681",
+    "longitude": "-103.3783",
+    "summary": "Sleeping With Sirens llega a Guadalajara con “An Ending In Itself Tour”, presentando una nueva etapa de la banda tras el lanzamiento de su octavo álbum, An Ending In Itself. Una presentación que combina su material más reciente con canciones que han acompañado su trayectoria.",
+    "image_url": "https://teatroestudiocavaret.com/event.html?ev=41&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAVbggZleHRuA2FlbQIxMQBwZG9mAnNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABpw1Lb_gfLknN3oO4N7fLKyzmmfBkOuqd2ehbU6R82Htl4Vc75fGdzzm4C82-_aem_TxSNH_-UkpKLY5IDPINPFg",
+    "url": "https://teatroestudiocavaret.com/event.html?ev=41&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAVbggZleHRuA2FlbQIxMQBwZG9mAnNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABpw1Lb_gfLknN3oO4N7fLKyzmmfBkOuqd2ehbU6R82Htl4Vc75fGdzzm4C82-_aem_TxSNH_-UkpKLY5IDPINPFg",
+    "primary_venue": { "name": "Teatro Estudio Cavaret" }
+  },
+    {
+    "name": "Slaughter To Prevail",
+    "start_date": "2026-12-18",
+    "start_time": "21:00",
+    "latitude": "20.73681",
+    "longitude": "-103.3783",
+    "summary": "Slaughter To Prevail se ha consolidado como uno de los nombres más destacados del deathcore actual. Encabezada por Alex Terrible, la banda es reconocida por la fuerza de su música y la intensidad de sus presentaciones en vivo.",
+    "image_url": "https://teatroestudiocavaret.com/event.html?ev=40",
+    "url": "https://teatroestudiocavaret.com/event.html?ev=40",
+    "primary_venue": { "name": "Teatro Estudio Cavaret" }
+  },
+    {
+    "name": "Taburete - Latinoamérica Tour 2026",
+    "start_date": "2026-11-21",
+    "start_time": "21:00",
+    "plus_code": "PJPC+JF Zapopan, Jalisco",
+    "summary": "Taburete llega a Guadalajara con su Latinoamérica Tour 2026, presentando una nueva etapa de su carrera junto a los temas que han marcado su trayectoria. El concierto forma parte de la gira 'El Perro Que Fuma Tour'.",
+    "image_url": "https://teatroestudiocavaret.com/event.html?ev=39",
+    "url": "https://teatroestudiocavaret.com/event.html?ev=39",
+    "primary_venue": {
+      "name": "Teatro Estudio Cavaret"
+    }
 ]
