@@ -2587,14 +2587,9 @@ window.initMap = function() {
   renderEscapaditasPanel();
   
   // Cargar lugares, eventos y publicidad
-  Promise.all([searchEverything(), loadLocalPlaces(), loadLocalAds()]).then(() => {
-    // Renderizar lugares locales en el mapa
-    localPlacesData.forEach(place => {
-      const cat = CATEGORIES[place.category] || CATEGORIES.monument;
-      const color = place.color || cat.color;
-      addMarkerToMap({ lat: place.lat, lng: place.lng, icon: createMarkerSVG(color), title: place.name,
-        payload: place, payloadType: 'place', id: place.place_id });
-    });
+  Promise.all([searchEverything(), loadLocalAds()]).then(() => {
+    // NO renderizar lugares locales aquí para evitar que salgan en "eventos"
+    // Se renderizarán solo cuando se seleccione una categoría de lugares
   });
   
   // Solicitar ubicación al iniciar
@@ -2653,8 +2648,17 @@ async function searchEverything() {
   if (infoWindow) infoWindow.close();
   allPlaces = []; allEvents = []; unifiedResults = [];
 
+  // Solo buscar lugares si la categoría NO es "events"
+  const searchPlaces = currentCategory !== 'events';
+  const placesPromise = searchPlaces ? searchPlacesPromise() : Promise.resolve([]);
+
+  // Si la categoría NO es "events", cargar lugares locales
+  if (searchPlaces) {
+    await loadLocalPlaces();
+  }
+
   const [placesRes, tmRes, localRes] = await Promise.allSettled([
-    searchPlacesPromise(),
+    placesPromise,
     searchTicketmasterPromise(),
     loadLocalEventbriteEvents()
   ]);
